@@ -9,6 +9,8 @@ public class UtNphonesApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(UtNphonesApplication.class, args);
+
+		System.out.println("Facu tonto");
 	}
 
 }
