@@ -10,7 +10,6 @@ public class UtNphonesApplication {
 
 		SpringApplication.run(UtNphonesApplication.class, args);
 
-		System.out.println("Facu tonto");
 	}
 
 }
