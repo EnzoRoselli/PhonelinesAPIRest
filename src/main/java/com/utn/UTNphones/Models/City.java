@@ -23,8 +23,7 @@ public class City {
     @Column(name="prefix")
     private Integer prefix;
 
-    @Column(name="id_province")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_province")
     private Province province;
 

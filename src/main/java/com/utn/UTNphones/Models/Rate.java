@@ -17,13 +17,17 @@ public class Rate {
     @Column(name="id")
     private Integer id;
 
-    @Column(name="id_city")
     @OneToMany
-    @JoinColumn(name = "id_city")
-    private City city;
+    @JoinColumn(name = "id_origin_city")
+    private City originCity;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_destination_city")
+    private City destinationCity;
+
+    private Province province;
     @Column(name="cost_per_minute")
-    private Integer cost_per_minute;
+    private Integer costPerMinute;
 
 
 }

@@ -5,34 +5,29 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name="users")
+@Table(name="phonelines")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @ToString
 @Builder
-public class User {
-
+public class Phoneline {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
     private Integer id;
 
-    @Column(name="name_user")
-    private String name;
+    @Column(name = "phone_number")
+    private Integer number;
 
-    @Column(name = "lastname")
-    private String lastname;
-
-    @Column(name = "identification_card")
-    private Integer identification;
-
-    @Column(name = "password_user")
-    private String password;
+    @Column(name = "type_user")
+    private String type;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_city")
     private City city;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user")
+    private User user;
 }
-
