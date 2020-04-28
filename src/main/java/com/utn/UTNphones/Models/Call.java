@@ -3,6 +3,7 @@ package com.utn.UTNphones.Models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name="calls")
@@ -29,9 +30,8 @@ public class Call {
     @JoinColumn(name = "id_rate")
     private Rate rate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_invoice")
-    private Invoice invoice;
+    @Column(name = "date_call")
+    private Date date;
 
     @Column(name = "price")
     private Integer price;

@@ -31,6 +31,9 @@ public class Invoice {
     @Column(name = "total_price")
     private Integer totalPrice;
 
+    @Column(name = "is_paid")
+    private Boolean isPaid;
+
     @Column(name = "invoice_date")
     private Date date;
 
