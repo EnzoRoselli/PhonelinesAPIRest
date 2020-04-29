@@ -1,19 +1,16 @@
 package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Exceptions.ParametersException;
-import com.utn.UTNphones.Exceptions.UserDoesntExist;
+import com.utn.UTNphones.Exceptions.UserDoesntExistException;
+import com.utn.UTNphones.Exceptions.UserExistsException;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.support.NullValue;
-import org.springframework.data.repository.query.Param;
+import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 @RestController
 @RequestMapping("/user")
@@ -27,24 +24,30 @@ public class UserController {
     }
 
     @PostMapping(value = "/login/")
-    public User login(@RequestBody @NotNull User user) throws ParametersException, NumberFormatException, UserDoesntExist {
+    public User login(@RequestBody @NotNull User user) throws ParametersException, NumberFormatException, UserDoesntExistException {
         if (user.getIdentification()==null || user.getPassword()==null){
             throw new ParametersException();
         }else{
-            User u= userService.login(user.getIdentification(),user.getPassword());
+            User u= userService.login(user);
         }
          return user;
     }
 
-    @PostMapping("/register/{name}/{lastname}/{identification}/{password}/{cityName}/{provinceName}")
-    public User register(@PathVariable("name")String name,@PathVariable("lastname")String lastname,@PathVariable("identification")String identification
-            ,@PathVariable("password")String password,@PathVariable("cityname")String cityname,@PathVariable("provinceName")String provinceName){
-        Integer identificationCard=Integer.parseInt(identification);
-
-        return null;
+    @PostMapping("/register/")
+    public User register(@RequestBody @NotNull User user) throws ParametersException, UserExistsException {
+       if (user.hasNullAtribute()){
+          throw new ParametersException();
+       }else{
+           try {
+               userService.register(user);
+           } catch (DataAccessException throwable) {
+               throw new UserExistsException();
+           }
+       }
+        return user;
     }
 
-    //public boolean NullParameter
+
 
 
 }

@@ -1,8 +1,11 @@
 package com.utn.UTNphones.Services.interfaces;
 
-import com.utn.UTNphones.Exceptions.UserDoesntExist;
+import com.utn.UTNphones.Exceptions.UserDoesntExistException;
 import com.utn.UTNphones.Models.User;
+import org.springframework.dao.DataAccessException;
+
 
 public interface IUserService {
-    public User login(Integer ic,String password) throws UserDoesntExist;
+    public User login(User user) throws UserDoesntExistException;
+    public User register(User user)throws DataAccessException;
 }

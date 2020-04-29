@@ -1,8 +1,8 @@
 package com.utn.UTNphones.Exceptions;
 
-public class UserDoesntExist extends Exception{
+public class UserDoesntExistException extends Exception{
     private String error;
-    public UserDoesntExist(){
+    public UserDoesntExistException(){
         super();
         this.error="The users doesnt exist.";
     }
