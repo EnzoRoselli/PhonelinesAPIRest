@@ -3,6 +3,7 @@ package com.utn.UTNphones.Models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name="users")
@@ -33,6 +34,14 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_city")
     private City city;
+
+    public boolean hasNullAtribute(){
+        if (Stream.of(name, lastname,identification,password,city).anyMatch(x -> x == null)) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 }
 

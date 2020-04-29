@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name="invoices")
@@ -40,4 +41,11 @@ public class Invoice {
     @Column(name = "invoice_expiration_date")
     private Date expirationDate;
 
+    public boolean hasNullAtribute(){
+        if (Stream.of(phoneline, callsQuantity,costPrice,totalPrice,isPaid,date,expirationDate).anyMatch(x -> x == null)) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

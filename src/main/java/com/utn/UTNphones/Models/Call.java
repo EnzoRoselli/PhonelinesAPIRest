@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name="calls")
@@ -42,6 +43,13 @@ public class Call {
     @Column(name = "totalPrice")
     private Integer totalPrice;
 
+    public boolean hasNullAtribute(){
+        if (Stream.of(originPhoneline, destinationPhoneline,rate,date,price,duration,totalPrice).anyMatch(x -> x == null)) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 
 

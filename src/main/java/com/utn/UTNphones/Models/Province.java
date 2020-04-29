@@ -3,6 +3,7 @@ package com.utn.UTNphones.Models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name="provinces")
@@ -20,4 +21,11 @@ public class Province {
     @Column(name="province_name")
     private String name;
 
+    public boolean hasNullAtribute(){
+        if (Stream.of(name).anyMatch(x -> x == null)) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

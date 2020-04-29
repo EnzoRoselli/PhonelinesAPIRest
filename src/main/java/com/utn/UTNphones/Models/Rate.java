@@ -3,6 +3,7 @@ package com.utn.UTNphones.Models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name="rates")
@@ -28,5 +29,12 @@ public class Rate {
     @Column(name="cost_per_minute")
     private Integer costPerMinute;
 
+    public boolean hasNullAtribute(){
+        if (Stream.of(originCity, destinationCity,costPerMinute).anyMatch(x -> x == null)) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 }
