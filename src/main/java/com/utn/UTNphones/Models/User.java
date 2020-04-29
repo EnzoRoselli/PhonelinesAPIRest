@@ -31,7 +31,7 @@ public class User {
     @Column(name = "password_user")
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_city")
     private City city;
 

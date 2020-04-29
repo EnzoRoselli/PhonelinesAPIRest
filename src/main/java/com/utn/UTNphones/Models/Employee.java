@@ -30,7 +30,7 @@ public class Employee {
     @Column(name = "password_employee")
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_city")
     private City city;
 

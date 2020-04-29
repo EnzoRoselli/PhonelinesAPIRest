@@ -25,12 +25,13 @@ public class UserController {
 
     @PostMapping(value = "/login/")
     public User login(@RequestBody @NotNull User user) throws ParametersException, NumberFormatException, UserDoesntExistException {
+        User u;
         if (user.getIdentification()==null || user.getPassword()==null){
             throw new ParametersException();
         }else{
-            User u= userService.login(user);
+            u = userService.login(user);
         }
-         return user;
+         return u;
     }
 
     @PostMapping("/register/")

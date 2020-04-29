@@ -18,11 +18,11 @@ public class Rate {
     @Column(name="id")
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_origin_city")
     private City originCity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_destination_city")
     private City destinationCity;
 

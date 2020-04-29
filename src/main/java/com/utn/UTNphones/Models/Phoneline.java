@@ -24,11 +24,11 @@ public class Phoneline {
     @Column(name = "type_user")
     private String type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_city")
     private City city;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_user")
     private User user;
 

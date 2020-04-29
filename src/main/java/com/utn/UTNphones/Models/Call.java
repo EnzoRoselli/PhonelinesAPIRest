@@ -19,15 +19,15 @@ public class Call {
     @Column(name="id")
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_origin_phone")
     private Phoneline originPhoneline;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_destination_phone")
     private Phoneline destinationPhoneline;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_rate")
     private Rate rate;
 
