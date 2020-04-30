@@ -5,13 +5,12 @@ import com.utn.UTNphones.Exceptions.UserDoesntExistException;
 import com.utn.UTNphones.Exceptions.UserExistsException;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Services.interfaces.IUserService;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
-import java.sql.SQLIntegrityConstraintViolationException;
-
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -41,7 +40,10 @@ public class UserController {
        }else{
            try {
                userService.register(user);
-           } catch (DataAccessException throwable) {
+           } catch (DataAccessException th) {
+
+               ConstraintViolationException cve= (ConstraintViolationException) th.getCause();
+
                throw new UserExistsException();
            }
        }
