@@ -1,7 +1,6 @@
 package com.utn.UTNphones.Services;
 
-import com.utn.UTNphones.Exceptions.UserDoesntExistException;
-import com.utn.UTNphones.Exceptions.UserExistsException;
+import com.utn.UTNphones.Exceptions.UserExceptions;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Repositories.IUserRepository;
 import com.utn.UTNphones.Services.interfaces.IUserService;
@@ -9,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Optional;
 
 @Service
@@ -23,14 +20,13 @@ public class UserService implements IUserService {
         this.userRepository = userRepository;
     }
 
-    public User login(User user) throws UserDoesntExistException {
+    public User login(User user) throws UserExceptions {
         User u = userRepository.findByIdentificationAndPassword(user.getIdentification(), user.getPassword());
-        return Optional.ofNullable(u).orElseThrow(() -> new UserDoesntExistException());
+        return Optional.ofNullable(u).orElseThrow(() -> new UserExceptions("The user doesn`t exist"));
     }
 
     public User register(User user) throws DataAccessException {
-        userRepository.save(user);
-        return user;
+        return userRepository.save(user);
 
     }
 }

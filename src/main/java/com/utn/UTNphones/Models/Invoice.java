@@ -16,11 +16,11 @@ import java.util.stream.Stream;
 public class Invoice {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="id",nullable=false, updatable=false)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_phoneline")
+    @JoinColumn(name = "id_phoneline",nullable=false, updatable=false)
     private Phoneline phoneline;
 
     @Column(name = "calls_quantity")
@@ -36,6 +36,7 @@ public class Invoice {
     private Boolean isPaid;
 
     @Column(name = "invoice_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
     @Column(name = "invoice_expiration_date")

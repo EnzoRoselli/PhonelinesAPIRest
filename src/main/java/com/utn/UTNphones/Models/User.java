@@ -31,8 +31,8 @@ public class User {
     @Column(name = "password_user")
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "id_city")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_city",nullable=false, updatable=false)
     private City city;
 
     public boolean hasNullAtribute(){

@@ -1,11 +1,12 @@
 package com.utn.UTNphones.Exceptions;
 
-public class UserExistsException extends Exception{
+public class CityExceptions extends Exception{
     private String error;
-    public UserExistsException(){
+    public CityExceptions(String message){
         super();
-        this.error="The users already exists.";
+        this.error="The city id doesn`t exist.";
     }
+
     @Override
     public String getMessage() {
         return error;

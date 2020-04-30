@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 public class Phoneline {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="id",nullable=false, updatable=false)
     private Integer id;
 
     @Column(name = "phone_number")
@@ -24,12 +24,12 @@ public class Phoneline {
     @Column(name = "type_user")
     private String type;
 
-    @ManyToOne
-    @JoinColumn(name = "id_city")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_city",nullable=false)
     private City city;
 
-    @ManyToOne
-    @JoinColumn(name = "id_user")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_user",nullable=false)
     private User user;
 
 

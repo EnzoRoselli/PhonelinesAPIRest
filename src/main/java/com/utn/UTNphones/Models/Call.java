@@ -24,7 +24,7 @@ public class Call {
     private Phoneline originPhoneline;
 
     @ManyToOne
-    @JoinColumn(name = "id_destination_phone")
+    @JoinColumn(name = "id_destination_phone",nullable=false, updatable=false)
     private Phoneline destinationPhoneline;
 
     @ManyToOne

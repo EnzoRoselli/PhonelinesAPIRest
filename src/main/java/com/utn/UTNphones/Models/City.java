@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 public class City {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="id",nullable=false, updatable=false)
     private Integer id;
 
     @Column(name="city_name")
@@ -24,8 +24,8 @@ public class City {
     @Column(name="prefix")
     private Integer prefix;
 
-    @ManyToOne
-    @JoinColumn(name = "id_province")
+    @ManyToOne(optional = false,fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_province",nullable=false, updatable=false)
     private Province province;
 
 
