@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.stream.Stream;
 
 @Entity
-@Table(name="phonelines")
+@Table(name = "phonelines")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -14,29 +14,27 @@ import java.util.stream.Stream;
 @Builder
 public class Phoneline {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id",nullable=false, updatable=false)
-    private Integer id;
-
     @Column(name = "phone_number")
     private Integer number;
 
     @Column(name = "type_user")
     private String type;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_city",nullable=false)
-    private City city;
+    @Column(name = "status_phoneline")
+    private Boolean status;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_user",nullable=false)
+    @JoinColumn(name = "id_user", nullable = false)
     private User user;
 
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_city", nullable = false)
+    private City city;
 
-    public boolean hasNullAtribute(){
-        if (Stream.of(number, type,city,user).anyMatch(x -> x == null)) {
+    public boolean hasNullAtribute() {
+        if (Stream.of(number, type, city, user,status).anyMatch(x -> x == null)) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }

@@ -22,6 +22,7 @@ public class UserService implements IUserService {
 
     public User login(User user) throws UserExceptions {
         User u = userRepository.findByIdentificationAndPassword(user.getIdentification(), user.getPassword());
+
         return Optional.ofNullable(u).orElseThrow(() -> new UserExceptions("The user doesn`t exist"));
     }
 

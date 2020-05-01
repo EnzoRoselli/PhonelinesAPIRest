@@ -4,6 +4,7 @@ import com.utn.UTNphones.Exceptions.CityExceptions;
 import com.utn.UTNphones.Exceptions.ExceptionController;
 import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.UserExceptions;
+import com.utn.UTNphones.Models.Phoneline;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Services.interfaces.IUserService;
 import org.hibernate.exception.ConstraintViolationException;
@@ -25,7 +26,7 @@ public class UserController {
     }
 
     @PostMapping(value = "login/")
-    public User login(@RequestBody @NotNull User user) throws ParametersException, NumberFormatException, UserExceptions {
+    public User login(@RequestBody @NotNull User user) throws ParametersException, UserExceptions {
 
         if (user.getIdentification() == null || user.getPassword() == null) {
             throw new ParametersException();
@@ -48,4 +49,6 @@ public class UserController {
             return user;
         }
     }
+
+
 }

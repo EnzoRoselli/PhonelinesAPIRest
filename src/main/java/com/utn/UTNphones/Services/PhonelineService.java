@@ -21,5 +21,17 @@ public class PhonelineService implements IPhonelineService {
         return phonelineRepository.save(phoneline);
     }
 
+    @Override
+    public Boolean disable(Integer phoneNumber) {
+        if (phonelineRepository.disableOrEnable(false, phoneNumber) == 1) return true;
+        else return false;
+    }
+
+    @Override
+    public Boolean enable(Integer phoneNumber) {
+        if (phonelineRepository.disableOrEnable(true, phoneNumber) == 1) return true;
+        else return false;
+    }
+
 
 }

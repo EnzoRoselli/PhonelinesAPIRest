@@ -36,12 +36,29 @@ public class PhonelineController {
                 Phoneline a=phonelineService.add(phoneline);
                 System.out.println(a.getCity().getPrefix());
                 return a;
-            }catch (SQLGrammarException ex){
+            }catch (DataAccessException ex){
                 ConstraintViolationException cve = (ConstraintViolationException) ex.getCause();
-                //ExceptionController.addPhonelineException(cve.getSQLException().getErrorCode());
+        //        ExceptionController.addPhonelineException(cve.getSQLException().getErrorCode());
+                //VER QUE SQL ERROR TIRA AL UNQ
             }
             return phoneline;
         }
-
     }
+    @PostMapping("disable/")
+    public Boolean disable(@RequestBody @NotNull Integer phoneNumber) throws ParametersException {
+        if (phoneNumber==null){
+            throw  new ParametersException();
+        }else{
+            return phonelineService.disable(phoneNumber);
+        }
+    }
+    @PostMapping("enable/")
+    public Boolean enable(@RequestBody @NotNull Integer phoneNumber) throws ParametersException {
+        if (phoneNumber==null){
+            throw  new ParametersException();
+        }else{
+            return phonelineService.enable(phoneNumber);
+        }
+    }
+
 }

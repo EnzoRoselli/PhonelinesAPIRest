@@ -25,6 +25,9 @@ public class User {
     @Column(name = "lastname")
     private String lastname;
 
+    @Column(name="type_user")
+    private String type;
+
     @Column(name = "identification_card")
     private Integer identification;
 
@@ -36,7 +39,7 @@ public class User {
     private City city;
 
     public boolean hasNullAtribute(){
-        if (Stream.of(name, lastname,identification,password,city).anyMatch(x -> x == null)) {
+        if (Stream.of(name, lastname,identification,password,city,type).anyMatch(x -> x == null)) {
             return true;
         }else{
             return false;
