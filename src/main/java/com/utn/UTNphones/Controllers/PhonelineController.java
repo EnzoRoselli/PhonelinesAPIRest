@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
@@ -28,18 +29,14 @@ public class PhonelineController {
     }
 
   @PostMapping(value="add/")
-    public Phoneline add(@RequestBody @NotNull Phoneline phoneline) throws ParametersException {
+    public Phoneline add(@RequestBody @NotNull Phoneline phoneline) throws Exception {
         if(phoneline.hasNullAtribute()){
             throw new ParametersException();
         }else {
             try{
-                Phoneline a=phonelineService.add(phoneline);
-                System.out.println(a.getCity().getPrefix());
-                return a;
+                return phonelineService.add(phoneline);
             }catch (DataAccessException ex){
-                ConstraintViolationException cve = (ConstraintViolationException) ex.getCause();
-        //        ExceptionController.addPhonelineException(cve.getSQLException().getErrorCode());
-                //VER QUE SQL ERROR TIRA AL UNQ
+                ExceptionController.phonelineAddException(ex.getMessage());
             }
             return phoneline;
         }

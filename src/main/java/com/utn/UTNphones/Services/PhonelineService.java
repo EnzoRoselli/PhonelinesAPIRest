@@ -4,6 +4,7 @@ import com.utn.UTNphones.Models.Phoneline;
 import com.utn.UTNphones.Repositories.IPhonelineRepository;
 import com.utn.UTNphones.Services.interfaces.IPhonelineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,7 +18,7 @@ public class PhonelineService implements IPhonelineService {
     }
 
     @Override
-    public Phoneline add(Phoneline phoneline) {
+    public Phoneline add(Phoneline phoneline) throws DataAccessException {
         return phonelineRepository.save(phoneline);
     }
 
