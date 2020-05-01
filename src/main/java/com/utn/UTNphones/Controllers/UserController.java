@@ -29,7 +29,7 @@ public class UserController {
     public User login(@RequestBody @NotNull User user) throws ParametersException, UserExceptions {
 
         if (user.getIdentification() == null || user.getPassword() == null) {
-            throw new ParametersException();
+            throw new ParametersException("Parameters can´t contain null values");
         } else {
             return userService.login(user);
         }
@@ -38,13 +38,13 @@ public class UserController {
     @PostMapping("register/")
     public User register(@RequestBody @NotNull User user) throws Exception {
         if (user.hasNullAtribute()) {
-            throw new ParametersException();
+            throw new ParametersException("Parameters can´t contain null values");
         } else {
             try {
                return userService.register(user);
             } catch (DataAccessException ex) {
                 ConstraintViolationException cve = (ConstraintViolationException) ex.getCause();
-                ExceptionController.userRegisterException(cve.getSQLException().getErrorCode());
+                ExceptionController.userRegisterException(cve);
             }
             return user;
         }

@@ -31,12 +31,12 @@ public class PhonelineController {
   @PostMapping(value="add/")
     public Phoneline add(@RequestBody @NotNull Phoneline phoneline) throws Exception {
         if(phoneline.hasNullAtribute()){
-            throw new ParametersException();
+            throw new ParametersException("Parameters can´t contain null values");
         }else {
             try{
                 return phonelineService.add(phoneline);
             }catch (DataAccessException ex){
-                ExceptionController.phonelineAddException(ex.getMessage());
+                ExceptionController.phonelineAddException(ex);
             }
             return phoneline;
         }
@@ -44,7 +44,7 @@ public class PhonelineController {
     @PostMapping("disable/")
     public Boolean disable(@RequestBody @NotNull Integer phoneNumber) throws ParametersException {
         if (phoneNumber==null){
-            throw  new ParametersException();
+            throw  new ParametersException("Parameters can´t contain null values");
         }else{
             return phonelineService.disable(phoneNumber);
         }
@@ -52,7 +52,7 @@ public class PhonelineController {
     @PostMapping("enable/")
     public Boolean enable(@RequestBody @NotNull Integer phoneNumber) throws ParametersException {
         if (phoneNumber==null){
-            throw  new ParametersException();
+            throw  new ParametersException("Parameters can´t contain null values");
         }else{
             return phonelineService.enable(phoneNumber);
         }
