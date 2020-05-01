@@ -32,7 +32,7 @@ create table users(
 	id int auto_increment,
 	name_user varchar(45) not null,
 	lastname varchar(45) not null,
-    type_user enum("user", "employee", "infrastructure") not null,
+    type_user enum("client", "employee", "infrastructure") not null,
 	identification_card int not null unique,
     password_user varchar(30) not null,
 	id_city integer,
