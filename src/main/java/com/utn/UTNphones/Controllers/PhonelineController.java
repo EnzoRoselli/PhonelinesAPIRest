@@ -9,10 +9,7 @@ import com.utn.UTNphones.Services.interfaces.ICityService;
 import com.utn.UTNphones.Services.interfaces.IPhonelineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
@@ -42,25 +39,24 @@ public class PhonelineController {
         return phoneline;
     }
 
+    @PostMapping(value = "remove/")
+    public void remove(@RequestBody @NotNull Integer phonelineId) throws Exception {
+        if (phonelineId==null) throw new ParametersException("Parameters can´t contain null values");
+        phonelineService.remove(phonelineId);}
 
 
-    @PostMapping("disable/")
+
+    @PutMapping("disable/")
     public Boolean disable(@RequestBody @NotNull Integer phoneNumber) throws ParametersException {
-        if (phoneNumber == null) {
-            throw new ParametersException("Parameters can´t contain null values");
-        } else {
-            return phonelineService.disable(phoneNumber);
-        }
-    }
+        if (phoneNumber == null) throw new ParametersException("Parameters can´t contain null values");
 
-    @PostMapping("enable/")
+        else return phonelineService.disable(phoneNumber);}
+
+    @PutMapping("enable/")
     public Boolean enable(@RequestBody @NotNull Integer phoneNumber) throws ParametersException {
-        if (phoneNumber == null) {
-            throw new ParametersException("Parameters can´t contain null values");
-        } else {
-            return phonelineService.enable(phoneNumber);
-        }
-    }
+        if (phoneNumber == null) throw new ParametersException("Parameters can´t contain null values");
+
+        else return phonelineService.enable(phoneNumber);}
 
 }
 

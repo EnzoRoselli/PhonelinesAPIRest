@@ -8,4 +8,6 @@ public interface IPhonelineService {
     Boolean disable(Integer phoneNumber);
 
     Boolean enable(Integer phoneNumber);
+
+    void remove(Integer phonelineId);
 }

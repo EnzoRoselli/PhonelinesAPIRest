@@ -34,5 +34,10 @@ public class PhonelineService implements IPhonelineService {
         else return false;
     }
 
+    @Override
+    public void remove(Integer phonelineId){
+        phonelineRepository.deleteById(phonelineId);
+    }
+
 
 }
