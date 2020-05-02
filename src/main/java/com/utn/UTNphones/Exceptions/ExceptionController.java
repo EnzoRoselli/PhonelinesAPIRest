@@ -12,6 +12,8 @@ public class ExceptionController {
                 throw new CityExceptions("The city doesn´t exist",ex.getCause());
             case 1062:
                 throw new UserExceptions("The user already exists",ex.getCause());
+            case 1265:
+                throw new UserExceptions("The client type doesn´t exist",ex.getCause());
             default:
                 throw new Exception("External error");
         }

@@ -3,6 +3,9 @@ package com.utn.UTNphones.Models;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 @Entity
@@ -45,6 +48,18 @@ public class User {
             return false;
         }
     }
+  public boolean hasValueErrors(){
+        boolean hasErrors=false;
+        String regx = "^[\\p{L} .'-]+$";
+        Pattern pattern = Pattern.compile(regx,Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(name);
+        pattern.matcher(lastname);
+        //1ra condicion patters-matches();
+        return true;
+
+    }
+
+
 
 }
 

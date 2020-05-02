@@ -9,6 +9,10 @@ public class CityExceptions extends Exception{
         this.cause=cause;
     }
 
+    public CityExceptions(String message) {
+        this.message=message;
+    }
+
     @Override
     public String getMessage() {
         return message;

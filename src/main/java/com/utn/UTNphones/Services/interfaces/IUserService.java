@@ -6,6 +6,6 @@ import org.springframework.dao.DataAccessException;
 
 
 public interface IUserService {
-    public User login(User user) throws UserExceptions;
-    public User register(User user)throws DataAccessException;
+     User login(User user) throws UserExceptions;
+     User register(User user)throws DataAccessException;
 }

@@ -38,4 +38,13 @@ public class Phoneline {
             return false;
         }
     }
+
+    public boolean validNumberWithPrefix(){
+        if ((String.valueOf(number).length() + String.valueOf(city.getPrefix()).length())!=10)return false;
+        return true;
+    }
+    public boolean validNumberWithPrefix(Integer prefix){
+        if ((String.valueOf(number).length() + String.valueOf(prefix).length())!=10)return false;
+        return true;
+    }
 }
