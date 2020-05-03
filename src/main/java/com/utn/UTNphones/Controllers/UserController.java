@@ -36,6 +36,11 @@ public class UserController {
         }
     }
 
+    @PostMapping(value="delete/")
+    public void delete(@RequestBody @NotNull User user) throws ParametersException {
+        if (user.getId()==null)throw new ParametersException("Parameters can´t contain null values");
+    }
+
     @PostMapping("register/")
     public User register(@RequestBody @NotNull User user) throws Exception {
         if (user.hasNullAtribute()) throw new ParametersException("Parameters can´t contain null values");
