@@ -1,9 +1,12 @@
 package com.utn.UTNphones.Services;
 
+import com.utn.UTNphones.Models.Invoice;
 import com.utn.UTNphones.Repositories.IInvoiceRepository;
 import com.utn.UTNphones.Services.interfaces.IInvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class InvoiceService implements IInvoiceService {
@@ -13,5 +16,10 @@ public class InvoiceService implements IInvoiceService {
     @Autowired
     public InvoiceService(IInvoiceRepository invoiceRepository) {
         this.invoiceRepository = invoiceRepository;
+    }
+
+    @Override
+    public List<Invoice> getAllInvoices() {
+        return invoiceRepository.findAll();
     }
 }
