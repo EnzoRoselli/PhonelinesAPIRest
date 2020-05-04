@@ -1,6 +1,9 @@
 package com.utn.UTNphones.Services.interfaces;
 
+import com.utn.UTNphones.Exceptions.PhonelineExceptions;
 import com.utn.UTNphones.Models.Phoneline;
+
+import java.util.List;
 
 public interface IPhonelineService {
     Phoneline add(Phoneline phoneline);
@@ -8,6 +11,6 @@ public interface IPhonelineService {
     Boolean disable(Integer phoneNumber);
 
     Boolean enable(Integer phoneNumber);
-
-    void remove(Integer phonelineId);
+List<Phoneline> findByUserId(Integer userId) throws PhonelineExceptions;
+    void remove(Integer phonelineId) throws PhonelineExceptions;
 }

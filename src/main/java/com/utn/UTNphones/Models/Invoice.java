@@ -19,21 +19,21 @@ public class Invoice {
     @Column(name = "id")
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "phone_number")
     private Phoneline phoneline;
 
     @Column(name = "calls_quantity")
     private Integer callsQuantity;
 
-    @Column(name = "cost_price")
-    private Integer costPrice;
-
     @Column(name = "total_price")
     private Integer totalPrice;
 
+    @Column(name = "total_cost")
+    private Integer totalCost;
+
     @Column(name = "invoice_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     @Column(name = "is_paid")
@@ -44,7 +44,7 @@ public class Invoice {
     private Date expirationDate;
 
     public boolean hasNullAtribute() {
-        if (Stream.of(phoneline, callsQuantity, costPrice, totalPrice, isPaid, date, expirationDate).anyMatch(x -> x == null)) {
+        if (Stream.of(phoneline, callsQuantity, totalPrice, isPaid, date, expirationDate,totalCost).anyMatch(x -> x == null)) {
             return true;
         } else {
             return false;

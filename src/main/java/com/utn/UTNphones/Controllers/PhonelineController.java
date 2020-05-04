@@ -35,6 +35,16 @@ public class PhonelineController {
             return phonelineService.add(phoneline);
         } catch (DataAccessException ex) {
             ExceptionController.phonelineAddException(ex);
+            System.out.println("aaaaaaaaaaaaaaa");
+            System.out.println("aaaaaaaaaaaaaaa");
+            System.out.println("aaaaaaaaaaaaaaa");
+            System.out.println("aaaaaaaaaaaaaaa");
+            System.out.println("aaaaaaaaaaaaaaa");
+            System.out.println("aaaaaaaaaaaaaaa");
+            System.out.println("aaaaaaaaaaaaaaa");
+            System.out.println("aaaaaaaaaaaaaaa");
+            System.out.println("aaaaaaaaaaaaaaa");
+            System.out.println("aaaaaaaaaaaaaaa");
         }
         return phoneline;
     }

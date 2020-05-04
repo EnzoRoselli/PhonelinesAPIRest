@@ -39,17 +39,19 @@ public class Call {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
-    @Column(name = "price")
-    private Integer price;
+    @Column(name = "total_price")
+    private Integer total_price;
+    @Column(name = "total_cost")
+    private Integer totalCost;
 
     @Column(name = "duration")
     private Integer duration;
 
-    @Column(name = "totalPrice")
-    private Integer totalPrice;
+
+
 
     public boolean hasNullAtribute() {
-        if (Stream.of(originPhoneline, destinationPhoneline, rate, date, price, duration, totalPrice,invoice).anyMatch(x -> x == null)) {
+        if (Stream.of(originPhoneline, destinationPhoneline, rate, date, total_price, duration, invoice,totalCost).anyMatch(x -> x == null)) {
             return true;
         } else {
             return false;

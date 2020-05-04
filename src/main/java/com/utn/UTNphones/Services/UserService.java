@@ -44,7 +44,8 @@ public class UserService implements IUserService {
     @Override
     public User findById(Integer id) throws UserExceptions {
         Optional<User> user = userRepository.findById(id);
-        return Optional.ofNullable(user.get()).orElseThrow(() -> new UserExceptions("The user doesn`t exist"));
+        if (user.isEmpty())throw new UserExceptions("The user doesn`t exist");
+        else return user.get();
     }
 
 

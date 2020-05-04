@@ -5,13 +5,15 @@ import com.utn.UTNphones.Exceptions.UserExceptions;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataAccessException;
 
+import javax.persistence.EntityNotFoundException;
+
 public class ExceptionController {
     public static void userRegisterException(ConstraintViolationException ex) throws Exception {
         switch (ex.getSQLException().getErrorCode()) {
             case 1452:
                 throw new CityExceptions("The city doesn´t exist",ex.getCause());
             case 1062:
-                throw new UserExceptions("The user already exists",ex.getCause());
+                throw new UserExceptions("The user's identification is already registered",ex.getCause());
             case 1265:
                 throw new UserExceptions("The client type doesn´t exist",ex.getCause());
             default:

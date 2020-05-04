@@ -9,11 +9,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface IPhonelineRepository extends JpaRepository<Phoneline,Integer> {
     @Transactional
     @Modifying
     @Query(value = "update phonelines ph set ph.status_phoneline = ?1 where ph.phone_number = ?2", nativeQuery = true)
     int disableOrEnable(Boolean newStatus,Integer phoneNumber);
+    List<Phoneline> findByUserId(Integer id);
 
 }

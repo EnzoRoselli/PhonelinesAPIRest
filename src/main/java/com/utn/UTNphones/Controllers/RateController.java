@@ -3,6 +3,7 @@ package com.utn.UTNphones.Controllers;
 import com.utn.UTNphones.Models.Rate;
 import com.utn.UTNphones.Services.interfaces.IRateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +20,7 @@ public class RateController {
         this.rateService = rateService;
     }
 
-    @RequestMapping("")
+    @GetMapping("getAll/")
     public List<Rate> getAllRates(){
         return rateService.getAllRates();
     }
