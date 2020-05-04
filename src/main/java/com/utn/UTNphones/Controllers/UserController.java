@@ -18,12 +18,10 @@ import javax.validation.constraints.NotNull;
 public class UserController {
 
     private final IUserService userService;
-    private final ICityService cityService;
 
     @Autowired
     public UserController(IUserService userService, ICityService cityService) {
         this.userService = userService;
-        this.cityService = cityService;
     }
 
     @PostMapping(value = "login/")
@@ -49,6 +47,7 @@ public class UserController {
                return userService.register(user);
             } catch (DataAccessException ex) {
                 if (ex.getCause().getCause().getMessage().contains("type_user"))throw new ParametersException("The user`s type doesn´t exist");
+                //TODO
                 else {
                     ConstraintViolationException cve = (ConstraintViolationException) ex.getCause();
                     ExceptionController.userRegisterException(cve);

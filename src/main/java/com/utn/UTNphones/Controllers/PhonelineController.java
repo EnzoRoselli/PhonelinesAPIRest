@@ -30,7 +30,7 @@ public class PhonelineController {
     @PostMapping(value = "add/")
     public Phoneline add(@RequestBody @NotNull Phoneline phoneline) throws Exception {
         if (phoneline.hasNullAtribute()) throw new ParametersException("Parameters can´t contain null values");
-        if (!phoneline.validNumberWithPrefix(cityService.getById(phoneline.getCity().getId()).getPrefix()))throw new PhonelineExceptions("The prefix plus the numbers, are more than 10 digits");
+        if (!phoneline.validNumberWithPrefix(cityService.getById(phoneline.getCity().getId()).getPrefix()))throw new PhonelineExceptions("The prefix plus the numbers, are more or less than 10 digits");
         try {
             return phonelineService.add(phoneline);
         } catch (DataAccessException ex) {
