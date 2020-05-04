@@ -24,11 +24,11 @@ public class Phoneline {
     private Boolean status;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_user", nullable = false)
+    @JoinColumn(name = "id_user")
     private User user;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_city", nullable = false)
+    @JoinColumn(name = "id_city")
     private City city;
 
     public boolean hasNullAtribute() {

@@ -20,8 +20,27 @@ public class ExceptionController {
     }
 
     public static void phonelineAddException(DataAccessException classWithError) throws Exception {
+        //User id
         if (classWithError.getMessage().contains("Models.User")) throw new UserExceptions("The user doesn´t exist",classWithError.getCause());
+        //City id
         else if (classWithError.getMessage().contains("Models.City")) throw new CityExceptions("The city doesn´t exist",classWithError.getCause());
+        
+        else throw new Exception("External error");
+    }
+    public static void userUpdateException(DataAccessException classWithError) throws Exception {
+        //User
+        if (classWithError.getRootCause().getMessage().contains("Models.User"))
+            throw new UserExceptions("The user doesn´t exist",classWithError.getCause());
+        //City
+        else if (classWithError.getRootCause().getMessage().contains("Models.City"))
+            throw new CityExceptions("The city doesn´t exist",classWithError.getCause());
+        //Identification unique
+        else if (classWithError.getRootCause().getMessage().contains("for key 'identification_card'"))
+            throw new UserExceptions("The identification_card is already registered",classWithError.getCause());
+        //User type enum
+        else if (classWithError.getRootCause().getMessage().contains("type_user"))
+            throw new ParametersException("The user`s type doesn´t exist");
+
         else throw new Exception("External error");
     }
 }

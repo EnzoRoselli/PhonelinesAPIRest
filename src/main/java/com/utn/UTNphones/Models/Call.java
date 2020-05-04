@@ -24,15 +24,15 @@ public class Call {
     private Phoneline originPhoneline;
 
     @ManyToOne
-    @JoinColumn(name = "destination_phone", nullable = false, updatable = false)
+    @JoinColumn(name = "destination_phone")
     private Phoneline destinationPhoneline;
 
     @ManyToOne
-    @JoinColumn(name = "id_rate", nullable = false, updatable = false)
+    @JoinColumn(name = "id_rate")
     private Rate rate;
 
     @ManyToOne
-    @JoinColumn(name = "id_invoice", nullable = false, updatable = false)
+    @JoinColumn(name = "id_invoice")
     private Invoice invoice;
 
     @Column(name = "date_call")

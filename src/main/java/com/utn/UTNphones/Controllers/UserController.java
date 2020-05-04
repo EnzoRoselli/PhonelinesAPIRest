@@ -1,5 +1,6 @@
 package com.utn.UTNphones.Controllers;
 
+import com.utn.UTNphones.Exceptions.CityExceptions;
 import com.utn.UTNphones.Exceptions.ExceptionController;
 import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.UserExceptions;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotNull;
 
 @RestController
@@ -18,12 +20,10 @@ import javax.validation.constraints.NotNull;
 public class UserController {
 
     private final IUserService userService;
-    private final ICityService cityService;
 
     @Autowired
     public UserController(IUserService userService, ICityService cityService) {
         this.userService = userService;
-        this.cityService = cityService;
     }
 
     @PostMapping(value = "login/")
@@ -36,26 +36,40 @@ public class UserController {
         }
     }
 
-    @PostMapping(value="delete/")
-    public void delete(@RequestBody @NotNull User user) throws ParametersException {
-        if (user.getId()==null)throw new ParametersException("Parameters can´t contain null values");
-    }
 
     @PostMapping("register/")
     public User register(@RequestBody @NotNull User user) throws Exception {
         if (user.hasNullAtribute()) throw new ParametersException("Parameters can´t contain null values");
-        else {
-            try {
-               return userService.register(user);
-            } catch (DataAccessException ex) {
-                if (ex.getCause().getCause().getMessage().contains("type_user"))throw new ParametersException("The user`s type doesn´t exist");
-                else {
-                    ConstraintViolationException cve = (ConstraintViolationException) ex.getCause();
-                    ExceptionController.userRegisterException(cve);
-                }
+        try {
+            return userService.register(user);
+        } catch (DataAccessException ex) {
+            if (ex.getRootCause().getMessage().contains("type_user"))
+                throw new ParametersException("The user`s type doesn´t exist");
+            else {
+                ConstraintViolationException cve = (ConstraintViolationException) ex.getCause();
+                ExceptionController.userRegisterException(cve);
             }
-            return user;
         }
+        return user;
+    }
+
+    @DeleteMapping(value = "delete/")
+    public void delete(@RequestBody @NotNull User user) throws ParametersException {
+        if (user.getId() == null) throw new ParametersException("Parameter id can´t contain null value");
+        this.userService.deleteById(user.getId());
+    }
+
+    @PostMapping(value = "update/")
+    public void update(@RequestBody @NotNull User user) throws Exception {
+        if (user.getId() == null) throw new ParametersException("Parameter id can´t contain null value");
+       User inDataBaseUser = this.userService.findById(user.getId());
+       user.setNonNullValues(inDataBaseUser);
+        try {
+            this.userService.update(user);
+        } catch (DataAccessException ex) {
+            ExceptionController.userUpdateException(ex);
+        }
+
     }
 
 

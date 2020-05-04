@@ -23,7 +23,7 @@ public class Rate {
     private City originCity;
 
     @ManyToOne
-    @JoinColumn(name = "id_destination_city",nullable=false, updatable=false)
+    @JoinColumn(name = "id_destination_city")
     private City destinationCity;
 
     @Column(name="cost_per_minute")

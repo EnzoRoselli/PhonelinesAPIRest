@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 public class Province {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id",nullable=false, updatable=false)
+    @Column(name="id")
     private Integer id;
 
     @Column(name="province_name")
