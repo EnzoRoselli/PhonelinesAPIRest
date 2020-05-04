@@ -38,7 +38,7 @@ public class User {
     private String password;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_city",nullable=false, updatable=false)
+    @JoinColumn(name = "id_city")
     private City city;
 
     public boolean hasNullAtribute(){
@@ -48,6 +48,16 @@ public class User {
             return false;
         }
     }
+
+    public void setNonNullValues(User user){
+        if (getPassword()==null)setPassword(user.getPassword());
+        if (getIdentification()==null)setIdentification(user.getIdentification());
+        if (getCity()==null)setCity(user.getCity());
+        if (getLastname()==null)setLastname(user.getLastname());
+        if (getName()==null)setName(user.getName());
+        if (getType()==null)setType(user.getType());
+    }
+
   public boolean hasValueErrors(){
         boolean hasErrors=false;
         String regx = "^[\\p{L} .'-]+$";

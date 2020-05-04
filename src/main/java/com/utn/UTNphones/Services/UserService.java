@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
 import java.util.Optional;
 
 @Service
@@ -30,4 +29,23 @@ public class UserService implements IUserService {
     public User register(User user) throws DataAccessException {
         return userRepository.save(user);
     }
+
+    @Override
+    public void deleteById(Integer id) {
+        this.userRepository.deleteById(id);
+    }
+
+    @Override
+    public User update(User user) throws UserExceptions {
+      User userUpdated=this.userRepository.save(user);
+       return Optional.ofNullable(userUpdated).orElseThrow(() -> new UserExceptions("The user doesn`t exist"));
+    }
+
+    @Override
+    public User findById(Integer id) throws UserExceptions {
+        Optional<User> user = userRepository.findById(id);
+        return Optional.ofNullable(user.get()).orElseThrow(() -> new UserExceptions("The user doesn`t exist"));
+    }
+
+
 }

@@ -20,7 +20,7 @@ public class Invoice {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "phone_number", nullable = false, updatable = false)
+    @JoinColumn(name = "phone_number")
     private Phoneline phoneline;
 
     @Column(name = "calls_quantity")
