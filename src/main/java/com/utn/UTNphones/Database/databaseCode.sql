@@ -1,4 +1,3 @@
-drop database if exists TPFinal;
 create database TPFinal;
 use TPFinal;
 
@@ -11,7 +10,7 @@ create table provinces(
 create table cities(
 	id int auto_increment,
     city_name varchar(50) not null,
-    prefix int unique not null,
+    prefix varchar(4) unique not null,
     id_province int,
     constraint pk_cities primary key (id),
     constraint fk_cities_id_province foreign key (id_province) references provinces(id)
@@ -28,13 +27,16 @@ create table rates(
     constraint fk_rates_city_destination foreign key (id_destination_city) references cities(id),
     unique key unq_rates_origin_destination (id_origin_city,id_destination_city)
 );
+/*insert into rates(rates.cost_per_minute,rates.id_destination_city,rates.id_origin_city,rates.price_per_minute)values(1,2,3,5);
+insert into rates(rates.cost_per_minute,rates.id_destination_city,rates.id_origin_city,rates.price_per_minute)values(1,3,2,5);
+*/
 
 create table users(
 	id int auto_increment,
 	name_user varchar(45) not null,
 	lastname varchar(45) not null,
     type_user enum("client", "employee", "infrastructure") not null,
-	identification_card int not null unique,
+	identification_card varchar(10) not null unique,
     password_user varchar(30) not null,
 	id_city integer,
     constraint pk_users primary key (id),
@@ -42,7 +44,7 @@ create table users(
 );
 
 create table phonelines(
-	phone_number int,
+	phone_number varchar(10),
     type_user enum("mobile", "landline") not null,
     status_phoneline boolean,
     id_user int,
@@ -52,9 +54,10 @@ create table phonelines(
      constraint fk_phoneLines_id_city foreign key(id_city)references cities(id)
 );
 
+/*drop table invoices;*/
 create table invoices(
 	id int auto_increment,
-    phone_number int not null,
+    phone_number varchar(10),
     calls_quantity int not null,
     total_cost float not null,
     total_price float not null,
@@ -64,11 +67,12 @@ create table invoices(
     constraint pk_users primary key (id),
     constraint fk_phoneline_invoices foreign key(phone_number) references phoneLines(phone_number)
 );
+/*insert into invoices(calls_quantity,phone_number,total_cost,total_price,is_paid)values(3,1111111,10,21,true);*/
 
 create table calls(
 	id int auto_increment,
-    origin_phone int,
-    destination_phone int,
+    origin_phone varchar(10),
+    destination_phone varchar(10),
     id_rate int,
     id_invoice int,
     date_call timestamp default current_timestamp,
