@@ -1,3 +1,4 @@
+--drop database if exists TPFinal;
 create database TPFinal;
 use TPFinal;
 
@@ -27,9 +28,6 @@ create table rates(
     constraint fk_rates_city_destination foreign key (id_destination_city) references cities(id),
     unique key unq_rates_origin_destination (id_origin_city,id_destination_city)
 );
-/*insert into rates(rates.cost_per_minute,rates.id_destination_city,rates.id_origin_city,rates.price_per_minute)values(1,2,3,5);
-insert into rates(rates.cost_per_minute,rates.id_destination_city,rates.id_origin_city,rates.price_per_minute)values(1,3,2,5);
-*/
 
 create table users(
 	id int auto_increment,
@@ -44,20 +42,20 @@ create table users(
 );
 
 create table phonelines(
-	phone_number varchar(10),
+	id int auto_increment,
+	phone_number varchar(8) unique not null,
     type_user enum("mobile", "landline") not null,
     status_phoneline boolean,
     id_user int,
     id_city int,
-    constraint pk_phoneLines primary key (phone_number),
+    constraint pk_phoneLines primary key (id),
     constraint fk_phoneLines_id_user foreign key(id_user)references users(id),
      constraint fk_phoneLines_id_city foreign key(id_city)references cities(id)
 );
 
-/*drop table invoices;*/
 create table invoices(
 	id int auto_increment,
-    phone_number varchar(10),
+    id_phone_number int,
     calls_quantity int not null,
     total_cost float not null,
     total_price float not null,
@@ -65,14 +63,13 @@ create table invoices(
     is_paid boolean,
     invoice_expiration_date datetime,
     constraint pk_users primary key (id),
-    constraint fk_phoneline_invoices foreign key(phone_number) references phoneLines(phone_number)
+    constraint fk_invoices_id_phone_number foreign key(id_phone_number) references phonelines(id)
 );
-/*insert into invoices(calls_quantity,phone_number,total_cost,total_price,is_paid)values(3,1111111,10,21,true);*/
 
 create table calls(
 	id int auto_increment,
-    origin_phone varchar(10),
-    destination_phone varchar(10),
+    id_origin_phone int,
+    id_destination_phone int,
     id_rate int,
     id_invoice int,
     date_call timestamp default current_timestamp,
@@ -80,8 +77,8 @@ create table calls(
     duration int,
     total_price int,
     constraint pk_calls primary key (id),
-    constraint fk_calls_origin_phone foreign key(origin_phone)references phoneLines(phone_number),
-    constraint fk_calls_destination_phone foreign key (destination_phone) references phoneLines(phone_number),
+    constraint fk_calls_id_origin_phone foreign key(id_origin_phone)references phonelines(id),
+    constraint fk_calls_id_destination_phone foreign key (id_destination_phone) references phonelines(id),
     constraint fk_calls_rate foreign key (id_rate) references rates(id),
     constraint fk_calls_invoice foreign key (id_invoice) references invoices(id)
 );
