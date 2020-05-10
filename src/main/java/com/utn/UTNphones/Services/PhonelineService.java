@@ -57,7 +57,9 @@ public class PhonelineService implements IPhonelineService {
 
     @Override
     public Boolean exists(String number, Integer cityId) {
-        return this.phonelineRepository.findByNumberAndCityId(number,cityId);
+        Phoneline ph = this.phonelineRepository.findByNumberAndCityId(number,cityId);
+        if (ph==null)return false;
+        else return true;
     }
 
 
