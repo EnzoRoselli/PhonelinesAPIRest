@@ -59,7 +59,7 @@ public class User {
         if (getType() == null) setType(user.getType());
     }
 
-    public boolean hasValueErrors() {
+    public Boolean hasValueErrors() {
         boolean hasErrors = false;
         String regexNameLastname = "^[\\p{L} .'-]+$";
         Pattern pattern = Pattern.compile(regexNameLastname, Pattern.CASE_INSENSITIVE);
@@ -69,7 +69,7 @@ public class User {
         hasErrors = hasErrors || !pattern.matcher(lastname).matches();
 
         //No negatives and letters
-        String regexIdentification = "^[1-9]\\d*$";
+        String regexIdentification = "^[1-9]{6,10}$";
         hasErrors = hasErrors || !identification.matches(regexIdentification);
 
         return hasErrors;

@@ -51,4 +51,9 @@ public class Phoneline {
         if ((String.valueOf(number).length() + String.valueOf(prefix).length())!=10)return false;
         return true;
     }
+
+    public Boolean hasNumberError(){
+        String Comprobation = "^[1-9]{6,8}$";
+        return !number.matches(Comprobation);
+    }
 }
