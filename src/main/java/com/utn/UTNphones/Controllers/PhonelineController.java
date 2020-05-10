@@ -31,7 +31,7 @@ public class PhonelineController {
     public Phoneline add(@RequestBody @NotNull Phoneline phoneline) throws Exception {
         if (phoneline.hasNullAtribute()) throw new ParametersException("Parameters can´t contain null values");
         if (!phoneline.validNumberWithPrefix(cityService.getById(phoneline.getCity().getId()).getPrefix()))throw new PhonelineExceptions("The prefix plus the numbers, are more or less than 10 digits");
-
+        if (this.phonelineService.exists(phoneline.getNumber(),phoneline.getCity().getId())!=null) throw new PhonelineExceptions("The phoneline already exists");
         try {
             return phonelineService.add(phoneline);
         } catch (DataAccessException ex) {

@@ -22,6 +22,7 @@ public class CityService implements ICityService {
     @Override
     public City getById(Integer id) throws CityExceptions {
         Optional<City> cityOptional = cityRepository.findById(id);
-        return Optional.ofNullable(cityOptional.get()).orElseThrow(()->new CityExceptions("The city doesn´t exist"));
+        if (cityOptional.isEmpty())throw new  CityExceptions("The city doesn´t exist");
+        else return cityOptional.get();
     }
 }

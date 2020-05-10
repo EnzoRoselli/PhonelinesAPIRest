@@ -40,7 +40,6 @@ public class PhonelineService implements IPhonelineService {
         return Optional.ofNullable(phoneList).orElseThrow(()->new PhonelineExceptions("No phones registered with this user"));
     }
 
-
     @Override
     public Boolean enable(String phoneNumber) {
         if (phonelineRepository.disableOrEnable(true, phoneNumber) == 1) return true;
@@ -54,6 +53,11 @@ public class PhonelineService implements IPhonelineService {
         }catch (EmptyResultDataAccessException ex){
             throw new PhonelineExceptions("The phonenumber to delete is not registered",ex.getCause());
         }
+    }
+
+    @Override
+    public Boolean exists(String number, Integer cityId) {
+        return this.phonelineRepository.findByNumberAndCityId(number,cityId);
     }
 
 

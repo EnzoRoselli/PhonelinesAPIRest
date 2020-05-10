@@ -19,7 +19,7 @@ public class Phoneline {
     private Integer id;
 
     @Column(name = "phone_number")
-    private Integer number;
+    private String number;
 
     @Column(name = "type_user")
     private String type;
@@ -36,7 +36,7 @@ public class Phoneline {
     private City city;
 
     public boolean hasNullAtribute() {
-        if (Stream.of(number, type, city, user,status).anyMatch(x -> x == null)) {
+        if (Stream.of(number, type, city.getId(), user.getId(),status).anyMatch(x -> x == null)) {
             return true;
         } else {
             return false;

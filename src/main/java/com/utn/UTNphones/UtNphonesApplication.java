@@ -17,18 +17,10 @@ public class UtNphonesApplication {
     public static void main(String[] args) {
 
   SpringApplication.run(UtNphonesApplication.class, args);
-    /*    User user=new User();
-        user.setName("holahh");
-        user.setLastname("2323");
-        user.setPassword("aaaa");
-        String regx = "^[\\p{L} .'-]+$";
-        Pattern pattern = Pattern.compile(regx,Pattern.CASE_INSENSITIVE);
-        Matcher matcher= /*pattern.matcher(user.getLastname());pattern.matcher(user.getName());
-       pattern.matcher(user.getLastname());
-      pattern.matcher(user.getPassword());
-        System.out.println(matcher.matches());
-        boolean a= (false||true||false||false);
-        System.out.println(a);*/
+
+
+
+
 
 
     }

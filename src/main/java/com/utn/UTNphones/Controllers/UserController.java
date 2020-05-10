@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotNull;
+import java.sql.SQLException;
 
 @RestController
 @RequestMapping("/user/")
@@ -40,15 +41,12 @@ public class UserController {
     @PostMapping("register/")
     public User register(@RequestBody @NotNull User user) throws Exception {
         if (user.hasNullAtribute()) throw new ParametersException("Parameters can´t contain null values");
+    if (user.hasValueErrors())throw new ParametersException("Error on attributes, identification(only numbers) or name/last name(no numbers)");
         try {
             return userService.register(user);
         } catch (DataAccessException ex) {
-            if (ex.getRootCause().getMessage().contains("type_user"))
-                throw new ParametersException("The user`s type doesn´t exist");
-            else {
-                ConstraintViolationException cve = (ConstraintViolationException) ex.getCause();
-                ExceptionController.userRegisterException(cve);
-            }
+            SQLException SQLex= (SQLException) ex.getCause().getCause();
+                ExceptionController.userRegisterException(SQLex);
         }
         return user;
     }

@@ -11,6 +11,10 @@ public interface IPhonelineService {
     Boolean disable(String phoneNumber);
 
     Boolean enable(String phoneNumber);
-List<Phoneline> findByUserId(Integer userId) throws PhonelineExceptions;
+
+    List<Phoneline> findByUserId(Integer userId) throws PhonelineExceptions;
+
     void remove(Integer phonelineId) throws PhonelineExceptions;
+
+    Boolean exists(String number, Integer cityId);
 }
