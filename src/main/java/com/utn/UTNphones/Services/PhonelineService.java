@@ -30,7 +30,7 @@ public class PhonelineService implements IPhonelineService {
     }
 
     @Override
-    public Boolean disable(Integer phoneNumber) {
+    public Boolean disable(String phoneNumber) {
         if (phonelineRepository.disableOrEnable(false, phoneNumber) == 1) return true;
         else return false;
     }
@@ -42,7 +42,7 @@ public class PhonelineService implements IPhonelineService {
 
 
     @Override
-    public Boolean enable(Integer phoneNumber) {
+    public Boolean enable(String phoneNumber) {
         if (phonelineRepository.disableOrEnable(true, phoneNumber) == 1) return true;
         else return false;
     }

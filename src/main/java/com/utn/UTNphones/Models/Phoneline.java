@@ -14,6 +14,10 @@ import java.util.stream.Stream;
 @Builder
 public class Phoneline {
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name="id",nullable=false)
+    private Integer id;
+
     @Column(name = "phone_number")
     private Integer number;
 
@@ -43,7 +47,7 @@ public class Phoneline {
         if ((String.valueOf(number).length() + String.valueOf(city.getPrefix()).length())!=10)return false;
         return true;
     }
-    public boolean validNumberWithPrefix(Integer prefix){
+    public boolean validNumberWithPrefix(String prefix){
         if ((String.valueOf(number).length() + String.valueOf(prefix).length())!=10)return false;
         return true;
     }

@@ -32,12 +32,12 @@ public class User {
     private String type;
 
     @Column(name = "identification_card")
-    private Integer identification;
+    private String identification;
 
     @Column(name = "password_user")
     private String password;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_city")
     private City city;
 

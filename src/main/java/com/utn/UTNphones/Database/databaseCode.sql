@@ -1,4 +1,5 @@
 --drop database if exists TPFinal;
+SET GLOBAL time_zone =  '-3:00';
 create database TPFinal;
 use TPFinal;
 
@@ -43,11 +44,12 @@ create table users(
 
 create table phonelines(
 	id int auto_increment,
-	phone_number varchar(8) unique not null,
+	phone_number varchar(8) not null,
     type_user enum("mobile", "landline") not null,
     status_phoneline boolean,
     id_user int,
     id_city int,
+    constraint unq_number_with_cityprefix unique(phone_number,id_city),
     constraint pk_phoneLines primary key (id),
     constraint fk_phoneLines_id_user foreign key(id_user)references users(id),
      constraint fk_phoneLines_id_city foreign key(id_city)references cities(id)

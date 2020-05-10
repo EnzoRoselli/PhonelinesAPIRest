@@ -22,7 +22,7 @@ public class City {
     private String name;
 
     @Column(name="prefix")
-    private Integer prefix;
+    private String prefix;
 
     @ManyToOne(optional = false,fetch = FetchType.EAGER)
     @JoinColumn(name = "id_province")

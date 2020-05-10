@@ -20,11 +20,11 @@ public class Call {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "origin_phone")
+    @JoinColumn(name = "id_origin_phone")
     private Phoneline originPhoneline;
 
     @ManyToOne
-    @JoinColumn(name = "destination_phone")
+    @JoinColumn(name = "id_destination_phone")
     private Phoneline destinationPhoneline;
 
     @ManyToOne

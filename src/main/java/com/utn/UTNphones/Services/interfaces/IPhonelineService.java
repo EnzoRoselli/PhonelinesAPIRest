@@ -8,9 +8,9 @@ import java.util.List;
 public interface IPhonelineService {
     Phoneline add(Phoneline phoneline);
 
-    Boolean disable(Integer phoneNumber);
+    Boolean disable(String phoneNumber);
 
-    Boolean enable(Integer phoneNumber);
+    Boolean enable(String phoneNumber);
 List<Phoneline> findByUserId(Integer userId) throws PhonelineExceptions;
     void remove(Integer phonelineId) throws PhonelineExceptions;
 }

@@ -27,10 +27,10 @@ public class Invoice {
     private Integer callsQuantity;
 
     @Column(name = "total_price")
-    private Integer totalPrice;
+    private Float totalPrice;
 
     @Column(name = "total_cost")
-    private Integer totalCost;
+    private Float totalCost;
 
     @Column(name = "invoice_date")
     @Temporal(TemporalType.DATE)
