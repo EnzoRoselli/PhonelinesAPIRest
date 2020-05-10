@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -32,6 +33,14 @@ public class CallController {
         this.phonelineService = phonelineService;
     }
 
+    @PostMapping("")
+    public void addCall(@RequestBody @NotNull Call call) throws SQLException {
+        try {
+            callService.add(call);
+        } catch (SQLException throwables) {
+            throw new SQLException();
+        }
+    }
 
     @GetMapping("callsByUserId/")
     public List<Call> getCallsByUserId(@RequestBody @NotNull Integer userId) throws UserExceptions, CallException, PhonelineExceptions {

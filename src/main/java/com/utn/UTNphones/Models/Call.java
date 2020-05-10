@@ -23,9 +23,15 @@ public class Call {
     @JoinColumn(name = "id_origin_phone")
     private Phoneline originPhoneline;
 
+    @Column(name = "origin_phone")
+    private String originPhone;
+
     @ManyToOne
     @JoinColumn(name = "id_destination_phone")
     private Phoneline destinationPhoneline;
+
+    @Column(name = "destination_phone")
+    private String destinationPhone;
 
     @ManyToOne
     @JoinColumn(name = "id_rate")
