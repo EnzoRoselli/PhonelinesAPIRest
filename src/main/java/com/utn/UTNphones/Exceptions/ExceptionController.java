@@ -23,6 +23,7 @@ public class ExceptionController {
         }
     }
 
+
     public static void phonelineAddException(DataAccessException Error) throws Exception {
         ConstraintViolationException cve = (ConstraintViolationException) Error.getCause();
         switch (cve.getErrorCode()) {
@@ -35,7 +36,7 @@ public class ExceptionController {
 
     public static void userUpdateException(DataAccessException Error) throws Exception {
 
-            //City id
+        //City id
         if (Error.getRootCause().getMessage().contains("Models.City")) //110
             throw new CityExceptions("The city doesn´t exist", Error.getCause());
             //Identification unique

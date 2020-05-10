@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface ICallService {
-    void add(Call call) throws SQLException;
+    void add(Call call) throws CallException;
     List<Call> getCallsByPhoneNumbers(List<Phoneline> phoneListOfTheUser) throws CallException;
     List<Object> getTopMostCalledCities(Integer userId);
 }

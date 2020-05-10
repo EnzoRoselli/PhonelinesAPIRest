@@ -24,13 +24,11 @@ public class CallService implements ICallService {
     }
 
     @Override
-    public void add(Call call) throws SQLException {
-
+    public void add(Call call) throws CallException {
         try {
             callRepository.save(call);
         }catch (DataAccessException ex){
-            SQLException SQLex = (SQLException) ex.getCause().getCause();
-            System.out.println(SQLex.getErrorCode());
+            throw new CallException(ex.getCause().getMessage(),ex.getCause());
         }
     }
 

@@ -34,12 +34,8 @@ public class CallController {
     }
 
     @PostMapping("")
-    public void addCall(@RequestBody @NotNull Call call) throws SQLException {
-        try {
-            callService.add(call);
-        } catch (SQLException throwables) {
-            throw new SQLException();
-        }
+    public void addCall(@RequestBody @NotNull Call call) throws CallException {
+         callService.add(call);
     }
 
     @GetMapping("callsByUserId/")
