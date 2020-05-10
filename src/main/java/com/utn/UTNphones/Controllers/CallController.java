@@ -32,7 +32,7 @@ public class CallController {
     }
 
 
-    @PostMapping("callsByUserId/")
+    @GetMapping("callsByUserId/")
     public List<Call> getCallsByUserId(@RequestBody @NotNull Integer userId) throws UserExceptions, CallException, PhonelineExceptions {
         //Throw exception if doesn´t exist
         userService.findById(userId);

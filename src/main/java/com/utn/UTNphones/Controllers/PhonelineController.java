@@ -27,7 +27,7 @@ public class PhonelineController {
         this.cityService = cityService;
     }
 
-    @PostMapping(value = "add/")
+    @PostMapping("")
     public Phoneline add(@RequestBody @NotNull Phoneline phoneline) throws Exception {
         if (phoneline.hasNullAtribute()) throw new ParametersException("Parameters can´t contain null values");
         if (phoneline.hasNumberError())throw new ParametersException("The positive number must contains 6-8 digits");
@@ -41,7 +41,7 @@ public class PhonelineController {
         return phoneline;
     }
 
-    @PostMapping(value = "remove/")
+    @DeleteMapping("")
     public void remove(@RequestBody @NotNull Integer phonelineId) throws Exception {
         if (phonelineId==null) throw new ParametersException("Parameters can´t contain null values");
 

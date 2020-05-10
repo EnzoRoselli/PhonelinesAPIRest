@@ -53,7 +53,7 @@ public class Phoneline {
     }
 
     public Boolean hasNumberError(){
-        String Comprobation = "^[1-9]$";
+        String Comprobation = "^[1-9]\\d*$";
         return !number.matches(Comprobation);
     }
 }

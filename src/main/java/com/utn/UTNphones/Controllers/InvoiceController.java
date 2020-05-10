@@ -25,4 +25,5 @@ public class InvoiceController {
     public List<Invoice> getAllInvoices(){
         return invoiceService.getAllInvoices();
     }
+
 }

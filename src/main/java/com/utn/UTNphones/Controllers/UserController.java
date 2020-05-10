@@ -37,7 +37,7 @@ public class UserController {
     }
 
 
-    @PostMapping("register/")
+    @PostMapping("")
     public User register(@RequestBody @NotNull User user) throws Exception {
         if (user.hasNullAtribute()) throw new ParametersException("Parameters can´t contain null values");
         if (user.hasValueErrors())
@@ -51,14 +51,14 @@ public class UserController {
         return user;
     }
 
-    @DeleteMapping(value = "delete/")
+    @DeleteMapping("")
     public void delete(@RequestBody @NotNull User user) throws ParametersException, UserExceptions {
         if (user.getId() == null) throw new ParametersException("Parameter id can´t contain null value");
         this.userService.findById(user.getId());
         this.userService.deleteById(user.getId());
     }
 
-    @PostMapping(value = "update/")
+    @PutMapping(value = "update/")
     public void update(@RequestBody @NotNull User user) throws Exception {
         if (user.getId() == null) throw new ParametersException("Parameter id can´t contain null value");
         User inDataBaseUser = this.userService.findById(user.getId());
