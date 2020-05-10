@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface ICallService {
     List<Call> getCallsByPhoneNumbers(List<Phoneline> phoneListOfTheUser) throws CallException;
+    List<Object> getTopMostCalledCities(Integer userId);
 }

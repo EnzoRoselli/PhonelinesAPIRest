@@ -3,7 +3,6 @@ package com.utn.UTNphones.Controllers;
 import com.utn.UTNphones.Exceptions.ExceptionController;
 import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions;
-import com.utn.UTNphones.Models.City;
 import com.utn.UTNphones.Models.Phoneline;
 import com.utn.UTNphones.Services.interfaces.ICityService;
 import com.utn.UTNphones.Services.interfaces.IPhonelineService;
@@ -12,7 +11,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/phoneline/")
@@ -42,10 +40,10 @@ public class PhonelineController {
     }
 
     @DeleteMapping("")
-    public void remove(@RequestBody @NotNull Integer phonelineId) throws Exception {
-        if (phonelineId==null) throw new ParametersException("Parameters can´t contain null values");
-
-        phonelineService.remove(phonelineId);}
+    public void remove(@RequestBody @NotNull String phoneNumber) throws Exception {
+        if (phoneNumber==null) throw new ParametersException("Parameters can´t contain null values");
+        phonelineService.findByNumber(phoneNumber);
+        phonelineService.removeByNumber(phoneNumber);}
 
 
 

@@ -52,10 +52,10 @@ public class UserController {
     }
 
     @DeleteMapping("")
-    public void delete(@RequestBody @NotNull User user) throws ParametersException, UserExceptions {
-        if (user.getId() == null) throw new ParametersException("Parameter id can´t contain null value");
-        this.userService.findById(user.getId());
-        this.userService.deleteById(user.getId());
+    public void delete(@RequestBody @NotNull Integer identification) throws ParametersException, UserExceptions {
+        if (identification == null) throw new ParametersException("Parameter id can´t contain null value");
+        this.userService.findById(identification);
+        this.userService.deleteById(identification);
     }
 
     @PutMapping(value = "update/")

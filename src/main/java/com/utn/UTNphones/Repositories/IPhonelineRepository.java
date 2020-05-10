@@ -18,5 +18,9 @@ public interface IPhonelineRepository extends JpaRepository<Phoneline,Integer> {
     int disableOrEnable(Boolean newStatus,String phoneNumber);
     List<Phoneline> findByUserId(Integer id);
     Phoneline findByNumberAndCityId(String number, Integer cityId);
+    Phoneline findByNumber(String number);
+    @Transactional
+    @Modifying
+    long removeByNumber(String number);
 
 }

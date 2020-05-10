@@ -41,11 +41,20 @@ public class UserService implements IUserService {
        return Optional.ofNullable(userUpdated).orElseThrow(() -> new UserExceptions("The user doesn`t exist"));
     }
 
+
+
     @Override
     public User findById(Integer id) throws UserExceptions {
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty())throw new UserExceptions("The user doesn`t exist");
         else return user.get();
+    }
+
+    @Override
+    public User findByIdentification(String identification) throws UserExceptions {
+        User user = userRepository.findByIdentification(identification);
+        if (user==null)throw new UserExceptions("The user doesn`t exist");
+        else return user;
     }
 
 

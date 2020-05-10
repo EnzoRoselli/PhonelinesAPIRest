@@ -11,4 +11,5 @@ public interface IUserService {
      void deleteById(Integer id);
      User update(User user) throws UserExceptions;
      User findById(Integer id) throws UserExceptions;
+     User findByIdentification(String identification) throws UserExceptions;
 }

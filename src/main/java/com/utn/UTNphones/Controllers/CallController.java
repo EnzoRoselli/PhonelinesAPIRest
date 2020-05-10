@@ -4,6 +4,7 @@ import com.utn.UTNphones.Exceptions.CallException;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions;
 import com.utn.UTNphones.Exceptions.UserExceptions;
 import com.utn.UTNphones.Models.Call;
+import com.utn.UTNphones.Models.City;
 import com.utn.UTNphones.Models.Phoneline;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Services.interfaces.ICallService;
@@ -34,10 +35,16 @@ public class CallController {
 
     @GetMapping("callsByUserId/")
     public List<Call> getCallsByUserId(@RequestBody @NotNull Integer userId) throws UserExceptions, CallException, PhonelineExceptions {
-        //Throw exception if doesn´t exist
         userService.findById(userId);
         List<Phoneline> phoneLines = phonelineService.findByUserId(userId);
         List<Call> calls = callService.getCallsByPhoneNumbers(phoneLines);
         return calls;
+    }
+
+    @GetMapping("topDestinationByUserId")
+    public List<Object> getTopDestinationsCalled(Integer userId) throws UserExceptions {
+        userService.findById(userId);
+        List<Object> citiesMostCalled = this.callService.getTopMostCalledCities(userId);
+        return citiesMostCalled;
     }
 }

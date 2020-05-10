@@ -3,7 +3,6 @@ package com.utn.UTNphones.Services;
 import com.utn.UTNphones.Exceptions.CallException;
 import com.utn.UTNphones.Models.Call;
 import com.utn.UTNphones.Models.Phoneline;
-import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Repositories.ICallRepository;
 import com.utn.UTNphones.Services.interfaces.ICallService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +25,11 @@ public class CallService implements ICallService {
     public List<Call> getCallsByPhoneNumbers(List<Phoneline> phoneListOfTheUser) throws CallException {
        List<Call> calls = callRepository.findByOriginPhonelineIn(phoneListOfTheUser);
         return Optional.ofNullable(calls).orElseThrow(()->new CallException("No calls found"));
+    }
+
+    @Override
+    public List<Object> getTopMostCalledCities(Integer userId) {
+        List<Object> cityPlusCounter=this.callRepository.findTopMostCalledCities(userId);
+        return cityPlusCounter;
     }
 }

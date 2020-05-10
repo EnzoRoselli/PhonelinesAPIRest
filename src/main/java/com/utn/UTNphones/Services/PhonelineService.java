@@ -40,6 +40,12 @@ public class PhonelineService implements IPhonelineService {
         return Optional.ofNullable(phoneList).orElseThrow(()->new PhonelineExceptions("No phones registered with this user"));
     }
 
+    public Phoneline findByNumber(String number) throws PhonelineExceptions {
+        Phoneline ph= phonelineRepository.findByNumber(number);
+        if (ph==null) throw new PhonelineExceptions("The phonline doesn´t exist");
+        else return ph;
+    }
+
     @Override
     public Boolean enable(String phoneNumber) {
         if (phonelineRepository.disableOrEnable(true, phoneNumber) == 1) return true;
@@ -47,9 +53,9 @@ public class PhonelineService implements IPhonelineService {
     }
 
     @Override
-    public void remove(Integer phonelineId) throws PhonelineExceptions {
+    public void removeByNumber(String phoneNumber) throws PhonelineExceptions {
         try{
-        this.phonelineRepository.deleteById(phonelineId);
+        this.phonelineRepository.removeByNumber(phoneNumber);
         }catch (EmptyResultDataAccessException ex){
             throw new PhonelineExceptions("The phonenumber to delete is not registered",ex.getCause());
         }
