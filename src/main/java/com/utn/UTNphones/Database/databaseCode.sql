@@ -1,7 +1,7 @@
---drop database if exists TPFinal;
-SET GLOBAL time_zone =  '-3:00';
+drop database if exists TPFinal;
 create database TPFinal;
 use TPFinal;
+SET GLOBAL time_zone =  '-3:00';
 
 create table provinces(
 	id int auto_increment,
@@ -44,15 +44,15 @@ create table users(
 
 create table phonelines(
 	id int auto_increment,
-	phone_number varchar(8) not null,
+	phone_number varchar(8) unique not null,
     type_user enum("mobile", "landline") not null,
-    status_phoneline boolean,
+    status_phoneline boolean default 1,
     id_user int,
     id_city int,
-    constraint unq_number_with_cityprefix unique(phone_number,id_city),
     constraint pk_phoneLines primary key (id),
+    constraint unq_number_with_cityprefix unique(phone_number,id_city),
     constraint fk_phoneLines_id_user foreign key(id_user)references users(id),
-     constraint fk_phoneLines_id_city foreign key(id_city)references cities(id)
+	constraint fk_phoneLines_id_city foreign key(id_city)references cities(id)
 );
 
 create table invoices(
@@ -71,7 +71,9 @@ create table invoices(
 create table calls(
 	id int auto_increment,
     id_origin_phone int,
+    origin_phone varchar(10),
     id_destination_phone int,
+    destination_phone varchar(10),
     id_rate int,
     id_invoice int,
     date_call timestamp default current_timestamp,

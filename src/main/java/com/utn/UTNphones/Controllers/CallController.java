@@ -41,8 +41,8 @@ public class CallController {
         return calls;
     }
 
-    @GetMapping("topDestinationByUserId")
-    public List<Object> getTopDestinationsCalled(Integer userId) throws UserExceptions {
+    @GetMapping("topDestinationByUserId/")
+    public List<Object> getTopDestinationsCalled(@RequestBody @NotNull Integer userId) throws UserExceptions {
         userService.findById(userId);
         List<Object> citiesMostCalled = this.callService.getTopMostCalledCities(userId);
         return citiesMostCalled;
