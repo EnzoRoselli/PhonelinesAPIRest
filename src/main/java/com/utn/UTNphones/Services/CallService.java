@@ -28,7 +28,7 @@ public class CallService implements ICallService {
         try {
             callRepository.save(call);
         }catch (DataAccessException ex){
-            throw new CallException(ex.getCause().getMessage(),ex.getCause());
+            throw new CallException(ex.getCause().getCause().getMessage(),ex.getCause());
         }
     }
 
