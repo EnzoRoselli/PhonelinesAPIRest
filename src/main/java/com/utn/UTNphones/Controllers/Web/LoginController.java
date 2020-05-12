@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequestMapping("/user")
 public class LoginController {
@@ -25,8 +26,8 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody User userLogging) throws ParametersException, UserExceptions {
         ResponseEntity response;
-        userLogging = userController.login(userLogging);
-        String token=sessionManager.createSession(userLogging);
+        User user = userController.login(userLogging);
+        String token=sessionManager.createSession(user);
         response = ResponseEntity.ok().headers(createHeaders(token)).build();
         return response;
     }

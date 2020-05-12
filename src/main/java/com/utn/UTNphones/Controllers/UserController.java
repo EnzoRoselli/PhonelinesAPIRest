@@ -11,16 +11,12 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import javax.persistence.EntityNotFoundException;
-import javax.validation.constraints.NotNull;
 import java.sql.SQLException;
 
 @Controller
 public class UserController {
 
-    private final IUserService userService;
+    IUserService userService;
 
     @Autowired
     public UserController(IUserService userService, ICityService cityService) {
