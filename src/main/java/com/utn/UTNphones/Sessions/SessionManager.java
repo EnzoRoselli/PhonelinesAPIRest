@@ -2,6 +2,7 @@ package com.utn.UTNphones.Sessions;
 
 import com.utn.UTNphones.Models.User;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 
@@ -19,6 +20,7 @@ public class SessionManager {
     }
 
     public Session getSession(String token) {
+        if (StringUtils.isEmpty(token))return null;
         Session session = sessionMap.get(token);
         if (session != null) {
             session.setLastAction(new Date(System.currentTimeMillis()));
