@@ -3,6 +3,7 @@ package com.utn.UTNphones.Models;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.stream.Stream;
 
 @Entity
@@ -18,6 +19,7 @@ public class Phoneline {
     @Column(name="id",nullable=false)
     private Integer id;
 
+    @Pattern(regexp="^[1-9]\\d*$", message="Invalid number!")
     @Column(name = "phone_number")
     private String number;
 
@@ -43,17 +45,8 @@ public class Phoneline {
         }
     }
 
-    public boolean validNumberWithPrefix(){
-        if ((String.valueOf(number).length() + String.valueOf(city.getPrefix()).length())!=10)return false;
-        return true;
-    }
     public boolean validNumberWithPrefix(String prefix){
         if ((String.valueOf(number).length() + String.valueOf(prefix).length())!=10)return false;
         return true;
-    }
-
-    public Boolean hasNumberError(){
-        String Comprobation = "^[1-9]\\d*$";
-        return !number.matches(Comprobation);
     }
 }

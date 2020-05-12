@@ -28,7 +28,6 @@ public class PhonelineController {
     @PostMapping("")
     public Phoneline add(@RequestBody @NotNull Phoneline phoneline) throws Exception {
         if (phoneline.hasNullAtribute()) throw new ParametersException("Parameters can´t contain null values");
-        if (phoneline.hasNumberError())throw new ParametersException("The positive number must contains 6-8 digits");
         if (!phoneline.validNumberWithPrefix(cityService.getById(phoneline.getCity().getId()).getPrefix()))throw new PhonelineExceptions("The prefix plus the numbers, are more or less than 10 digits");
         if (this.phonelineService.exists(phoneline.getNumber(),phoneline.getCity().getId())) throw new PhonelineExceptions("The phoneline already exists");
         try {
@@ -48,16 +47,16 @@ public class PhonelineController {
 
 
     @PutMapping("disable/")
-    public Boolean disable(@RequestBody @NotNull String phoneNumber) throws ParametersException {
+    public Boolean disable(@RequestBody @NotNull String phoneNumber) throws ParametersException, PhonelineExceptions {
         if (phoneNumber == null) throw new ParametersException("Parameters can´t contain null values");
-
-        else return phonelineService.disable(phoneNumber);}
+        phonelineService.findByNumber(phoneNumber);
+         return phonelineService.disable(phoneNumber);}
 
     @PutMapping("enable/")
-    public Boolean enable(@RequestBody @NotNull String phoneNumber) throws ParametersException {
+    public Boolean enable(@RequestBody @NotNull String phoneNumber) throws ParametersException, PhonelineExceptions {
         if (phoneNumber == null) throw new ParametersException("Parameters can´t contain null values");
-
-        else return phonelineService.enable(phoneNumber);}
+        phonelineService.findByNumber(phoneNumber);
+         return phonelineService.enable(phoneNumber);}
 
 }
 

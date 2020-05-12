@@ -3,9 +3,8 @@ package com.utn.UTNphones.Models;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Positive;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import javax.validation.constraints.Pattern;
+
 import java.util.stream.Stream;
 
 @Entity
@@ -21,10 +20,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-
+    @Pattern(regexp="^[\\p{L} .'-]+$", message="Invalid name!")
     @Column(name = "name_user")
     private String name;
-
+    @Pattern(regexp="^[\\p{L} .'-]+$", message="Invalid lastname!")
     @Column(name = "lastname")
     private String lastname;
 
@@ -32,7 +31,7 @@ public class User {
     private String type;
 
     @Column(name = "identification_card")
-    //@javax.validation.constraints.Pattern(regexp="^[1-9]\\d*$", message="Invalid identification address!")
+    @Pattern(regexp="^[1-9]{6,10}$", message="Invalid identification!")
     private String identification;
 
     @Column(name = "password_user")
@@ -58,23 +57,6 @@ public class User {
         if (getName() == null) setName(user.getName());
         if (getType() == null) setType(user.getType());
     }
-
-    public Boolean hasValueErrors() {
-        boolean hasErrors = false;
-        String regexNameLastname = "^[\\p{L} .'-]+$";
-        Pattern pattern = Pattern.compile(regexNameLastname, Pattern.CASE_INSENSITIVE);
-
-        //No numbers
-        hasErrors = !pattern.matcher(name).matches();
-        hasErrors = hasErrors || !pattern.matcher(lastname).matches();
-
-        //No negatives and letters
-        String regexIdentification = "^[1-9]{6,10}$";
-        hasErrors = hasErrors || !identification.matches(regexIdentification);
-
-        return hasErrors;
-    }
-
 
 }
 
