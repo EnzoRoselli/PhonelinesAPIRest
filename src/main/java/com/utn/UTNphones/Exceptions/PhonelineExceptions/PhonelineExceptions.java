@@ -1,6 +1,6 @@
-package com.utn.UTNphones.Exceptions;
+package com.utn.UTNphones.Exceptions.PhonelineExceptions;
 
-public class PhonelineExceptions extends Exception {
+public abstract class PhonelineExceptions extends Exception {
     private  Throwable cause=new Throwable();
     private String message;
 

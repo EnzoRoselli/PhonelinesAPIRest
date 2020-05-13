@@ -2,7 +2,9 @@ package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Exceptions.ExceptionController;
 import com.utn.UTNphones.Exceptions.ParametersException;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineAlreadyExists;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDigitsCountPlusPrefix;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
 import com.utn.UTNphones.Models.Phoneline;
 import com.utn.UTNphones.Services.interfaces.ICityService;
 import com.utn.UTNphones.Services.interfaces.IPhonelineService;
@@ -28,8 +30,8 @@ public class PhonelineController {
     @PostMapping("")
     public Phoneline add(@RequestBody @NotNull Phoneline phoneline) throws Exception {
         if (phoneline.hasNullAtribute()) throw new ParametersException("Parameters can´t contain null values");
-        if (!phoneline.validNumberWithPrefix(cityService.getById(phoneline.getCity().getId()).getPrefix()))throw new PhonelineExceptions("The prefix plus the numbers, are more or less than 10 digits");
-        if (this.phonelineService.exists(phoneline.getNumber(),phoneline.getCity().getId())) throw new PhonelineExceptions("The phoneline already exists");
+        if (!phoneline.validNumberWithPrefix(cityService.getById(phoneline.getCity().getId()).getPrefix()))throw new PhonelineDigitsCountPlusPrefix();
+        if (this.phonelineService.exists(phoneline.getNumber(),phoneline.getCity().getId())) throw new PhonelineAlreadyExists();
         try {
             return phonelineService.add(phoneline);
         } catch (DataAccessException ex) {

@@ -1,7 +1,6 @@
 package com.utn.UTNphones.Services.interfaces;
 
-import com.utn.UTNphones.Exceptions.PhonelineExceptions;
-import com.utn.UTNphones.Models.City;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
 import com.utn.UTNphones.Models.Phoneline;
 
 import java.util.List;

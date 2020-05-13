@@ -1,12 +1,10 @@
 package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Exceptions.CallException;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions;
-import com.utn.UTNphones.Exceptions.UserExceptions;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
+import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.Call;
-import com.utn.UTNphones.Models.City;
 import com.utn.UTNphones.Models.Phoneline;
-import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Services.interfaces.ICallService;
 import com.utn.UTNphones.Services.interfaces.IPhonelineService;
 import com.utn.UTNphones.Services.interfaces.IUserService;
@@ -14,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
-import java.sql.SQLException;
 import java.util.List;
 
 @RestController

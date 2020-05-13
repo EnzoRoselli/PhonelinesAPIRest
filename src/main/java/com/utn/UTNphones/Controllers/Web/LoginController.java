@@ -2,7 +2,7 @@ package com.utn.UTNphones.Controllers.Web;
 
 import com.utn.UTNphones.Controllers.UserController;
 import com.utn.UTNphones.Exceptions.ParametersException;
-import com.utn.UTNphones.Exceptions.UserExceptions;
+import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;

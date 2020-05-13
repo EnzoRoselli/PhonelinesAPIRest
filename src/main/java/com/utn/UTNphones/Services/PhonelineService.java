@@ -1,9 +1,9 @@
 package com.utn.UTNphones.Services;
 
-import com.utn.UTNphones.Exceptions.PhonelineExceptions;
-import com.utn.UTNphones.Exceptions.UserExceptions;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
 import com.utn.UTNphones.Models.Phoneline;
-import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Repositories.IPhonelineRepository;
 import com.utn.UTNphones.Services.interfaces.IPhonelineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +37,12 @@ public class PhonelineService implements IPhonelineService {
 
     public List<Phoneline> findByUserId(Integer id) throws PhonelineExceptions {
         List<Phoneline> phoneList=this.phonelineRepository.findByUserId(id);
-        return Optional.ofNullable(phoneList).orElseThrow(()->new PhonelineExceptions("No phones registered with this user"));
+        return Optional.ofNullable(phoneList).orElseThrow(()->new PhonelinesNotRegisteredByUser());
     }
 
     public Phoneline findByNumber(String number) throws PhonelineExceptions {
         Phoneline ph= phonelineRepository.findByNumber(number);
-        if (ph==null) throw new PhonelineExceptions("The phonline doesn´t exist");
+        if (ph==null) throw new PhonelineDoesntExist();
         else return ph;
     }
 
@@ -57,7 +57,7 @@ public class PhonelineService implements IPhonelineService {
         try{
         this.phonelineRepository.removeByNumber(phoneNumber);
         }catch (EmptyResultDataAccessException ex){
-            throw new PhonelineExceptions("The phonenumber to delete is not registered",ex.getCause());
+            throw new PhonelineDoesntExist(ex.getCause());
         }
     }
 

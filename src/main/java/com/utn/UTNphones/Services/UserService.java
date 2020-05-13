@@ -1,6 +1,7 @@
 package com.utn.UTNphones.Services;
 
-import com.utn.UTNphones.Exceptions.UserExceptions;
+import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
+import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Repositories.IUserRepository;
 import com.utn.UTNphones.Services.interfaces.IUserService;
@@ -23,7 +24,7 @@ public class UserService implements IUserService {
     @Override
     public User login(User user) throws UserExceptions {
         User u = userRepository.findByIdentificationAndPassword(user.getIdentification(), user.getPassword());
-        return Optional.ofNullable(u).orElseThrow(() -> new UserExceptions("The user doesn`t exist"));
+        return Optional.ofNullable(u).orElseThrow(() -> new UserDoesntExist());
     }
     @Override
     public User register(User user) throws DataAccessException {
@@ -38,7 +39,7 @@ public class UserService implements IUserService {
     @Override
     public User update(User user) throws UserExceptions {
       User userUpdated=this.userRepository.save(user);
-       return Optional.ofNullable(userUpdated).orElseThrow(() -> new UserExceptions("The user doesn`t exist"));
+       return Optional.ofNullable(userUpdated).orElseThrow(() -> new UserDoesntExist());
     }
 
 
@@ -46,14 +47,14 @@ public class UserService implements IUserService {
     @Override
     public User findById(Integer id) throws UserExceptions {
         Optional<User> user = userRepository.findById(id);
-        if (user.isEmpty())throw new UserExceptions("The user doesn`t exist");
+        if (user.isEmpty())throw new UserDoesntExist();
         else return user.get();
     }
 
     @Override
     public User findByIdentification(String identification) throws UserExceptions {
         User user = userRepository.findByIdentification(identification);
-        if (user==null)throw new UserExceptions("The user doesn`t exist");
+        if (user==null)throw new UserDoesntExist();
         else return user;
     }
 

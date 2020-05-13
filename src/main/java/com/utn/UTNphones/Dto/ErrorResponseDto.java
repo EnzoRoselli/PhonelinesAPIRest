@@ -8,10 +8,13 @@ public class ErrorResponseDto {
     int code;
     @JsonProperty
     String description;
+    @JsonProperty
+    Throwable cause;
 
-    public ErrorResponseDto(int code, String description) {
+    public ErrorResponseDto(int code, String description,Throwable cause) {
         this.code = code;
         this.description = description;
+        this.cause=cause;
     }
 
     public int getCode() {

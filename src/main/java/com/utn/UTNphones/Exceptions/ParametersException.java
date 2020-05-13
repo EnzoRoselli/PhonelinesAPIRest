@@ -1,7 +1,5 @@
 package com.utn.UTNphones.Exceptions;
 
-
-
 public class ParametersException extends Exception{
 private String message;
 private Throwable cause;

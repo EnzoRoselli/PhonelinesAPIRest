@@ -1,6 +1,6 @@
-package com.utn.UTNphones.Exceptions;
+package com.utn.UTNphones.Exceptions.UsersExceptions;
 
-public class UserExceptions extends Exception {
+public abstract class UserExceptions extends Exception {
     private  Throwable cause=new Throwable();
     private String message;
 
@@ -12,6 +12,11 @@ public class UserExceptions extends Exception {
     public UserExceptions(String message) {
         super();
         this.message = message;
+    }
+
+    public UserExceptions(Throwable cause) {
+        super();
+        this.cause = cause;
     }
 
     @Override

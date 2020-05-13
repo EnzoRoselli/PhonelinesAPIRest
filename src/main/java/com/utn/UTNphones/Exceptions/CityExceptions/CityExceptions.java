@@ -1,6 +1,6 @@
-package com.utn.UTNphones.Exceptions;
+package com.utn.UTNphones.Exceptions.CityExceptions;
 
-public class CityExceptions extends Exception{
+public abstract class CityExceptions extends Exception{
     private Throwable cause;
     private String message;
     public CityExceptions(String message,Throwable cause){
