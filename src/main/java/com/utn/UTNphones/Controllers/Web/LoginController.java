@@ -27,20 +27,20 @@ public class LoginController {
     public ResponseEntity login(@RequestBody User userLogging) throws ParametersException, UserExceptions {
         ResponseEntity response;
         User user = userController.login(userLogging);
-        String token=sessionManager.createSession(user);
+        String token = sessionManager.createSession(user);
         response = ResponseEntity.ok().headers(createHeaders(token)).build();
         return response;
     }
 
     @PostMapping("/logout")
-    public ResponseEntity logout(@RequestHeader("Authorization")String token){
+    public ResponseEntity logout(@RequestHeader("Authorization") String token) {
         sessionManager.removeSession(token);
         return ResponseEntity.ok().build();
     }
 
-    public HttpHeaders createHeaders(String token){
-        HttpHeaders responseHeaders=new HttpHeaders();
-        responseHeaders.set("Authorization",token);
+    public HttpHeaders createHeaders(String token) {
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Authorization", token);
         return responseHeaders;
     }
 }
