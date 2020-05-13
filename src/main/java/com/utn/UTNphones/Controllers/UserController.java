@@ -21,6 +21,7 @@ public class UserController {
         this.userService = userService;
     }
 
+
     public User login(User user) throws ParametersException, UserExceptions {
         if (user.getIdentification() == null || user.getPassword() == null) {
             throw new ParametersException("Parameters can´t contain null values");
@@ -44,12 +45,12 @@ public class UserController {
     }
 
 
-    public void delete(Integer identification) throws ParametersException, UserExceptions {
+    public void delete(String identification) throws ParametersException, UserExceptions {
         if (identification == null) {
             throw new ParametersException("Parameter id can´t contain null value");
         }
-        this.userService.findById(identification);
-        this.userService.deleteById(identification);
+        this.userService.findByIdentification(identification);
+        this.userService.deleteByIdentification(identification);
     }
 
 

@@ -27,13 +27,16 @@ public class UserService implements IUserService {
         return Optional.ofNullable(u).orElseThrow(() -> new UserDoesntExist());
     }
     @Override
-    public User register(User user) throws DataAccessException {
-        return userRepository.save(user);
+    public User register(User user) throws DataAccessException, UserExceptions {
+        userRepository.save(user);
+        return findById(user.getId());
     }
 
+
+
     @Override
-    public void deleteById(Integer id) {
-        this.userRepository.deleteById(id);
+    public void deleteByIdentification(String identification) {
+        this.userRepository.deleteByIdentification(identification);
     }
 
     @Override
@@ -45,14 +48,14 @@ public class UserService implements IUserService {
 
 
     @Override
-    public User findById(Integer id) throws UserExceptions {
+    public User findById(Integer id) throws UserDoesntExist {
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty())throw new UserDoesntExist();
         else return user.get();
     }
 
     @Override
-    public User findByIdentification(String identification) throws UserExceptions {
+    public User findByIdentification(String identification) throws UserDoesntExist {
         User user = userRepository.findByIdentification(identification);
         if (user==null)throw new UserDoesntExist();
         else return user;

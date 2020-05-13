@@ -58,5 +58,7 @@ public class User {
         if (getType() == null) setType(user.getType());
     }
 
+
+
 }
 

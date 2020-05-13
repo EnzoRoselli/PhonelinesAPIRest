@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/user")
 public class LoginController {
-    UserController userController;
-    SessionManager sessionManager;
+   private final UserController userController;
+    private final SessionManager sessionManager;
 
     @Autowired
     public LoginController(UserController userController, SessionManager sessionManager) {

@@ -1,4 +1,4 @@
-package com.utn.UTNphones.Dto;
+package com.utn.UTNphones.Models.Dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -8,13 +8,10 @@ public class ErrorResponseDto {
     int code;
     @JsonProperty
     String description;
-    @JsonProperty
-    Throwable cause;
 
-    public ErrorResponseDto(int code, String description,Throwable cause) {
+    public ErrorResponseDto(int code, String description) {
         this.code = code;
         this.description = description;
-        this.cause=cause;
     }
 
     public int getCode() {
