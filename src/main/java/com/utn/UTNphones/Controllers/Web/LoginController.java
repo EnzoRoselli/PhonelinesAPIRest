@@ -25,11 +25,9 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody User userLogging) throws ParametersException, UserExceptions {
-        ResponseEntity response;
         User user = userController.login(userLogging);
         String token = sessionManager.createSession(user);
-        response = ResponseEntity.ok().headers(createHeaders(token)).build();
-        return response;
+        return ResponseEntity.ok().headers(createHeaders(token)).build();
     }
 
     @PostMapping("/logout")
