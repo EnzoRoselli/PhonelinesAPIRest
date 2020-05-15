@@ -45,7 +45,7 @@ create table users(
 create table phonelines(
 	id int auto_increment,
 	phone_number varchar(8) unique not null,
-    type_user enum("mobile", "landline") not null,
+    type_phoneline enum("mobile", "landline") not null,
     status_phoneline boolean default 1,
     id_user int,
     id_city int,
@@ -143,11 +143,10 @@ DELIMITER $$
         SET cityId = 0;
         SET chars_taken = "";
 
-		WHILE (i < 5) AND (cityId = 0) DO
+		WHILE (i < 5)  DO
 
 			SET chars_taken = (SELECT LEFT(phone_number, i));
-            SET cityId = (SELECT ifnull((SELECT id FROM cities WHERE prefix = chars_taken), 0));
-
+            SET cityId = (SELECT ifnull((SELECT id FROM cities WHERE prefix = chars_taken), cityId));
 			SET i = i + 1;
         END WHILE;
 

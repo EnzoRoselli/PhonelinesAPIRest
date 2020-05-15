@@ -23,7 +23,7 @@ public class Phoneline {
     @Column(name = "phone_number")
     private String number;
 
-    @Column(name = "type_user")
+    @Column(name = "phoneline_type")
     private String type;
 
     @Column(name = "status_phoneline")
