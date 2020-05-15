@@ -60,12 +60,6 @@ public class PhonelineManagementController {
         return ResponseEntity.ok().build();
     }
 
-
-
-
-
-
-
     public Boolean hasEmployeePermissions(String sessionToken) {
         Optional<User> currentUser = sessionManager.getCurrentUser(sessionToken);
         return (!currentUser.isEmpty() && !currentUser.get().getType().equals("client"));

@@ -1,5 +1,6 @@
 package com.utn.UTNphones.Controllers;
 
+import com.utn.UTNphones.Models.City;
 import com.utn.UTNphones.Models.Rate;
 import com.utn.UTNphones.Services.interfaces.IRateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,14 @@ public class RateController {
         this.rateService = rateService;
     }
 
-    @GetMapping("getAll/")
+
     public List<Rate> getAllRates(){
         return rateService.getAllRates();
+    }
+
+    public Rate getByOriginAndDestination(City origin, City destionation)
+    {
+        //TODO QUE TOME LA TARIFA POR CIUDADES
+        if (origin.getId()!=null && destionation.getId()!=null)
     }
 }
