@@ -1,5 +1,6 @@
 package com.utn.UTNphones.Services;
 
+import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.User;
@@ -24,7 +25,7 @@ public class UserService implements IUserService {
     @Override
     public User login(User user) throws UserExceptions {
         User u = userRepository.findByIdentificationAndPassword(user.getIdentification(), user.getPassword());
-        return Optional.ofNullable(u).orElseThrow(() -> new UserDoesntExist());
+        return Optional.ofNullable(u).orElseThrow(() -> new LogException());
     }
     @Override
     public User register(User user) throws DataAccessException, UserExceptions {

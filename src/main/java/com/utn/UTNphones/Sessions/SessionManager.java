@@ -11,7 +11,7 @@ import java.util.*;
 public class SessionManager {
     Map<String, Session> sessionMap = new Hashtable<>();
 
-    int sesionExpiration = 200;
+    int sesionExpiration = 10000;
 
     public String createSession(User user) {
         String token = UUID.randomUUID().toString();
@@ -20,7 +20,7 @@ public class SessionManager {
     }
 
     public Session getSession(String token) {
-        if (StringUtils.isEmpty(token))return null;
+        if (StringUtils.isEmpty(sessionMap.get(token)))return null;
         Session session = sessionMap.get(token);
         if (session != null) {
             session.setLastAction(new Date(System.currentTimeMillis()));
@@ -42,7 +42,8 @@ public class SessionManager {
         }
     }
 
-    public User getCurrentUser(String token) {
-        return getSession(token).getLoggedUser();
+    public Optional<User> getCurrentUser(String token) {
+      return Optional.ofNullable(getSession(token)).map(Session::getLoggedUser);
+
     }
 }

@@ -27,11 +27,13 @@ public class PhonelineController {
         this.cityService = cityService;
     }
 
-    @PostMapping("")
+
     public Phoneline add(@RequestBody @NotNull Phoneline phoneline) throws Exception {
         if (phoneline.hasNullAtribute()) throw new ParametersException("Parameters can´t contain null values");
-        if (!phoneline.validNumberWithPrefix(cityService.getById(phoneline.getCity().getId()).getPrefix()))throw new PhonelineDigitsCountPlusPrefix();
-        if (this.phonelineService.exists(phoneline.getNumber(),phoneline.getCity().getId())) throw new PhonelineAlreadyExists();
+        if (!phoneline.validNumberWithPrefix(cityService.getById(phoneline.getCity().getId()).getPrefix()))
+            throw new PhonelineDigitsCountPlusPrefix();
+        if (this.phonelineService.exists(phoneline.getNumber(), phoneline.getCity().getId()))
+            throw new PhonelineAlreadyExists();
         try {
             return phonelineService.add(phoneline);
         } catch (DataAccessException ex) {
@@ -40,25 +42,26 @@ public class PhonelineController {
         return phoneline;
     }
 
-    @DeleteMapping("")
+
     public void remove(@RequestBody @NotNull String phoneNumber) throws Exception {
-        if (phoneNumber==null) throw new ParametersException("Parameters can´t contain null values");
+        if (phoneNumber == null) throw new ParametersException("Parameters can´t contain null values");
         phonelineService.findByNumber(phoneNumber);
-        phonelineService.removeByNumber(phoneNumber);}
+        phonelineService.removeByNumber(phoneNumber);
+    }
 
 
-
-    @PutMapping("disable/")
     public Boolean disable(@RequestBody @NotNull String phoneNumber) throws ParametersException, PhonelineExceptions {
         if (phoneNumber == null) throw new ParametersException("Parameters can´t contain null values");
         phonelineService.findByNumber(phoneNumber);
-         return phonelineService.disable(phoneNumber);}
+        return phonelineService.disable(phoneNumber);
+    }
 
-    @PutMapping("enable/")
+
     public Boolean enable(@RequestBody @NotNull String phoneNumber) throws ParametersException, PhonelineExceptions {
         if (phoneNumber == null) throw new ParametersException("Parameters can´t contain null values");
         phonelineService.findByNumber(phoneNumber);
-         return phonelineService.enable(phoneNumber);}
+        return phonelineService.enable(phoneNumber);
+    }
 
 }
 

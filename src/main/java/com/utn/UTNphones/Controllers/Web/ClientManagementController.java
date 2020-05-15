@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/managementClient")
@@ -27,8 +28,8 @@ public class ClientManagementController {
 
     @PostMapping
     public ResponseEntity register(@RequestHeader("Authorization") String sessionToken, @RequestBody User userRegistering) throws Exception {
-        if (hasEmployeePermissions(sessionToken)) {
-            return ResponseEntity.status(401).build();
+        if (!hasEmployeePermissions(sessionToken)) {
+            return ResponseEntity.status(403).build();
         }
         User newUser = userController.register(userRegistering);
         return newUser != null ? ResponseEntity.status(201).build() : ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -54,11 +55,7 @@ public class ClientManagementController {
 
 
     public Boolean hasEmployeePermissions(String sessionToken) {
-        User currentUser = sessionManager.getCurrentUser(sessionToken);
-        if (currentUser.getType() == "client" || currentUser == null) {
-            return false;
-        } else {
-            return true;
-        }
+        Optional<User> currentUser = sessionManager.getCurrentUser(sessionToken);
+        return (!currentUser.isEmpty() && !currentUser.get().getType().equals("client"));
     }
 }
