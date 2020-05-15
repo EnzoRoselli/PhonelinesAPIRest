@@ -21,7 +21,7 @@ public class UtNphonesApplication {
 
     public static void main(String[] args) {
 
-SpringApplication.run(UtNphonesApplication.class, args);
+        SpringApplication.run(UtNphonesApplication.class, args);
 
 
 /*String mydata = "Validation failed for classes [com.utn.UTNphones.Models.User] during persist time for groups [javax.validation.groups.Default, ]List of constraint violations:[ConstraintViolationImpl{interpolatedMessage='Invalid identification!', propertyPath=identification," +

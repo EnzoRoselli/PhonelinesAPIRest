@@ -10,6 +10,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.security.auth.login.LoginException;
+
 
 @RestController
 @RequestMapping("/user")
@@ -24,7 +26,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody User userLogging) throws ParametersException, UserExceptions {
+    public ResponseEntity login(@RequestBody User userLogging) throws ParametersException, UserExceptions, LoginException {
         User user = userController.login(userLogging);
         String token = sessionManager.createSession(user);
         return ResponseEntity.ok().headers(createHeaders(token)).build();

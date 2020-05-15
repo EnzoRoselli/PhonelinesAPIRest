@@ -7,6 +7,7 @@ import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineAlreadyExists;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDigitsCountPlusPrefix;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
+import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserIdentificationAlreadyExists;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeDoesntExist;
 import com.utn.UTNphones.Models.Dto.ErrorResponseDto;
@@ -32,6 +33,12 @@ public class AdviceController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ParametersException.class)
     public ErrorResponseDto handleParametersException(ParametersException ex) {
+        return new ErrorResponseDto(2, ex.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(LogException.class)
+    public ErrorResponseDto handleParametersException(LogException ex) {
         return new ErrorResponseDto(2, ex.getMessage());
     }
 

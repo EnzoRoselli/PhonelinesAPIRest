@@ -9,6 +9,8 @@ import com.utn.UTNphones.Services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
+
+import javax.security.auth.login.LoginException;
 import java.sql.SQLException;
 
 @Controller
@@ -22,7 +24,7 @@ public class UserController {
     }
 
 
-    public User login(User user) throws ParametersException, UserExceptions {
+    public User login(User user) throws ParametersException, UserExceptions, LoginException {
         if (user.getIdentification() == null || user.getPassword() == null) {
             throw new ParametersException("Parameters can´t contain null values");
         } else {
