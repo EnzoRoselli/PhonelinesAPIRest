@@ -1,17 +1,18 @@
 package com.utn.UTNphones.Controllers.Web;
 
 import com.utn.UTNphones.Controllers.RateController;
+import com.utn.UTNphones.Exceptions.ParametersException;
+import com.utn.UTNphones.Exceptions.RateException;
+import com.utn.UTNphones.Models.City;
 import com.utn.UTNphones.Models.Rate;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +36,15 @@ public class RateManagmentController {
         }
         List<Rate> Allrates=this.rateController.getAllRates();
         return (Allrates.size()>0)? ResponseEntity.ok(Allrates): ResponseEntity.status(204).build();
+    }
+
+    @GetMapping("/searchOriginDestination")
+    public ResponseEntity<Rate> getByOriginAndDestination(@RequestHeader("Authorization") String sessionToken, @RequestBody @NotNull Rate rate) throws ParametersException {
+        if (!hasEmployeePermissions(sessionToken)) {
+            return ResponseEntity.status(403).build();
+        }
+        Optional<Rate> rateInfo=this.rateController.getByOriginAndDestination(rate);
+       return (rateInfo.isEmpty()) ?ResponseEntity.status(204).build(): ResponseEntity.ok(rateInfo.get());
     }
 
 

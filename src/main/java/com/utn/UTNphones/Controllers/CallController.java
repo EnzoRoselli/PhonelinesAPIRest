@@ -9,13 +9,13 @@ import com.utn.UTNphones.Services.interfaces.ICallService;
 import com.utn.UTNphones.Services.interfaces.IPhonelineService;
 import com.utn.UTNphones.Services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@RestController
-@RequestMapping("/call/")
+@Controller
 public class CallController {
 
     private final ICallService callService;
@@ -30,12 +30,10 @@ public class CallController {
         this.phonelineService = phonelineService;
     }
 
-    @PostMapping("")
     public void addCall(@RequestBody @NotNull Call call) throws CallException {
          callService.add(call);
     }
 
-    @GetMapping("callsByUserId/")
     public List<Call> getCallsByUserId(@RequestBody @NotNull Integer userId) throws UserExceptions, CallException, PhonelineExceptions {
         userService.findById(userId);
         List<Phoneline> phoneLines = phonelineService.findByUserId(userId);
@@ -43,7 +41,6 @@ public class CallController {
         return calls;
     }
 
-    @GetMapping("topDestinationByUserId/")
     public List<Object> getTopDestinationsCalled(@RequestBody @NotNull Integer userId) throws UserExceptions {
         userService.findById(userId);
         List<Object> citiesMostCalled = this.callService.getTopMostCalledCities(userId);

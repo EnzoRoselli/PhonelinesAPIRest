@@ -10,12 +10,12 @@ import com.utn.UTNphones.Services.interfaces.ICityService;
 import com.utn.UTNphones.Services.interfaces.IPhonelineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 
-@RestController
-@RequestMapping("/phoneline/")
+@Controller
 public class PhonelineController {
 
     private final IPhonelineService phonelineService;
