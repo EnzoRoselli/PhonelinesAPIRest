@@ -46,9 +46,9 @@ public class Call {
     private Date date;
 
     @Column(name = "total_price")
-    private Integer total_price;
+    private Double total_price;
     @Column(name = "total_cost")
-    private Integer totalCost;
+    private Double totalCost;
 
     @Column(name = "duration")
     private Integer duration;

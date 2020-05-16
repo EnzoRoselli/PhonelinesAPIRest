@@ -27,9 +27,9 @@ public class Rate {
     private City destinationCity;
 
     @Column(name="cost_per_minute")
-    private Float costPerMinute;
+    private Double costPerMinute;
     @Column(name="price_per_minute")
-    private Float pricePerMinute;
+    private Double pricePerMinute;
 
     public boolean hasNullAtribute(){
         if (Stream.of(originCity, destinationCity,costPerMinute,pricePerMinute).anyMatch(x -> x == null)) {
