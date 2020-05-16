@@ -62,7 +62,7 @@ create table invoices(
     total_cost float not null,
     total_price float not null,
     invoice_date timestamp default current_timestamp,
-    is_paid boolean,
+    is_paid boolean default false,
     invoice_expiration_date datetime,
     constraint pk_users primary key (id),
     constraint fk_invoices_id_phone_number foreign key(id_phone_number) references phonelines(id)
@@ -77,15 +77,16 @@ create table calls(
     id_rate int,
     id_invoice int,
     date_call timestamp default current_timestamp,
-    total_cost int,
+    total_cost double,
     duration int,
-    total_price int,
+    total_price double,
     constraint pk_calls primary key (id),
     constraint fk_calls_id_origin_phone foreign key(id_origin_phone)references phonelines(id),
     constraint fk_calls_id_destination_phone foreign key (id_destination_phone) references phonelines(id),
     constraint fk_calls_rate foreign key (id_rate) references rates(id),
     constraint fk_calls_invoice foreign key (id_invoice) references invoices(id)
 );
+
 
 /***************************************************TRIGGER, SP Y FUNCIONES**************************************/
 DROP TRIGGER IF EXISTS tbi_upload_calls;
@@ -221,4 +222,95 @@ BEGIN
 		signal sqlstate '45000' SET MESSAGE_TEXT = 'No rate matches the origin phone city and the destination phone city', MYSQL_ERRNO = 0003;
 	end if;
 END $$
+DELIMITER ;
+
+
+ /*****************************************************USUARIOS******************************************/
+
+ /*BACKOFFICE*/
+ create user 'backoffice'@'localhost' identified by '1234';
+ grant all on TPFinal.users to 'backoffice'@'localhost';
+ grant all on TPFinal.phonelines to 'backoffice'@'localhost';
+ grant all on TPFinal.rates to 'backoffice'@'localhost';
+
+/*CLIENTES*/
+ create user 'clientes'@'localhost' identified by '1234';
+ grant select on TPFinal.calls to 'clientes'@'localhost';
+ grant select on TPFinal.invoices to 'clientes'@'localhost';
+
+  /*INFRAERSTRUCTURA*/
+ create user 'infraestructura'@'localhost' identified by '1234';
+ grant insert on TPFinal.calls to 'infraestructura'@'localhost';
+ grant trigger on TPFinal.* to 'infraestructura'@'localhost';
+
+ /*FACTURACION*/
+ create user 'facturacion'@'localhost' identified by '1234';
+ GRANT EVENT ON TPFinal.* TO 'facturacion'@'localhost';
+ GRANT EXECUTE ON PROCEDURE sp_get_calls_cost_and_price to 'facturacion'@'localhost';
+ GRANT EXECUTE ON PROCEDURE sp_assign_id_invoice_to_calls to 'facturacion'@'localhost';
+
+ /*************************************************EVENT SCHEDULE Y SP*****************************************/
+SET GLOBAL event_scheduler = ON;
+
+
+DROP EVENT IF EXISTS auto_invoice_generator;
+
+DELIMITER $$
+
+CREATE DEFINER = 'root'@'localhost' EVENT IF NOT EXISTS auto_invoice_generator ON SCHEDULE
+EVERY 30 DAY
+STARTS '2020-06-01 00:00:00'
+ENABLE
+DO
+	BEGIN
+		DECLARE phonelineId int;
+		DECLARE done INT DEFAULT 0;
+		DECLARE cur_phonelines CURSOR FOR SELECT id FROM TPFinal.phonelines;
+		DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+		OPEN cur_phonelines;
+
+		loop_phonelines:LOOP
+
+			FETCH cur_phonelines INTO phonelineId;
+
+			IF done = 1 THEN
+				LEAVE loop_phonelines;
+			END IF;
+
+            call sp_get_calls_cost_and_price(phonelineId, @callsQuantity, @totalCost, @totalPrice);
+
+            insert into TPFinal.invoices(id_phone_number, calls_quantity, total_cost, total_price, invoice_expiration_date)
+								values(phonelineId, @callsQuantity, @totalCost, @totalPrice, NOW() + INTERVAL 15 DAY);
+
+			call sp_assign_id_invoice_to_calls(last_insert_id(), phonelineId);
+		END LOOP;
+
+		CLOSE cur_phonelines;
+    END$$
+
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS sp_get_calls_cost_and_price;
+
+DELIMITER $$
+CREATE PROCEDURE sp_get_calls_cost_and_price(IN id_phoneline INT, OUT calls_quantity INT, OUT total_cost double, OUT total_price double)
+BEGIN
+	SET total_cost = ifnull((SELECT SUM(calls.total_cost) FROM calls WHERE id_origin_phone = id_phoneline AND isnull(id_invoice)), 0);
+
+    SET calls_quantity = ifnull((SELECT COUNT(calls.id) FROM calls WHERE id_origin_phone = id_phoneline  AND isnull(id_invoice)), 0);
+
+    SET total_price = ifnull((SELECT SUM(calls.total_price) FROM calls WHERE id_origin_phone = id_phoneline  AND isnull(id_invoice)), 0);
+END$$
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS sp_assign_id_invoice_to_calls;
+
+DELIMITER $$
+CREATE PROCEDURE sp_assign_id_invoice_to_calls(IN invoiceId int,IN phonelineId INT)
+BEGIN
+	UPDATE calls SET id_invoice = invoiceId WHERE id_origin_phone = phonelineId;
+END$$
 DELIMITER ;
