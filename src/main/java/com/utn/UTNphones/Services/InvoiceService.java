@@ -22,4 +22,9 @@ public class InvoiceService implements IInvoiceService {
     public List<Invoice> getAllInvoices() {
         return invoiceRepository.findAll();
     }
+
+    @Override
+    public List<Invoice> getAllByUserId(Integer userId) {
+        return this.invoiceRepository.findByPhonelineUserId(userId);
+    }
 }

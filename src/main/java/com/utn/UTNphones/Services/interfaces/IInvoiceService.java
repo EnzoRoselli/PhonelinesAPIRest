@@ -7,4 +7,6 @@ import java.util.List;
 public interface IInvoiceService {
 
     List<Invoice> getAllInvoices();
+
+    List<Invoice> getAllByUserId(Integer userId);
 }

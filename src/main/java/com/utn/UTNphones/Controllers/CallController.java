@@ -1,6 +1,7 @@
 package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Exceptions.CallException;
+import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.Call;
@@ -36,18 +37,27 @@ public class CallController {
          callService.add(call);
     }
 
-    public List<Call> getCallsByUserId( Integer userId) throws UserExceptions, CallException, PhonelineExceptions {
+    public List<Call> getCallsByUserId( Integer userId) throws UserExceptions, CallException, PhonelineExceptions, ParametersException {
+        if (userId==null){
+            throw new ParametersException("Parameter can´t contain null values");
+        }
         userService.findById(userId);
         List<Phoneline> phoneLines = phonelineService.findByUserId(userId);
         return callService.getCallsByPhoneNumbers(phoneLines);
     }
 
-    public List<Object> getTopDestinationsCalled( Integer userId) throws UserExceptions, CallException {
+    public List<Object> getTopDestinationsCalled( Integer userId) throws UserExceptions, CallException, ParametersException {
+        if (userId==null){
+            throw new ParametersException("Parameter can´t contain null values");
+        }
         userService.findById(userId);
         return this.callService.getTopMostCalledCities(userId);
     }
 
-    public List<Call> getByUserBetweenDates(Integer userId, Date start, Date max) throws UserExceptions {
+    public List<Call> getByUserBetweenDates(Integer userId, Date start, Date max) throws UserExceptions, ParametersException {
+        if (userId==null){
+            throw new ParametersException("Parameter can´t contain null values");
+        }
         userService.findById(userId);
         return this.callService.getBetweenDates(start,max);
     }

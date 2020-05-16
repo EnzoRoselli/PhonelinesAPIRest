@@ -1,13 +1,10 @@
 package com.utn.UTNphones.Controllers;
 
+import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Models.Invoice;
-import com.utn.UTNphones.Models.Rate;
 import com.utn.UTNphones.Services.interfaces.IInvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -27,4 +24,10 @@ public class InvoiceController {
     }
 
 
+    public List<Invoice> getAllByUserId(Integer userId) throws ParametersException {
+        if (userId==null){
+            throw new ParametersException("Parameter can´t contain null values");
+        }
+            return this.invoiceService.getAllByUserId(userId);
+    }
 }

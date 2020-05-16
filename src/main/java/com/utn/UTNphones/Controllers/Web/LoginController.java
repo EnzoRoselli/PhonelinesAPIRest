@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.security.auth.login.LoginException;
+import javax.validation.constraints.NotNull;
 
 
 @RestController
@@ -26,7 +27,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody User userLogging) throws ParametersException, UserExceptions, LoginException {
+    public ResponseEntity login(@RequestBody @NotNull User userLogging) throws ParametersException, UserExceptions, LoginException {
         User user = userController.login(userLogging);
         String token = sessionManager.createSession(user);
         return ResponseEntity.ok().headers(createHeaders(token)).build();
