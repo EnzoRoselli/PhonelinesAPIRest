@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,8 +40,14 @@ public class CallService implements ICallService {
     }
 
     @Override
-    public List<Object> getTopMostCalledCities(Integer userId) {
+    public List<Object> getTopMostCalledCities(Integer userId) throws CallException {
         List<Object> cityPlusCounter=this.callRepository.findTopMostCalledCities(userId);
-        return cityPlusCounter;
+        return Optional.ofNullable(cityPlusCounter).orElseThrow(()->new CallException("No calls found"));
     }
+
+    @Override
+    public List<Call> getBetweenDates(Date start, Date end) {
+        return this.callRepository.findAllByDateBetween(start,end);
+    }
+
 }

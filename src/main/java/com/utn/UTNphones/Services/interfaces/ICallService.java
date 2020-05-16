@@ -5,10 +5,13 @@ import com.utn.UTNphones.Models.Call;
 import com.utn.UTNphones.Models.Phoneline;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 public interface ICallService {
     void add(Call call) throws CallException;
     List<Call> getCallsByPhoneNumbers(List<Phoneline> phoneListOfTheUser) throws CallException;
-    List<Object> getTopMostCalledCities(Integer userId);
+    List<Object> getTopMostCalledCities(Integer userId) throws CallException;
+
+    List<Call> getBetweenDates(Date start, Date max);
 }
