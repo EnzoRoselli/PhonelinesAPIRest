@@ -28,6 +28,7 @@ public class InvoiceController {
         if (userId==null){
             throw new ParametersException("Parameter can´t contain null values");
         }
+
             return this.invoiceService.getAllByUserId(userId);
     }
 }
