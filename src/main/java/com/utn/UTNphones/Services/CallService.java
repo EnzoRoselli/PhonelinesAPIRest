@@ -2,6 +2,7 @@ package com.utn.UTNphones.Services;
 
 import com.utn.UTNphones.Exceptions.CallException;
 import com.utn.UTNphones.Models.Call;
+import com.utn.UTNphones.Models.City;
 import com.utn.UTNphones.Models.Dto.CityWithCounterTimesFound;
 import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
 import com.utn.UTNphones.Models.Phoneline;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -42,14 +45,14 @@ public class CallService implements ICallService {
     }
 
     @Override
-    public List<CityWithCounterTimesFound> getTopMostCalledCities(Integer userId) throws CallException {
-        List<CityWithCounterTimesFound> cityPlusCounter=this.callRepository.findTopMostCalledCities(userId);
+    public List<Object[]> getTopMostCalledCities(Integer userId) throws CallException {
+        List<Object[]> cityPlusCounter=this.callRepository.findTopMostCalledCities(userId);
         return Optional.ofNullable(cityPlusCounter).orElseThrow(()->new CallException("No calls found"));
     }
 
     @Override
     public List<Call> getByUserAndBetweenDates(Integer userId, SearchBetweenDates dates) {
-        return this.callRepository.findAllByUserIdAndDateBetween(userId,dates.getStart(),dates.getEnd());
+        return this.callRepository.findAllByOriginPhonelineUserIdAndDateBetween(userId,dates.getStart(),dates.getEnd());
     }
 
 }

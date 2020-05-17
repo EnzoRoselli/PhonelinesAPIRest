@@ -13,6 +13,11 @@ import java.util.stream.Stream;
 @ToString
 @Builder
 public class City {
+
+    public City(String name) {
+        this.name = name;
+    }
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id",nullable=false)

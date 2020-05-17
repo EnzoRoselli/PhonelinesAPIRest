@@ -5,15 +5,20 @@ import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.Call;
+import com.utn.UTNphones.Models.City;
 import com.utn.UTNphones.Models.Dto.CityWithCounterTimesFound;
 import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
 import com.utn.UTNphones.Models.Phoneline;
+import com.utn.UTNphones.Models.Province;
 import com.utn.UTNphones.Services.interfaces.ICallService;
 import com.utn.UTNphones.Services.interfaces.IPhonelineService;
+import com.utn.UTNphones.Services.interfaces.IProvineService;
 import com.utn.UTNphones.Services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,7 +30,7 @@ public class CallController {
 
 
     @Autowired
-    public CallController(ICallService callService, IUserService userService, IPhonelineService phonelineService) {
+    public CallController(ICallService callService, IUserService userService, IPhonelineService phonelineService, IProvineService provineService) {
         this.callService = callService;
         this.userService = userService;
         this.phonelineService = phonelineService;
@@ -49,7 +54,17 @@ public class CallController {
             throw new ParametersException("Parameter can´t contain null values");
         }
         userService.findById(userId);
-        List<Object> listWithoutFormat=this.callService.getTopMostCalledCities(userId);
+
+        List<Object[]> listWithoutFormat = this.callService.getTopMostCalledCities(userId);
+        List<CityWithCounterTimesFound> c = new ArrayList<>();
+        Integer b = (Integer)listWithoutFormat.get(0)[0];
+
+        for (int i = 0; i < listWithoutFormat.size(); i++) {
+            City aux = City.builder().id((Integer)listWithoutFormat.get(i)[0])
+                            .name((String) listWithoutFormat.get(i)[1])
+                            .prefix((String) listWithoutFormat.get(i)[2]).build();
+
+        }
 
         return null;
     }
