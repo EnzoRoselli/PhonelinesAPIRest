@@ -4,13 +4,11 @@ import com.utn.UTNphones.Controllers.InvoiceController;
 import com.utn.UTNphones.Controllers.PermissionsControllers;
 import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Models.Invoice;
-import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/InvoicesManagmentController")

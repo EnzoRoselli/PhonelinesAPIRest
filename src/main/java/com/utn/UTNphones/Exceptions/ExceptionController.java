@@ -1,7 +1,6 @@
 package com.utn.UTNphones.Exceptions;
 
 import com.utn.UTNphones.Exceptions.CityExceptions.CityDoesntExist;
-import com.utn.UTNphones.Exceptions.CityExceptions.CityExceptions;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserIdentificationAlreadyExists;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeDoesntExist;

@@ -4,7 +4,6 @@ import com.utn.UTNphones.Controllers.PermissionsControllers;
 import com.utn.UTNphones.Controllers.RateController;
 import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Models.Rate;
-import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

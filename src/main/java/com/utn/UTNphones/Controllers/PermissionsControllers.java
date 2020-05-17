@@ -2,7 +2,6 @@ package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Sessions.SessionManager;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import java.util.Optional;
