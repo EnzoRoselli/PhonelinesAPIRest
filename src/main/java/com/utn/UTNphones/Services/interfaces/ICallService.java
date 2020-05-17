@@ -15,5 +15,5 @@ public interface ICallService {
     List<Call> getCallsByPhoneNumbers(List<Phoneline> phoneListOfTheUser) throws CallException;
     List<CityWithCounterTimesFound> getTopMostCalledCities(Integer userId) throws CallException;
 
-    List<Call> getBetweenDates(SearchBetweenDates dates);
+    List<Call> getByUserAndBetweenDates(Integer userId, SearchBetweenDates dates);
 }
