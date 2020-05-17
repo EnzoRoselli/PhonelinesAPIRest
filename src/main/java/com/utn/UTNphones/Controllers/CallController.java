@@ -17,6 +17,7 @@ import com.utn.UTNphones.Services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class CallController {
                             .name((String) listWithoutFormat.get(i)[1])
                             .prefix((String) listWithoutFormat.get(i)[2])
                     .province(this.provinceService.getById((Integer) listWithoutFormat.get(i)[3]).get()).build();
-            Integer counter=(Integer)listWithoutFormat.get(i)[4];
+            BigInteger counter= (BigInteger) listWithoutFormat.get(i)[4];
             topCitiesList.add(new CityWithCounterTimesFound(city,counter));
         }
 

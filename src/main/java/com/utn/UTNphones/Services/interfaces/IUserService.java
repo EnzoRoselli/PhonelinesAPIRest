@@ -9,7 +9,7 @@ import javax.security.auth.login.LoginException;
 
 
 public interface IUserService {
-     User login(User user) throws UserExceptions, LoginException;
+     User login(User user) throws UserExceptions;
      User register(User user) throws DataAccessException, UserExceptions;
      @Transactional
      void deleteByIdentification(String identification);

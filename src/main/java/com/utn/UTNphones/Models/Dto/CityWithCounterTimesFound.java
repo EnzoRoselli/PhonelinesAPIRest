@@ -5,6 +5,8 @@ import com.utn.UTNphones.Models.City;
 import lombok.*;
 import org.springframework.context.annotation.Bean;
 
+import java.math.BigInteger;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -12,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 @Builder
 public class CityWithCounterTimesFound {
 
-    public CityWithCounterTimesFound(String a, int b){
+    public CityWithCounterTimesFound(String a, BigInteger b){
         city.setName(a);
         count = b;
     }
@@ -20,5 +22,5 @@ public class CityWithCounterTimesFound {
     @JsonProperty
     City city;
     @JsonProperty
-    Integer count;
+    BigInteger count;
 }
