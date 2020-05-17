@@ -24,7 +24,7 @@ public class UserController {
     }
 
 
-    public User login(User user) throws ParametersException, UserExceptions, LoginException {
+    public User login(User user) throws ParametersException, UserExceptions {
         if (user.getIdentification() == null || user.getPassword() == null) {
             throw new ParametersException("Parameters can´t contain null values");
         } else {

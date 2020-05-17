@@ -2,6 +2,7 @@ package com.utn.UTNphones.Controllers.Web;
 
 import com.utn.UTNphones.Controllers.UserController;
 import com.utn.UTNphones.Exceptions.ParametersException;
+import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Sessions.SessionManager;
@@ -27,7 +28,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @NotNull User userLogging) throws ParametersException, UserExceptions, LoginException {
+    public ResponseEntity login(@RequestBody @NotNull User userLogging) throws ParametersException, UserExceptions {
         User user = userController.login(userLogging);
         String token = sessionManager.createSession(user);
         return ResponseEntity.ok().headers(createHeaders(token)).build();

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.utn.UTNphones.Models.City;
 import lombok.*;
 
+import java.math.BigInteger;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -11,7 +13,7 @@ import lombok.*;
 @Builder
 public class CityWithCounterTimesFound {
 
-    public CityWithCounterTimesFound(String a, int b){
+    public CityWithCounterTimesFound(String a, BigInteger b){
         city.setName(a);
         count = b;
     }
@@ -19,5 +21,5 @@ public class CityWithCounterTimesFound {
     @JsonProperty
     City city;
     @JsonProperty
-    Integer count;
+    BigInteger count;
 }
