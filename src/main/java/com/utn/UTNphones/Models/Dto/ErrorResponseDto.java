@@ -1,7 +1,13 @@
 package com.utn.UTNphones.Models.Dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@ToString
+@Builder
 public class ErrorResponseDto {
 
     @JsonProperty

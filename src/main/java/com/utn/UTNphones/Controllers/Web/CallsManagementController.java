@@ -6,16 +6,14 @@ import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.Call;
-import com.utn.UTNphones.Models.City;
+import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Sessions.SessionManager;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,12 +49,12 @@ public class CallsManagementController {
     }
 
     @GetMapping("/getCallsBetweenDates")
-    public ResponseEntity<List<Call>> getCallsBetweenDates(@RequestHeader("Authorization") String sessionToken, @RequestBody Date start, @RequestBody Date end) throws UserExceptions, ParametersException {
+    public ResponseEntity<List<Call>> getCallsBetweenDates(@RequestHeader("Authorization") String sessionToken, @RequestBody @NotNull SearchBetweenDates datesFilters) throws UserExceptions, ParametersException {
         Optional<User> currentUser = sessionManager.getCurrentUser(sessionToken);
         if (currentUser.isEmpty()) {
             return ResponseEntity.status(403).build();
         }
-        List<Call> calls = this.callController.getByUserBetweenDates(currentUser.get().getId(), start, end);
+        List<Call> calls = this.callController.getByUserBetweenDates(currentUser.get().getId(), datesFilters);
         return calls.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(calls);
     }
 

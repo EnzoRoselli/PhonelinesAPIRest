@@ -5,6 +5,7 @@ import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.Call;
+import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
 import com.utn.UTNphones.Models.Phoneline;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Services.interfaces.ICallService;
@@ -54,12 +55,12 @@ public class CallController {
         return this.callService.getTopMostCalledCities(userId);
     }
 
-    public List<Call> getByUserBetweenDates(Integer userId, Date start, Date max) throws UserExceptions, ParametersException {
+    public List<Call> getByUserBetweenDates(Integer userId, SearchBetweenDates dates) throws UserExceptions, ParametersException {
         if (userId==null){
             throw new ParametersException("Parameter can´t contain null values");
         }
         userService.findById(userId);
-        return this.callService.getBetweenDates(start,max);
+        return this.callService.getBetweenDates(dates);
     }
 
 
