@@ -33,7 +33,7 @@ public class Invoice {
     private Double totalCost;
 
     @Column(name = "invoice_date")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
     @Column(name = "is_paid")
