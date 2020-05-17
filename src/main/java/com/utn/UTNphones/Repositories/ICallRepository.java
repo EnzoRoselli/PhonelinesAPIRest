@@ -27,7 +27,7 @@ public interface ICallRepository extends JpaRepository<Call, Integer> {
     int disableOrEnable(Boolean newStatus,
                         String phoneNumber);
 
-    List<Call> findAllByDateBetween(Date Start,
+    List<Call> findAllByUserIdAndDateBetween(Integer userId,Date Start,
                                     Date End);
 
 }

@@ -47,8 +47,8 @@ public class CallService implements ICallService {
     }
 
     @Override
-    public List<Call> getBetweenDates(SearchBetweenDates dates) {
-        return this.callRepository.findAllByDateBetween(dates.getStart(),dates.getEnd());
+    public List<Call> getByUserAndBetweenDates(Integer userId, SearchBetweenDates dates) {
+        return this.callRepository.findAllByUserIdAndDateBetween(userId,dates.getStart(),dates.getEnd());
     }
 
 }
