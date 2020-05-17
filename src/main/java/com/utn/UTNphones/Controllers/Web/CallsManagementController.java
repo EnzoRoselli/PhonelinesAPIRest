@@ -1,9 +1,10 @@
 package com.utn.UTNphones.Controllers.Web;
 
 import com.utn.UTNphones.Controllers.CallController;
-import com.utn.UTNphones.Exceptions.CallException;
+import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
+import com.utn.UTNphones.Exceptions.ProvinceExceptions.ProvinceDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.Call;
 import com.utn.UTNphones.Models.Dto.CityWithCounterTimesFound;
@@ -40,7 +41,7 @@ public class CallsManagementController {
     }
 
     @GetMapping("/mostDestinationsCalled")
-    public ResponseEntity<List<CityWithCounterTimesFound>> mostDestinationsCalled(@RequestHeader("Authorization") String sessionToken) throws UserExceptions, CallException, ParametersException {
+    public ResponseEntity<List<CityWithCounterTimesFound>> mostDestinationsCalled(@RequestHeader("Authorization") String sessionToken) throws UserExceptions, CallException, ParametersException, ProvinceDoesntExist {
         Optional<User> currentUser = sessionManager.getCurrentUser(sessionToken);
         if (currentUser.isEmpty()) {
             return ResponseEntity.status(403).build();

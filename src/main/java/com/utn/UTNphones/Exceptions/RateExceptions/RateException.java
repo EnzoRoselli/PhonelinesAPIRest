@@ -1,4 +1,4 @@
-package com.utn.UTNphones.Exceptions;
+package com.utn.UTNphones.Exceptions.RateExceptions;
 
 public class RateException {
     private String message;

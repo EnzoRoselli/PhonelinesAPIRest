@@ -1,4 +1,4 @@
-package com.utn.UTNphones.Exceptions;
+package com.utn.UTNphones.Exceptions.CallExceptions;
 
 public class CallException extends Exception {
     private Throwable cause;

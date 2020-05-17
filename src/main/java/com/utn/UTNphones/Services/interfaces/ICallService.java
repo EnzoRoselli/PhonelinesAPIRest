@@ -1,16 +1,10 @@
 package com.utn.UTNphones.Services.interfaces;
 
-import com.utn.UTNphones.Exceptions.CallException;
+import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Models.Call;
-import com.utn.UTNphones.Models.City;
-import com.utn.UTNphones.Models.Dto.CityWithCounterTimesFound;
 import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
 import com.utn.UTNphones.Models.Phoneline;
 
-import java.lang.reflect.Array;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 public interface ICallService {

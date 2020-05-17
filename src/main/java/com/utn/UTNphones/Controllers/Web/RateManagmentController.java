@@ -2,13 +2,10 @@ package com.utn.UTNphones.Controllers.Web;
 
 import com.utn.UTNphones.Controllers.RateController;
 import com.utn.UTNphones.Exceptions.ParametersException;
-import com.utn.UTNphones.Exceptions.RateException;
-import com.utn.UTNphones.Models.City;
 import com.utn.UTNphones.Models.Rate;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

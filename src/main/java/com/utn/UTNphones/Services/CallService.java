@@ -1,9 +1,7 @@
 package com.utn.UTNphones.Services;
 
-import com.utn.UTNphones.Exceptions.CallException;
+import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Models.Call;
-import com.utn.UTNphones.Models.City;
-import com.utn.UTNphones.Models.Dto.CityWithCounterTimesFound;
 import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
 import com.utn.UTNphones.Models.Phoneline;
 import com.utn.UTNphones.Repositories.ICallRepository;
@@ -12,10 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 

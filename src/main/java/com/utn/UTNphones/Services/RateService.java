@@ -1,7 +1,5 @@
 package com.utn.UTNphones.Services;
 
-import com.utn.UTNphones.Exceptions.RateException;
-import com.utn.UTNphones.Models.City;
 import com.utn.UTNphones.Models.Rate;
 import com.utn.UTNphones.Repositories.IRateRepository;
 import com.utn.UTNphones.Services.interfaces.IRateService;

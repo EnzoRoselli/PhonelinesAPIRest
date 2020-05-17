@@ -1,12 +1,13 @@
 package com.utn.UTNphones.Controllers.Web;
 
-import com.utn.UTNphones.Exceptions.CallException;
+import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Exceptions.CityExceptions.CityDoesntExist;
 import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineAlreadyExists;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDigitsCountPlusPrefix;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
+import com.utn.UTNphones.Exceptions.ProvinceExceptions.ProvinceDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserIdentificationAlreadyExists;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeDoesntExist;
@@ -61,6 +62,12 @@ public class AdviceController {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ProvinceDoesntExist.class)
+    public ErrorResponseDto handleProvinceDoesntExist(ProvinceDoesntExist ex) {
+        return new ErrorResponseDto(2, ex.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(PhonelineDoesntExist.class)
     public ErrorResponseDto handlePhonelineDoesntExist(PhonelineDoesntExist ex) {
         return new ErrorResponseDto(2, ex.getMessage());
@@ -92,7 +99,7 @@ public class AdviceController {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
-    public ErrorResponseDto handleCallException(ConstraintViolationException ex) {
+    public ErrorResponseDto handleConstraintViolationException(ConstraintViolationException ex) {
         return new ErrorResponseDto(2, PatternsHandler(ex));
     }
 
@@ -100,24 +107,24 @@ public class AdviceController {
     public String PatternsHandler(ConstraintViolationException message) {
         Pattern pattern = Pattern.compile("'.*?'");
         Matcher matcher = pattern.matcher(message.getMessage());
-        String PatternErrors = "Errors with the patterns: ";
+        StringBuilder PatternErrors = new StringBuilder("Errors with the patterns: ");
         while (matcher.find()) {
             switch (matcher.group()) {
                 case "'Invalid lastname!'":
-                    if (PatternErrors.indexOf("'Invalid lastname!'") == -1) PatternErrors += matcher.group() + " - ";
+                    if (!PatternErrors.toString().contains("'Invalid lastname!'")) PatternErrors.append(matcher.group()).append(" - ");
                     break;
                 case "'Invalid identification!'":
-                    if (PatternErrors.indexOf("'Invalid identification!'") == -1) PatternErrors += matcher.group() + " - ";
+                    if (!PatternErrors.toString().contains("'Invalid identification!'")) PatternErrors.append(matcher.group()).append(" - ");
                     break;
                 case "'Invalid name!'":
-                    if (PatternErrors.indexOf("'Invalid name!'") == -1) PatternErrors += matcher.group() + " - ";
+                    if (!PatternErrors.toString().contains("'Invalid name!'")) PatternErrors.append(matcher.group()).append(" - ");
                     break;
                 case "'Invalid number!'":
-                    if (PatternErrors.indexOf("'Invalid number!'") == -1) PatternErrors += matcher.group() + " - ";
+                    if (!PatternErrors.toString().contains("'Invalid number!'")) PatternErrors.append(matcher.group()).append(" - ");
                     break;
             }
         }
-        return PatternErrors;
+        return PatternErrors.toString();
     }
 
 }
