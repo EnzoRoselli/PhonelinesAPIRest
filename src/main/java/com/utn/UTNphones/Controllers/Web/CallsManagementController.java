@@ -37,23 +37,27 @@ public class CallsManagementController {
             return ResponseEntity.status(403).build();
         }
         List<Call> callsByAnUser = this.callController.getCallsByUserId(userId);
-        return callsByAnUser.isEmpty()?ResponseEntity.status(204).build() :ResponseEntity.ok(callsByAnUser);
+        return callsByAnUser.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(callsByAnUser);
     }
 
     @GetMapping("/mostDestinationsCalled")
-    public ResponseEntity<List<Object>> mostDestinationsCalled(@RequestHeader("Authorization") String sessionToken, @RequestBody @NotNull Integer userId) throws UserExceptions, CallException, ParametersException {
-        if (!hasEmployeePermissions(sessionToken)) {
-            return ResponseEntity.status(403).build();        }
-        List<Object> citiesWithCounter=this.callController.getTopDestinationsCalled(userId);
-        return citiesWithCounter.isEmpty()?ResponseEntity.status(204).build() : ResponseEntity.ok(citiesWithCounter);
+    public ResponseEntity<List<Object>> mostDestinationsCalled(@RequestHeader("Authorization") String sessionToken) throws UserExceptions, CallException, ParametersException {
+        Optional<User> currentUser = sessionManager.getCurrentUser(sessionToken);
+        if (currentUser.isEmpty()) {
+            return ResponseEntity.status(403).build();
+        }
+        List<Object> citiesWithCounter = this.callController.getTopDestinationsCalled(currentUser.get().getId());
+        return citiesWithCounter.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(citiesWithCounter);
     }
 
     @GetMapping("/getCallsBetweenDates")
     public ResponseEntity<List<Call>> getCallsBetweenDates(@RequestHeader("Authorization") String sessionToken, @RequestBody Date start, @RequestBody Date end) throws UserExceptions, ParametersException {
         Optional<User> currentUser = sessionManager.getCurrentUser(sessionToken);
-        if(currentUser.isEmpty()){ return ResponseEntity.status(403).build();}
-        List<Call> calls=this.callController.getByUserBetweenDates(currentUser.get().getId(),start,end);
-        return calls.isEmpty()?ResponseEntity.status(204).build() : ResponseEntity.ok(calls);
+        if (currentUser.isEmpty()) {
+            return ResponseEntity.status(403).build();
+        }
+        List<Call> calls = this.callController.getByUserBetweenDates(currentUser.get().getId(), start, end);
+        return calls.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(calls);
     }
 
     public Boolean hasEmployeePermissions(String sessionToken) {
