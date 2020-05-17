@@ -1,5 +1,6 @@
 package com.utn.UTNphones.Controllers.Web;
 
+import com.utn.UTNphones.Controllers.PermissionsControllers;
 import com.utn.UTNphones.Controllers.RateController;
 import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Models.Rate;
@@ -28,7 +29,7 @@ public class RateManagmentController {
 
     @GetMapping
     public ResponseEntity<List<Rate>> getAll(@RequestHeader("Authorization") String sessionToken){
-        if (!hasEmployeePermissions(sessionToken)) {
+        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)){
             return ResponseEntity.status(403).build();
         }
         List<Rate> Allrates=this.rateController.getAllRates();
@@ -37,7 +38,7 @@ public class RateManagmentController {
 
     @GetMapping("/searchOriginDestination")
     public ResponseEntity<Rate> getByOriginAndDestination(@RequestHeader("Authorization") String sessionToken, @RequestBody @NotNull Rate rate) throws ParametersException {
-        if (!hasEmployeePermissions(sessionToken)) {
+        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
         Optional<Rate> rateInfo=this.rateController.getByOriginAndDestination(rate);
@@ -45,10 +46,6 @@ public class RateManagmentController {
     }
 
 
-  public Boolean hasEmployeePermissions(String sessionToken) {
-      Optional<User> currentUser = sessionManager.getCurrentUser(sessionToken);
-      return (!currentUser.isEmpty() && !currentUser.get().getType().equals("client"));
-  }
 
 
 }

@@ -35,10 +35,6 @@ public class City {
 
 
     public boolean hasNullAtribute(){
-        if (Stream.of(name, prefix,province).anyMatch(x -> x == null)) {
-            return true;
-        }else{
-            return false;
-        }
+        return Stream.of(name, prefix, province).anyMatch(x -> x == null);
     }
 }

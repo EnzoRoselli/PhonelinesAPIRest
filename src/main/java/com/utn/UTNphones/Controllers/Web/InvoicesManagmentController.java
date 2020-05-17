@@ -1,6 +1,7 @@
 package com.utn.UTNphones.Controllers.Web;
 
 import com.utn.UTNphones.Controllers.InvoiceController;
+import com.utn.UTNphones.Controllers.PermissionsControllers;
 import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Models.Invoice;
 import com.utn.UTNphones.Models.User;
@@ -24,16 +25,12 @@ public class InvoicesManagmentController {
 
     @GetMapping("/getByUserId")
     public ResponseEntity<List<Invoice>> getByUserId(@RequestHeader("Authorization") String sessionToken, @RequestBody Integer userId) throws ParametersException {
-        if (!hasEmployeePermissions(sessionToken)) {
+        if(!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
         List<Invoice>invoices=this.invoiceController.getAllByUserId(userId);
         return invoices.isEmpty() ?  ResponseEntity.status(204).build(): ResponseEntity.ok(invoices);
     }
 
-    public Boolean hasEmployeePermissions(String sessionToken) {
-        Optional<User> currentUser = sessionManager.getCurrentUser(sessionToken);
-        return (!currentUser.isEmpty() && !currentUser.get().getType().equals("client"));
-    }
 
 }

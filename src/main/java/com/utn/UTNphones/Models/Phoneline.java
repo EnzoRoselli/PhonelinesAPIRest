@@ -38,11 +38,7 @@ public class Phoneline {
     private City city;
 
     public boolean hasNullAtribute() {
-        if (Stream.of(number, type, city.getId(), user.getId(),status).anyMatch(x -> x == null)) {
-            return true;
-        } else {
-            return false;
-        }
+        return Stream.of(number, type, city.getId(), user.getId(), status).anyMatch(x -> x == null);
     }
 
     public boolean validNumberWithPrefix(String prefix){

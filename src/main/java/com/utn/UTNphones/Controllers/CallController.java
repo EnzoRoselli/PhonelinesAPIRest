@@ -8,6 +8,7 @@ import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.Call;
 import com.utn.UTNphones.Models.City;
 import com.utn.UTNphones.Models.Dto.CityWithCounterTimesFound;
+import com.utn.UTNphones.Models.Dto.NewCallDto;
 import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
 import com.utn.UTNphones.Models.Phoneline;
 import com.utn.UTNphones.Services.interfaces.ICallService;
@@ -36,11 +37,6 @@ public class CallController {
         this.phonelineService = phonelineService;
         this.provinceService = provinceService;
     }
-
-    public void addCall( Call call) throws CallException {
-         callService.add(call);
-    }
-
     public List<Call> getCallsByUserId( Integer userId) throws UserExceptions, CallException, PhonelineExceptions, ParametersException {
         if (userId==null){
             throw new ParametersException("Parameter can´t contain null values");
@@ -77,6 +73,11 @@ public class CallController {
         }
         userService.findById(userId);
         return this.callService.getByUserAndBetweenDates(userId,dates);
+    }
+
+    public void registerCall(NewCallDto newCall) throws CallException {
+        Call call=Call.builder().originPhone(newCall.getOriginNumber()).destinationPhone(newCall.getDestinationNumber()).duration(newCall.getDuration()).date(newCall.getDate()).build();
+        this.callService.add(call);
     }
 
 
