@@ -20,7 +20,7 @@ public class Invoice {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "phone_number")
+    @JoinColumn(name = "id_phone_number")
     private Phoneline phoneline;
 
     @Column(name = "calls_quantity")
