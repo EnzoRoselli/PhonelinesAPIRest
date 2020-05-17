@@ -32,11 +32,7 @@ public class Rate {
     private Double pricePerMinute;
 
     public boolean hasNullAtribute(){
-        if (Stream.of(originCity, destinationCity,costPerMinute,pricePerMinute).anyMatch(x -> x == null)) {
-            return true;
-        }else{
-            return false;
-        }
+        return Stream.of(originCity, destinationCity, costPerMinute, pricePerMinute).anyMatch(x -> x == null);
     }
 
 }

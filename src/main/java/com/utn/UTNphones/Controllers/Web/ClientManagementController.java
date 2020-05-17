@@ -1,5 +1,6 @@
 package com.utn.UTNphones.Controllers.Web;
 
+import com.utn.UTNphones.Controllers.PermissionsControllers;
 import com.utn.UTNphones.Controllers.UserController;
 import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
@@ -28,7 +29,7 @@ public class ClientManagementController {
 
     @PostMapping
     public ResponseEntity register(@RequestHeader("Authorization") String sessionToken, @RequestBody User userRegistering) throws Exception {
-        if (!hasEmployeePermissions(sessionToken)) {
+        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
         User newUser = userController.register(userRegistering);
@@ -37,7 +38,7 @@ public class ClientManagementController {
 
     @DeleteMapping
     public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @RequestBody String identification) throws ParametersException, UserExceptions {
-        if (!hasEmployeePermissions( sessionToken)) {
+        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)){
             return ResponseEntity.status(401).build();
         }
         this.userController.delete(identification);
@@ -46,16 +47,11 @@ public class ClientManagementController {
 
     @PatchMapping
     public ResponseEntity update(@RequestHeader("Authorization") String sessionToken, @RequestBody User userUpdating) throws Exception {
-        if (!hasEmployeePermissions(sessionToken)) {
+        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(401).build();
         }
         this.userController.update(userUpdating);
         return ResponseEntity.ok().build();
     }
 
-
-    public Boolean hasEmployeePermissions(String sessionToken) {
-        Optional<User> currentUser = sessionManager.getCurrentUser(sessionToken);
-        return (!currentUser.isEmpty() && !currentUser.get().getType().equals("client"));
-    }
 }

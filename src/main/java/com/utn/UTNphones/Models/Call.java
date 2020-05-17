@@ -57,11 +57,7 @@ public class Call {
 
 
     public boolean hasNullAtribute() {
-        if (Stream.of(originPhoneline, destinationPhoneline, rate, date, total_price, duration, invoice,totalCost).anyMatch(x -> x == null)) {
-            return true;
-        } else {
-            return false;
-        }
+        return Stream.of(originPhoneline, destinationPhoneline, rate, date, total_price, duration, invoice, totalCost).anyMatch(x -> x == null);
     }
 
 

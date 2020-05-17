@@ -44,10 +44,6 @@ public class Invoice {
     private Date expirationDate;
 
     public boolean hasNullAtribute() {
-        if (Stream.of(phoneline, callsQuantity, totalPrice, isPaid, date, expirationDate,totalCost).anyMatch(x -> x == null)) {
-            return true;
-        } else {
-            return false;
-        }
+        return Stream.of(phoneline, callsQuantity, totalPrice, isPaid, date, expirationDate, totalCost).anyMatch(x -> x == null);
     }
 }

@@ -1,5 +1,6 @@
 package com.utn.UTNphones.Controllers.Web;
 
+import com.utn.UTNphones.Controllers.PermissionsControllers;
 import com.utn.UTNphones.Controllers.PhonelineController;
 import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
@@ -27,7 +28,7 @@ public class PhonelineManagementController {
 
     @PostMapping
     public ResponseEntity register(@RequestHeader("Authorization") String sessionToken, @RequestBody Phoneline newPhoneline) throws Exception {
-        if (!hasEmployeePermissions( sessionToken)) {
+        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
         phonelineController.add(newPhoneline);
@@ -36,7 +37,7 @@ public class PhonelineManagementController {
 
     @DeleteMapping
     public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @RequestBody String phoneNumber) throws Exception {
-        if (!hasEmployeePermissions( sessionToken)) {
+        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
         this.phonelineController.remove(phoneNumber);
@@ -45,7 +46,7 @@ public class PhonelineManagementController {
 
     @PutMapping("/disable")
     public ResponseEntity disable(@RequestHeader("Authorization") String sessionToken, @RequestBody String phoneNumber) throws ParametersException, PhonelineExceptions {
-        if (!hasEmployeePermissions( sessionToken)) {
+        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
         this.phonelineController.disable(phoneNumber);
@@ -53,15 +54,12 @@ public class PhonelineManagementController {
     }
     @PutMapping("/enable")
     public ResponseEntity enable(@RequestHeader("Authorization") String sessionToken, @RequestBody String phoneNumber) throws ParametersException, PhonelineExceptions {
-        if (!hasEmployeePermissions( sessionToken)) {
+        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
         this.phonelineController.enable(phoneNumber);
         return ResponseEntity.ok().build();
     }
 
-    public Boolean hasEmployeePermissions(String sessionToken) {
-        Optional<User> currentUser = sessionManager.getCurrentUser(sessionToken);
-        return (!currentUser.isEmpty() && !currentUser.get().getType().equals("client"));
-    }
+
 }

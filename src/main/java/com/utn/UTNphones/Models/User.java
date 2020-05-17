@@ -42,11 +42,7 @@ public class User {
     private City city;
 
     public boolean hasNullAtribute() {
-        if (Stream.of(name, lastname, identification, password, city, type).anyMatch(x -> x == null)) {
-            return true;
-        } else {
-            return false;
-        }
+        return Stream.of(name, lastname, identification, password, city, type).anyMatch(x -> x == null);
     }
 
     public void setNonNullValues(User user) {

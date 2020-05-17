@@ -1,6 +1,7 @@
 package com.utn.UTNphones.Controllers.Web;
 
 import com.utn.UTNphones.Controllers.CallController;
+import com.utn.UTNphones.Controllers.PermissionsControllers;
 import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
@@ -8,6 +9,7 @@ import com.utn.UTNphones.Exceptions.ProvinceExceptions.ProvinceDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.Call;
 import com.utn.UTNphones.Models.Dto.CityWithCounterTimesFound;
+import com.utn.UTNphones.Models.Dto.NewCallDto;
 import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Sessions.SessionManager;
@@ -33,7 +35,7 @@ public class CallsManagementController {
 
     @GetMapping("/searchByUser")
     public ResponseEntity<List<Call>> getByUserId(@RequestHeader("Authorization") String sessionToken, @RequestBody @NotNull Integer userId) throws CallException, PhonelineExceptions, UserExceptions, ParametersException {
-        if (!hasEmployeePermissions(sessionToken)) {
+        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)){
             return ResponseEntity.status(403).build();
         }
         List<Call> callsByAnUser = this.callController.getCallsByUserId(userId);
@@ -42,26 +44,29 @@ public class CallsManagementController {
 
     @GetMapping("/mostDestinationsCalled")
     public ResponseEntity<List<CityWithCounterTimesFound>> mostDestinationsCalled(@RequestHeader("Authorization") String sessionToken) throws UserExceptions, CallException, ParametersException, ProvinceDoesntExist {
-        Optional<User> currentUser = sessionManager.getCurrentUser(sessionToken);
-        if (currentUser.isEmpty()) {
+        if (!PermissionsControllers.isLogged(sessionManager,sessionToken)){
             return ResponseEntity.status(403).build();
         }
-        List<CityWithCounterTimesFound> citiesWithCounter = this.callController.getTopDestinationsCalled(currentUser.get().getId());
+        List<CityWithCounterTimesFound> citiesWithCounter = this.callController.getTopDestinationsCalled(sessionManager.getCurrentUser(sessionToken).get().getId());
         return citiesWithCounter.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(citiesWithCounter);
     }
 
     @GetMapping("/getCallsBetweenDates")
     public ResponseEntity<List<Call>> getCallsBetweenDates(@RequestHeader("Authorization") String sessionToken, @RequestBody @NotNull SearchBetweenDates datesFilters) throws UserExceptions, ParametersException {
-        Optional<User> currentUser = sessionManager.getCurrentUser(sessionToken);
-        if (currentUser.isEmpty()) {
+        if (!PermissionsControllers.isLogged(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
-        List<Call> calls = this.callController.getByUserBetweenDates(currentUser.get().getId(), datesFilters);
+        List<Call> calls = this.callController.getByUserBetweenDates(sessionManager.getCurrentUser(sessionToken).get().getId(), datesFilters);
         return calls.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(calls);
     }
 
-    public Boolean hasEmployeePermissions(String sessionToken) {
-        Optional<User> currentUser = sessionManager.getCurrentUser(sessionToken);
-        return (!currentUser.isEmpty() && !currentUser.get().getType().equals("client"));
+    @PostMapping
+    public ResponseEntity registerCall(@RequestHeader("Authorization") String sessionToken,@RequestBody @NotNull NewCallDto newCall) throws CallException {
+        if (!PermissionsControllers.hasInfrastructurePermissions(sessionManager,sessionToken)){
+            return ResponseEntity.status(403).build();
+        }
+        this.callController.registerCall(newCall);
+        return ResponseEntity.ok().build();
     }
+
 }
