@@ -5,6 +5,7 @@ import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.Call;
+import com.utn.UTNphones.Models.Dto.CityWithCounterTimesFound;
 import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
 import com.utn.UTNphones.Models.Phoneline;
 import com.utn.UTNphones.Models.User;
@@ -47,7 +48,7 @@ public class CallController {
         return callService.getCallsByPhoneNumbers(phoneLines);
     }
 
-    public List<Object> getTopDestinationsCalled( Integer userId) throws UserExceptions, CallException, ParametersException {
+    public List<CityWithCounterTimesFound> getTopDestinationsCalled(Integer userId) throws UserExceptions, CallException, ParametersException {
         if (userId==null){
             throw new ParametersException("Parameter can´t contain null values");
         }

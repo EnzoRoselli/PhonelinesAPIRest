@@ -1,6 +1,7 @@
 package com.utn.UTNphones.Repositories;
 
 import com.utn.UTNphones.Models.Call;
+import com.utn.UTNphones.Models.Dto.CityWithCounterTimesFound;
 import com.utn.UTNphones.Models.Phoneline;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,7 +22,7 @@ public interface ICallRepository extends JpaRepository<Call, Integer> {
             "group by cities.id\n" +
             "order by(contador)desc\n" +
             "LIMIT 10; ", nativeQuery = true)
-    List<Object> findTopMostCalledCities(Integer userId);
+    List<CityWithCounterTimesFound> findTopMostCalledCities(Integer userId);
 
     @Query(value = "update phonelines ph set ph.status_phoneline = ?1 where ph.phone_number = ?2", nativeQuery = true)
     int disableOrEnable(Boolean newStatus,

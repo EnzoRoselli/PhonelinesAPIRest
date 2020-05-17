@@ -6,6 +6,7 @@ import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.Call;
+import com.utn.UTNphones.Models.Dto.CityWithCounterTimesFound;
 import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Sessions.SessionManager;
@@ -39,12 +40,12 @@ public class CallsManagementController {
     }
 
     @GetMapping("/mostDestinationsCalled")
-    public ResponseEntity<List<Object>> mostDestinationsCalled(@RequestHeader("Authorization") String sessionToken) throws UserExceptions, CallException, ParametersException {
+    public ResponseEntity<List<CityWithCounterTimesFound>> mostDestinationsCalled(@RequestHeader("Authorization") String sessionToken) throws UserExceptions, CallException, ParametersException {
         Optional<User> currentUser = sessionManager.getCurrentUser(sessionToken);
         if (currentUser.isEmpty()) {
             return ResponseEntity.status(403).build();
         }
-        List<Object> citiesWithCounter = this.callController.getTopDestinationsCalled(currentUser.get().getId());
+        List<CityWithCounterTimesFound> citiesWithCounter = this.callController.getTopDestinationsCalled(currentUser.get().getId());
         return citiesWithCounter.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(citiesWithCounter);
     }
 
