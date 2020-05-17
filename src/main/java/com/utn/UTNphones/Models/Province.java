@@ -22,10 +22,6 @@ public class Province {
     private String name;
 
     public boolean hasNullAtribute(){
-        if (Stream.of(name).anyMatch(x -> x == null)) {
-            return true;
-        }else{
-            return false;
-        }
+        return Stream.of(name).anyMatch(x -> x == null);
     }
 }
