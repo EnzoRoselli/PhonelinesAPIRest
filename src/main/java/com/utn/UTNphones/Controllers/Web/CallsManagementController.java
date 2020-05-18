@@ -11,7 +11,6 @@ import com.utn.UTNphones.Models.Call;
 import com.utn.UTNphones.Models.Dto.CityWithCounterTimesFound;
 import com.utn.UTNphones.Models.Dto.NewCallDto;
 import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
-import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/callsManagementController")

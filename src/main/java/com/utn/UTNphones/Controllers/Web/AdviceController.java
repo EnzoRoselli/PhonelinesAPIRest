@@ -9,10 +9,10 @@ import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
 import com.utn.UTNphones.Exceptions.ProvinceExceptions.ProvinceDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
+import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserIdentificationAlreadyExists;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeDoesntExist;
 import com.utn.UTNphones.Models.Dto.ErrorResponseDto;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -37,7 +37,7 @@ public class AdviceController {
         return new ErrorResponseDto(2, ex.getMessage());
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(LogException.class)
     public ErrorResponseDto handleParametersException(LogException ex) {
         return new ErrorResponseDto(2, ex.getMessage());

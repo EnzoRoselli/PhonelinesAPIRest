@@ -2,7 +2,6 @@ package com.utn.UTNphones.Controllers.Web;
 
 import com.utn.UTNphones.Controllers.UserController;
 import com.utn.UTNphones.Exceptions.ParametersException;
-import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Sessions.SessionManager;
@@ -11,7 +10,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.security.auth.login.LoginException;
 import javax.validation.constraints.NotNull;
 
 

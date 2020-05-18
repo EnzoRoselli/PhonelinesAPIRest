@@ -1,13 +1,10 @@
 package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Exceptions.ParametersException;
-import com.utn.UTNphones.Models.City;
 import com.utn.UTNphones.Models.Rate;
 import com.utn.UTNphones.Services.interfaces.IRateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;

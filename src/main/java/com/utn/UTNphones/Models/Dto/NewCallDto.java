@@ -1,15 +1,12 @@
 package com.utn.UTNphones.Models.Dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Date;
-import java.util.stream.Stream;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @ToString
 @Builder
@@ -19,11 +16,7 @@ public class NewCallDto {
     @JsonProperty
     String destinationNumber;
     @JsonProperty
-    int duration;
+    Integer duration;
     @JsonProperty
     Date date;
-
-    public boolean hasNullAtribute(){
-        return Stream.of(originNumber, destinationNumber, duration,date).anyMatch(x -> x == null);
-    }
 }

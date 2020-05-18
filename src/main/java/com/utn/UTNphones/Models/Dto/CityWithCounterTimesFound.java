@@ -3,7 +3,6 @@ package com.utn.UTNphones.Models.Dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.utn.UTNphones.Models.City;
 import lombok.*;
-import org.springframework.context.annotation.Bean;
 
 import java.math.BigInteger;
 

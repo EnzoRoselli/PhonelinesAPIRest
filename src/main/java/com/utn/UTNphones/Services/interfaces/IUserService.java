@@ -5,8 +5,6 @@ import com.utn.UTNphones.Models.User;
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.security.auth.login.LoginException;
-
 
 public interface IUserService {
      User login(User user) throws UserExceptions;

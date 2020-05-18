@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 
-import javax.security.auth.login.LoginException;
 import java.sql.SQLException;
 
 @Controller
@@ -19,7 +18,7 @@ public class UserController {
     IUserService userService;
 
     @Autowired
-    public UserController(IUserService userService, ICityService cityService) {
+    public UserController(IUserService userService) {
         this.userService = userService;
     }
 
