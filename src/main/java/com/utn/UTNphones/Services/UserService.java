@@ -41,9 +41,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User update(User user) throws UserExceptions {
+    public User update(User user) throws UserExceptions,DataAccessException {
       User userUpdated=this.userRepository.save(user);
-       return Optional.ofNullable(userUpdated).orElseThrow(() -> new UserDoesntExist());
+       return Optional.ofNullable(userUpdated).orElseThrow(UserDoesntExist::new);
     }
 
 
