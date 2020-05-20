@@ -1,10 +1,14 @@
-package com.utn.UTNphones.Exceptions;
+package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Exceptions.CityExceptions.CityDoesntExist;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineAlreadyExists;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineTypeError;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserIdentificationAlreadyExists;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeDoesntExist;
+import org.hibernate.JDBCException;
 import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.exception.GenericJDBCException;
 import org.springframework.dao.DataAccessException;
 
 import java.sql.SQLException;
@@ -25,10 +29,18 @@ public class ExceptionController {
 
 
     public static void phonelineAddException(DataAccessException Error) throws Exception {
-        ConstraintViolationException cve = (ConstraintViolationException) Error.getCause();
-        switch (cve.getErrorCode()) {
+        JDBCException ex = (JDBCException) (Error).getCause();
+        phonelineAddExceptionSQLCode(ex.getErrorCode());
+    }
+
+    private static void phonelineAddExceptionSQLCode(int errorNumber) throws Exception {
+        switch (errorNumber) {
             case 1452:
-                throw new UserDoesntExist(cve.getCause());
+                throw new UserDoesntExist();
+            case 1265:
+                throw new PhonelineTypeError();
+            case 1062:
+                throw new PhonelineAlreadyExists();
             default:
                 throw new Exception("External error");
         }

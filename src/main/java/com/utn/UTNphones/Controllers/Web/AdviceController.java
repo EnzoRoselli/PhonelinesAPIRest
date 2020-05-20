@@ -3,10 +3,7 @@ package com.utn.UTNphones.Controllers.Web;
 import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Exceptions.CityExceptions.CityDoesntExist;
 import com.utn.UTNphones.Exceptions.ParametersException;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineAlreadyExists;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDigitsCountPlusPrefix;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.*;
 import com.utn.UTNphones.Exceptions.ProvinceExceptions.ProvinceDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
@@ -102,6 +99,12 @@ public class AdviceController {
     public ErrorResponseDto handleConstraintViolationException(ConstraintViolationException ex) {
         return new ErrorResponseDto(2, PatternsHandler(ex));
     }
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(PhonelineTypeError.class)
+    public ErrorResponseDto handlePhonelineTypeError(PhonelineTypeError ex) {
+        return new ErrorResponseDto(2, ex.getMessage());
+    }
+
 
 
     public String PatternsHandler(ConstraintViolationException message) {
