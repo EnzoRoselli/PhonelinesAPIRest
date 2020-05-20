@@ -7,6 +7,7 @@ import com.utn.UTNphones.Exceptions.ProvinceExceptions.ProvinceDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.Call;
 import com.utn.UTNphones.Models.City;
+import com.utn.UTNphones.Models.Dto.CityTop;
 import com.utn.UTNphones.Models.Dto.CityTopDto;
 import com.utn.UTNphones.Models.Dto.NewCallDto;
 import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
@@ -47,12 +48,12 @@ public class CallController {
         return callService.getCallsByPhoneNumbers(phoneLines);
     }
 
-    public List<CityTopDto> getTopDestinationsCalled(Integer userId) throws UserExceptions, CallException, ParametersException, ProvinceDoesntExist {
+    public List<CityTop> getTopDestinationsCalled(Integer userId) throws UserExceptions, CallException, ParametersException, ProvinceDoesntExist {
         if (userId==null){
             throw new ParametersException("Parameter can´t contain null values");
         }
 
-        List<CityTopDto> listWithoutFormat = this.callService.getTopMostCalledCities(userId);
+        List<CityTop> listWithoutFormat = this.callService.getTopMostCalledCities(userId);
 //        List<CityTopDto> topCitiesList= new ArrayList<>();
 //
 //        for (int i = 0; i < listWithoutFormat.size(); i++) {

@@ -12,13 +12,13 @@ import java.math.BigInteger;
 @Builder
 public class CityTopDto {
 
-    public CityTopDto(Integer id, BigInteger b){
+    public CityTopDto(BigInteger id, BigInteger b){
         id = id;
         count = b;
     }
 
     @JsonProperty
-    Integer id;
+    BigInteger id;
     @JsonProperty
     BigInteger count;
 }
