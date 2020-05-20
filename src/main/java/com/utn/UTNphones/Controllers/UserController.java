@@ -2,6 +2,7 @@ package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
+import com.utn.UTNphones.Models.Dto.ErrorResponseDto;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,8 @@ public class UserController {
             return this.userService.update(user);
         } catch (DataAccessException ex) {
             ExceptionController.userUpdateException(ex);
+        }catch (ErrorResponseDto ex){
+
         }
         return user;
     }

@@ -7,7 +7,7 @@ import com.utn.UTNphones.Exceptions.ProvinceExceptions.ProvinceDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.Call;
 import com.utn.UTNphones.Models.City;
-import com.utn.UTNphones.Models.Dto.CityWithCounterTimesFound;
+import com.utn.UTNphones.Models.Dto.CityTopDto;
 import com.utn.UTNphones.Models.Dto.NewCallDto;
 import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
 import com.utn.UTNphones.Models.Phoneline;
@@ -47,25 +47,24 @@ public class CallController {
         return callService.getCallsByPhoneNumbers(phoneLines);
     }
 
-    public List<CityWithCounterTimesFound> getTopDestinationsCalled(Integer userId) throws UserExceptions, CallException, ParametersException, ProvinceDoesntExist {
+    public List<CityTopDto> getTopDestinationsCalled(Integer userId) throws UserExceptions, CallException, ParametersException, ProvinceDoesntExist {
         if (userId==null){
             throw new ParametersException("Parameter can´t contain null values");
         }
-        userService.findById(userId);
 
-        List<Object[]> listWithoutFormat = this.callService.getTopMostCalledCities(userId);
-        List<CityWithCounterTimesFound> topCitiesList= new ArrayList<>();
+        List<CityTopDto> listWithoutFormat = this.callService.getTopMostCalledCities(userId);
+//        List<CityTopDto> topCitiesList= new ArrayList<>();
+//
+//        for (int i = 0; i < listWithoutFormat.size(); i++) {
+//            City city = City.builder().id((Integer)listWithoutFormat.get(i)[0])
+//                            .name((String) listWithoutFormat.get(i)[1])
+//                            .prefix((String) listWithoutFormat.get(i)[2])
+//                    .province(this.provinceService.getById((Integer) listWithoutFormat.get(i)[3]).get()).build();
+//            BigInteger counter= (BigInteger) listWithoutFormat.get(i)[4];
+//            topCitiesList.add(new CityTopDto(city,counter));
+//        }
 
-        for (int i = 0; i < listWithoutFormat.size(); i++) {
-            City city = City.builder().id((Integer)listWithoutFormat.get(i)[0])
-                            .name((String) listWithoutFormat.get(i)[1])
-                            .prefix((String) listWithoutFormat.get(i)[2])
-                    .province(this.provinceService.getById((Integer) listWithoutFormat.get(i)[3]).get()).build();
-            BigInteger counter= (BigInteger) listWithoutFormat.get(i)[4];
-            topCitiesList.add(new CityWithCounterTimesFound(city,counter));
-        }
-
-        return topCitiesList;
+        return listWithoutFormat;
     }
 
     public List<Call> getByUserBetweenDates(Integer userId, SearchBetweenDates dates) throws UserExceptions, ParametersException {

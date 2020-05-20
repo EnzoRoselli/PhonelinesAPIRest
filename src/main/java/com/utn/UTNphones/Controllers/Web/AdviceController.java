@@ -97,6 +97,7 @@ public class AdviceController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
     public ErrorResponseDto handleConstraintViolationException(ConstraintViolationException ex) {
+
         return new ErrorResponseDto(2, PatternsHandler(ex));
     }
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -104,10 +105,14 @@ public class AdviceController {
     public ErrorResponseDto handlePhonelineTypeError(PhonelineTypeError ex) {
         return new ErrorResponseDto(2, ex.getMessage());
     }
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ErrorResponseDto.class)
+    public ErrorResponseDto handleErrorResponseDto(ErrorResponseDto ex) {
+        return ex;
+    }
 
 
-
-    public String PatternsHandler(ConstraintViolationException message) {
+    public static String PatternsHandler(ConstraintViolationException message) {
         Pattern pattern = Pattern.compile("'.*?'");
         Matcher matcher = pattern.matcher(message.getMessage());
         StringBuilder PatternErrors = new StringBuilder("Errors with the patterns: ");

@@ -132,7 +132,7 @@ public class UserControllerTest {
         User updatedUser = User.builder().id(1).name("Enzo").lastname("Roselli").type("client")
                 .identification("1").password("1234").city(city).build();
 
-        when(userService.update(updatedUser)).thenReturn(updatedUser);
+//        when(userService.update(updatedUser)).thenReturn(updatedUser);
         User u = userController.update(updatedUser);
 
         assertEquals(u, updatedUser);
@@ -156,7 +156,7 @@ public class UserControllerTest {
         User updatedUser = User.builder().id(1).name("Enzo").lastname("Roselli").type("client")
                 .identification("1").password("1234").city(city).build();
 
-        when(userService.update(updatedUser)).thenThrow(new UserDoesntExist());
+//        when(userService.update(updatedUser)).thenThrow(new UserDoesntExist());
 
         userController.update(updatedUser);
     }

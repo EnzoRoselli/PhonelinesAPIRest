@@ -10,7 +10,7 @@ import lombok.ToString;
 @Data
 @ToString
 @Builder
-public class ErrorResponseDto {
+public class ErrorResponseDto extends Throwable {
 
     @JsonProperty
     int code;
