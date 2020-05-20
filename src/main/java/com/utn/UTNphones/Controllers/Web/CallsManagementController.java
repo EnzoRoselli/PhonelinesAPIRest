@@ -8,7 +8,7 @@ import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
 import com.utn.UTNphones.Exceptions.ProvinceExceptions.ProvinceDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.Call;
-import com.utn.UTNphones.Models.Dto.CityWithCounterTimesFound;
+import com.utn.UTNphones.Models.Dto.CityTopDto;
 import com.utn.UTNphones.Models.Dto.NewCallDto;
 import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
 import com.utn.UTNphones.Sessions.SessionManager;
@@ -42,11 +42,11 @@ public class CallsManagementController {
     }
 
     @GetMapping("/mostDestinationsCalled")
-    public ResponseEntity<List<CityWithCounterTimesFound>> mostDestinationsCalled(@RequestHeader("Authorization") String sessionToken) throws UserExceptions, CallException, ParametersException, ProvinceDoesntExist {
+    public ResponseEntity<List<CityTopDto>> mostDestinationsCalled(@RequestHeader("Authorization") String sessionToken) throws UserExceptions, CallException, ParametersException, ProvinceDoesntExist {
         if (!PermissionsControllers.isLogged(sessionManager,sessionToken)){
             return ResponseEntity.status(403).build();
         }
-        List<CityWithCounterTimesFound> citiesWithCounter = this.callController.getTopDestinationsCalled(sessionManager.getCurrentUser(sessionToken).get().getId());
+        List<CityTopDto> citiesWithCounter = this.callController.getTopDestinationsCalled(sessionManager.getCurrentUser(sessionToken).get().getId());
         return citiesWithCounter.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(citiesWithCounter);
     }
 

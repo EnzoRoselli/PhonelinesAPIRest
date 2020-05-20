@@ -1,15 +1,20 @@
 package com.utn.UTNphones.Services;
 
+import com.utn.UTNphones.Controllers.Web.AdviceController;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
+import com.utn.UTNphones.Models.Dto.ErrorResponseDto;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Repositories.IUserRepository;
 import com.utn.UTNphones.Services.interfaces.IUserService;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionSystemException;
 
+import javax.validation.ConstraintViolationException;
 import java.util.Optional;
 
 @Service
@@ -41,8 +46,17 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User update(User user) throws UserExceptions {
-      User userUpdated=this.userRepository.save(user);
+    public User update(User user) throws UserExceptions, ErrorResponseDto {
+      User userUpdated = null;
+
+
+        try {
+            userUpdated=this.userRepository.save(user);
+      }catch (TransactionSystemException ex){
+            String error = AdviceController.PatternsHandler((ConstraintViolationException) ex.getCause().getCause());
+            throw new ErrorResponseDto(3, error);
+      }
+
        return Optional.ofNullable(userUpdated).orElseThrow(() -> new UserDoesntExist());
     }
 

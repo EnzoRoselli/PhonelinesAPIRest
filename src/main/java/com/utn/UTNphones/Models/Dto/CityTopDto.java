@@ -7,19 +7,18 @@ import lombok.*;
 import java.math.BigInteger;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Data
 @ToString
 @Builder
-public class CityWithCounterTimesFound {
+public class CityTopDto {
 
-    public CityWithCounterTimesFound(String a, BigInteger b){
-        city.setName(a);
+    public CityTopDto(Integer id, BigInteger b){
+        id = id;
         count = b;
     }
 
     @JsonProperty
-    City city;
+    Integer id;
     @JsonProperty
     BigInteger count;
 }
