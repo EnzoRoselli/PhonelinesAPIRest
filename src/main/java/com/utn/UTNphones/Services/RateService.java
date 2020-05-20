@@ -25,7 +25,7 @@ public class RateService implements IRateService {
     }
 
     @Override
-    public Optional<Rate> findByOriginAndDestination(Rate rate) {
-        return this.rateRepository.findByOriginCityIdAndDestinationCityId(rate.getOriginCity().getId(),rate.getDestinationCity().getId());
+    public Optional<Rate> findByOriginAndDestination(Integer originId,Integer destinationId) {
+        return this.rateRepository.findByOriginCityIdAndDestinationCityId(originId,destinationId);
     }
 }

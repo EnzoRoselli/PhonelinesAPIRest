@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
+
 @RestController
 @RequestMapping("/phonelineManagement")
 public class PhonelineManagementController {
@@ -31,8 +33,8 @@ public class PhonelineManagementController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping
-    public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @RequestBody String phoneNumber) throws Exception {
+    @DeleteMapping("/{phoneNumber}")
+    public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneNumber") @NotNull String phoneNumber) throws Exception {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
@@ -40,16 +42,16 @@ public class PhonelineManagementController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/disable")
-    public ResponseEntity disable(@RequestHeader("Authorization") String sessionToken, @RequestBody String phoneNumber) throws ParametersException, PhonelineExceptions {
+    @PutMapping("/disable/{phoneNumber}")
+    public ResponseEntity disable(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneNumber") @NotNull String phoneNumber) throws ParametersException, PhonelineExceptions {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
         this.phonelineController.disable(phoneNumber);
         return ResponseEntity.ok().build();
     }
-    @PutMapping("/enable")
-    public ResponseEntity enable(@RequestHeader("Authorization") String sessionToken, @RequestBody String phoneNumber) throws ParametersException, PhonelineExceptions {
+    @PutMapping("/enable/{phoneNumber}")
+    public ResponseEntity enable(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneNumber") @NotNull String phoneNumber) throws ParametersException, PhonelineExceptions {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }

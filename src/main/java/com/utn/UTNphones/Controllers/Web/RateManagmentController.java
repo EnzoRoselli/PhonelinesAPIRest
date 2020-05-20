@@ -35,12 +35,14 @@ public class RateManagmentController {
         return (Allrates.size()>0)? ResponseEntity.ok(Allrates): ResponseEntity.status(204).build();
     }
 
-    @GetMapping("/searchOriginDestination")
-    public ResponseEntity<Rate> getByOriginAndDestination(@RequestHeader("Authorization") String sessionToken, @RequestBody @NotNull Rate rate) throws ParametersException {
+    @GetMapping("/searchOriginDestination/{originCityId}/{destinationCityId}")
+    public ResponseEntity<Rate> getByOriginAndDestination(@RequestHeader("Authorization") String sessionToken,
+                                                          @RequestBody @NotNull Integer originCityId,
+                                                          @RequestBody @NotNull Integer destinationCityId) throws ParametersException {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
-        Optional<Rate> rateInfo=this.rateController.getByOriginAndDestination(rate);
+        Optional<Rate> rateInfo=this.rateController.getByOriginAndDestination(originCityId,destinationCityId);
        return (rateInfo.isEmpty()) ?ResponseEntity.status(204).build(): ResponseEntity.ok(rateInfo.get());
     }
 

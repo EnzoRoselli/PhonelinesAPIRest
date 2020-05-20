@@ -8,6 +8,7 @@ import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -21,8 +22,8 @@ public class InvoicesManagmentController {
         this.sessionManager = sessionManager;
     }
 
-    @GetMapping("/getByUserId")
-    public ResponseEntity<List<Invoice>> getByUserId(@RequestHeader("Authorization") String sessionToken, @RequestBody Integer userId) throws ParametersException {
+    @GetMapping("/getByUserId/{id}")
+    public ResponseEntity<List<Invoice>> getByUserId(@RequestHeader("Authorization") String sessionToken, @PathVariable("id")@NotNull Integer userId) throws ParametersException {
         if(!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }

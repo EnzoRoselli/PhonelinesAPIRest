@@ -24,11 +24,11 @@ public class RateController {
         return rateService.getAllRates();
     }
 
-    public Optional<Rate> getByOriginAndDestination(Rate rate) throws ParametersException {
+    public Optional<Rate> getByOriginAndDestination(Integer originCityIdInteger, Integer destinationCityId) throws ParametersException {
 
-        if (rate.getOriginCity().getId()==null || rate.getDestinationCity().getId()==null){
+        if (originCityIdInteger==null || destinationCityId==null){
             throw new ParametersException("The cities id`s must not be null");
         }
-        return this.rateService.findByOriginAndDestination(rate);
+        return this.rateService.findByOriginAndDestination(originCityIdInteger,destinationCityId);
     }
 }

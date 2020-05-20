@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -31,8 +32,8 @@ public class CallsManagementController {
         this.sessionManager = sessionManager;
     }
 
-    @GetMapping("/searchByUser")
-    public ResponseEntity<List<Call>> getByUserId(@RequestHeader("Authorization") String sessionToken, @RequestBody @NotNull Integer userId) throws CallException, PhonelineExceptions, UserExceptions, ParametersException {
+    @GetMapping("/searchByUser/{UserId}")
+    public ResponseEntity<List<Call>> getByUserId(@RequestHeader("Authorization") String sessionToken, @PathVariable("UserId") @NotNull Integer userId) throws CallException, PhonelineExceptions, UserExceptions, ParametersException {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)){
             return ResponseEntity.status(403).build();
         }
@@ -49,12 +50,15 @@ public class CallsManagementController {
         return citiesWithCounter.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(citiesWithCounter);
     }
 
-    @GetMapping("/getCallsBetweenDates")
-    public ResponseEntity<List<Call>> getCallsBetweenDates(@RequestHeader("Authorization") String sessionToken, @RequestBody @NotNull SearchBetweenDates datesFilters) throws UserExceptions, ParametersException {
+    @GetMapping("/getCallsBetweenDates/{startDate}/{endDate}")
+    public ResponseEntity<List<Call>> getCallsBetweenDates(@RequestHeader("Authorization") String sessionToken,
+                                                           @PathVariable("startDate") @NotNull Date startDate,
+                                                           @PathVariable("endDate")@NotNull Date endDate) throws UserExceptions, ParametersException {
         if (!PermissionsControllers.isLogged(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
-        List<Call> calls = this.callController.getByUserBetweenDates(sessionManager.getCurrentUser(sessionToken).get().getId(), datesFilters);
+        SearchBetweenDates datesDto= SearchBetweenDates.builder().start(startDate).end(endDate).build();
+        List<Call> calls = this.callController.getByUserBetweenDates(sessionManager.getCurrentUser(sessionToken).get().getId(), datesDto);
         return calls.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(calls);
     }
 

@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
+
 @RestController
 @RequestMapping("/managementClient")
 public class ClientManagementController {
@@ -32,8 +34,8 @@ public class ClientManagementController {
         return newUser != null ? ResponseEntity.status(201).build() : ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @DeleteMapping
-    public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @RequestBody String identification) throws ParametersException, UserExceptions {
+    @DeleteMapping("/{identification}")
+    public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("identification")@NotNull String identification) throws ParametersException, UserExceptions {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)){
             return ResponseEntity.status(401).build();
         }

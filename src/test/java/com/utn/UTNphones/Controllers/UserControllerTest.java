@@ -1,6 +1,5 @@
 package com.utn.UTNphones.Controllers;
 
-import com.utn.UTNphones.Exceptions.ExceptionController;
 import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
@@ -12,14 +11,10 @@ import com.utn.UTNphones.Services.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.dao.DataAccessException;
 
-import java.sql.SQLException;
-
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.junit.Assert.assertEquals;
 
 public class UserControllerTest {
 

@@ -9,5 +9,5 @@ public interface IRateService {
 
     List<Rate> getAllRates();
 
-    Optional<Rate> findByOriginAndDestination(Rate rate);
+    Optional<Rate> findByOriginAndDestination(Integer originId,Integer destinationId);
 }

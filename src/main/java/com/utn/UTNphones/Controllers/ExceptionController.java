@@ -7,8 +7,6 @@ import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserIdentificationAlreadyExists;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeDoesntExist;
 import org.hibernate.JDBCException;
-import org.hibernate.exception.ConstraintViolationException;
-import org.hibernate.exception.GenericJDBCException;
 import org.springframework.dao.DataAccessException;
 
 import java.sql.SQLException;
