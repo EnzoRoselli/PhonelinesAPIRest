@@ -28,7 +28,7 @@ public class UserService implements IUserService {
         return Optional.ofNullable(u).orElseThrow(() -> new LogException());
     }
     @Override
-    public User register(User user) throws DataAccessException, UserExceptions {
+    public User register(User user) throws DataAccessException, UserDoesntExist {
         userRepository.save(user);
         return findById(user.getId());
     }

@@ -53,16 +53,17 @@ public class UserController {
     }
 
 
-    public void update(User user) throws Exception {
+    public User update(User user) throws Exception {
         if (user.getId() == null) {
             throw new ParametersException("Parameter id can´t contain null value");
         }
         User inDataBaseUser = this.userService.findById(user.getId());
         user.setNonNullValues(inDataBaseUser);
         try {
-            this.userService.update(user);
+            return this.userService.update(user);
         } catch (DataAccessException ex) {
             ExceptionController.userUpdateException(ex);
         }
+        return user;
     }
 }
