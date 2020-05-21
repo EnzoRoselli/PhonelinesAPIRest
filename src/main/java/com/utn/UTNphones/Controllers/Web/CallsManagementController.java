@@ -43,7 +43,7 @@ public class CallsManagementController {
     }
 
     @GetMapping("/mostDestinationsCalled")
-    public ResponseEntity<List<CityTop>> mostDestinationsCalled(@RequestHeader("Authorization") String sessionToken) throws UserExceptions, CallException, ParametersException, ProvinceDoesntExist {
+    public ResponseEntity<List<CityTop>> mostDestinationsCalled(@RequestHeader("Authorization") String sessionToken) throws CallException {
         if (!PermissionsControllers.isLogged(sessionManager,sessionToken)){
             return ResponseEntity.status(403).build();
         }

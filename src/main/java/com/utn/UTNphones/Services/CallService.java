@@ -41,9 +41,9 @@ public class CallService implements ICallService {
     }
 
     @Override
-    public List<CityTop> getTopMostCalledCities(Integer userId) throws CallException {
+    public List<CityTop> getTopMostCalledCities(Integer userId) {
         List<CityTop> cityPlusCounter=this.callRepository.findTopMostCalledCities(userId);
-        return Optional.ofNullable(cityPlusCounter).orElseThrow(()->new CallException("No calls found"));
+        return cityPlusCounter;
     }
 
     @Override

@@ -39,7 +39,7 @@ public class CallController {
         this.phonelineService = phonelineService;
         this.provinceService = provinceService;
     }
-    public List<Call> getCallsByUserId( Integer userId) throws UserExceptions, CallException, PhonelineExceptions, ParametersException {
+    public List<Call> getCallsByUserId(Integer userId) throws UserExceptions, CallException, PhonelineExceptions, ParametersException {
         if (userId==null){
             throw new ParametersException("Parameter can´t contain null values");
         }
@@ -48,26 +48,8 @@ public class CallController {
         return callService.getCallsByPhoneNumbers(phoneLines);
     }
 
-    public List<CityTop> getTopDestinationsCalled(Integer userId) throws UserExceptions, CallException, ParametersException, ProvinceDoesntExist {
-        if (userId==null){
-            throw new ParametersException("Parameter can´t contain null values");
-        }
-//        return results
-//                .stream()
-//                .map(result -> new User(((BigInteger) result[0]).longValue(), (String) result[1], (String) result[2]))
-//                .collect(Collectors.toList());
-
+    public List<CityTop> getTopDestinationsCalled(Integer userId) throws  CallException {
         List<CityTop> listWithoutFormat = this.callService.getTopMostCalledCities(userId);
-//        List<CityTopDto> topCitiesList= new ArrayList<>();
-//
-//        for (int i = 0; i < listWithoutFormat.size(); i++) {
-//            City city = City.builder().id((Integer)listWithoutFormat.get(i)[0])
-//                            .name((String) listWithoutFormat.get(i)[1])
-//                            .prefix((String) listWithoutFormat.get(i)[2])
-//                    .province(this.provinceService.getById((Integer) listWithoutFormat.get(i)[3]).get()).build();
-//            BigInteger counter= (BigInteger) listWithoutFormat.get(i)[4];
-//            topCitiesList.add(new CityTopDto(city,counter));
-//        }
 
         return listWithoutFormat;
     }
