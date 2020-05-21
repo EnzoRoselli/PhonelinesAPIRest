@@ -32,6 +32,7 @@ public class UserService implements IUserService {
         User u = userRepository.findByIdentificationAndPassword(user.getIdentification(), user.getPassword());
         return Optional.ofNullable(u).orElseThrow(() -> new LogException());
     }
+
     @Override
     public User register(User user) throws DataAccessException, UserDoesntExist {
         userRepository.save(user);
@@ -39,46 +40,35 @@ public class UserService implements IUserService {
     }
 
 
-
     @Override
     public void deleteByIdentification(String identification) {
         this.userRepository.deleteByIdentification(identification);
     }
 
-    @Override
-<<<<<<< HEAD
-    public User update(User user) throws UserExceptions,DataAccessException {
-      User userUpdated=this.userRepository.save(user);
-       return Optional.ofNullable(userUpdated).orElseThrow(UserDoesntExist::new);
-=======
     public User update(User user) throws UserExceptions, ErrorResponseDto {
-      User userUpdated = null;
-
-
+        User userUpdated = null;
         try {
-            userUpdated=this.userRepository.save(user);
-      }catch (TransactionSystemException ex){
+            userUpdated = this.userRepository.save(user);
+            return Optional.ofNullable(userUpdated).orElseThrow(() -> new UserDoesntExist());
+        } catch (TransactionSystemException ex) {
             String error = AdviceController.PatternsHandler((ConstraintViolationException) ex.getCause().getCause());
             throw new ErrorResponseDto(3, error);
-      }
+        }
 
-       return Optional.ofNullable(userUpdated).orElseThrow(() -> new UserDoesntExist());
->>>>>>> 34c32bbbb62eb82607102fc5f1917c7fbecb1f1c
     }
-
 
 
     @Override
     public User findById(Integer id) throws UserDoesntExist {
         Optional<User> user = userRepository.findById(id);
-        if (user.isEmpty())throw new UserDoesntExist();
+        if (user.isEmpty()) throw new UserDoesntExist();
         else return user.get();
     }
 
     @Override
     public User findByIdentification(String identification) throws UserDoesntExist {
         User user = userRepository.findByIdentification(identification);
-        if (user==null)throw new UserDoesntExist();
+        if (user == null) throw new UserDoesntExist();
         else return user;
     }
 

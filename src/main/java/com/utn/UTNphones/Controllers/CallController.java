@@ -51,6 +51,10 @@ public class CallController {
         if (userId==null){
             throw new ParametersException("Parameter can´t contain null values");
         }
+//        return results
+//                .stream()
+//                .map(result -> new User(((BigInteger) result[0]).longValue(), (String) result[1], (String) result[2]))
+//                .collect(Collectors.toList());
 
         List<CityTopDto> listWithoutFormat = this.callService.getTopMostCalledCities(userId);
 //        List<CityTopDto> topCitiesList= new ArrayList<>();
