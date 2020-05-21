@@ -2,6 +2,7 @@ package com.utn.UTNphones.Services;
 
 import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Models.Call;
+import com.utn.UTNphones.Models.Dto.CityTop;
 import com.utn.UTNphones.Models.Dto.CityTopDto;
 import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
 import com.utn.UTNphones.Models.Phoneline;
@@ -40,8 +41,8 @@ public class CallService implements ICallService {
     }
 
     @Override
-    public List<CityTopDto> getTopMostCalledCities(Integer userId) throws CallException {
-        List<CityTopDto> cityPlusCounter=this.callRepository.findTopMostCalledCities(userId);
+    public List<CityTop> getTopMostCalledCities(Integer userId) throws CallException {
+        List<CityTop> cityPlusCounter=this.callRepository.findTopMostCalledCities(userId);
         return Optional.ofNullable(cityPlusCounter).orElseThrow(()->new CallException("No calls found"));
     }
 
