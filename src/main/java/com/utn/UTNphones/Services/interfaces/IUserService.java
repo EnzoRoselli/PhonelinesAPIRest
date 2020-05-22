@@ -13,7 +13,7 @@ public interface IUserService {
      @Transactional
      void deleteByIdentification(String identification);
 
-     User update(User user) throws UserExceptions, ErrorResponseDto;
+     User update(User user) throws UserExceptions;
      User findById(Integer id) throws UserExceptions;
      User findByIdentification(String identification) throws UserExceptions;
 }

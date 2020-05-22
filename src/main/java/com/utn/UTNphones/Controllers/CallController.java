@@ -54,11 +54,8 @@ public class CallController {
         return listWithoutFormat;
     }
 
-    public List<Call> getByUserBetweenDates(Integer userId, SearchBetweenDates dates) throws UserExceptions, ParametersException {
-        if (userId==null){
-            throw new ParametersException("Parameter can´t contain null values");
-        }
-        userService.findById(userId);
+    public List<Call> getByUserBetweenDates(Integer userId, SearchBetweenDates dates) {
+
         return this.callService.getByUserAndBetweenDates(userId,dates);
     }
 

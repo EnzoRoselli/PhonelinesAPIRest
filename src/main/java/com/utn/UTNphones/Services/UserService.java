@@ -45,18 +45,17 @@ public class UserService implements IUserService {
         this.userRepository.deleteByIdentification(identification);
     }
 
-    public User update(User user) throws UserExceptions, ErrorResponseDto {
+    public User update(User user) throws UserExceptions {
         User userUpdated = null;
         try {
             userUpdated = this.userRepository.save(user);
             return Optional.ofNullable(userUpdated).orElseThrow(() -> new UserDoesntExist());
         } catch (TransactionSystemException ex) {
             String error = AdviceController.PatternsHandler((ConstraintViolationException) ex.getCause().getCause());
-            throw new ErrorResponseDto(3, error);
+//            throw new ErrorResponseDto(3, error);
         }
-
+        return userUpdated;
     }
-
 
     @Override
     public User findById(Integer id) throws UserDoesntExist {

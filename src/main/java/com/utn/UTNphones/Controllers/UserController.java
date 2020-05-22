@@ -62,8 +62,6 @@ public class UserController {
             return this.userService.update(user);
         } catch (DataAccessException ex) {
             ExceptionController.userUpdateException(ex);
-        }catch (ErrorResponseDto ex){
-
         }
         return user;
     }

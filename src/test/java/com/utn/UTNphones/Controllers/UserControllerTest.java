@@ -5,6 +5,7 @@ import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.City;
+import com.utn.UTNphones.Models.Dto.ErrorResponseDto;
 import com.utn.UTNphones.Models.Province;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Services.UserService;
@@ -125,14 +126,14 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testUpdateOk() throws Exception {
+    public void testUpdateOk() throws Exception, ErrorResponseDto {
         Province province = Province.builder().name("Buenos Aires").build();
         City city = City.builder().name("Mar del Plata").prefix("223").province(province).build();
 
         User updatedUser = User.builder().id(1).name("Enzo").lastname("Roselli").type("client")
                 .identification("1").password("1234").city(city).build();
 
-//        when(userService.update(updatedUser)).thenReturn(updatedUser);
+        when(userService.update(updatedUser)).thenReturn(updatedUser);
         User u = userController.update(updatedUser);
 
         assertEquals(u, updatedUser);
@@ -156,7 +157,7 @@ public class UserControllerTest {
         User updatedUser = User.builder().id(1).name("Enzo").lastname("Roselli").type("client")
                 .identification("1").password("1234").city(city).build();
 
-//        when(userService.update(updatedUser)).thenThrow(new UserDoesntExist());
+        when(userService.update(updatedUser)).thenThrow(new UserDoesntExist());
 
         userController.update(updatedUser);
     }
