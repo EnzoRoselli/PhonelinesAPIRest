@@ -41,19 +41,7 @@ public class UserService implements IUserService {
     }
 
     public User update(User user) throws UserExceptions {
-<<<<<<< HEAD
         return Optional.ofNullable(this.userRepository.save(user)).orElseThrow(UserDoesntExist::new);
-=======
-        User userUpdated = null;
-        try {
-            userUpdated = this.userRepository.save(user);
-            return Optional.ofNullable(userUpdated).orElseThrow(() -> new UserDoesntExist());
-        } catch (TransactionSystemException ex) {
-            String error = AdviceController.PatternsHandler((ConstraintViolationException) ex.getCause().getCause());
-//            throw new ErrorResponseDto(3, error);
-        }
-        return userUpdated;
->>>>>>> 781420d806f66aa37d9ef5b7e326e75b877fd551
     }
 
     @Override

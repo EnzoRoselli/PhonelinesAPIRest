@@ -1,6 +1,7 @@
 package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
+import com.utn.UTNphones.Exceptions.CallExceptions.NoCallsFound;
 import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
 import com.utn.UTNphones.Exceptions.ProvinceExceptions.ProvinceDoesntExist;
@@ -33,34 +34,21 @@ public class CallController {
         this.userService = userService;
         this.phonelineService = phonelineService;
     }
-<<<<<<< HEAD
-    public List<Call> getCallsByUserId( Integer userId) throws UserExceptions, CallException, PhonelineExceptions {
-=======
-    public List<Call> getCallsByUserId(Integer userId) throws UserExceptions, CallException, PhonelineExceptions, ParametersException {
+
+    public List<Call> getCallsByUserId( Integer userId) throws UserExceptions, CallException, PhonelineExceptions, ParametersException {
         if (userId==null){
             throw new ParametersException("Parameter can´t contain null values");
         }
->>>>>>> 781420d806f66aa37d9ef5b7e326e75b877fd551
         userService.findById(userId);
         List<Phoneline> phoneLines = phonelineService.findByUserId(userId);
         return callService.getCallsByPhoneNumbers(phoneLines);
     }
 
-    public List<CityTop> getTopDestinationsCalled(Integer userId) throws  CallException {
-<<<<<<< HEAD
+    public List<CityTop> getTopDestinationsCalled(Integer userId) throws NoCallsFound {
         return this.callService.getTopMostCalledCities(userId);
     }
 
-    public List<Call> getByUserBetweenDates(Integer userId, SearchBetweenDates dates){
-=======
-        List<CityTop> listWithoutFormat = this.callService.getTopMostCalledCities(userId);
-
-        return listWithoutFormat;
-    }
-
     public List<Call> getByUserBetweenDates(Integer userId, SearchBetweenDates dates) {
-
->>>>>>> 781420d806f66aa37d9ef5b7e326e75b877fd551
         return this.callService.getByUserAndBetweenDates(userId,dates);
     }
 
