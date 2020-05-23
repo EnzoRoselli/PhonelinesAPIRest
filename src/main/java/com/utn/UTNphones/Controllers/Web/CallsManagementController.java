@@ -42,7 +42,7 @@ public class CallsManagementController {
     }
 
     @GetMapping("/mostDestinationsCalled")
-    public ResponseEntity<List<CityTop>> mostDestinationsCalled(@RequestHeader("Authorization") String sessionToken) throws UserExceptions, CallException, ParametersException, ProvinceDoesntExist {
+    public ResponseEntity<List<CityTop>> mostDestinationsCalled(@RequestHeader("Authorization") String sessionToken) throws CallException {
         if (!PermissionsControllers.isLogged(sessionManager,sessionToken)){
             return ResponseEntity.status(403).build();
         }
@@ -53,7 +53,7 @@ public class CallsManagementController {
     @GetMapping("/startDate/{startDate}/endDate/{endDate}")
     public ResponseEntity<List<Call>> getCallsBetweenDates(@RequestHeader("Authorization") String sessionToken,
                                                            @PathVariable("startDate") @NotNull Date startDate,
-                                                           @PathVariable("endDate")@NotNull Date endDate) throws UserExceptions, ParametersException {
+                                                           @PathVariable("endDate")@NotNull Date endDate) {
         if (!PermissionsControllers.isLogged(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }

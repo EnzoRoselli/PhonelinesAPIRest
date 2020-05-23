@@ -11,7 +11,7 @@ import java.util.List;
 public interface ICallService {
     void add(Call call) throws CallException;
     List<Call> getCallsByPhoneNumbers(List<Phoneline> phoneListOfTheUser) throws CallException;
-    List<CityTop> getTopMostCalledCities(Integer userId) throws CallException;
+    List<CityTop> getTopMostCalledCities(Integer userId);
 
     List<Call> getByUserAndBetweenDates(Integer userId, SearchBetweenDates dates);
 }

@@ -14,13 +14,14 @@ import java.util.List;
 public interface ICallRepository extends JpaRepository<Call, Integer> {
     List<Call> findByOriginPhonelineIn(List<Phoneline> phonelineListOrigin);
 
-    @Query(value = "select cities.id, count(cities.id) as contador from calls \n" +
+    @Query(value = "select cities.id, cities.city_name as cityName" +
+            ", cities.prefix, cities.id_province as idProvince, count(cities.id) as cant from calls \n" +
             "inner join rates on rates.id=calls.id_rate\n" +
             "inner join cities on rates.id_destination_city=cities.id\n" +
             "where calls.id_origin_phone in (select phonelines.id\n" +
-            " from phonelines inner join users on phonelines.id_user=1)\n" +
+            " from phonelines inner join users on phonelines.id_user= ?1)\n" +
             "group by cities.id\n" +
-            "order by(contador)desc\n" +
+            "order by(Cant)desc\n" +
             "LIMIT 10;", nativeQuery = true)
     List<CityTop> findTopMostCalledCities(Integer userId);
 
