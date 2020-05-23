@@ -8,9 +8,12 @@ import com.utn.UTNphones.Models.Phoneline;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.constraints.NotNull;
+import java.net.URI;
 
 @RestController
 @RequestMapping("/phonelineManagement")
@@ -29,9 +32,19 @@ public class PhonelineManagementController {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
-        phonelineController.add(newPhoneline);
-        return ResponseEntity.ok().build();
+        Phoneline phoneline = phonelineController.add(newPhoneline);
+        return ResponseEntity.created(getLocation(phoneline)).build();
     }
+
+    @GetMapping("/{phonelineId}")
+    public ResponseEntity<Phoneline> getPhoneline(@RequestHeader("Authorization") String sessionToken, @PathVariable("phonelineId") @NonNull Integer phonelineId) throws Exception {
+        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
+            return ResponseEntity.status(403).build();
+        }
+        Phoneline phoneline = phonelineController.getById(phonelineId);
+        return ResponseEntity.ok(phoneline);
+    }
+
 
     @DeleteMapping("/Phoneline/{phoneNumber}")
     public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneNumber") String phoneNumber) throws Exception {
@@ -58,6 +71,12 @@ public class PhonelineManagementController {
         this.phonelineController.enable(phoneNumber);
         return ResponseEntity.ok().build();
     }
-
+    private URI getLocation(Phoneline phoneline) {
+        return ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(phoneline.getId())
+                .toUri();
+    }
 
 }

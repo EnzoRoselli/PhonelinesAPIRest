@@ -3,15 +3,20 @@ package com.utn.UTNphones.Controllers.Web;
 import com.utn.UTNphones.Controllers.PermissionsControllers;
 import com.utn.UTNphones.Controllers.UserController;
 import com.utn.UTNphones.Exceptions.ParametersException;
+import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
+import com.utn.UTNphones.Models.Phoneline;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.constraints.NotNull;
+import java.net.URI;
 
 @RestController
 @RequestMapping("/managementClient")
@@ -30,8 +35,17 @@ public class ClientManagementController {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
-        User newUser = userController.register(userRegistering);
-        return newUser != null ? ResponseEntity.status(201).build() : ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+         userController.register(userRegistering);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("{/userId}")
+    public ResponseEntity<User> getUser(@RequestHeader("Authorization") String sessionToken, @PathVariable("userId") @NonNull Integer userId) throws UserDoesntExist {
+        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
+            return ResponseEntity.status(403).build();
+        }
+        User user=this.userController.getById(userId);
+        return ResponseEntity.created(getLocation(user)).build();
     }
 
     @DeleteMapping("/User/{identification}")
@@ -50,6 +64,13 @@ public class ClientManagementController {
         }
         this.userController.update(userUpdating);
         return ResponseEntity.ok().build();
+    }
+    private URI getLocation(User user) {
+        return ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(user.getId())
+                .toUri();
     }
 
 }

@@ -1,7 +1,10 @@
 package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Exceptions.ParametersException;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
+import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
+import com.utn.UTNphones.Models.Phoneline;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +50,10 @@ public class UserController {
         }
         this.userService.findByIdentification(identification);
         this.userService.deleteByIdentification(identification);
+    }
+
+    public User getById(Integer id) throws UserDoesntExist {
+        return this.userService.getById(id);
     }
 
 

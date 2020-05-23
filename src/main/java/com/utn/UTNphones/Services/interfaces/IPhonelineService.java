@@ -1,9 +1,11 @@
 package com.utn.UTNphones.Services.interfaces;
 
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
 import com.utn.UTNphones.Models.Phoneline;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IPhonelineService {
     Phoneline add(Phoneline phoneline);
@@ -21,4 +23,5 @@ public interface IPhonelineService {
     Boolean exists(String number, Integer cityId);
 
 
+    Phoneline getById(Integer id) throws PhonelineDoesntExist;
 }

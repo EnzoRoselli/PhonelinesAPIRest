@@ -2,6 +2,7 @@ package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDigitsCountPlusPrefix;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
 import com.utn.UTNphones.Models.Phoneline;
 import com.utn.UTNphones.Services.interfaces.ICityService;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.constraints.NotNull;
+import java.util.Optional;
 
 @Controller
 public class PhonelineController {
@@ -25,6 +27,9 @@ public class PhonelineController {
         this.cityService = cityService;
     }
 
+    public Phoneline getById(Integer id) throws PhonelineDoesntExist {
+       return this.phonelineService.getById(id);
+    }
 
     public Phoneline add(@RequestBody @NotNull Phoneline phoneline) throws Exception {
         if (phoneline.hasNullAtribute()) throw new ParametersException("Parameters can´t contain null values");

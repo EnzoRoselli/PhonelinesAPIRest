@@ -58,5 +58,12 @@ public class UserService implements IUserService {
         return user;
     }
 
+    @Override
+    public User getById(Integer id) throws UserDoesntExist {
+        Optional< User> user=this.userRepository.findById(id);
+        if (user.isEmpty()) throw new UserDoesntExist();
+        return user.get();
+    }
+
 
 }

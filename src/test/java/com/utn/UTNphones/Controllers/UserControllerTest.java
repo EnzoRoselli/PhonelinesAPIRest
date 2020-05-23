@@ -126,7 +126,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testUpdateOk() throws Exception, ErrorResponseDto {
+    public void testUpdateOk() throws Exception{
         Province province = Province.builder().name("Buenos Aires").build();
         City city = City.builder().name("Mar del Plata").prefix("223").province(province).build();
 
