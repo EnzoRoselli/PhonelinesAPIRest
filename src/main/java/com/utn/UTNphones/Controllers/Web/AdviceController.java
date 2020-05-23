@@ -11,6 +11,7 @@ import com.utn.UTNphones.Exceptions.UsersExceptions.UserIdentificationAlreadyExi
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeDoesntExist;
 import com.utn.UTNphones.Models.Dto.ErrorResponseDto;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -106,16 +107,17 @@ public class AdviceController {
         return new ErrorResponseDto(2, ex.getMessage());
     }
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(ErrorResponseDto.class)
-    public ErrorResponseDto handleErrorResponseDto(ErrorResponseDto ex) {
-        return ex;
+    @ExceptionHandler(TransactionSystemException.class)
+    public ErrorResponseDto handleTransactionSystemException(TransactionSystemException ex) {
+       return new ErrorResponseDto(2,  AdviceController.PatternsHandler((ConstraintViolationException) ex.getCause().getCause()));
     }
+
 
 
     public static String PatternsHandler(ConstraintViolationException message) {
         Pattern pattern = Pattern.compile("'.*?'");
         Matcher matcher = pattern.matcher(message.getMessage());
-        StringBuilder PatternErrors = new StringBuilder("Errors with the patterns: ");
+        StringBuilder PatternErrors = new StringBuilder("Errors with the validation with: ");
         while (matcher.find()) {
             switch (matcher.group()) {
                 case "'Invalid lastname!'":

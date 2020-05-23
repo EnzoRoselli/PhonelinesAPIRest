@@ -1,16 +1,10 @@
 package com.utn.UTNphones.Exceptions.CallExceptions;
 
-public class CallException extends Exception {
-    private Throwable cause;
+public abstract class CallException extends Exception {
     private String message;
 
-    public CallException(String message, Throwable cause) {
-        super();
-        this.message = message;
-        this.cause = cause;
-    }
-
     public CallException(String message) {
+        super();
         this.message = message;
     }
 
@@ -19,7 +13,4 @@ public class CallException extends Exception {
         return message;
     }
 
-    public Throwable getCause() {
-        return cause;
-    }
 }

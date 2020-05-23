@@ -30,7 +30,7 @@ public class User {
     private String type;
 
     @Column(name = "identification_card")
-    @Pattern(regexp="^[1-9]{6,10}$", message="Invalid identification!")
+    @Pattern(regexp="^[1-9]{6,9}$", message="Invalid identification!")
     private String identification;
 
     @Column(name = "password_user")
@@ -43,6 +43,8 @@ public class User {
     public boolean hasNullAtribute() {
         return Stream.of(name, lastname, identification, password, city, type).anyMatch(x -> x == null);
     }
+
+
 
     public void setNonNullValues(User user) {
         if (getPassword() == null) setPassword(user.getPassword());

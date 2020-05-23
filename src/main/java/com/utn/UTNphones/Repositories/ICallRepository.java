@@ -2,7 +2,6 @@ package com.utn.UTNphones.Repositories;
 
 import com.utn.UTNphones.Models.Call;
 import com.utn.UTNphones.Models.Dto.CityTop;
-import com.utn.UTNphones.Models.Dto.CityTopDto;
 import com.utn.UTNphones.Models.Phoneline;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

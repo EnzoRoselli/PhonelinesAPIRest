@@ -35,7 +35,7 @@ public class RateManagmentController {
         return (Allrates.size()>0)? ResponseEntity.ok(Allrates): ResponseEntity.status(204).build();
     }
 
-    @GetMapping("/searchOriginDestination/{originCityId}/{destinationCityId}")
+    @GetMapping("/Origin/{originCityId}/Destination/{destinationCityId}")
     public ResponseEntity<Rate> getByOriginAndDestination(@RequestHeader("Authorization") String sessionToken,
                                                           @RequestBody @NotNull Integer originCityId,
                                                           @RequestBody @NotNull Integer destinationCityId) throws ParametersException {

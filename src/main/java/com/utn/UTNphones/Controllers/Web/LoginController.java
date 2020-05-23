@@ -2,6 +2,7 @@ package com.utn.UTNphones.Controllers.Web;
 
 import com.utn.UTNphones.Controllers.UserController;
 import com.utn.UTNphones.Exceptions.ParametersException;
+import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Sessions.SessionManager;
@@ -16,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @RestController
 @RequestMapping("/user")
 public class LoginController {
-   private final UserController userController;
+    private final UserController userController;
     private final SessionManager sessionManager;
 
     @Autowired
@@ -26,10 +27,10 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @NotNull User userLogging) throws ParametersException, UserExceptions {
-        User user = userController.login(userLogging);
-        String token = sessionManager.createSession(user);
-        return ResponseEntity.ok().headers(createHeaders(token)).build();
+    public ResponseEntity<String> login(@RequestBody @NotNull User userLogging) throws ParametersException, UserExceptions, LogException {
+        userLogging = userController.login(userLogging);
+        String token = sessionManager.createSession(userLogging);
+        return ResponseEntity.ok(token);
     }
 
     @PostMapping("/logout")

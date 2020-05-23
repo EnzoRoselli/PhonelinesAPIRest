@@ -15,11 +15,11 @@ public class ExceptionController {
     public static void userRegisterException(SQLException ex) throws Exception {
         switch (ex.getErrorCode()) {
             case 1452:
-                throw new CityDoesntExist(ex.getCause());
+                throw new CityDoesntExist();
             case 1062:
-                throw new UserIdentificationAlreadyExists(ex.getCause());
+                throw new UserIdentificationAlreadyExists();
             case 1265:
-                throw new UserTypeDoesntExist(ex.getCause());
+                throw new UserTypeDoesntExist();
             default:
                 throw new Exception("External error");
         }
@@ -31,7 +31,7 @@ public class ExceptionController {
         phonelineAddExceptionSQLCode(ex.getErrorCode());
     }
 
-    private static void phonelineAddExceptionSQLCode(int errorNumber) throws Exception {
+    private static void phonelineAddExceptionSQLCode(int errorNumber) throws Exception{
         switch (errorNumber) {
             case 1452:
                 throw new UserDoesntExist();
@@ -48,10 +48,10 @@ public class ExceptionController {
 
         //City id
         if (Error.getRootCause().getMessage().contains("Models.City")) //110
-            throw new CityDoesntExist(Error.getCause());
+            throw new CityDoesntExist();
             //Identification unique
         else if (Error.getRootCause().getMessage().contains("for key 'identification_card'")) //92
-            throw new UserIdentificationAlreadyExists(Error.getCause());
+            throw new UserIdentificationAlreadyExists();
             //User type enum
         else if (Error.getRootCause().getMessage().contains("type_user"))//91  - 98 root
             throw new UserTypeDoesntExist();

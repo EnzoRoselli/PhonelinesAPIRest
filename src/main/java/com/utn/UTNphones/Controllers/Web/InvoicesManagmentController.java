@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
-@RequestMapping("/InvoicesManagmentController")
+@RequestMapping("/InvoicesManagment")
 public class InvoicesManagmentController {
     private final InvoiceController invoiceController;
     private final SessionManager sessionManager;
@@ -22,7 +22,7 @@ public class InvoicesManagmentController {
         this.sessionManager = sessionManager;
     }
 
-    @GetMapping("/getByUserId/{id}")
+    @GetMapping("/User/{id}")
     public ResponseEntity<List<Invoice>> getByUserId(@RequestHeader("Authorization") String sessionToken, @PathVariable("id")@NotNull Integer userId) throws ParametersException {
         if(!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();

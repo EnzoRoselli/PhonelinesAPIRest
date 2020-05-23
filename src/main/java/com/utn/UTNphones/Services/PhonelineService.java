@@ -12,7 +12,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PhonelineService implements IPhonelineService {
@@ -31,41 +30,40 @@ public class PhonelineService implements IPhonelineService {
 
     @Override
     public Boolean disable(String phoneNumber) {
-        if (phonelineRepository.disableOrEnable(false, phoneNumber) == 1) return true;
-        else return false;
+        return phonelineRepository.disableOrEnable(false, phoneNumber) == 1;
     }
 
     public List<Phoneline> findByUserId(Integer id) throws PhonelineExceptions {
-        List<Phoneline> phoneList=this.phonelineRepository.findByUserId(id);
-        return Optional.ofNullable(phoneList).orElseThrow(()->new PhonelinesNotRegisteredByUser());
+        List<Phoneline> phoneList = this.phonelineRepository.findByUserId(id);
+        if (phoneList.isEmpty()){ throw new PhonelinesNotRegisteredByUser();}
+        return phoneList;
     }
 
     public Phoneline findByNumber(String number) throws PhonelineExceptions {
-        Phoneline ph= phonelineRepository.findByNumber(number);
-        if (ph==null) throw new PhonelineDoesntExist();
-        else return ph;
+        Phoneline ph = phonelineRepository.findByNumber(number);
+        if (ph == null) throw new PhonelineDoesntExist();
+         return ph;
     }
 
     @Override
     public Boolean enable(String phoneNumber) {
-        if (phonelineRepository.disableOrEnable(true, phoneNumber) == 1) return true;
-        else return false;
+        return phonelineRepository.disableOrEnable(true, phoneNumber) == 1;
     }
 
     @Override
     public void removeByNumber(String phoneNumber) throws PhonelineExceptions {
-        try{
-        this.phonelineRepository.removeByNumber(phoneNumber);
-        }catch (EmptyResultDataAccessException ex){
-            throw new PhonelineDoesntExist(ex.getCause());
+        try {
+            this.phonelineRepository.removeByNumber(phoneNumber);
+        } catch (EmptyResultDataAccessException ex) {
+            throw new PhonelineDoesntExist();
         }
     }
 
     @Override
     public Boolean exists(String number, Integer cityId) {
-        Phoneline ph = this.phonelineRepository.findByNumberAndCityId(number,cityId);
-        if (ph==null)return false;
-        else return true;
+        Phoneline ph = this.phonelineRepository.findByNumberAndCityId(number, cityId);
+        if (ph == null) return false;
+        return true;
     }
 
 

@@ -9,7 +9,6 @@ import com.utn.UTNphones.Exceptions.ProvinceExceptions.ProvinceDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.Call;
 import com.utn.UTNphones.Models.Dto.CityTop;
-import com.utn.UTNphones.Models.Dto.CityTopDto;
 import com.utn.UTNphones.Models.Dto.NewCallDto;
 import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
 import com.utn.UTNphones.Sessions.SessionManager;
@@ -22,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/callsManagementController")
+@RequestMapping("/callsManagement")
 public class CallsManagementController {
     private final CallController callController;
     private final SessionManager sessionManager;
@@ -33,8 +32,8 @@ public class CallsManagementController {
         this.sessionManager = sessionManager;
     }
 
-    @GetMapping("/searchByUser/{UserId}")
-    public ResponseEntity<List<Call>> getByUserId(@RequestHeader("Authorization") String sessionToken, @PathVariable("UserId") @NotNull Integer userId) throws CallException, PhonelineExceptions, UserExceptions, ParametersException {
+    @GetMapping("/User/{userId}")
+    public ResponseEntity<List<Call>> getByUserId(@RequestHeader("Authorization") String sessionToken, @PathVariable("userId") @NotNull Integer userId) throws CallException, PhonelineExceptions, UserExceptions, ParametersException {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)){
             return ResponseEntity.status(403).build();
         }
@@ -51,7 +50,7 @@ public class CallsManagementController {
         return citiesWithCounter.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(citiesWithCounter);
     }
 
-    @GetMapping("/getCallsBetweenDates/{startDate}/{endDate}")
+    @GetMapping("/startDate/{startDate}/endDate/{endDate}")
     public ResponseEntity<List<Call>> getCallsBetweenDates(@RequestHeader("Authorization") String sessionToken,
                                                            @PathVariable("startDate") @NotNull Date startDate,
                                                            @PathVariable("endDate")@NotNull Date endDate) throws UserExceptions, ParametersException {

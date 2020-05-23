@@ -33,8 +33,8 @@ public class PhonelineManagementController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{phoneNumber}")
-    public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneNumber") @NotNull String phoneNumber) throws Exception {
+    @DeleteMapping("/Phoneline/{phoneNumber}")
+    public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneNumber") String phoneNumber) throws Exception {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
@@ -42,7 +42,7 @@ public class PhonelineManagementController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/disable/{phoneNumber}")
+    @PatchMapping("/disable/{phoneNumber}")
     public ResponseEntity disable(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneNumber") @NotNull String phoneNumber) throws ParametersException, PhonelineExceptions {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
@@ -50,7 +50,7 @@ public class PhonelineManagementController {
         this.phonelineController.disable(phoneNumber);
         return ResponseEntity.ok().build();
     }
-    @PutMapping("/enable/{phoneNumber}")
+    @PatchMapping("/enable/{phoneNumber}")
     public ResponseEntity enable(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneNumber") @NotNull String phoneNumber) throws ParametersException, PhonelineExceptions {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();

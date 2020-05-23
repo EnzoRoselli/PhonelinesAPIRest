@@ -2,15 +2,13 @@ package com.utn.UTNphones.Models.Dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @NoArgsConstructor
-@Data
 @ToString
 @Builder
-public class ErrorResponseDto extends Throwable {
+public class ErrorResponseDto {
 
     @JsonProperty
     int code;

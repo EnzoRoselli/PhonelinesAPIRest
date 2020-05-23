@@ -3,7 +3,6 @@ package com.utn.UTNphones.Services.interfaces;
 import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Models.Call;
 import com.utn.UTNphones.Models.Dto.CityTop;
-import com.utn.UTNphones.Models.Dto.CityTopDto;
 import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
 import com.utn.UTNphones.Models.Phoneline;
 

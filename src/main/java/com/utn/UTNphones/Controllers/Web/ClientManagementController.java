@@ -26,7 +26,7 @@ public class ClientManagementController {
     }
 
     @PostMapping
-    public ResponseEntity register(@RequestHeader("Authorization") String sessionToken, @RequestBody User userRegistering) throws Exception {
+    public ResponseEntity register(@RequestHeader("Authorization") String sessionToken, @RequestBody User userRegistering) throws Exception, UserExceptions {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
@@ -34,7 +34,7 @@ public class ClientManagementController {
         return newUser != null ? ResponseEntity.status(201).build() : ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @DeleteMapping("/{identification}")
+    @DeleteMapping("/User/{identification}")
     public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("identification")@NotNull String identification) throws ParametersException, UserExceptions {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)){
             return ResponseEntity.status(401).build();

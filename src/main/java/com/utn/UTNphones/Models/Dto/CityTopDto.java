@@ -1,8 +1,10 @@
 package com.utn.UTNphones.Models.Dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.utn.UTNphones.Models.City;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.math.BigInteger;
 

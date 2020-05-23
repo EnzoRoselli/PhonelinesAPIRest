@@ -1,20 +1,15 @@
 package com.utn.UTNphones.Services;
 
-import com.utn.UTNphones.Controllers.Web.AdviceController;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
-import com.utn.UTNphones.Models.Dto.ErrorResponseDto;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Repositories.IUserRepository;
 import com.utn.UTNphones.Services.interfaces.IUserService;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.TransactionSystemException;
 
-import javax.validation.ConstraintViolationException;
 import java.util.Optional;
 
 @Service
@@ -28,9 +23,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User login(User user) throws UserExceptions {
+    public User login(User user) throws UserExceptions{
         User u = userRepository.findByIdentificationAndPassword(user.getIdentification(), user.getPassword());
-        return Optional.ofNullable(u).orElseThrow(() -> new LogException());
+        return Optional.ofNullable(u).orElseThrow(LogException::new);
     }
 
     @Override
@@ -45,16 +40,8 @@ public class UserService implements IUserService {
         this.userRepository.deleteByIdentification(identification);
     }
 
-    public User update(User user) throws UserExceptions, ErrorResponseDto {
-        User userUpdated = null;
-        try {
-            userUpdated = this.userRepository.save(user);
-            return Optional.ofNullable(userUpdated).orElseThrow(() -> new UserDoesntExist());
-        } catch (TransactionSystemException ex) {
-            String error = AdviceController.PatternsHandler((ConstraintViolationException) ex.getCause().getCause());
-            throw new ErrorResponseDto(3, error);
-        }
-
+    public User update(User user) throws UserExceptions {
+        return Optional.ofNullable(this.userRepository.save(user)).orElseThrow(UserDoesntExist::new);
     }
 
 
@@ -62,14 +49,14 @@ public class UserService implements IUserService {
     public User findById(Integer id) throws UserDoesntExist {
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty()) throw new UserDoesntExist();
-        else return user.get();
+         return user.get();
     }
 
     @Override
     public User findByIdentification(String identification) throws UserDoesntExist {
         User user = userRepository.findByIdentification(identification);
         if (user == null) throw new UserDoesntExist();
-        else return user;
+        return user;
     }
 
 

@@ -24,6 +24,6 @@ public class CityService implements ICityService {
     public City getById(Integer id) throws CityExceptions {
         Optional<City> cityOptional = cityRepository.findById(id);
         if (cityOptional.isEmpty())throw new CityDoesntExist();
-        else return cityOptional.get();
+        return cityOptional.get();
     }
 }

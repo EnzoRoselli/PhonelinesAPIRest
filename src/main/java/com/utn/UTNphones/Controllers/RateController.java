@@ -1,6 +1,5 @@
 package com.utn.UTNphones.Controllers;
 
-import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Models.Rate;
 import com.utn.UTNphones.Services.interfaces.IRateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +19,11 @@ public class RateController {
     }
 
 
-    public List<Rate> getAllRates(){
+    public List<Rate> getAllRates() {
         return rateService.getAllRates();
     }
 
-    public Optional<Rate> getByOriginAndDestination(Integer originCityIdInteger, Integer destinationCityId) throws ParametersException {
-
-        if (originCityIdInteger==null || destinationCityId==null){
-            throw new ParametersException("The cities id`s must not be null");
-        }
-        return this.rateService.findByOriginAndDestination(originCityIdInteger,destinationCityId);
+    public Optional<Rate> getByOriginAndDestination(Integer originCityIdInteger, Integer destinationCityId) {
+        return this.rateService.findByOriginAndDestination(originCityIdInteger, destinationCityId);
     }
 }

@@ -1,14 +1,8 @@
 package com.utn.UTNphones.Exceptions.PhonelineExceptions;
 
 public abstract class PhonelineExceptions extends Exception {
-    private  Throwable cause=new Throwable();
     private String message;
 
-    public PhonelineExceptions(String message,Throwable cause) {
-        super();
-        this.message = message;
-        this.cause=cause;
-    }
     public PhonelineExceptions(String message) {
         super();
         this.message = message;
@@ -19,7 +13,4 @@ public abstract class PhonelineExceptions extends Exception {
         return message;
     }
 
-    public Throwable getCause() {
-        return cause;
-    }
 }
