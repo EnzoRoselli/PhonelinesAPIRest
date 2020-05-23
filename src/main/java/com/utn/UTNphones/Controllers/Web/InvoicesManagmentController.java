@@ -23,7 +23,7 @@ public class InvoicesManagmentController {
     }
 
     @GetMapping("/User/{id}")
-    public ResponseEntity<List<Invoice>> getByUserId(@RequestHeader("Authorization") String sessionToken, @PathVariable("id")@NotNull Integer userId) throws ParametersException {
+    public ResponseEntity<List<Invoice>> getByUserId(@RequestHeader("Authorization") String sessionToken, @PathVariable("id")@NotNull Integer userId){
         if(!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }

@@ -37,8 +37,8 @@ public class RateManagmentController {
 
     @GetMapping("/Origin/{originCityId}/Destination/{destinationCityId}")
     public ResponseEntity<Rate> getByOriginAndDestination(@RequestHeader("Authorization") String sessionToken,
-                                                          @RequestBody @NotNull Integer originCityId,
-                                                          @RequestBody @NotNull Integer destinationCityId) throws ParametersException {
+                                                          @PathVariable("originCityId") @NotNull Integer originCityId,
+                                                          @PathVariable("destinationCityId") @NotNull Integer destinationCityId) throws ParametersException {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
