@@ -42,7 +42,7 @@ public class PhonelineManagementController {
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/disable/{phoneNumber}")
+    @PutMapping("/disable/{phoneNumber}")
     public ResponseEntity disable(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneNumber") @NotNull String phoneNumber) throws ParametersException, PhonelineExceptions {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
@@ -50,7 +50,7 @@ public class PhonelineManagementController {
         this.phonelineController.disable(phoneNumber);
         return ResponseEntity.ok().build();
     }
-    @PatchMapping("/enable/{phoneNumber}")
+    @PutMapping("/enable/{phoneNumber}")
     public ResponseEntity enable(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneNumber") @NotNull String phoneNumber) throws ParametersException, PhonelineExceptions {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
