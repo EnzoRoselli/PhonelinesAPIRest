@@ -64,7 +64,7 @@ create table invoices(
     invoice_date timestamp default current_timestamp,
     is_paid boolean default false,
     invoice_expiration_date datetime,
-    constraint pk_users primary key (id),
+    constraint pk_invoice primary key (id),
     constraint fk_invoices_id_phone_number foreign key(id_phone_number) references phonelines(id)
 );
 

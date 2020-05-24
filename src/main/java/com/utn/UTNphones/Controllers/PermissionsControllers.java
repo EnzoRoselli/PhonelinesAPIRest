@@ -13,10 +13,7 @@ public class PermissionsControllers {
         Optional<User> currentUser = sessionManager.getCurrentUser(sessionToken);
         return (!currentUser.isEmpty() && currentUser.get().getType().equals("employee"));
     }
-    public static Boolean hasClientPermissions(SessionManager sessionManager,String sessionToken) {
-        Optional<User> currentUser = sessionManager.getCurrentUser(sessionToken);
-        return (!currentUser.isEmpty() && currentUser.get().getType().equals("client"));
-    }
+
     public static Boolean hasInfrastructurePermissions(SessionManager sessionManager,String sessionToken) {
         Optional<User> currentUser = sessionManager.getCurrentUser(sessionToken);
         return (!currentUser.isEmpty() && currentUser.get().getType().equals("infrastructure"));

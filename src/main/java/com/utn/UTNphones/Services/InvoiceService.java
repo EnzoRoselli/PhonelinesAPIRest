@@ -1,5 +1,6 @@
 package com.utn.UTNphones.Services;
 
+import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
 import com.utn.UTNphones.Models.Invoice;
 import com.utn.UTNphones.Repositories.IInvoiceRepository;
 import com.utn.UTNphones.Services.interfaces.IInvoiceService;
@@ -26,5 +27,10 @@ public class InvoiceService implements IInvoiceService {
     @Override
     public List<Invoice> getAllByUserId(Integer userId) {
         return this.invoiceRepository.findByPhonelineUserId(userId);
+    }
+
+    @Override
+    public List<Invoice> getByUserAndBetweenDates(Integer id, SearchBetweenDates datesDto) {
+        return this.invoiceRepository.findAllByPhonelineUserIdAndDateBetween(id,datesDto.getStart(),datesDto.getEnd());
     }
 }

@@ -35,8 +35,8 @@ public class ClientManagementController {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
-         userController.register(userRegistering);
-        return ResponseEntity.ok().build();
+         User user=userController.register(userRegistering);
+        return ResponseEntity.created(getLocation(user)).build();
     }
 
     @GetMapping("{/userId}")
@@ -44,8 +44,8 @@ public class ClientManagementController {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
-        User user=this.userController.getById(userId);
-        return ResponseEntity.created(getLocation(user)).build();
+        this.userController.getById(userId);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/User/{identification}")
