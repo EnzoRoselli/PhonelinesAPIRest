@@ -27,7 +27,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody @NotNull User userLogging) throws ParametersException, UserExceptions, LogException {
+    public ResponseEntity<String> login(@RequestBody @NotNull User userLogging) throws ParametersException, UserExceptions {
         userLogging = userController.login(userLogging);
         String token = sessionManager.createSession(userLogging);
         return ResponseEntity.ok(token);

@@ -31,7 +31,7 @@ public class ClientManagementController {
     }
 
     @PostMapping
-    public ResponseEntity register(@RequestHeader("Authorization") String sessionToken, @RequestBody User userRegistering) throws Exception, UserExceptions {
+    public ResponseEntity register(@RequestHeader("Authorization") String sessionToken, @RequestBody User userRegistering) throws Exception {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
