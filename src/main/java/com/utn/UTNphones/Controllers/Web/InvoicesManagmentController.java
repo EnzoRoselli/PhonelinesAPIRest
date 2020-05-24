@@ -25,7 +25,7 @@ public class InvoicesManagmentController {
         this.sessionManager = sessionManager;
     }
 
-    @GetMapping("/User/{id}")
+    @GetMapping("/user/{id}")
     public ResponseEntity<List<Invoice>> getByUserId(@RequestHeader("Authorization") String sessionToken,
                                                      @PathVariable("id")@NotNull Integer userId){
         if(!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
@@ -35,7 +35,7 @@ public class InvoicesManagmentController {
         return invoices.isEmpty() ?  ResponseEntity.status(204).build(): ResponseEntity.ok(invoices);
     }
 
-    @GetMapping("/Start/{startDate}/end/{endDate}")
+    @GetMapping("/start/{startDate}/end/{endDate}")
     public ResponseEntity<List<Invoice>>getByUserIdBetweenDates(@RequestHeader("Authorization") String sessionToken,
                                                                 @PathVariable("startDate") @NotNull Date startDate,
                                                                 @PathVariable("endDate")@NotNull Date endDate){

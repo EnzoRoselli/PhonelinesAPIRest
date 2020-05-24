@@ -39,7 +39,7 @@ public class ClientManagementController {
         return ResponseEntity.created(getLocation(user)).build();
     }
 
-    @GetMapping("{/userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<User> getUser(@RequestHeader("Authorization") String sessionToken, @PathVariable("userId") @NonNull Integer userId) throws UserDoesntExist {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
@@ -48,7 +48,7 @@ public class ClientManagementController {
         return ResponseEntity.ok(user);
     }
 
-    @DeleteMapping("/User/{identification}")
+    @DeleteMapping("/user/{identification}")
     public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("identification")@NotNull String identification) throws ParametersException, UserExceptions {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)){
             return ResponseEntity.status(401).build();
