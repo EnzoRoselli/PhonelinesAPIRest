@@ -48,7 +48,7 @@ public class ClientManagementController {
         return ResponseEntity.ok(user);
     }
 
-    @DeleteMapping("/User/{identification}")
+    @DeleteMapping("/user/{identification}")
     public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("identification")@NotNull String identification) throws ParametersException, UserExceptions {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)){
             return ResponseEntity.status(401).build();

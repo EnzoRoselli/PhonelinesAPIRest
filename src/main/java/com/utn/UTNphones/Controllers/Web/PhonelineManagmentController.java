@@ -16,13 +16,13 @@ import javax.validation.constraints.NotNull;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/phonelineManagement")
-public class PhonelineManagementController {
+@RequestMapping("/phonelineManagment")
+public class PhonelineManagmentController {
     private final SessionManager sessionManager;
     private final PhonelineController phonelineController;
 
     @Autowired
-    public PhonelineManagementController(SessionManager sessionManager, PhonelineController phonelineController) {
+    public PhonelineManagmentController(SessionManager sessionManager, PhonelineController phonelineController) {
         this.sessionManager = sessionManager;
         this.phonelineController = phonelineController;
     }
@@ -46,7 +46,7 @@ public class PhonelineManagementController {
     }
 
 
-    @DeleteMapping("/Phoneline/{phoneNumber}")
+    @DeleteMapping("/phoneline/{phoneNumber}")
     public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneNumber") String phoneNumber) throws Exception {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();

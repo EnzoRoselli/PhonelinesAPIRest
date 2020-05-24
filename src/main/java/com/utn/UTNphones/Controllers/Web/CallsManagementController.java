@@ -33,7 +33,7 @@ public class CallsManagementController {
         this.sessionManager = sessionManager;
     }
 
-    @GetMapping("/User/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<List<Call>> getByUserId(@RequestHeader("Authorization") String sessionToken, @PathVariable("userId") @NotNull Integer userId) throws CallException, PhonelineExceptions, UserExceptions, ParametersException {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)){
             return ResponseEntity.status(403).build();
