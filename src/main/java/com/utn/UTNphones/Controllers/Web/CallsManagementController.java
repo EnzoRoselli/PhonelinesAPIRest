@@ -13,6 +13,7 @@ import com.utn.UTNphones.Models.Dto.NewCallDto;
 import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,10 +51,10 @@ public class CallsManagementController {
         return citiesWithCounter.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(citiesWithCounter);
     }
 
-    @GetMapping("/startDate/{startDate}/endDate/{endDate}")
+    @GetMapping("/start/{startDate}/end/{endDate}")
     public ResponseEntity<List<Call>> getCallsBetweenDates(@RequestHeader("Authorization") String sessionToken,
-                                                           @PathVariable("startDate") @NotNull Date startDate,
-                                                           @PathVariable("endDate")@NotNull Date endDate) {
+                                                           @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("startDate") @NotNull Date startDate,
+                                                           @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("endDate")@NotNull Date endDate) {
         if (!PermissionsControllers.isLogged(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }

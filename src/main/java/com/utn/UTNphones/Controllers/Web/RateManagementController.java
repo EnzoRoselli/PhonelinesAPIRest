@@ -15,13 +15,13 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/rateManagement")
-public class RateManagmentController {
+public class RateManagementController {
 
     private final RateController rateController;
     private final SessionManager sessionManager;
 
     @Autowired
-    public RateManagmentController(RateController rateController, SessionManager sessionManager) {
+    public RateManagementController(RateController rateController, SessionManager sessionManager) {
         this.rateController = rateController;
         this.sessionManager = sessionManager;
     }

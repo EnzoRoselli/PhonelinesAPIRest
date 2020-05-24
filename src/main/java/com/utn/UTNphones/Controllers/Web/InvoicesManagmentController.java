@@ -7,6 +7,7 @@ import com.utn.UTNphones.Models.Call;
 import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
 import com.utn.UTNphones.Models.Invoice;
 import com.utn.UTNphones.Sessions.SessionManager;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +26,7 @@ public class InvoicesManagmentController {
         this.sessionManager = sessionManager;
     }
 
-    @GetMapping("/User/{id}")
+    @GetMapping("/user/{id}")
     public ResponseEntity<List<Invoice>> getByUserId(@RequestHeader("Authorization") String sessionToken,
                                                      @PathVariable("id")@NotNull Integer userId){
         if(!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
@@ -35,10 +36,10 @@ public class InvoicesManagmentController {
         return invoices.isEmpty() ?  ResponseEntity.status(204).build(): ResponseEntity.ok(invoices);
     }
 
-    @GetMapping("/Start/{startDate}/end/{endDate}")
+    @GetMapping("/start/{startDate}/end/{endDate}")
     public ResponseEntity<List<Invoice>>getByUserIdBetweenDates(@RequestHeader("Authorization") String sessionToken,
-                                                                @PathVariable("startDate") @NotNull Date startDate,
-                                                                @PathVariable("endDate")@NotNull Date endDate){
+                                                                @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("startDate") @NotNull Date startDate,
+                                                                @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("endDate")@NotNull Date endDate){
         if (!PermissionsControllers.isLogged(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
