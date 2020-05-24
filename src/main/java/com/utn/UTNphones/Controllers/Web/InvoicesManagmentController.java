@@ -7,6 +7,7 @@ import com.utn.UTNphones.Models.Call;
 import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
 import com.utn.UTNphones.Models.Invoice;
 import com.utn.UTNphones.Sessions.SessionManager;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,8 +38,8 @@ public class InvoicesManagmentController {
 
     @GetMapping("/start/{startDate}/end/{endDate}")
     public ResponseEntity<List<Invoice>>getByUserIdBetweenDates(@RequestHeader("Authorization") String sessionToken,
-                                                                @PathVariable("startDate") @NotNull Date startDate,
-                                                                @PathVariable("endDate")@NotNull Date endDate){
+                                                                @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("startDate") @NotNull Date startDate,
+                                                                @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("endDate")@NotNull Date endDate){
         if (!PermissionsControllers.isLogged(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }

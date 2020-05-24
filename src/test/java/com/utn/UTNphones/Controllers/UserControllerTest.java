@@ -5,7 +5,6 @@ import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.City;
-import com.utn.UTNphones.Models.Dto.ErrorResponseDto;
 import com.utn.UTNphones.Models.Province;
 import com.utn.UTNphones.Models.User;
 import com.utn.UTNphones.Services.UserService;
