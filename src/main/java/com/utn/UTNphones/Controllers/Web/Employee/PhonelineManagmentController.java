@@ -1,4 +1,4 @@
-package com.utn.UTNphones.Controllers.Web;
+package com.utn.UTNphones.Controllers.Web.Employee;
 
 import com.utn.UTNphones.Controllers.PermissionsControllers;
 import com.utn.UTNphones.Controllers.PhonelineController;
@@ -16,13 +16,13 @@ import javax.validation.constraints.NotNull;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/phonelineManagment")
-public class PhonelineManagmentController {
+@RequestMapping("/phonelineManagement")
+public class PhonelineManagementController {
     private final SessionManager sessionManager;
     private final PhonelineController phonelineController;
 
     @Autowired
-    public PhonelineManagmentController(SessionManager sessionManager, PhonelineController phonelineController) {
+    public PhonelineManagementController(SessionManager sessionManager, PhonelineController phonelineController) {
         this.sessionManager = sessionManager;
         this.phonelineController = phonelineController;
     }

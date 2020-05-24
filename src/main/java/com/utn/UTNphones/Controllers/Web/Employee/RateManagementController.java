@@ -1,4 +1,4 @@
-package com.utn.UTNphones.Controllers.Web;
+package com.utn.UTNphones.Controllers.Web.Employee;
 
 import com.utn.UTNphones.Controllers.PermissionsControllers;
 import com.utn.UTNphones.Controllers.RateController;

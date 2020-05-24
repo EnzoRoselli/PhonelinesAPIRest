@@ -1,4 +1,4 @@
-package com.utn.UTNphones.Controllers.Web;
+package com.utn.UTNphones.Controllers.Web.Employee;
 
 import com.utn.UTNphones.Controllers.InvoiceController;
 import com.utn.UTNphones.Controllers.PermissionsControllers;
@@ -16,12 +16,12 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/InvoicesManagment")
-public class InvoicesManagmentController {
+@RequestMapping("/InvoicesManagement")
+public class InvoicesManagementController {
     private final InvoiceController invoiceController;
     private final SessionManager sessionManager;
 
-    public InvoicesManagmentController(InvoiceController invoiceController, SessionManager sessionManager) {
+    public InvoicesManagementController(InvoiceController invoiceController, SessionManager sessionManager) {
         this.invoiceController = invoiceController;
         this.sessionManager = sessionManager;
     }
@@ -36,15 +36,16 @@ public class InvoicesManagmentController {
         return invoices.isEmpty() ?  ResponseEntity.status(204).build(): ResponseEntity.ok(invoices);
     }
 
-    @GetMapping("/start/{startDate}/end/{endDate}")
+    @GetMapping("user/{userId}/start/{startDate}/end/{endDate}")
     public ResponseEntity<List<Invoice>>getByUserIdBetweenDates(@RequestHeader("Authorization") String sessionToken,
                                                                 @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("startDate") @NotNull Date startDate,
-                                                                @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("endDate")@NotNull Date endDate){
+                                                                @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("endDate")@NotNull Date endDate,
+                                                                @PathVariable("userId") Integer id){
         if (!PermissionsControllers.isLogged(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
         SearchBetweenDates datesDto= SearchBetweenDates.builder().start(startDate).end(endDate).build();
-        List<Invoice> invoices = this.invoiceController.getByUserBetweenDates(sessionManager.getCurrentUser(sessionToken).get().getId(), datesDto);
+        List<Invoice> invoices = this.invoiceController.getByUserBetweenDates(id, datesDto);
         return invoices.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(invoices);
     }
 

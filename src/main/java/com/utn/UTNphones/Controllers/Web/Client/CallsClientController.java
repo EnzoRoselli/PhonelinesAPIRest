@@ -21,13 +21,13 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/client")
-public class CallsClient {
+@RequestMapping("/calls")
+public class CallsClientController {
     private final CallController callController;
     private final SessionManager sessionManager;
 
     @Autowired
-    public CallsClient(CallController callController, SessionManager sessionManager) {
+    public CallsClientController(CallController callController, SessionManager sessionManager) {
         this.callController = callController;
         this.sessionManager = sessionManager;
     }

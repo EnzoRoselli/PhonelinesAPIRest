@@ -1,4 +1,4 @@
-package com.utn.UTNphones.Controllers.Web;
+package com.utn.UTNphones.Controllers.Web.Employee;
 
 import com.utn.UTNphones.Controllers.CallController;
 import com.utn.UTNphones.Controllers.PermissionsControllers;
@@ -42,34 +42,6 @@ public class CallsManagementController {
         return callsByAnUser.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(callsByAnUser);
     }
 
-    @GetMapping("/mostDestinationsCalled")
-    public ResponseEntity<List<CityTop>> mostDestinationsCalled(@RequestHeader("Authorization") String sessionToken) throws CallException {
-        if (!PermissionsControllers.isLogged(sessionManager,sessionToken)){
-            return ResponseEntity.status(403).build();
-        }
-        List<CityTop> citiesWithCounter = this.callController.getTopDestinationsCalled(sessionManager.getCurrentUser(sessionToken).get().getId());
-        return citiesWithCounter.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(citiesWithCounter);
-    }
 
-    @GetMapping("/start/{startDate}/end/{endDate}")
-    public ResponseEntity<List<Call>> getCallsBetweenDates(@RequestHeader("Authorization") String sessionToken,
-                                                           @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("startDate") @NotNull Date startDate,
-                                                           @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("endDate")@NotNull Date endDate) {
-        if (!PermissionsControllers.isLogged(sessionManager,sessionToken)) {
-            return ResponseEntity.status(403).build();
-        }
-        SearchBetweenDates datesDto= SearchBetweenDates.builder().start(startDate).end(endDate).build();
-        List<Call> calls = this.callController.getByUserBetweenDates(sessionManager.getCurrentUser(sessionToken).get().getId(), datesDto);
-        return calls.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(calls);
-    }
-
-    @PostMapping
-    public ResponseEntity registerCall(@RequestHeader("Authorization") String sessionToken,@RequestBody @NotNull NewCallDto newCall) throws CallException {
-        if (!PermissionsControllers.hasInfrastructurePermissions(sessionManager,sessionToken)){
-            return ResponseEntity.status(403).build();
-        }
-        this.callController.registerCall(newCall);
-        return ResponseEntity.ok().build();
-    }
 
 }
