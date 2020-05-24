@@ -44,8 +44,8 @@ public class ClientManagementController {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
-        this.userController.getById(userId);
-        return ResponseEntity.ok().build();
+        User user=this.userController.getById(userId);
+        return ResponseEntity.ok(user);
     }
 
     @DeleteMapping("/User/{identification}")
