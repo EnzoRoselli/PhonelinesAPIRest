@@ -23,17 +23,17 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User login(User user) throws UserExceptions{
-        User u = userRepository.findByIdentificationAndPassword(user.getIdentification(), user.getPassword());
-        return Optional.ofNullable(u).orElseThrow(LogException::new);
+    public User login(User user) throws LogException {
+
+        return Optional.ofNullable(userRepository.findByIdentificationAndPassword
+                (user.getIdentification(), user.getPassword())).orElseThrow(LogException::new);
     }
 
     @Override
     public User register(User user) throws DataAccessException, UserDoesntExist {
-        userRepository.save(user);
-        return findById(user.getId());
-    }
 
+        return Optional.ofNullable(userRepository.save(user)).orElseThrow(UserDoesntExist::new);
+    }
 
     @Override
     public void deleteByIdentification(String identification) {

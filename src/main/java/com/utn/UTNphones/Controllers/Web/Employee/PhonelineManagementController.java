@@ -17,7 +17,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/phonelineManagement")
-public class PhonelineManagementController {
+class PhonelineManagementController {
     private final SessionManager sessionManager;
     private final PhonelineController phonelineController;
 

@@ -1,5 +1,6 @@
 package com.utn.UTNphones.Services.interfaces;
 
+import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.User;
@@ -8,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 public interface IUserService {
-     User login(User user) throws UserExceptions;
-     User register(User user) throws DataAccessException, UserExceptions;
+     User login(User user) throws LogException;
+     User register(User user) throws DataAccessException, UserDoesntExist;
      @Transactional
      void deleteByIdentification(String identification);
 

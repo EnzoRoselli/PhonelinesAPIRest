@@ -2,6 +2,7 @@ package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
+import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Models.Phoneline;
@@ -24,7 +25,7 @@ public class UserController {
     }
 
 
-    public User login(User user) throws ParametersException, UserExceptions {
+    public User login(User user) throws ParametersException, LogException {
         if (user.getIdentification() == null || user.getPassword() == null) {
             throw new ParametersException("Parameters can´t contain null values");
         }
