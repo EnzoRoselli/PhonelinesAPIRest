@@ -13,6 +13,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.springframework.dao.DataAccessException;
 
+import java.util.Optional;
+
 import static org.junit.Assert.assertEquals;
 
 import static org.mockito.Matchers.any;
@@ -59,7 +61,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testRegisterOk() throws Exception {
+    public void testRegisterOk() throws UserDoesntExist, DataAccessException {
         City citySended = City.builder().id(1).build();
         User userSended =  User.builder().name("Enzo").lastname("Roselli").type("client")
                 .identification("1").password("1234").city(citySended).build();
@@ -77,7 +79,7 @@ public class UserServiceTest {
     }
 
     @Test(expected = UserDoesntExist.class)
-    public void testRegisterUserDoesntExistException() throws Exception {
+    public void testRegisterUserDoesntExistException() throws UserDoesntExist, DataAccessException {
         Province province = Province.builder().name("Buenos Aires").build();
         City city = City.builder().name("Mar del Plata").prefix("223").province(province).build();
 
@@ -89,7 +91,7 @@ public class UserServiceTest {
     }
 
     @Test(expected = DataAccessException.class)
-    public void testRegisterDataAccessException() throws Exception {
+    public void testRegisterDataAccessException() throws UserDoesntExist, DataAccessException {
         Province province = Province.builder().name("Buenos Aires").build();
         City city = City.builder().name("Mar del Plata").prefix("223").province(province).build();
 
@@ -101,14 +103,14 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testDeleteByIdentificationOk() throws Exception {
+    public void testDeleteByIdentificationOk(){
         doNothing().when(userRepository).deleteByIdentification("1234567");
         userService.deleteByIdentification("1234567");
         verify(userRepository, times(1)).deleteByIdentification("1234567");
     }
 
     @Test
-    public void testUpdateOk() throws Exception {
+    public void testUpdateOk() throws UserDoesntExist {
         City citySended = City.builder().id(1).build();
         User userSended =  User.builder().name("Enzo").lastname("Roselli").type("client")
                 .identification("1").password("1234").city(citySended).build();
@@ -126,13 +128,57 @@ public class UserServiceTest {
     }
 
     @Test(expected = UserDoesntExist.class)
-    public void testUpdateUserDoesntExistException() throws Exception {
+    public void testUpdateUserDoesntExistException() throws UserDoesntExist {
         City city = City.builder().id(1).build();
         User registeredUser = User.builder().name("Enzo").lastname("Roselli").type("client")
                 .identification("1").password("1234").city(city).build();
 
         when(userRepository.save(registeredUser)).thenReturn(null);
         User u = userService.register(registeredUser);
+    }
+
+    @Test
+    public void testFindByIdOk() throws UserDoesntExist {
+
+        Province province = Province.builder().id(1).name("Buenos Aires").build();
+        City city = City.builder().id(1).name("Mar del Plata").prefix("223").province(province).build();
+        User registeredUser = User.builder().id(1).name("Enzo").lastname("Roselli").type("client")
+                .identification("1").password("1234").city(city).build();
+
+        when(userRepository.findById(1)).thenReturn(java.util.Optional.ofNullable(registeredUser));
+
+        User u = userService.findById(1);
+
+        assertEquals(u, registeredUser);
+    }
+
+    @Test(expected = UserDoesntExist.class)
+    public void testFindByIdUserDoesntExistException() throws UserDoesntExist {
+        Optional<User> x = Optional.empty();
+        when(userRepository.findById(1)).thenReturn(x);
+        User u = userService.findById(1);
+    }
+
+    @Test
+    public void testFindByIdentificationOk() throws UserDoesntExist {
+
+        Province province = Province.builder().id(1).name("Buenos Aires").build();
+        City city = City.builder().id(1).name("Mar del Plata").prefix("223").province(province).build();
+        User auxUser = User.builder().id(1).name("Enzo").lastname("Roselli").type("client")
+                .identification("111111").password("1234").city(city).build();
+
+        when(userRepository.findByIdentification("111111")).thenReturn(auxUser);
+
+        User u = userService.findByIdentification("111111");
+
+        assertEquals(u, auxUser);
+    }
+
+    @Test(expected = UserDoesntExist.class)
+    public void testFindByIdentificationUserDoesntExistException() throws UserDoesntExist {
+
+        when(userRepository.findByIdentification("654654")).thenReturn(null);
+        User u = userService.findByIdentification("654654");
     }
 
 }

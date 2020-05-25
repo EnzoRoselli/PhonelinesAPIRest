@@ -14,9 +14,7 @@ public interface IUserService {
      @Transactional
      void deleteByIdentification(String identification);
 
-     User update(User user) throws UserExceptions;
-     User findById(Integer id) throws UserExceptions;
-     User findByIdentification(String identification) throws UserExceptions;
-
-     User getById(Integer id) throws UserDoesntExist;
+     User update(User user) throws UserDoesntExist;
+     User findById(Integer id) throws UserDoesntExist;
+     User findByIdentification(String identification) throws UserDoesntExist;
 }

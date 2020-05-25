@@ -40,7 +40,7 @@ public class UserService implements IUserService {
         this.userRepository.deleteByIdentification(identification);
     }
 
-    public User update(User user) throws UserExceptions {
+    public User update(User user) throws UserDoesntExist {
         return Optional.ofNullable(this.userRepository.save(user)).orElseThrow(UserDoesntExist::new);
     }
 
@@ -53,16 +53,8 @@ public class UserService implements IUserService {
 
     @Override
     public User findByIdentification(String identification) throws UserDoesntExist {
-        User user = userRepository.findByIdentification(identification);
-        if (user == null) throw new UserDoesntExist();
-        return user;
-    }
 
-    @Override
-    public User getById(Integer id) throws UserDoesntExist {
-        Optional< User> user=this.userRepository.findById(id);
-        if (user.isEmpty()) throw new UserDoesntExist();
-        return user.get();
+        return Optional.ofNullable(this.userRepository.findByIdentification(identification)).orElseThrow(UserDoesntExist::new);
     }
 
 

@@ -157,22 +157,22 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testGetByIdOk() throws Exception {
+    public void testFindByIdOk() throws Exception {
         User user = User.builder().id(1).name("Enzo").lastname("Roselli").type("client")
                 .identification("1").password("1234").city(null).build();
 
-        when(userService.getById(1)).thenReturn(user);
+        when(userService.findById(1)).thenReturn(user);
 
-        User u = userController.getById(1);
+        User u = userController.findById(1);
 
         assertEquals(u, user);
     }
 
     @Test(expected = UserDoesntExist.class)
-    public void testGetByIdUserDoesntExistException() throws Exception {
+    public void testFindByIdUserDoesntExistException() throws Exception {
 
-        when(userService.getById(1)).thenThrow(new UserDoesntExist());
-        userController.getById(1);
+        when(userService.findById(1)).thenThrow(new UserDoesntExist());
+        userController.findById(1);
     }
 
     @Test

@@ -45,7 +45,7 @@ public class UserController {
     }
 
 
-    public void delete(String identification) throws ParametersException, UserExceptions {
+    public void delete(String identification) throws ParametersException, UserDoesntExist {
         if (identification == null) {
             throw new ParametersException("Parameter id can´t contain null value");
         }
@@ -53,8 +53,8 @@ public class UserController {
         this.userService.deleteByIdentification(identification);
     }
 
-    public User getById(Integer id) throws UserDoesntExist {
-        return this.userService.getById(id);
+    public User findById(Integer id) throws UserDoesntExist {
+        return this.userService.findById(id);
     }
 
 

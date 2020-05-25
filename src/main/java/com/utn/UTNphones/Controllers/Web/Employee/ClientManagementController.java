@@ -44,12 +44,12 @@ public class ClientManagementController {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
-        User user=this.userController.getById(userId);
+        User user=this.userController.findById(userId);
         return ResponseEntity.ok(user);
     }
 
     @DeleteMapping("/user/{identification}")
-    public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("identification")@NotNull String identification) throws ParametersException, UserExceptions {
+    public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("identification")@NotNull String identification) throws ParametersException, UserDoesntExist {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)){
             return ResponseEntity.status(401).build();
         }
