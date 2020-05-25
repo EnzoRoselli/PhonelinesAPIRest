@@ -3,6 +3,7 @@ package com.utn.UTNphones.Models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 @Entity
@@ -32,7 +33,7 @@ public class Rate {
     private Double pricePerMinute;
 
     public boolean hasNullAtribute(){
-        return Stream.of(originCity, destinationCity, costPerMinute, pricePerMinute).anyMatch(x -> x == null);
+        return Stream.of(originCity, destinationCity, costPerMinute, pricePerMinute).anyMatch(Objects::isNull);
     }
 
 }

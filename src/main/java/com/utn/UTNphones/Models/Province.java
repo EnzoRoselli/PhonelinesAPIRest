@@ -3,6 +3,7 @@ package com.utn.UTNphones.Models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 @Entity
@@ -22,6 +23,7 @@ public class Province {
     private String name;
 
     public boolean hasNullAtribute(){
-        return Stream.of(name).anyMatch(x -> x == null);
+
+        return Stream.of(name).anyMatch(Objects::isNull);
     }
 }

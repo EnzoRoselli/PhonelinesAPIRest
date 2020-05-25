@@ -34,13 +34,13 @@ public class PhonelineService implements IPhonelineService {
         return phonelineRepository.disableOrEnable(false, phoneNumber) == 1;
     }
 
-    public List<Phoneline> findByUserId(Integer id) throws PhonelineExceptions {
+    public List<Phoneline> findByUserId(Integer id) throws PhonelinesNotRegisteredByUser {
         List<Phoneline> phoneList = this.phonelineRepository.findByUserId(id);
         if (phoneList.isEmpty()){ throw new PhonelinesNotRegisteredByUser();}
         return phoneList;
     }
 
-    public Phoneline findByNumber(String number) throws PhonelineExceptions {
+    public Phoneline findByNumber(String number) throws PhonelineDoesntExist {
         Phoneline ph = phonelineRepository.findByNumber(number);
         if (ph == null) throw new PhonelineDoesntExist();
          return ph;
@@ -57,7 +57,7 @@ public class PhonelineService implements IPhonelineService {
     }
 
     @Override
-    public void removeByNumber(String phoneNumber) throws PhonelineExceptions {
+    public void removeByNumber(String phoneNumber) throws PhonelineDoesntExist {
         try {
             this.phonelineRepository.removeByNumber(phoneNumber);
         } catch (EmptyResultDataAccessException ex) {

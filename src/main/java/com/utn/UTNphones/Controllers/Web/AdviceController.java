@@ -5,6 +5,7 @@ import com.utn.UTNphones.Exceptions.CityExceptions.CityDoesntExist;
 import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.*;
 import com.utn.UTNphones.Exceptions.ProvinceExceptions.ProvinceDoesntExist;
+import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserIdentificationAlreadyExists;
@@ -110,6 +111,11 @@ public class AdviceController {
     @ExceptionHandler(TransactionSystemException.class)
     public ErrorResponseDto handleTransactionSystemException(TransactionSystemException ex) {
        return new ErrorResponseDto(2,  AdviceController.PatternsHandler((ConstraintViolationException) ex.getCause().getCause()));
+    }
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(RateDoesntExist.class)
+    public ErrorResponseDto handleRateDoesntExist(RateDoesntExist ex) {
+        return new ErrorResponseDto(2, ex.getMessage());
     }
 
 

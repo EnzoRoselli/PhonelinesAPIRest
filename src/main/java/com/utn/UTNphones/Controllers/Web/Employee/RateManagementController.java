@@ -3,6 +3,7 @@ package com.utn.UTNphones.Controllers.Web.Employee;
 import com.utn.UTNphones.Controllers.PermissionsControllers;
 import com.utn.UTNphones.Controllers.RateController;
 import com.utn.UTNphones.Exceptions.ParametersException;
+import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
 import com.utn.UTNphones.Models.Rate;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +40,12 @@ public class RateManagementController {
     @GetMapping("/origin/{originCityId}/destination/{destinationCityId}")
     public ResponseEntity<Rate> getByOriginAndDestination(@RequestHeader("Authorization") String sessionToken,
                                                           @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("originCityId") @NotNull Integer originCityId,
-                                                          @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("destinationCityId") @NotNull Integer destinationCityId) throws ParametersException {
+                                                          @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("destinationCityId") @NotNull Integer destinationCityId) throws ParametersException, RateDoesntExist {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
-        Optional<Rate> rateInfo=this.rateController.getByOriginAndDestination(originCityId,destinationCityId);
-       return (rateInfo.isEmpty()) ?ResponseEntity.status(204).build(): ResponseEntity.ok(rateInfo.get());
+       Rate rateInfo=this.rateController.getByOriginAndDestination(originCityId,destinationCityId);
+       return ResponseEntity.ok(rateInfo);
     }
 
 

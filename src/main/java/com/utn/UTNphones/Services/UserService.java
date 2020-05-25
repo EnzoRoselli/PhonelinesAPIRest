@@ -31,7 +31,6 @@ public class UserService implements IUserService {
 
     @Override
     public User register(User user) throws DataAccessException, UserDoesntExist {
-
         return Optional.ofNullable(userRepository.save(user)).orElseThrow(UserDoesntExist::new);
     }
 
@@ -53,7 +52,6 @@ public class UserService implements IUserService {
 
     @Override
     public User findByIdentification(String identification) throws UserDoesntExist {
-
         return Optional.ofNullable(this.userRepository.findByIdentification(identification)).orElseThrow(UserDoesntExist::new);
     }
 

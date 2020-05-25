@@ -1,6 +1,6 @@
 package com.utn.UTNphones.Exceptions.RateExceptions;
 
-public class RateException {
+public abstract class RateException  extends Exception{
     private String message;
     public RateException(String message) {
         this.message = message;

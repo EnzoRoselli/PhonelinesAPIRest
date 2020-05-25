@@ -1,5 +1,6 @@
 package com.utn.UTNphones.Services;
 
+import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
 import com.utn.UTNphones.Models.Rate;
 import com.utn.UTNphones.Repositories.IRateRepository;
 import com.utn.UTNphones.Services.interfaces.IRateService;
@@ -25,7 +26,9 @@ public class RateService implements IRateService {
     }
 
     @Override
-    public Optional<Rate> findByOriginAndDestination(Integer originId,Integer destinationId) {
-        return this.rateRepository.findByOriginCityIdAndDestinationCityId(originId,destinationId);
+    public Rate findByOriginAndDestination(Integer originId, Integer destinationId) throws RateDoesntExist {
+        Optional<Rate> rate= this.rateRepository.findByOriginCityIdAndDestinationCityId(originId,destinationId);
+        if (rate.isEmpty())throw new RateDoesntExist();
+        return rate.get();
     }
 }

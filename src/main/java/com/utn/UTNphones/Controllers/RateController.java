@@ -1,5 +1,6 @@
 package com.utn.UTNphones.Controllers;
 
+import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
 import com.utn.UTNphones.Models.Rate;
 import com.utn.UTNphones.Services.interfaces.IRateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class RateController {
         return rateService.getAllRates();
     }
 
-    public Optional<Rate> getByOriginAndDestination(Integer originCityIdInteger, Integer destinationCityId) {
+    public Rate getByOriginAndDestination(Integer originCityIdInteger, Integer destinationCityId) throws RateDoesntExist {
         return this.rateService.findByOriginAndDestination(originCityIdInteger, destinationCityId);
     }
 }
