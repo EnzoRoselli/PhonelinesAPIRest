@@ -1,16 +1,15 @@
 package com.utn.UTNphones.Controllers.Web;
 
-import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
-import com.utn.UTNphones.Exceptions.CityExceptions.CityDoesntExist;
-import com.utn.UTNphones.Exceptions.ParametersException;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.*;
-import com.utn.UTNphones.Exceptions.ProvinceExceptions.ProvinceDoesntExist;
-import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
-import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserIdentificationAlreadyExists;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeDoesntExist;
-import com.utn.UTNphones.Models.Dto.ErrorResponseDto;
+import com.utn.UTNphones.Domain.Exceptions.CallExceptions.CallException;
+import com.utn.UTNphones.Domain.Exceptions.CityExceptions.CityDoesntExist;
+import com.utn.UTNphones.Domain.Exceptions.ParametersException;
+import com.utn.UTNphones.Domain.Exceptions.PhonelineExceptions.*;
+import com.utn.UTNphones.Domain.Exceptions.RateExceptions.RateDoesntExist;
+import com.utn.UTNphones.Domain.Exceptions.UsersExceptions.LogException;
+import com.utn.UTNphones.Domain.Exceptions.UsersExceptions.UserDoesntExist;
+import com.utn.UTNphones.Domain.Exceptions.UsersExceptions.UserIdentificationAlreadyExists;
+import com.utn.UTNphones.Domain.Exceptions.UsersExceptions.UserTypeDoesntExist;
+import com.utn.UTNphones.Domain.Dto.ErrorResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.TransactionSystemException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -60,11 +59,6 @@ public class AdviceController {
         return new ErrorResponseDto(2, ex.getMessage());
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(ProvinceDoesntExist.class)
-    public ErrorResponseDto handleProvinceDoesntExist(ProvinceDoesntExist ex) {
-        return new ErrorResponseDto(2, ex.getMessage());
-    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(PhonelineDoesntExist.class)

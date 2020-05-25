@@ -1,11 +1,10 @@
 package com.utn.UTNphones.Services.interfaces;
 
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
-import com.utn.UTNphones.Models.Phoneline;
+import com.utn.UTNphones.Domain.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
+import com.utn.UTNphones.Domain.Exceptions.PhonelineExceptions.PhonelineExceptions;
+import com.utn.UTNphones.Domain.Phoneline;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface IPhonelineService {
     Phoneline add(Phoneline phoneline);

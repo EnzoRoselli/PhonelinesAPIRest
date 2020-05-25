@@ -1,28 +1,22 @@
 package com.utn.UTNphones.Services;
 
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
-import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
-import com.utn.UTNphones.Models.City;
-import com.utn.UTNphones.Models.Phoneline;
-import com.utn.UTNphones.Models.Rate;
+import com.utn.UTNphones.Domain.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
+import com.utn.UTNphones.Domain.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
+import com.utn.UTNphones.Domain.Exceptions.RateExceptions.RateDoesntExist;
+import com.utn.UTNphones.Domain.City;
+import com.utn.UTNphones.Domain.Phoneline;
 import com.utn.UTNphones.Repositories.IPhonelineRepository;
-import com.utn.UTNphones.Services.interfaces.IPhonelineService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 
-import javax.xml.crypto.Data;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -116,7 +110,7 @@ public class PhonelineServiceTest {
     @Test
     public void testRemoveByNumber() throws PhonelineDoesntExist {
         String number = "223113222";
-        doNothing().when(phonelineRepository.removeByNumber(number));
+        when(phonelineRepository.removeByNumber(number)).thenReturn(2L);
         phonelineService.removeByNumber(number);
     }
     @Test(expected = PhonelineDoesntExist.class)
@@ -124,6 +118,21 @@ public class PhonelineServiceTest {
         String number = "223113222";
        when(phonelineRepository.removeByNumber(number)).thenThrow(new EmptyResultDataAccessException(1){});
         phonelineService.removeByNumber(number);
+    }
+
+    @Test
+    public void testExistsOk(){
+        String number = "223113222";
+        Integer cityId=1;
+        City city=City.builder().id(1).build();
+        Phoneline phoneline = Phoneline.builder().id(2).number("223113222").city(city).build();
+
+        when(phonelineRepository.findByNumberAndCityId(number,cityId)).thenReturn(phoneline);
+        Boolean corroboration=phonelineService.exists(number,cityId);
+        assertEquals(corroboration,true);
+        when(phonelineRepository.findByNumberAndCityId("312",cityId)).thenReturn(null);
+       corroboration=phonelineService.exists("312",cityId);
+        assertEquals(corroboration,false);
     }
 
 }

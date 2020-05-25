@@ -2,9 +2,9 @@ package com.utn.UTNphones.Controllers.Web.Employee;
 
 import com.utn.UTNphones.Controllers.PermissionsControllers;
 import com.utn.UTNphones.Controllers.RateController;
-import com.utn.UTNphones.Exceptions.ParametersException;
-import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
-import com.utn.UTNphones.Models.Rate;
+import com.utn.UTNphones.Domain.Exceptions.ParametersException;
+import com.utn.UTNphones.Domain.Exceptions.RateExceptions.RateDoesntExist;
+import com.utn.UTNphones.Domain.Rate;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/rateManagement")

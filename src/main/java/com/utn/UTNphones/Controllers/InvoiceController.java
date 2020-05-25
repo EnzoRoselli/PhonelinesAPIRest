@@ -1,8 +1,7 @@
 package com.utn.UTNphones.Controllers;
 
-import com.utn.UTNphones.Exceptions.ParametersException;
-import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
-import com.utn.UTNphones.Models.Invoice;
+import com.utn.UTNphones.Domain.Dto.SearchBetweenDates;
+import com.utn.UTNphones.Domain.Invoice;
 import com.utn.UTNphones.Services.interfaces.IInvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

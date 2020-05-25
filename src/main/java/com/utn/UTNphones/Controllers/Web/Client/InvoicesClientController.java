@@ -1,10 +1,9 @@
 package com.utn.UTNphones.Controllers.Web.Client;
+
 import com.utn.UTNphones.Controllers.InvoiceController;
 import com.utn.UTNphones.Controllers.PermissionsControllers;
-import com.utn.UTNphones.Exceptions.ParametersException;
-import com.utn.UTNphones.Models.Call;
-import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
-import com.utn.UTNphones.Models.Invoice;
+import com.utn.UTNphones.Domain.Dto.SearchBetweenDates;
+import com.utn.UTNphones.Domain.Invoice;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;

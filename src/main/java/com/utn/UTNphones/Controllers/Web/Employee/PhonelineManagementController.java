@@ -2,9 +2,9 @@ package com.utn.UTNphones.Controllers.Web.Employee;
 
 import com.utn.UTNphones.Controllers.PermissionsControllers;
 import com.utn.UTNphones.Controllers.PhonelineController;
-import com.utn.UTNphones.Exceptions.ParametersException;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
-import com.utn.UTNphones.Models.Phoneline;
+import com.utn.UTNphones.Domain.Exceptions.ParametersException;
+import com.utn.UTNphones.Domain.Exceptions.PhonelineExceptions.PhonelineExceptions;
+import com.utn.UTNphones.Domain.Phoneline;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +46,7 @@ class PhonelineManagementController {
     }
 
 
-    @DeleteMapping("/phoneline/{phoneNumber}")
+    @DeleteMapping("/phonelines/{phoneNumber}")
     public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneNumber") String phoneNumber) throws Exception {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();

@@ -1,9 +1,8 @@
 package com.utn.UTNphones.Services;
 
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
-import com.utn.UTNphones.Models.Phoneline;
+import com.utn.UTNphones.Domain.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
+import com.utn.UTNphones.Domain.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
+import com.utn.UTNphones.Domain.Phoneline;
 import com.utn.UTNphones.Repositories.IPhonelineRepository;
 import com.utn.UTNphones.Services.interfaces.IPhonelineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,8 +67,7 @@ public class PhonelineService implements IPhonelineService {
     @Override
     public Boolean exists(String number, Integer cityId) {
         Phoneline ph = this.phonelineRepository.findByNumberAndCityId(number, cityId);
-        if (ph == null) return false;
-        return true;
+        return ph != null;
     }
 
 

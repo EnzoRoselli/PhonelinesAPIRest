@@ -2,14 +2,11 @@ package com.utn.UTNphones.Controllers.Web.Employee;
 
 import com.utn.UTNphones.Controllers.PermissionsControllers;
 import com.utn.UTNphones.Controllers.UserController;
-import com.utn.UTNphones.Exceptions.ParametersException;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
-import com.utn.UTNphones.Models.Phoneline;
-import com.utn.UTNphones.Models.User;
+import com.utn.UTNphones.Domain.Exceptions.ParametersException;
+import com.utn.UTNphones.Domain.Exceptions.UsersExceptions.UserDoesntExist;
+import com.utn.UTNphones.Domain.User;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
@@ -48,7 +45,7 @@ public class ClientManagementController {
         return ResponseEntity.ok(user);
     }
 
-    @DeleteMapping("/user/{identification}")
+    @DeleteMapping("/users/{identification}")
     public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("identification")@NotNull String identification) throws ParametersException, UserDoesntExist {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)){
             return ResponseEntity.status(401).build();

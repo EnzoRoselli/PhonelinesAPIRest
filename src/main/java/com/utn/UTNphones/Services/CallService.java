@@ -1,11 +1,11 @@
 package com.utn.UTNphones.Services;
 
-import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
-import com.utn.UTNphones.Exceptions.CallExceptions.NoCallsFound;
-import com.utn.UTNphones.Models.Call;
-import com.utn.UTNphones.Models.Dto.CityTop;
-import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
-import com.utn.UTNphones.Models.Phoneline;
+import com.utn.UTNphones.Domain.Exceptions.CallExceptions.CallException;
+import com.utn.UTNphones.Domain.Exceptions.CallExceptions.NoCallsFound;
+import com.utn.UTNphones.Domain.Call;
+import com.utn.UTNphones.Domain.Dto.CityTop;
+import com.utn.UTNphones.Domain.Dto.SearchBetweenDates;
+import com.utn.UTNphones.Domain.Phoneline;
 import com.utn.UTNphones.Repositories.ICallRepository;
 import com.utn.UTNphones.Services.interfaces.ICallService;
 import org.springframework.beans.factory.annotation.Autowired;

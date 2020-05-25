@@ -1,11 +1,11 @@
 package com.utn.UTNphones.Controllers;
 
-import com.utn.UTNphones.Exceptions.CityExceptions.CityDoesntExist;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineAlreadyExists;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineTypeError;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserIdentificationAlreadyExists;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeDoesntExist;
+import com.utn.UTNphones.Domain.Exceptions.CityExceptions.CityDoesntExist;
+import com.utn.UTNphones.Domain.Exceptions.PhonelineExceptions.PhonelineAlreadyExists;
+import com.utn.UTNphones.Domain.Exceptions.PhonelineExceptions.PhonelineTypeError;
+import com.utn.UTNphones.Domain.Exceptions.UsersExceptions.UserDoesntExist;
+import com.utn.UTNphones.Domain.Exceptions.UsersExceptions.UserIdentificationAlreadyExists;
+import com.utn.UTNphones.Domain.Exceptions.UsersExceptions.UserTypeDoesntExist;
 import org.hibernate.JDBCException;
 import org.springframework.dao.DataAccessException;
 

@@ -1,12 +1,9 @@
 package com.utn.UTNphones.Services;
 
-import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
-import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
-import com.utn.UTNphones.Models.City;
-import com.utn.UTNphones.Models.Rate;
-import com.utn.UTNphones.Models.User;
+import com.utn.UTNphones.Domain.Exceptions.RateExceptions.RateDoesntExist;
+import com.utn.UTNphones.Domain.City;
+import com.utn.UTNphones.Domain.Rate;
 import com.utn.UTNphones.Repositories.IRateRepository;
-import com.utn.UTNphones.Repositories.IUserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
