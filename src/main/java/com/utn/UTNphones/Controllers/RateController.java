@@ -1,13 +1,12 @@
 package com.utn.UTNphones.Controllers;
 
-import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
-import com.utn.UTNphones.Models.Rate;
+import com.utn.UTNphones.Domain.Exceptions.RateExceptions.RateDoesntExist;
+import com.utn.UTNphones.Domain.Rate;
 import com.utn.UTNphones.Services.interfaces.IRateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class RateController {

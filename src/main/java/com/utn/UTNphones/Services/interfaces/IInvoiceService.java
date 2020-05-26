@@ -1,7 +1,7 @@
 package com.utn.UTNphones.Services.interfaces;
 
-import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
-import com.utn.UTNphones.Models.Invoice;
+import com.utn.UTNphones.Domain.Dto.SearchBetweenDates;
+import com.utn.UTNphones.Domain.Invoice;
 
 import java.util.List;
 

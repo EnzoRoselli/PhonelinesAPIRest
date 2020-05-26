@@ -2,23 +2,17 @@ package com.utn.UTNphones.Controllers.Web.Employee;
 
 import com.utn.UTNphones.Controllers.CallController;
 import com.utn.UTNphones.Controllers.PermissionsControllers;
-import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
-import com.utn.UTNphones.Exceptions.ParametersException;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
-import com.utn.UTNphones.Exceptions.ProvinceExceptions.ProvinceDoesntExist;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
-import com.utn.UTNphones.Models.Call;
-import com.utn.UTNphones.Models.Dto.CityTop;
-import com.utn.UTNphones.Models.Dto.NewCallDto;
-import com.utn.UTNphones.Models.Dto.SearchBetweenDates;
+import com.utn.UTNphones.Domain.Exceptions.CallExceptions.CallException;
+import com.utn.UTNphones.Domain.Exceptions.ParametersException;
+import com.utn.UTNphones.Domain.Exceptions.PhonelineExceptions.PhonelineExceptions;
+import com.utn.UTNphones.Domain.Exceptions.UsersExceptions.UserExceptions;
+import com.utn.UTNphones.Domain.Call;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -33,7 +27,7 @@ public class CallsManagementController {
         this.sessionManager = sessionManager;
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/users/{userId}")
     public ResponseEntity<List<Call>> getByUserId(@RequestHeader("Authorization") String sessionToken, @PathVariable("userId") @NotNull Integer userId) throws CallException, PhonelineExceptions, UserExceptions, ParametersException {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)){
             return ResponseEntity.status(403).build();

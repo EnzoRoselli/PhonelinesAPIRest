@@ -1,7 +1,7 @@
 package com.utn.UTNphones.Repositories;
 
 
-import com.utn.UTNphones.Models.Rate;
+import com.utn.UTNphones.Domain.Rate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
