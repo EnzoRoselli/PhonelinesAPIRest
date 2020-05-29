@@ -40,7 +40,7 @@ public class PhonelineServiceTest {
     }
 
     @Test(expected = DataAccessException.class)
-    public void testAddException() throws DataAccessException {
+    public void testAddDataAccessException() throws DataAccessException {
         Phoneline newPhoneline = Phoneline.builder().number("22").build();
         when(phonelineRepository.save(newPhoneline)).thenThrow(new DataAccessException("") {
         });
