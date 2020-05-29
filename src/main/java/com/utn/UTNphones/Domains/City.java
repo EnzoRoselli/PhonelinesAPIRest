@@ -35,7 +35,7 @@ public class City {
     private Province province;
 
 
-    public boolean hasNullAtribute(){
+    public boolean hasNullAttribute(){
         return Stream.of(name, prefix, province).anyMatch(Objects::isNull);
     }
 }

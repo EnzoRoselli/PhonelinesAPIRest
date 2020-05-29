@@ -27,6 +27,9 @@ public class User {
     @Column(name = "lastname")
     private String lastname;
 
+    @Column(name = "status_user")
+    private Boolean status;
+
     @Column(name = "type_user")
     private String type;
 
@@ -41,7 +44,7 @@ public class User {
     @JoinColumn(name = "id_city")
     private City city;
 
-    public boolean hasNullAtribute() {
+    public boolean hasNullAttribute() {
         return Stream.of(name, lastname, identification, password, city, type).anyMatch(Objects::isNull);
     }
 

@@ -32,7 +32,7 @@ public class Rate {
     @Column(name="price_per_minute")
     private Double pricePerMinute;
 
-    public boolean hasNullAtribute(){
+    public boolean hasNullAttribute(){
         return Stream.of(originCity, destinationCity, costPerMinute, pricePerMinute).anyMatch(Objects::isNull);
     }
 

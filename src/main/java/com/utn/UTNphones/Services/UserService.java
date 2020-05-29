@@ -39,7 +39,6 @@ public class UserService implements IUserService {
     }
 
     public User update(User user) throws UserDoesntExist {
-
         return Optional.of(this.userRepository.save(user)).orElseThrow(UserDoesntExist::new);
     }
 

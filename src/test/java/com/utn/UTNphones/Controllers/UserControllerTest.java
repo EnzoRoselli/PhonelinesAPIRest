@@ -24,6 +24,7 @@ public class UserControllerTest {
     @Mock
     UserService userService;
 
+
     @Before
     public void setUp(){
         initMocks(this);

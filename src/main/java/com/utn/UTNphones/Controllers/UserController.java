@@ -32,7 +32,7 @@ public class UserController {
 
 
     public User register(User user) throws Exception {
-        if (user.hasNullAtribute()) {throw new ParametersException("Parameters can´t contain null values");}
+        if (user.hasNullAttribute()) {throw new ParametersException("Parameters can´t contain null values");}
         try {
             return userService.register(user);
         } catch (DataAccessException ex) {
