@@ -1,9 +1,13 @@
-package com.utn.UTNphones.Services;
+package com.utn.UTNphones.Controllers;
 
+import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
-import com.utn.UTNphones.Domains.City;
-import com.utn.UTNphones.Domains.Rate;
-import com.utn.UTNphones.Repositories.IRateRepository;
+import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
+import com.utn.UTNphones.Models.City;
+import com.utn.UTNphones.Models.Rate;
+import com.utn.UTNphones.Models.User;
+import com.utn.UTNphones.Services.RateService;
+import com.utn.UTNphones.Services.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -16,19 +20,20 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class RateServiceTest {
-    RateService rateService;
+public class RateControllerTest {
+
+    RateController rateController;
     @Mock
-    IRateRepository rateRepository;
+    RateService rateService;
 
     @Before
     public void setUp(){
         initMocks(this);
-        rateService = new RateService(rateRepository);
+        rateController = new RateController(rateService);
     }
 
     @Test
-    public void testGetAllRatesOk() {
+    public void getAllRatesOk() {
         City city1 = City.builder().id(1).build();
         City city2 = City.builder().id(2).build();
         List<Rate> rates= new ArrayList<>();
@@ -36,19 +41,21 @@ public class RateServiceTest {
         Rate rate2=Rate.builder().originCity(city2).destinationCity(city1).build();
         rates.add(rate2);
         rates.add(rate);
-        when(rateRepository.findAll()).thenReturn(rates);
-        List<Rate> ratesFromDb=rateService.getAllRates();
-        assertEquals(ratesFromDb,rates);
+
+        when(rateService.getAllRates()).thenReturn(rates);
+        List<Rate> ratesList = rateController.getAllRates();
+
+        assertEquals(ratesList, rates);
     }
 
     @Test
-    public void testFindByOriginAndDestinationOk() throws RateDoesntExist {
+    public void getByOriginAndDestinationOk() throws RateDoesntExist {
         City originCity = City.builder().id(1).build();
         City destinationCity = City.builder().id(2).build();
         Rate rate=Rate.builder().originCity(originCity).destinationCity(destinationCity).build();
-        when(rateRepository.findByOriginCityIdAndDestinationCityId(rate.getOriginCity().getId(),rate.getDestinationCity().getId())).thenReturn(java.util.Optional.of(rate));
-        Rate rateFromDb=rateService.findByOriginAndDestination(rate.getOriginCity().getId(),rate.getDestinationCity().getId());
-        assertEquals(rateFromDb,rate);
+        when(rateService.findByOriginAndDestination(rate.getOriginCity().getId(),rate.getDestinationCity().getId())).thenReturn(rate);
+        Rate rateFromController=rateController.getByOriginAndDestination(rate.getOriginCity().getId(),rate.getDestinationCity().getId());
+        assertEquals(rateFromController,rate);
     }
 
     @Test(expected = RateDoesntExist.class)
@@ -57,7 +64,8 @@ public class RateServiceTest {
         City destinationCity = City.builder().id(2).build();
         Rate rate=Rate.builder().originCity(originCity).destinationCity(destinationCity).build();
         Optional<Rate> x = Optional.empty();
-        when(rateRepository.findByOriginCityIdAndDestinationCityId(rate.getOriginCity().getId(), rate.getDestinationCity().getId())).thenReturn(x);
-         rateService.findByOriginAndDestination(rate.getOriginCity().getId(), rate.getDestinationCity().getId());
+        when(rateService.findByOriginAndDestination(rate.getOriginCity().getId(), rate.getDestinationCity().getId())).thenThrow(new RateDoesntExist());
+        rateController.getByOriginAndDestination(rate.getOriginCity().getId(), rate.getDestinationCity().getId());
     }
+
 }
