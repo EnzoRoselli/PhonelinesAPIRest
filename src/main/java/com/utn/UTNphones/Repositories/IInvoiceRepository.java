@@ -1,6 +1,6 @@
 package com.utn.UTNphones.Repositories;
 
-import com.utn.UTNphones.Domain.Invoice;
+import com.utn.UTNphones.Domains.Invoice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,4 +11,5 @@ import java.util.List;
 public interface IInvoiceRepository extends JpaRepository<Invoice,Integer> {
     List<Invoice> findByPhonelineUserId(Integer userId);
    List<Invoice> findAllByPhonelineUserIdAndDateBetween(Integer userId, Date startDate, Date endDate);
+   //todo https://www.baeldung.com/spring-data-derived-queries
 }

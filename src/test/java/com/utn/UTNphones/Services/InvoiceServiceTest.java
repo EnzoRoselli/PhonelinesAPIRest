@@ -1,7 +1,7 @@
 package com.utn.UTNphones.Services;
 
-import com.utn.UTNphones.Domain.Dto.SearchBetweenDates;
-import com.utn.UTNphones.Domain.Invoice;
+import com.utn.UTNphones.Domains.Dto.SearchBetweenDates;
+import com.utn.UTNphones.Domains.Invoice;
 import com.utn.UTNphones.Repositories.IInvoiceRepository;
 import org.junit.Before;
 import org.junit.Test;

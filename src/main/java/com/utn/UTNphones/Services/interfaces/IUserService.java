@@ -1,8 +1,8 @@
 package com.utn.UTNphones.Services.interfaces;
 
-import com.utn.UTNphones.Domain.Exceptions.UsersExceptions.LogException;
-import com.utn.UTNphones.Domain.Exceptions.UsersExceptions.UserDoesntExist;
-import com.utn.UTNphones.Domain.User;
+import com.utn.UTNphones.Domains.User;
+import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
+import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,11 +1,11 @@
 package com.utn.UTNphones.Services.interfaces;
 
-import com.utn.UTNphones.Domain.Exceptions.CallExceptions.CallException;
-import com.utn.UTNphones.Domain.Exceptions.CallExceptions.NoCallsFound;
-import com.utn.UTNphones.Domain.Call;
-import com.utn.UTNphones.Domain.Dto.CityTop;
-import com.utn.UTNphones.Domain.Dto.SearchBetweenDates;
-import com.utn.UTNphones.Domain.Phoneline;
+import com.utn.UTNphones.Domains.Call;
+import com.utn.UTNphones.Domains.Dto.CityTop;
+import com.utn.UTNphones.Domains.Dto.SearchBetweenDates;
+import com.utn.UTNphones.Domains.Phoneline;
+import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
+import com.utn.UTNphones.Exceptions.CallExceptions.NoCallsFound;
 
 import java.util.List;
 

@@ -1,10 +1,10 @@
 package com.utn.UTNphones.Services;
 
-import com.utn.UTNphones.Domain.Exceptions.UsersExceptions.LogException;
-import com.utn.UTNphones.Domain.Exceptions.UsersExceptions.UserDoesntExist;
-import com.utn.UTNphones.Domain.City;
-import com.utn.UTNphones.Domain.Province;
-import com.utn.UTNphones.Domain.User;
+import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
+import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
+import com.utn.UTNphones.Domains.City;
+import com.utn.UTNphones.Domains.Province;
+import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Repositories.IUserRepository;
 import org.junit.Before;
 import org.junit.Test;
