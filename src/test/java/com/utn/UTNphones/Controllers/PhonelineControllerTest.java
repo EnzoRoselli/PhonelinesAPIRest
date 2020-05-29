@@ -1,5 +1,8 @@
 package com.utn.UTNphones.Controllers;
 
+import com.utn.UTNphones.Domain.Phoneline;
+import com.utn.UTNphones.Services.CityService;
+import com.utn.UTNphones.Services.PhonelineService;
 import com.utn.UTNphones.Services.UserService;
 import org.junit.Before;
 import org.mockito.Mock;
@@ -8,13 +11,17 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 public class PhonelineControllerTest {
 
-    UserController userController;
+    PhonelineController phonelineController;
     @Mock
-    UserService userService;
+    PhonelineService phonelineService;
+    @Mock
+    CityService cityService;
 
     @Before
     public void setUp(){
         initMocks(this);
-        userController = new UserController(userService);
+        phonelineController = new PhonelineController(phonelineService, cityService);
     }
+
+
 }
