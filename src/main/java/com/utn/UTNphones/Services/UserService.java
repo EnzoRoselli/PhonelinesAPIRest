@@ -30,7 +30,7 @@ public class UserService implements IUserService {
 
     @Override
     public User register(User user) throws DataAccessException, UserDoesntExist {
-        return Optional.ofNullable(userRepository.save(user)).orElseThrow(UserDoesntExist::new);
+        return Optional.of(userRepository.save(user)).orElseThrow(UserDoesntExist::new);
     }
 
     @Override
