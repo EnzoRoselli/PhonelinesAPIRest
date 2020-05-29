@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Controller
 public class PermissionsControllers {
-
+//hola enzo
     public static Boolean hasEmployeePermissions(SessionManager sessionManager,String sessionToken) {
         Optional<User> currentUser = sessionManager.getCurrentUser(sessionToken);
         return (!currentUser.isEmpty() && currentUser.get().getType().equals("employee"));
