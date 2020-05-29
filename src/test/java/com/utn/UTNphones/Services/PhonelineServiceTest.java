@@ -1,10 +1,10 @@
 package com.utn.UTNphones.Services;
 
-import com.utn.UTNphones.Domain.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
-import com.utn.UTNphones.Domain.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
-import com.utn.UTNphones.Domain.Exceptions.RateExceptions.RateDoesntExist;
-import com.utn.UTNphones.Domain.City;
-import com.utn.UTNphones.Domain.Phoneline;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
+import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
+import com.utn.UTNphones.Domains.City;
+import com.utn.UTNphones.Domains.Phoneline;
 import com.utn.UTNphones.Repositories.IPhonelineRepository;
 import org.junit.Before;
 import org.junit.Test;

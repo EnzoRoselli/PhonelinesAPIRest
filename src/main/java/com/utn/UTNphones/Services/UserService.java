@@ -1,8 +1,8 @@
 package com.utn.UTNphones.Services;
 
-import com.utn.UTNphones.Domain.Exceptions.UsersExceptions.LogException;
-import com.utn.UTNphones.Domain.Exceptions.UsersExceptions.UserDoesntExist;
-import com.utn.UTNphones.Domain.User;
+import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
+import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
+import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Repositories.IUserRepository;
 import com.utn.UTNphones.Services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;

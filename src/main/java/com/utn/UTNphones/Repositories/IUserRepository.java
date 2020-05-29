@@ -1,6 +1,6 @@
 package com.utn.UTNphones.Repositories;
 
-import com.utn.UTNphones.Domain.User;
+import com.utn.UTNphones.Domains.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

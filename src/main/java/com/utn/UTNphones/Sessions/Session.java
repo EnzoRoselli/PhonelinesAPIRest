@@ -1,6 +1,6 @@
 package com.utn.UTNphones.Sessions;
 
-import com.utn.UTNphones.Domain.User;
+import com.utn.UTNphones.Domains.User;
 
 import java.util.Date;
 

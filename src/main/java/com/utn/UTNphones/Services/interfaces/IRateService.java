@@ -1,7 +1,7 @@
 package com.utn.UTNphones.Services.interfaces;
 
-import com.utn.UTNphones.Domain.Exceptions.RateExceptions.RateDoesntExist;
-import com.utn.UTNphones.Domain.Rate;
+import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
+import com.utn.UTNphones.Domains.Rate;
 
 import java.util.List;
 

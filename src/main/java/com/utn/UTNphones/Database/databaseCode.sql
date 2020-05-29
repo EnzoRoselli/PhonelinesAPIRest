@@ -35,9 +35,10 @@ create table users(
 	name_user varchar(45) not null,
 	lastname varchar(45) not null,
     type_user enum("client", "employee", "infrastructure") not null,
-	identification_card varchar(10) not null unique,
+	identification_card varchar(10) not null,
     password_user varchar(30) not null,
 	id_city integer,
+    constraint unq_identification_type unique(identification_card,type_user),
     constraint pk_users primary key (id),
 	constraint fk_users_city foreign key(id_city) references cities(id)
 );

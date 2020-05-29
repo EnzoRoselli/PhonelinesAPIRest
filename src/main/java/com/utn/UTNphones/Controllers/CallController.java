@@ -1,15 +1,15 @@
 package com.utn.UTNphones.Controllers;
 
-import com.utn.UTNphones.Domain.Exceptions.CallExceptions.CallException;
-import com.utn.UTNphones.Domain.Exceptions.CallExceptions.NoCallsFound;
-import com.utn.UTNphones.Domain.Exceptions.ParametersException;
-import com.utn.UTNphones.Domain.Exceptions.PhonelineExceptions.PhonelineExceptions;
-import com.utn.UTNphones.Domain.Exceptions.UsersExceptions.UserExceptions;
-import com.utn.UTNphones.Domain.Call;
-import com.utn.UTNphones.Domain.Dto.CityTop;
-import com.utn.UTNphones.Domain.Dto.NewCallDto;
-import com.utn.UTNphones.Domain.Dto.SearchBetweenDates;
-import com.utn.UTNphones.Domain.Phoneline;
+import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
+import com.utn.UTNphones.Exceptions.CallExceptions.NoCallsFound;
+import com.utn.UTNphones.Exceptions.ParametersException;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
+import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
+import com.utn.UTNphones.Domains.Call;
+import com.utn.UTNphones.Domains.Dto.CityTop;
+import com.utn.UTNphones.Domains.Dto.NewCallDto;
+import com.utn.UTNphones.Domains.Dto.SearchBetweenDates;
+import com.utn.UTNphones.Domains.Phoneline;
 import com.utn.UTNphones.Services.interfaces.ICallService;
 import com.utn.UTNphones.Services.interfaces.IPhonelineService;
 import com.utn.UTNphones.Services.interfaces.IUserService;

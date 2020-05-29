@@ -1,8 +1,8 @@
 package com.utn.UTNphones.Services;
 
-import com.utn.UTNphones.Domain.Exceptions.RateExceptions.RateDoesntExist;
-import com.utn.UTNphones.Domain.City;
-import com.utn.UTNphones.Domain.Rate;
+import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
+import com.utn.UTNphones.Domains.City;
+import com.utn.UTNphones.Domains.Rate;
 import com.utn.UTNphones.Repositories.IRateRepository;
 import org.junit.Before;
 import org.junit.Test;
