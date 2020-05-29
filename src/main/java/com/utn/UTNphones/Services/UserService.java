@@ -1,8 +1,8 @@
 package com.utn.UTNphones.Services;
 
+import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
-import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Repositories.IUserRepository;
 import com.utn.UTNphones.Services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,8 @@ public class UserService implements IUserService {
     }
 
     public User update(User user) throws UserDoesntExist {
-        return Optional.ofNullable(this.userRepository.save(user)).orElseThrow(UserDoesntExist::new);
+
+        return Optional.of(this.userRepository.save(user)).orElseThrow(UserDoesntExist::new);
     }
 
     @Override

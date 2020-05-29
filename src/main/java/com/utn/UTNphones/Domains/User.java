@@ -5,7 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 @Entity
@@ -47,15 +46,8 @@ public class User {
     }
 
 
+    //todo pasarlo al service
 
-    public void setNonNullValues(User user) {
-        Optional.ofNullable(user.getPassword()).ifPresent(this::setPassword);
-        Optional.ofNullable(this.getIdentification()).ifPresent(user::setIdentification);
-        Optional.ofNullable(user.getCity()).ifPresent(user::setCity);
-        Optional.ofNullable(user.getLastname()).ifPresent(user::setLastname);
-        Optional.ofNullable(user.getName()).ifPresent(user::setName);
-        Optional.ofNullable(user.getType()).ifPresent(user::setType);
-    }
 
 
 

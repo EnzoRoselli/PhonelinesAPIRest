@@ -1,8 +1,8 @@
 package com.utn.UTNphones.Services.interfaces;
 
+import com.utn.UTNphones.Domains.Phoneline;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
-import com.utn.UTNphones.Domains.Phoneline;
 
 import java.util.List;
 

@@ -1,5 +1,6 @@
 package com.utn.UTNphones.Controllers.Webs;
 
+import com.utn.UTNphones.Domains.Dto.ErrorResponseDto;
 import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Exceptions.CityExceptions.CityDoesntExist;
 import com.utn.UTNphones.Exceptions.ParametersException;
@@ -9,7 +10,6 @@ import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserIdentificationAlreadyExists;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeDoesntExist;
-import com.utn.UTNphones.Domains.Dto.ErrorResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.TransactionSystemException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

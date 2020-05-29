@@ -38,7 +38,8 @@ public class Phoneline {
     @JoinColumn(name = "id_city")
     private City city;
 
-    public boolean hasNullAtribute() {
+    //todo crear dto me abstraigo de esto
+    public boolean hasNullAttribute() {
         return Stream.of(number, type, city.getId(), user.getId(), status).anyMatch(Objects::isNull);
     }
 
