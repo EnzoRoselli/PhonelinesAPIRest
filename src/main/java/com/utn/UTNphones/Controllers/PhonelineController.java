@@ -43,8 +43,7 @@ public class PhonelineController {
     }
 
 
-    public void remove(@RequestBody @NotNull String phoneNumber) throws Exception {
-        if (phoneNumber == null) throw new ParametersException("Parameters can´t contain null values");
+    public void remove(String phoneNumber) throws PhonelineDoesntExist {
         phonelineService.findByNumber(phoneNumber);
         phonelineService.removeByNumber(phoneNumber);
     }

@@ -91,7 +91,7 @@ public class UserControllerTest {
     }
 
     @Test(expected = CityDoesntExist.class)
-    public void testRegisterDataAccessException() throws Exception {
+    public void testRegisterCityDoesntExistException() throws Exception {
         City citySended = City.builder().id(11).build();
         User userSended =  User.builder().name("Enzo").lastname("Coselli").type("client")
                 .identification("9999999").password("1234").city(citySended).build();

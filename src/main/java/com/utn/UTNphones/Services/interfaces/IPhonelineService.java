@@ -15,9 +15,9 @@ public interface IPhonelineService {
 
     List<Phoneline> findByUserId(Integer userId) throws PhonelineExceptions;
 
-    Phoneline findByNumber(String userId) throws PhonelineExceptions;
+    Phoneline findByNumber(String userId) throws PhonelineDoesntExist;
 
-    void removeByNumber(String phoneNumber) throws PhonelineExceptions;
+    void removeByNumber(String phoneNumber);
 
     Boolean exists(String number, Integer cityId);
 

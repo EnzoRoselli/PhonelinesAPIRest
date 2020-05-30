@@ -37,6 +37,7 @@ create table users(
     type_user enum("client", "employee", "infrastructure") not null,
 	identification_card varchar(10) not null,
     password_user varchar(30) not null,
+    status_user boolean default 1,
 	id_city integer,
     constraint unq_identification_type unique(identification_card,type_user),
     constraint pk_users primary key (id),

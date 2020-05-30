@@ -56,13 +56,8 @@ public class PhonelineService implements IPhonelineService {
     }
 
     @Override
-    public void removeByNumber(String phoneNumber) throws PhonelineDoesntExist {
-        //todo primero llamar por numero y luego deletear , sacar el catch en advice controllah too
-        try {
-            this.phonelineRepository.removeByNumber(phoneNumber);
-        } catch (EmptyResultDataAccessException ex) {
-            throw new PhonelineDoesntExist();
-        }
+    public void removeByNumber(String phoneNumber) {
+        this.phonelineRepository.removeByNumber(phoneNumber);
     }
 
     @Override
