@@ -107,18 +107,18 @@ public class PhonelineServiceTest {
         phonelineService.getById(id);
     }
 
-    @Test
-    public void testRemoveByNumber() throws PhonelineDoesntExist {
-        String number = "223113222";
-        when(phonelineRepository.removeByNumber(number)).thenReturn(2L);
-        phonelineService.removeByNumber(number);
-    }
-    @Test(expected = PhonelineDoesntExist.class)
-    public void testRemoveByNumberException() throws PhonelineDoesntExist {
-        String number = "223113222";
-       when(phonelineRepository.removeByNumber(number)).thenThrow(new EmptyResultDataAccessException(1){});
-        phonelineService.removeByNumber(number);
-    }
+//    @Test
+//    public void testRemoveByNumber() throws PhonelineDoesntExist {
+//        String number = "223113222";
+//        when(phonelineRepository.removeByNumber(number)).thenReturn(2L);
+//        phonelineService.removeByNumber(number);
+//    }
+//    @Test(expected = PhonelineDoesntExist.class)
+//    public void testRemoveByNumberException() throws PhonelineDoesntExist {
+//        String number = "223113222";
+//       when(phonelineRepository.removeByNumber(number)).thenThrow(new EmptyResultDataAccessException(1){});
+//        phonelineService.removeByNumber(number);
+//    }
 
     @Test
     public void testExistsOk(){

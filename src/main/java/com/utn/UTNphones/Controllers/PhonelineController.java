@@ -49,7 +49,7 @@ public class PhonelineController {
         try {
             return this.phonelineService.update(phoneline);
         } catch (DataAccessException ex) {
-            ExceptionController.phonelineUpdateException(ex);
+            ExceptionController.phonelineUpdateException(ex.getRootCause());
         }
         return null;
     }

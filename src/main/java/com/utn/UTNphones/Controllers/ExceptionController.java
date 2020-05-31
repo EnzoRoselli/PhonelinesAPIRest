@@ -44,31 +44,31 @@ public class ExceptionController {
         }
     }
 
-    public static void userUpdateException(DataAccessException Error) throws Exception {
+    public static void userUpdateException(Throwable Error) throws Exception {
 
         //City id
-        if (Error.getRootCause().getMessage().contains("Domains.City")) //110
+        if (Error.getMessage().contains("Domains.City")) //110
             throw new CityDoesntExist();
             //Identification unique
-        else if (Error.getRootCause().getMessage().contains("for key 'identification_card'")) //92
+        else if (Error.getMessage().contains("for key 'identification_card'")) //92
             throw new UserIdentificationAlreadyExists();
             //User type enum
-        else if (Error.getRootCause().getMessage().contains("type_user"))//91  - 98 root
+        else if (Error.getMessage().contains("type_user"))//91  - 98 root
             throw new UserTypeDoesntExist();
 
         else throw new Exception("External error");
     }
 
-    public static void phonelineUpdateException(DataAccessException Error) throws Exception {
+    public static void phonelineUpdateException(Throwable Error) throws Exception {
 
         //City id
-        if (Error.getRootCause().getMessage().contains("Domains.City")) //110
+        if (Error.getMessage().contains("Domains.City")) //110
             throw new CityDoesntExist();
             //User id
-        else if (Error.getRootCause().getMessage().contains("Domains.User")) //92
+        else if (Error.getMessage().contains("Domains.User")) //92
             throw new UserDoesntExist();
             //User type enum
-        else if (Error.getRootCause().getMessage().contains("phoneline_type"))//91  - 98 root
+        else if (Error.getMessage().contains("phoneline_type"))//91  - 98 root
             throw new PhonelineTypeError();
 
         else throw new Exception("External error");

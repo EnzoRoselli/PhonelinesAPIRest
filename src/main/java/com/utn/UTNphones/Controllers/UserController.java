@@ -55,7 +55,7 @@ public class UserController {
         try {
             return this.userService.update(user);
         } catch (DataAccessException ex) {
-            ExceptionController.userUpdateException(ex);
+            ExceptionController.userUpdateException(ex.getRootCause());
         }
         return user;
     }
