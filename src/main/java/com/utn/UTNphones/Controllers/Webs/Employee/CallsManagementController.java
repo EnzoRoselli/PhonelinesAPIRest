@@ -12,6 +12,7 @@ import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +33,9 @@ public class CallsManagementController {
 
     @GetMapping("/users/{userId}")
     public ResponseEntity<List<Call>> getByUserId(@RequestHeader("Authorization") String sessionToken, @PathVariable("userId") Integer userId) throws NoCallsFound, UserDoesntExist, PhonelinesNotRegisteredByUser {
-        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)){
-            return ResponseEntity.status(403).build();
+        ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
+        if (response.getStatusCode()!= HttpStatus.OK) {
+            return response;
         }
         List<Call> callsByAnUser = this.callController.getCallsByUserId(userId);
         return callsByAnUser.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(callsByAnUser);

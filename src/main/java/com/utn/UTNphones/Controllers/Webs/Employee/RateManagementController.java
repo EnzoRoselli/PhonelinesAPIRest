@@ -8,6 +8,7 @@ import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +30,9 @@ public class RateManagementController {
 
     @GetMapping
     public ResponseEntity<List<Rate>> getAll(@RequestHeader("Authorization") String sessionToken){
-        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)){
-            return ResponseEntity.status(403).build();
+        ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
+        if (response.getStatusCode()!= HttpStatus.OK) {
+            return response;
         }
         List<Rate> Allrates=this.rateController.getAllRates();
         return (Allrates.size()>0)? ResponseEntity.ok(Allrates): ResponseEntity.status(204).build();
@@ -40,8 +42,9 @@ public class RateManagementController {
     public ResponseEntity<Rate> getByOriginAndDestination(@RequestHeader("Authorization") String sessionToken,
                                                           @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("originCityId") @NotNull Integer originCityId,
                                                           @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("destinationCityId") @NotNull Integer destinationCityId) throws RateDoesntExist {
-        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
-            return ResponseEntity.status(403).build();
+        ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
+        if (response.getStatusCode()!= HttpStatus.OK) {
+            return response;
         }
        Rate rateInfo=this.rateController.getByOriginAndDestination(originCityId,destinationCityId);
        return ResponseEntity.ok(rateInfo);

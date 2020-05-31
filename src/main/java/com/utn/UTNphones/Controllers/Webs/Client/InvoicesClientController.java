@@ -6,6 +6,7 @@ import com.utn.UTNphones.Domains.Dto.SearchBetweenDates;
 import com.utn.UTNphones.Domains.Invoice;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,8 +28,9 @@ public class InvoicesClientController {
     public ResponseEntity<List<Invoice>>getByUserIdBetweenDates(@RequestHeader("Authorization") String sessionToken,
                                                                 @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("startDate") @NotNull Date startDate,
                                                                 @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("endDate")@NotNull Date endDate){
-        if (!PermissionsControllers.isLogged(sessionManager,sessionToken)) {
-            return ResponseEntity.status(403).build();
+        ResponseEntity response=PermissionsControllers.isLogged(sessionManager, sessionToken);
+        if (response.getStatusCode()!= HttpStatus.OK) {
+            return response;
         }
         SearchBetweenDates datesDto= SearchBetweenDates.builder().start(startDate).end(endDate).build();
         List<Invoice> invoices = this.invoiceController.getByUserBetweenDates(sessionManager.getCurrentUser(sessionToken).get().getId(), datesDto);

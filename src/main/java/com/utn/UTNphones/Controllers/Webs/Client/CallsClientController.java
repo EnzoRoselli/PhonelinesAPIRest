@@ -9,12 +9,14 @@ import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/calls")
@@ -30,8 +32,9 @@ public class CallsClientController {
 
     @GetMapping("/mostDestinationsCalled")
     public ResponseEntity<List<CityTop>> mostDestinationsCalled(@RequestHeader("Authorization") String sessionToken) throws CallException {
-        if (!PermissionsControllers.isLogged(sessionManager, sessionToken)) {
-            return ResponseEntity.status(403).build();
+        ResponseEntity response=PermissionsControllers.isLogged(sessionManager, sessionToken);
+        if (response.getStatusCode()!=HttpStatus.OK) {
+            return response;
         }
         List<CityTop> citiesWithCounter = this.callController.getTopDestinationsCalled(sessionManager.getCurrentUser(sessionToken).get().getId());
         return citiesWithCounter.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(citiesWithCounter);
@@ -41,8 +44,9 @@ public class CallsClientController {
     public ResponseEntity<List<Call>> getCallsBetweenDates(@RequestHeader("Authorization") String sessionToken,
                                                            @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("startDate") @NotNull Date startDate,
                                                            @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("endDate") @NotNull Date endDate) {
-        if (!PermissionsControllers.isLogged(sessionManager, sessionToken)) {
-            return ResponseEntity.status(403).build();
+        ResponseEntity response=PermissionsControllers.isLogged(sessionManager, sessionToken);
+        if (response.getStatusCode()!=HttpStatus.OK) {
+            return response;
         }
         SearchBetweenDates datesDto = SearchBetweenDates.builder().start(startDate).end(endDate).build();
         List<Call> calls = this.callController.getByUserBetweenDates(sessionManager.getCurrentUser(sessionToken).get().getId(), datesDto);

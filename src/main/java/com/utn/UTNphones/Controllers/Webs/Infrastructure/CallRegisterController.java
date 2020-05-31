@@ -6,6 +6,7 @@ import com.utn.UTNphones.Domains.Dto.NewCallDto;
 import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +26,9 @@ public class CallRegisterController {
 
     @PostMapping
     public ResponseEntity registerCall(@RequestHeader("Authorization") String sessionToken, @RequestBody @NotNull NewCallDto newCall) throws CallException {
-        if (!PermissionsControllers.hasInfrastructurePermissions(sessionManager,sessionToken)){
-            return ResponseEntity.status(403).build();
+        ResponseEntity response=PermissionsControllers.hasInfrastructurePermissions(sessionManager, sessionToken);
+        if (response.getStatusCode()!= HttpStatus.OK) {
+            return response;
         }
         this.callController.registerCall(newCall);
         return ResponseEntity.ok().build();

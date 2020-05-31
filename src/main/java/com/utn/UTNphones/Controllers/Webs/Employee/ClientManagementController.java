@@ -7,6 +7,7 @@ import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +30,9 @@ public class ClientManagementController {
 
     @PostMapping
     public ResponseEntity register(@RequestHeader("Authorization") String sessionToken, @RequestBody User userRegistering) throws Exception {
-        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
-            return ResponseEntity.status(403).build();
+        ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
+        if (response.getStatusCode()!= HttpStatus.OK) {
+            return response;
         }
          User user=userController.register(userRegistering);
         return ResponseEntity.created(getLocation(user)).build();
@@ -38,8 +40,9 @@ public class ClientManagementController {
 
     @GetMapping("/users/{userId}")
     public ResponseEntity<User> getUser(@RequestHeader("Authorization") String sessionToken, @PathVariable("userId") Integer userId) throws UserDoesntExist {
-        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
-            return ResponseEntity.status(403).build();
+        ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
+        if (response.getStatusCode()!= HttpStatus.OK) {
+            return response;
         }
         User user=this.userController.findById(userId);
         return ResponseEntity.ok(user);
@@ -47,8 +50,9 @@ public class ClientManagementController {
 
     @DeleteMapping("/users/{identification}")
     public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("identification") String identification) throws UserDoesntExist {
-        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)){
-            return ResponseEntity.status(403).build();
+        ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
+        if (response.getStatusCode()!= HttpStatus.OK) {
+            return response;
         }
         this.userController.delete(identification);
         return ResponseEntity.ok().build();
@@ -56,8 +60,9 @@ public class ClientManagementController {
 
     @PatchMapping
     public ResponseEntity update(@RequestHeader("Authorization") String sessionToken, @RequestBody User userUpdating) throws Exception {
-        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
-            return ResponseEntity.status(403).build();
+        ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
+        if (response.getStatusCode()!= HttpStatus.OK) {
+            return response;
         }
         this.userController.update(userUpdating);
         return ResponseEntity.ok().build();
