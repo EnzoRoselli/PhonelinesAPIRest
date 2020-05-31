@@ -25,11 +25,5 @@ public interface ICallRepository extends JpaRepository<Call, Integer> {
             "LIMIT 10;", nativeQuery = true)
     List<CityTop> findTopMostCalledCities(Integer userId);
 
-    @Query(value = "update phonelines ph set ph.status_phoneline = ?1 where ph.phone_number = ?2", nativeQuery = true)
-    int disableOrEnable(Boolean newStatus,
-                        String phoneNumber);
-
-    List<Call> findAllByOriginPhonelineUserIdAndDateBetween(Integer userId,Date Start,
-                                    Date End);
-
+    List<Call> findAllByOriginPhonelineUserIdAndDateBetween(Integer userId,Date Start, Date End);
 }
