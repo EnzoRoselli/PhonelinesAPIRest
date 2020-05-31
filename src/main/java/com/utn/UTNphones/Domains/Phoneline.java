@@ -1,5 +1,6 @@
 package com.utn.UTNphones.Domains;
 
+import com.utn.UTNphones.Domains.Dto.PhonelineAddDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,12 +16,20 @@ import java.util.stream.Stream;
 @ToString
 @Builder
 public class Phoneline {
+
+    public Phoneline(PhonelineAddDto phone){
+        this.number = phone.getNumber();
+        type = phone.getType();
+        status = phone.getStatus();
+        user = User.builder().id(phone.getUserId()).build();
+        city = City.builder().id(phone.getCityId()).build();
+    }
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id",nullable=false)
     private Integer id;
 
-    @Pattern(regexp="^[1-9]\\d*$", message="Invalid number!")
     @Column(name = "phone_number")
     private String number;
 
@@ -37,14 +46,4 @@ public class Phoneline {
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_city")
     private City city;
-
-    //todo crear dto me abstraigo de esto
-    public boolean hasNullAttribute() {
-        return Stream.of(number, type, city.getId(), user.getId(), status).anyMatch(Objects::isNull);
-    }
-
-    public boolean validNumberWithPrefix(String prefix){
-        if ((String.valueOf(number).length() + String.valueOf(prefix).length())!=10)return false;
-        return true;
-    }
 }

@@ -1,5 +1,6 @@
 package com.utn.UTNphones.Controllers;
 
+import com.utn.UTNphones.Domains.Dto.PhonelineAddDto;
 import com.utn.UTNphones.Domains.Phoneline;
 import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Exceptions.ParametersException;
@@ -32,18 +33,17 @@ public class PhonelineController {
        return this.phonelineService.getById(id);
     }
 
-    public Phoneline add(@RequestBody @NotNull Phoneline phoneline) throws Exception {
-        if (phoneline.hasNullAttribute()) throw new ParametersException("Parameters can´t contain null values");
-        if (!phoneline.validNumberWithPrefix(cityService.getById(phoneline.getCity().getId()).getPrefix()))
+    public Phoneline add(@RequestBody @NotNull PhonelineAddDto phonelineAddDto) throws Exception {
+        if (!phonelineAddDto.validNumberWithPrefix(cityService.getById(phonelineAddDto.getCityId()).getPrefix()))
             throw new PhonelineDigitsCountPlusPrefix();
         try {
+            Phoneline phoneline = new Phoneline(phonelineAddDto);
             return phonelineService.add(phoneline);
         } catch (DataAccessException ex) {
             ExceptionController.phonelineAddException(ex);
         }
-        return phoneline;
+        return null;
     }
-
 
     public void remove(String phoneNumber) throws PhonelineDoesntExist {
         phonelineService.findByNumber(phoneNumber);

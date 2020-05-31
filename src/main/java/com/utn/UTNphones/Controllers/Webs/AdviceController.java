@@ -12,11 +12,15 @@ import com.utn.UTNphones.Exceptions.UsersExceptions.UserIdentificationAlreadyExi
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeDoesntExist;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.TransactionSystemException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ConstraintViolationException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -91,50 +95,28 @@ public class AdviceController {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ErrorResponseDto handleConstraintViolationException(ConstraintViolationException ex) {
-
-        return new ErrorResponseDto(2, PatternsHandler(ex));
-    }
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(PhonelineTypeError.class)
     public ErrorResponseDto handlePhonelineTypeError(PhonelineTypeError ex) {
         return new ErrorResponseDto(2, ex.getMessage());
     }
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(TransactionSystemException.class)
-    public ErrorResponseDto handleTransactionSystemException(TransactionSystemException ex) {
-       return new ErrorResponseDto(2,  AdviceController.PatternsHandler((ConstraintViolationException) ex.getCause().getCause()));
-    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(RateDoesntExist.class)
     public ErrorResponseDto handleRateDoesntExist(RateDoesntExist ex) {
         return new ErrorResponseDto(2, ex.getMessage());
     }
 
-
-
-    public static String PatternsHandler(ConstraintViolationException message) {
-        Pattern pattern = Pattern.compile("'.*?'");
-        Matcher matcher = pattern.matcher(message.getMessage());
-        StringBuilder PatternErrors = new StringBuilder("Errors with the validation with: ");
-        while (matcher.find()) {
-            switch (matcher.group()) {
-                case "'Invalid lastname!'":
-                    if (!PatternErrors.toString().contains("'Invalid lastname!'")) PatternErrors.append(matcher.group()).append(" - ");
-                    break;
-                case "'Invalid identification!'":
-                    if (!PatternErrors.toString().contains("'Invalid identification!'")) PatternErrors.append(matcher.group()).append(" - ");
-                    break;
-                case "'Invalid name!'":
-                    if (!PatternErrors.toString().contains("'Invalid name!'")) PatternErrors.append(matcher.group()).append(" - ");
-                    break;
-                case "'Invalid number!'":
-                    if (!PatternErrors.toString().contains("'Invalid number!'")) PatternErrors.append(matcher.group()).append(" - ");
-                    break;
-            }
-        }
-        return PatternErrors.toString();
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(
+            MethodArgumentNotValidException ex) {
+            Map<String, String> errors = new HashMap<>();
+            ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
     }
 
 }
