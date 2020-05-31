@@ -37,7 +37,7 @@ public class ClientManagementController {
     }
 
     @GetMapping("/users/{userId}")
-    public ResponseEntity<User> getUser(@RequestHeader("Authorization") String sessionToken, @PathVariable("userId") @NonNull Integer userId) throws UserDoesntExist {
+    public ResponseEntity<User> getUser(@RequestHeader("Authorization") String sessionToken, @PathVariable("userId") Integer userId) throws UserDoesntExist {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }
@@ -46,9 +46,9 @@ public class ClientManagementController {
     }
 
     @DeleteMapping("/users/{identification}")
-    public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("identification")@NotNull String identification) throws ParametersException, UserDoesntExist {
+    public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("identification") String identification) throws UserDoesntExist {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)){
-            return ResponseEntity.status(401).build();
+            return ResponseEntity.status(403).build();
         }
         this.userController.delete(identification);
         return ResponseEntity.ok().build();
@@ -57,12 +57,12 @@ public class ClientManagementController {
     @PatchMapping
     public ResponseEntity update(@RequestHeader("Authorization") String sessionToken, @RequestBody User userUpdating) throws Exception {
         if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
-            return ResponseEntity.status(401).build();
+            return ResponseEntity.status(403).build();
         }
         this.userController.update(userUpdating);
         return ResponseEntity.ok().build();
     }
-    private URI getLocation(User user) {
+    public URI getLocation(User user) {
         return ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
