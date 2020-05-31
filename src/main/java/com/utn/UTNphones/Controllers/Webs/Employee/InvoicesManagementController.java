@@ -6,6 +6,7 @@ import com.utn.UTNphones.Domains.Dto.SearchBetweenDates;
 import com.utn.UTNphones.Domains.Invoice;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,8 +28,9 @@ public class InvoicesManagementController {
     @GetMapping("/users/{id}")
     public ResponseEntity<List<Invoice>> getByUserId(@RequestHeader("Authorization") String sessionToken,
                                                      @PathVariable("id") Integer userId){
-        if(!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
-            return ResponseEntity.status(403).build();
+        ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
+        if (response.getStatusCode()!= HttpStatus.OK) {
+            return response;
         }
         List<Invoice>invoices=this.invoiceController.getAllByUserId(userId);
         return invoices.isEmpty() ?  ResponseEntity.status(204).build(): ResponseEntity.ok(invoices);
@@ -39,8 +41,9 @@ public class InvoicesManagementController {
                                                                 @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("startDate") @NotNull Date startDate,
                                                                 @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("endDate")@NotNull Date endDate,
                                                                 @PathVariable("userId") Integer id){
-        if (!PermissionsControllers.isLogged(sessionManager,sessionToken)) {
-            return ResponseEntity.status(403).build();
+        ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
+        if (response.getStatusCode()!= HttpStatus.OK) {
+            return response;
         }
         SearchBetweenDates datesDto= SearchBetweenDates.builder().start(startDate).end(endDate).build();
         List<Invoice> invoices = this.invoiceController.getByUserBetweenDates(id, datesDto);
