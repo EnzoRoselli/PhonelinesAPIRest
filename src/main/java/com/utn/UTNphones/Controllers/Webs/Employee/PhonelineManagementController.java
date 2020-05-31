@@ -9,6 +9,7 @@ import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +32,9 @@ class PhonelineManagementController {
 
     @PostMapping
     public ResponseEntity register(@RequestHeader("Authorization") String sessionToken, @RequestBody Phoneline newPhoneline) throws Exception {
-        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
-            return ResponseEntity.status(403).build();
+        ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
+        if (response.getStatusCode()!= HttpStatus.OK) {
+            return response;
         }
         Phoneline phoneline = phonelineController.add(newPhoneline);
         return ResponseEntity.created(getLocation(phoneline)).build();
@@ -40,8 +42,9 @@ class PhonelineManagementController {
 
     @GetMapping("/phonelines/{phonelineId}")
     public ResponseEntity<Phoneline> getPhoneline(@RequestHeader("Authorization") String sessionToken, @PathVariable("phonelineId") Integer phonelineId) throws PhonelineDoesntExist {
-        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
-            return ResponseEntity.status(403).build();
+        ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
+        if (response.getStatusCode()!= HttpStatus.OK) {
+            return response;
         }
         Phoneline phoneline = phonelineController.getById(phonelineId);
         return ResponseEntity.ok(phoneline);
@@ -50,40 +53,24 @@ class PhonelineManagementController {
 
     @DeleteMapping("/phonelines/{phoneNumber}")
     public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneNumber") String phoneNumber) throws PhonelineDoesntExist {
-        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
-            return ResponseEntity.status(403).build();
+        ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
+        if (response.getStatusCode()!= HttpStatus.OK) {
+            return response;
         }
         this.phonelineController.remove(phoneNumber);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/phonelines/{phoneId}")
-    public ResponseEntity update(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneId") Integer phoneId, @RequestBody Phoneline phonelineUpdating) throws PhonelineDoesntExist {
-        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
-            return ResponseEntity.status(403).build();
+    public ResponseEntity update(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneId") Integer phoneId, @RequestBody Phoneline phonelineUpdating) throws Exception {
+        ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
+        if (response.getStatusCode()!= HttpStatus.OK) {
+            return response;
         }
         this.phonelineController.update(phoneId, phonelineUpdating);
         return ResponseEntity.ok().build();
     }
 
-//todo cambiar a un put el metodo
-
-//    public ResponseEntity disable(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneNumber") @NotNull String phoneNumber) throws PhonelineDoesntExist {
-//        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        this.phonelineController.disable(phoneNumber);
-//        return ResponseEntity.ok().build();
-//    }
-    //todo cambiar a un put el metodo
-//    @PutMapping("/enable/{phoneNumber}")
-//    public ResponseEntity enable(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneNumber") @NotNull String phoneNumber) throws PhonelineDoesntExist {
-//        if (!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        this.phonelineController.enable(phoneNumber);
-//        return ResponseEntity.ok().build();
-//    }
     private URI getLocation(Phoneline phoneline) {
         return ServletUriComponentsBuilder
                 .fromCurrentRequest()

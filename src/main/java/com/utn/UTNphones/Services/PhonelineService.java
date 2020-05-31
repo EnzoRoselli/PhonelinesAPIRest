@@ -1,6 +1,7 @@
 package com.utn.UTNphones.Services;
 
 import com.utn.UTNphones.Domains.Phoneline;
+import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
 import com.utn.UTNphones.Repositories.IPhonelineRepository;
@@ -46,13 +47,8 @@ public class PhonelineService implements IPhonelineService {
     }
 
     @Override
-    public void enable(String phoneNumber) {
-        phonelineRepository.disableOrEnable(true, phoneNumber);
-    }
-
-    @Override
-    public void disable(String phoneNumber) {
-        phonelineRepository.disableOrEnable(false, phoneNumber);
+    public Phoneline update(Phoneline phoneline) {
+        return this.phonelineRepository.save(phoneline);
     }
 
     @Override

@@ -50,48 +50,15 @@ public class PhonelineController {
         phonelineService.removeByNumber(phoneNumber);
     }
 
-
-
-//    public void disableOrEnable(String phoneNumber) throws PhonelineDoesntExist {
-//        Phoneline p = phonelineService.findByNumber(phoneNumber);
-//
-//        if (p.getStatus()) {
-//            phonelineService.disable(phoneNumber);
-//        } else {
-//            phonelineService.enable(phoneNumber);
-//        }
-//    }
-
-//    public Boolean disable(@RequestBody @NotNull String phoneNumber) throws PhonelineDoesntExist {
-//        phonelineService.findByNumber(phoneNumber);
-//        return phonelineService.disable(phoneNumber);
-//    }
-//
-//
-//    public Boolean enable(@RequestBody @NotNull String phoneNumber) throws PhonelineDoesntExist {
-//        phonelineService.findByNumber(phoneNumber);
-//        return phonelineService.enable(phoneNumber);
-//    }
-
-    public User update(Integer id,Phoneline user) throws Exception {
-        User inDataBaseUser = this.userService.findById(user.getId());
-        user=setNonNullValues(user,inDataBaseUser);
+    public Phoneline update(Integer id,Phoneline phoneline) throws Exception {
+        this.phonelineService.getById(id);
+        phoneline.setId(id);
         try {
-            return this.userService.update(user);
+            return this.phonelineService.update(phoneline);
         } catch (DataAccessException ex) {
-            ExceptionController.userUpdateException(ex);
+            ExceptionController.phonelineUpdateException(ex);
         }
-        return user;
-    }
-
-    private User setNonNullValues(User newUser,User oldUser) {
-        Optional.ofNullable(newUser.getPassword()).ifPresent(oldUser::setPassword);
-        Optional.ofNullable(newUser.getIdentification()).ifPresent(oldUser::setIdentification);
-        Optional.ofNullable(newUser.getCity()).ifPresent(oldUser::setCity);
-        Optional.ofNullable(newUser.getLastname()).ifPresent(oldUser::setLastname);
-        Optional.ofNullable(newUser.getName()).ifPresent(oldUser::setName);
-        Optional.ofNullable(newUser.getType()).ifPresent(oldUser::setType);
-        return oldUser;
+        return null;
     }
 
 }

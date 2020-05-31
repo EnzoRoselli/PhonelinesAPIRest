@@ -15,7 +15,7 @@ public class PermissionsControllers {
         Optional<User> currentUser = sessionManager.getCurrentUser(sessionToken);
         if (currentUser.isEmpty()){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }else if(currentUser.get().getType().equals("employee")){
+        }else if(!currentUser.get().getType().equals("employee")){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
         return ResponseEntity.status(HttpStatus.OK).build();
@@ -25,7 +25,7 @@ public class PermissionsControllers {
         Optional<User> currentUser = sessionManager.getCurrentUser(sessionToken);
         if (currentUser.isEmpty()){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }else if(currentUser.get().getType().equals("infrastructure")){
+        }else if(!currentUser.get().getType().equals("infrastructure")){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
         return ResponseEntity.status(HttpStatus.OK).build();
