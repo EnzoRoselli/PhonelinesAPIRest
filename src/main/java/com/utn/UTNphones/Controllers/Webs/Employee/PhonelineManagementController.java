@@ -15,6 +15,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 
+import static com.utn.UTNphones.Controllers.Webs.URLconstants.PhonelineRouter.PHONELINE_ID;
+
 @RestController
 @RequestMapping("/phonelineManagement")
 class PhonelineManagementController {
@@ -37,7 +39,7 @@ class PhonelineManagementController {
         return ResponseEntity.created(getLocation(phoneline)).build();
     }
 
-    @GetMapping("/phonelines/{phonelineId}")
+    @GetMapping(PHONELINE_ID)
     public ResponseEntity<Phoneline> getPhoneline(@RequestHeader("Authorization") String sessionToken, @PathVariable("phonelineId") Integer phonelineId) throws PhonelineDoesntExist {
         ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
         if (response.getStatusCode()!= HttpStatus.OK) {
@@ -47,7 +49,7 @@ class PhonelineManagementController {
         return ResponseEntity.ok(phoneline);
     }
 
-    @DeleteMapping("/phonelines/{phoneId}")
+    @DeleteMapping(PHONELINE_ID)
     public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneId") Integer phoneId) throws PhonelineDoesntExist {
         ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
         if (response.getStatusCode()!= HttpStatus.OK) {
@@ -57,7 +59,7 @@ class PhonelineManagementController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/phonelines/{phoneId}")
+    @PutMapping(PHONELINE_ID)
     public ResponseEntity update(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneId") Integer phoneId, @RequestBody Phoneline phonelineUpdating) throws Exception {
         ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
         if (response.getStatusCode()!= HttpStatus.OK) {

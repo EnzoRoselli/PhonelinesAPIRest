@@ -15,6 +15,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 
+import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USER_ID;
+import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USER_IDENTIFICATION;
+
 @RestController
 @RequestMapping("/managementClient")
 public class ClientManagementController {
@@ -37,7 +40,7 @@ public class ClientManagementController {
         return ResponseEntity.created(getLocation(user)).build();
     }
 
-    @GetMapping("/users/{userId}")
+    @GetMapping(USER_ID)
     public ResponseEntity<User> getUser(@RequestHeader("Authorization") String sessionToken, @PathVariable("userId") Integer userId) throws UserDoesntExist {
         ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
         if (response.getStatusCode()!= HttpStatus.OK) {
@@ -47,7 +50,7 @@ public class ClientManagementController {
         return ResponseEntity.ok(user);
     }
 
-    @DeleteMapping("/users/{identification}")
+    @DeleteMapping(USER_IDENTIFICATION)
     public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("identification") String identification) throws UserDoesntExist {
         ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
         if (response.getStatusCode()!= HttpStatus.OK) {

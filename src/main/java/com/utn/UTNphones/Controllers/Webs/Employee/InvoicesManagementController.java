@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.websocket.server.PathParam;
 import java.util.Date;
 import java.util.List;
+import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USER_ID;
 
 @RestController
 @RequestMapping("/InvoicesManagement")
@@ -25,7 +26,7 @@ public class InvoicesManagementController {
         this.sessionManager = sessionManager;
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping(USER_ID)
     public ResponseEntity<List<Invoice>> getByUserId(@RequestHeader("Authorization") String sessionToken,
                                                      @PathVariable("id") Integer userId){
         ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
@@ -36,7 +37,7 @@ public class InvoicesManagementController {
         return invoices.isEmpty() ?  ResponseEntity.status(204).build(): ResponseEntity.ok(invoices);
     }
 
-    @GetMapping("/users/{userId}/invoices")
+    @GetMapping(USER_ID+"/invoices")
     public ResponseEntity<List<Invoice>>getByUserIdBetweenDates(@RequestHeader("Authorization") String sessionToken,
                                                                 @DateTimeFormat(pattern = "dd-MM-yyyy") @PathParam("startDate") Date startDate,
                                                                 @DateTimeFormat(pattern = "dd-MM-yyyy") @PathParam("endDate") Date endDate,

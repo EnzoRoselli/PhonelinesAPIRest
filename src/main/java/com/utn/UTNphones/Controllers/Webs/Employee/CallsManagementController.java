@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USER_ID;
+
 @RestController
 @RequestMapping("/callsManagement")
 public class CallsManagementController {
@@ -26,7 +28,7 @@ public class CallsManagementController {
         this.sessionManager = sessionManager;
     }
 
-    @GetMapping("/users/{userId}")
+    @GetMapping(USER_ID)
     public ResponseEntity<List<Call>> getByUserId(@RequestHeader("Authorization") String sessionToken, @PathVariable("userId") Integer userId) throws NoCallsFound, UserDoesntExist, PhonelinesNotRegisteredByUser {
         ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
         if (response.getStatusCode()!= HttpStatus.OK) {
