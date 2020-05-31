@@ -3,7 +3,7 @@ package com.utn.UTNphones.Controllers;
 import com.utn.UTNphones.Domains.Call;
 import com.utn.UTNphones.Domains.Dto.CityTop;
 import com.utn.UTNphones.Domains.Dto.NewCallDTO;
-import com.utn.UTNphones.Domains.Dto.SearchBetweenDates;
+import com.utn.UTNphones.Domains.Dto.SearchBetweenDatesDTO;
 import com.utn.UTNphones.Domains.Phoneline;
 import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Exceptions.CallExceptions.NoCallsFound;
@@ -42,7 +42,7 @@ public class CallController {
         return this.callService.getTopMostCalledCities(userId);
     }
 
-    public List<Call> getByUserBetweenDates(Integer userId, SearchBetweenDates dates) {
+    public List<Call> getByUserBetweenDates(Integer userId, SearchBetweenDatesDTO dates) {
         return this.callService.getByUserAndBetweenDates(userId,dates);
     }
 

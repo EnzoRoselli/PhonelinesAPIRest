@@ -2,7 +2,6 @@ package com.utn.UTNphones.Services;
 
 import com.utn.UTNphones.Domains.City;
 import com.utn.UTNphones.Exceptions.CityExceptions.CityDoesntExist;
-import com.utn.UTNphones.Exceptions.CityExceptions.CityExceptions;
 import com.utn.UTNphones.Repositories.ICityRepository;
 import com.utn.UTNphones.Services.interfaces.ICityService;
 import org.springframework.beans.factory.annotation.Autowired;

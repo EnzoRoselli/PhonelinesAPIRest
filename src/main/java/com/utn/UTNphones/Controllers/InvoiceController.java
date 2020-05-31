@@ -1,6 +1,6 @@
 package com.utn.UTNphones.Controllers;
 
-import com.utn.UTNphones.Domains.Dto.SearchBetweenDates;
+import com.utn.UTNphones.Domains.Dto.SearchBetweenDatesDTO;
 import com.utn.UTNphones.Domains.Invoice;
 import com.utn.UTNphones.Services.interfaces.IInvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class InvoiceController {
             return this.invoiceService.getAllByUserId(userId);
     }
 
-    public List<Invoice> getByUserBetweenDates(Integer id, SearchBetweenDates datesDto) {
+    public List<Invoice> getByUserBetweenDates(Integer id, SearchBetweenDatesDTO datesDto) {
         return this.invoiceService.getByUserAndBetweenDates(id,datesDto);
     }
 }

@@ -2,7 +2,7 @@ package com.utn.UTNphones.Controllers.Webs.Employee;
 
 import com.utn.UTNphones.Controllers.InvoiceController;
 import com.utn.UTNphones.Controllers.PermissionsControllers;
-import com.utn.UTNphones.Domains.Dto.SearchBetweenDates;
+import com.utn.UTNphones.Domains.Dto.SearchBetweenDatesDTO;
 import com.utn.UTNphones.Domains.Invoice;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotNull;
+import javax.websocket.server.PathParam;
 import java.util.Date;
 import java.util.List;
 
@@ -36,16 +36,16 @@ public class InvoicesManagementController {
         return invoices.isEmpty() ?  ResponseEntity.status(204).build(): ResponseEntity.ok(invoices);
     }
 
-    @GetMapping("users/{userId}/start/{startDate}/end/{endDate}")//todo cambiar fechar
+    @GetMapping("/users/{userId}/invoices")//todo cambiar fechar
     public ResponseEntity<List<Invoice>>getByUserIdBetweenDates(@RequestHeader("Authorization") String sessionToken,
-                                                                @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("startDate") @NotNull Date startDate,
-                                                                @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("endDate")@NotNull Date endDate,
+                                                                @DateTimeFormat(pattern = "dd-MM-yyyy") @PathParam("startDate") Date startDate,
+                                                                @DateTimeFormat(pattern = "dd-MM-yyyy") @PathParam("endDate") Date endDate,
                                                                 @PathVariable("userId") Integer id){
         ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
         if (response.getStatusCode()!= HttpStatus.OK) {
             return response;
         }
-        SearchBetweenDates datesDto= SearchBetweenDates.builder().start(startDate).end(endDate).build();
+        SearchBetweenDatesDTO datesDto= SearchBetweenDatesDTO.builder().start(startDate).end(endDate).build();
         List<Invoice> invoices = this.invoiceController.getByUserBetweenDates(id, datesDto);
         return invoices.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(invoices);
     }

@@ -2,9 +2,8 @@ package com.utn.UTNphones.Services;
 
 import com.utn.UTNphones.Domains.Call;
 import com.utn.UTNphones.Domains.Dto.CityTop;
-import com.utn.UTNphones.Domains.Dto.SearchBetweenDates;
+import com.utn.UTNphones.Domains.Dto.SearchBetweenDatesDTO;
 import com.utn.UTNphones.Domains.Phoneline;
-import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Exceptions.CallExceptions.NoCallsFound;
 import com.utn.UTNphones.Repositories.ICallRepository;
 import com.utn.UTNphones.Services.interfaces.ICallService;
@@ -43,7 +42,7 @@ public class CallService implements ICallService {
     }
 
     @Override
-    public List<Call> getByUserAndBetweenDates(Integer userId, SearchBetweenDates dates) {
+    public List<Call> getByUserAndBetweenDates(Integer userId, SearchBetweenDatesDTO dates) {
         return this.callRepository.findAllByOriginPhonelineUserIdAndDateBetween(userId,dates.getStart(),dates.getEnd());
     }
 

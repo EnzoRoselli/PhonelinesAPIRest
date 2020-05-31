@@ -1,6 +1,6 @@
 package com.utn.UTNphones.Services;
 
-import com.utn.UTNphones.Domains.Dto.SearchBetweenDates;
+import com.utn.UTNphones.Domains.Dto.SearchBetweenDatesDTO;
 import com.utn.UTNphones.Domains.Invoice;
 import com.utn.UTNphones.Repositories.IInvoiceRepository;
 import org.junit.Before;
@@ -56,7 +56,7 @@ public class InvoiceServiceTest {
         invoiceList.add(invoice);
         Date dateStart=new Date(2020, Calendar.AUGUST,23);
         Date dateEnd=new Date(2021, Calendar.AUGUST,23);
-        SearchBetweenDates dates= new SearchBetweenDates(dateStart,dateEnd);
+        SearchBetweenDatesDTO dates= new SearchBetweenDatesDTO(dateStart,dateEnd);
         when(invoiceRepository.findAllByPhonelineUserIdAndDateBetween(2,dates.getStart(),dates.getEnd())).thenReturn(invoiceList);
         List<Invoice> invoicesDb=invoiceService.getByUserAndBetweenDates(2,dates);
         assertEquals(invoicesDb,invoiceList);

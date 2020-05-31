@@ -1,8 +1,8 @@
 package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Domains.Dto.LoginDTO;
+import com.utn.UTNphones.Domains.Dto.UserRegisterDTO;
 import com.utn.UTNphones.Domains.User;
-import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Services.interfaces.IUserService;
@@ -29,15 +29,15 @@ public class UserController {
         return userService.login(u);
     }
 
-    public User register(User user) throws Exception {
-        if (user.hasNullAttribute()) {throw new ParametersException("Parameters can´t contain null values");}
+    public User register(UserRegisterDTO userRegisterDTO) throws Exception {
         try {
+            User user = new User(userRegisterDTO);
             return userService.register(user);
         } catch (DataAccessException ex) {
             SQLException SQLex = (SQLException) ex.getCause().getCause();
             ExceptionController.userRegisterException(SQLex);
         }
-        return user;
+        return null;
     }
 
     public void delete(String identification) throws UserDoesntExist {

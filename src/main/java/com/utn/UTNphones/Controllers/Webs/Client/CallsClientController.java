@@ -4,7 +4,7 @@ import com.utn.UTNphones.Controllers.CallController;
 import com.utn.UTNphones.Controllers.PermissionsControllers;
 import com.utn.UTNphones.Domains.Call;
 import com.utn.UTNphones.Domains.Dto.CityTop;
-import com.utn.UTNphones.Domains.Dto.SearchBetweenDates;
+import com.utn.UTNphones.Domains.Dto.SearchBetweenDatesDTO;
 import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/calls")
@@ -48,7 +47,7 @@ public class CallsClientController {
         if (response.getStatusCode()!=HttpStatus.OK) {
             return response;
         }
-        SearchBetweenDates datesDto = SearchBetweenDates.builder().start(startDate).end(endDate).build();
+        SearchBetweenDatesDTO datesDto = SearchBetweenDatesDTO.builder().start(startDate).end(endDate).build();
         List<Call> calls = this.callController.getByUserBetweenDates(sessionManager.getCurrentUser(sessionToken).get().getId(), datesDto);
         return calls.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(calls);
     }

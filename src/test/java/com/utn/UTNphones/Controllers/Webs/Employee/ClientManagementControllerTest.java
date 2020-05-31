@@ -45,117 +45,117 @@ public class ClientManagementControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(new ClientManagementController(userController, sessionManager))
                 .setControllerAdvice(new AdviceController()).build();
     }
-
-    @Test
-    public void registerOk() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-
-        User employee = User.builder().type("employee").build();
-        User userToRegister = User.builder().name("Enzo").lastname("Mateu").identification("111111")
-                .password("abc").type("client").city(new City()).build();
-        User userRegistered = User.builder().id(1).name("Enzo").lastname("Mateu").identification("111111")
-                .password("abc").type("client").city(new City()).build();
-
-        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(employee));
-        when(userController.register(userToRegister)).thenReturn(userRegistered);
-
-        ResponseEntity responseEntity = clientManagementController.register("token", userToRegister);
-
-        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
-        assertEquals(clientManagementController.getLocation(userRegistered), responseEntity.getHeaders().getLocation());
-    }
-
-    @Test
-    public void registerForbidden() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-
-        User client = User.builder().type("client").build();
-        User userToRegister = User.builder().name("Enzo").lastname("Mateu").identification("111111")
-                .password("abc").type("client").city(new City()).build();
-
-        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(client));
-
-        ResponseEntity responseEntity = clientManagementController.register("token", userToRegister);
-
-        assertEquals(HttpStatus.FORBIDDEN, responseEntity.getStatusCode());
-    }
-
-    @Test(expected = CityDoesntExist.class)
-    public void registerCityDoesntExistException() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-
-        User employee = User.builder().type("employee").build();
-        User userToRegister = User.builder().name("Enzo").lastname("Mateu").identification("111111")
-                .password("abc").type("client").city(new City()).build();
-
-        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(employee));
-        when(userController.register(userToRegister)).thenThrow(new CityDoesntExist());
-
-        ResponseEntity responseEntity = clientManagementController.register("token", userToRegister);
-    }
-
+//
 //    @Test
-//    public void registerCityDoesntExist() throws Exception {
-//        String token = "1";
+//    public void registerOk() throws Exception {
+//        MockHttpServletRequest request = new MockHttpServletRequest();
+//        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+//
+//        User employee = User.builder().type("employee").build();
+//        User userToRegister = User.builder().name("Enzo").lastname("Mateu").identification("111111")
+//                .password("abc").type("client").city(new City()).build();
+//        User userRegistered = User.builder().id(1).name("Enzo").lastname("Mateu").identification("111111")
+//                .password("abc").type("client").city(new City()).build();
+//
+//        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(employee));
+//        when(userController.register(userToRegister)).thenReturn(userRegistered);
+//
+//        ResponseEntity responseEntity = clientManagementController.register("token", userToRegister);
+//
+//        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
+//        assertEquals(clientManagementController.getLocation(userRegistered), responseEntity.getHeaders().getLocation());
+//    }
+//
+//    @Test
+//    public void registerForbidden() throws Exception {
+//        MockHttpServletRequest request = new MockHttpServletRequest();
+//        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+//
+//        User client = User.builder().type("client").build();
 //        User userToRegister = User.builder().name("Enzo").lastname("Mateu").identification("111111")
 //                .password("abc").type("client").city(new City()).build();
 //
-//        mockMvc.perform(
-//                MockMvcRequestBuilders.post("")
-//                 .header("Authorization", token)
-//                 .requestAttr("userRegistering", userToRegister))
-//                 .andExpect(status().is4xxClientError()
-//        );
+//        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(client));
 //
+//        ResponseEntity responseEntity = clientManagementController.register("token", userToRegister);
+//
+//        assertEquals(HttpStatus.FORBIDDEN, responseEntity.getStatusCode());
 //    }
-
-    @Test(expected = UserIdentificationAlreadyExists.class)
-    public void registerUserIdentificationAlreadyExistsException() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-
-        User employee = User.builder().type("employee").build();
-        User userToRegister = User.builder().name("Enzo").lastname("Mateu").identification("111111")
-                .password("abc").type("client").city(new City()).build();
-
-        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(employee));
-        when(userController.register(userToRegister)).thenThrow(new UserIdentificationAlreadyExists());
-
-        ResponseEntity responseEntity = clientManagementController.register("token", userToRegister);
-    }
-
-    @Test(expected = UserTypeDoesntExist.class)
-    public void registerUserTypeDoesntExistException() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-
-        User employee = User.builder().type("employee").build();
-        User userToRegister = User.builder().name("Enzo").lastname("Mateu").identification("111111")
-                .password("abc").type("adssad").city(new City()).build();
-
-        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(employee));
-        when(userController.register(userToRegister)).thenThrow(new UserTypeDoesntExist());
-
-        ResponseEntity responseEntity = clientManagementController.register("token", userToRegister);
-    }
-
-    @Test(expected = Exception.class)
-    public void registerException() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-
-        User employee = User.builder().type("employee").build();
-        User userToRegister = User.builder().name("Enzo").lastname("Mateu").identification("111111")
-                .password("abc").type("adssad").city(new City()).build();
-
-        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(employee));
-        when(userController.register(userToRegister)).thenThrow(new Exception());
-
-        ResponseEntity responseEntity = clientManagementController.register("token", userToRegister);
-    }
+//
+//    @Test(expected = CityDoesntExist.class)
+//    public void registerCityDoesntExistException() throws Exception {
+//        MockHttpServletRequest request = new MockHttpServletRequest();
+//        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+//
+//        User employee = User.builder().type("employee").build();
+//        User userToRegister = User.builder().name("Enzo").lastname("Mateu").identification("111111")
+//                .password("abc").type("client").city(new City()).build();
+//
+//        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(employee));
+//        when(userController.register(userToRegister)).thenThrow(new CityDoesntExist());
+//
+//        ResponseEntity responseEntity = clientManagementController.register("token", userToRegister);
+//    }
+//
+////    @Test
+////    public void registerCityDoesntExist() throws Exception {
+////        String token = "1";
+////        User userToRegister = User.builder().name("Enzo").lastname("Mateu").identification("111111")
+////                .password("abc").type("client").city(new City()).build();
+////
+////        mockMvc.perform(
+////                MockMvcRequestBuilders.post("")
+////                 .header("Authorization", token)
+////                 .requestAttr("userRegistering", userToRegister))
+////                 .andExpect(status().is4xxClientError()
+////        );
+////
+////    }
+//
+//    @Test(expected = UserIdentificationAlreadyExists.class)
+//    public void registerUserIdentificationAlreadyExistsException() throws Exception {
+//        MockHttpServletRequest request = new MockHttpServletRequest();
+//        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+//
+//        User employee = User.builder().type("employee").build();
+//        User userToRegister = User.builder().name("Enzo").lastname("Mateu").identification("111111")
+//                .password("abc").type("client").city(new City()).build();
+//
+//        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(employee));
+//        when(userController.register(userToRegister)).thenThrow(new UserIdentificationAlreadyExists());
+//
+//        ResponseEntity responseEntity = clientManagementController.register("token", userToRegister);
+//    }
+//
+//    @Test(expected = UserTypeDoesntExist.class)
+//    public void registerUserTypeDoesntExistException() throws Exception {
+//        MockHttpServletRequest request = new MockHttpServletRequest();
+//        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+//
+//        User employee = User.builder().type("employee").build();
+//        User userToRegister = User.builder().name("Enzo").lastname("Mateu").identification("111111")
+//                .password("abc").type("adssad").city(new City()).build();
+//
+//        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(employee));
+//        when(userController.register(userToRegister)).thenThrow(new UserTypeDoesntExist());
+//
+//        ResponseEntity responseEntity = clientManagementController.register("token", userToRegister);
+//    }
+//
+//    @Test(expected = Exception.class)
+//    public void registerException() throws Exception {
+//        MockHttpServletRequest request = new MockHttpServletRequest();
+//        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+//
+//        User employee = User.builder().type("employee").build();
+//        User userToRegister = User.builder().name("Enzo").lastname("Mateu").identification("111111")
+//                .password("abc").type("adssad").city(new City()).build();
+//
+//        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(employee));
+//        when(userController.register(userToRegister)).thenThrow(new Exception());
+//
+//        ResponseEntity responseEntity = clientManagementController.register("token", userToRegister);
+//    }
 
     @Test
     public void getUserOk() throws UserDoesntExist {

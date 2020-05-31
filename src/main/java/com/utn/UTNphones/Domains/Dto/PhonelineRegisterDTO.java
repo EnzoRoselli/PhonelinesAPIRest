@@ -2,14 +2,12 @@ package com.utn.UTNphones.Domains.Dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.utn.UTNphones.Domains.City;
-import com.utn.UTNphones.Domains.User;
 import lombok.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
-import java.util.Objects;
-import java.util.stream.Stream;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,7 +15,7 @@ import java.util.stream.Stream;
 @ToString
 @Builder
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class PhonelineAddDTO {
+public class PhonelineRegisterDTO {
 
     @Pattern(regexp="^[1-9]\\d*$", message="Invalid number!")
     @NotBlank(message = "Number is mandatory")

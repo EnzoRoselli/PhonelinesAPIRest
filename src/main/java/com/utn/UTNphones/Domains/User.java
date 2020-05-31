@@ -1,12 +1,11 @@
 package com.utn.UTNphones.Domains;
 
 import com.utn.UTNphones.Domains.Dto.LoginDTO;
+import com.utn.UTNphones.Domains.Dto.UserRegisterDTO;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
-import java.util.Objects;
-import java.util.stream.Stream;
 
 @Entity
 @Table(name = "users")
@@ -20,6 +19,16 @@ public class User {
     public User(LoginDTO loginDTO){
         identification = loginDTO.getIdentification();
         password = loginDTO.getPassword();
+    }
+
+    public User(UserRegisterDTO userRegisterDTO){
+        name = userRegisterDTO.getName();
+        lastname = userRegisterDTO.getLastname();
+        status = userRegisterDTO.getStatus();
+        type = userRegisterDTO.getType();
+        identification = userRegisterDTO.getIdentification();
+        password = userRegisterDTO.getPassword();
+        city = City.builder().id(userRegisterDTO.getCityId()).build();
     }
 
     @Id
@@ -50,16 +59,5 @@ public class User {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_city")
     private City city;
-
-    public boolean hasNullAttribute() {
-        return Stream.of(name, lastname, identification, password, city, type).anyMatch(Objects::isNull);
-    }
-
-
-    //todo pasarlo al service
-
-
-
-
 }
 

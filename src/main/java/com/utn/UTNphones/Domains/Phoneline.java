@@ -1,6 +1,6 @@
 package com.utn.UTNphones.Domains;
 
-import com.utn.UTNphones.Domains.Dto.PhonelineAddDTO;
+import com.utn.UTNphones.Domains.Dto.PhonelineRegisterDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Builder
 public class Phoneline {
 
-    public Phoneline(PhonelineAddDTO phone){
+    public Phoneline(PhonelineRegisterDTO phone){
         this.number = phone.getNumber();
         type = phone.getType();
         status = phone.getStatus();

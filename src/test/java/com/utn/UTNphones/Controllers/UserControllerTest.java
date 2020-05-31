@@ -30,109 +30,109 @@ public class UserControllerTest {
         initMocks(this);
         userController = new UserController(userService);
     }
-
-    @Test
-    public void testLoginOk() throws ParametersException, UserExceptions {
-        User aux = User.builder().identification("1").password("1234").build();
-
-        User loggedUser = User.builder().name("Enzo").lastname("Roselli").type("client")
-                .identification("1").password("1234").city(null).build();
-
-        when(userService.login(aux)).thenReturn(loggedUser);
-        User u = userController.login(aux);
-
-        assertEquals(u, loggedUser);
-    }
-
-    @Test(expected = ParametersException.class)
-    public void testLoginParametersException() throws ParametersException, LogException {
-        User aux = User.builder().identification("1").password(null).build();
-        userController.login(aux);
-    }
-
-    @Test(expected = LogException.class)
-    public void testLoginLogException() throws LogException, ParametersException {
-        User aux = User.builder().identification("123456").password("1234").build();
-
-        when(userService.login(aux)).thenThrow(new LogException());
-        userController.login(aux);
-    }
-
-    @Test
-    public void testRegisterOk() throws Exception {
-        City city = City.builder().id(1).build();
-
-        User registeredUser = User.builder().name("Enzo").lastname("Roselli").type("client")
-                .identification("1").password("1234").city(city).build();
-
-        when(userService.register(registeredUser)).thenReturn(registeredUser);
-        User u = userController.register(registeredUser);
-
-        assertEquals(u, registeredUser);
-    }
-
-    @Test(expected = ParametersException.class)
-    public void testRegisterParametersException() throws Exception {
-        User registeredUser = User.builder().name("Enzo").lastname("Roselli").build();
-        userController.register(registeredUser);
-    }
-
-    @Test(expected = UserDoesntExist.class)
-    public void testRegisterUserDoesntExistException() throws Exception {
-        Province province = Province.builder().name("Buenos Aires").build();
-        City city = City.builder().name("Mar del Plata").prefix("223").province(province).build();
-
-        User registeredUser = User.builder().name("Facu").lastname("Roselli").type("client")
-                .identification("1").password("1234").city(city).build();
-
-        when(userService.register(registeredUser)).thenThrow(new UserDoesntExist());
-
-        userController.register(registeredUser);
-    }
-
-    @Test(expected = CityDoesntExist.class)
-    public void testRegisterCityDoesntExistException() throws Exception {
-        City citySended = City.builder().id(11).build();
-        User userSended =  User.builder().name("Enzo").lastname("Coselli").type("client")
-                .identification("9999999").password("1234").city(citySended).build();
-
-        when(userService.register(userSended)).thenThrow(new DataAccessException("", new Throwable(new SQLException("", null, 1452))) {});
-
-        userController.register(userSended);
-    }
-
-    @Test(expected = UserIdentificationAlreadyExists.class)
-    public void testRegisterUserIdentificationAlreadyExistsException() throws Exception {
-        City citySended = City.builder().id(1).build();
-        User userSended =  User.builder().name("Enzo").lastname("Coselli").type("client")
-                .identification("111111").password("1234").city(citySended).build();
-
-        when(userService.register(userSended)).thenThrow(new DataAccessException("", new Throwable(new SQLException("", null, 1062))) {});
-
-        userController.register(userSended);
-    }
-
-    @Test(expected = UserTypeDoesntExist.class)
-    public void testRegisterUserTypeDoesntExistException() throws Exception {
-        City citySended = City.builder().id(1).build();
-        User userSended =  User.builder().id(1).name("Enzo").lastname("Coselli").type("asddas")
-                .identification("123457").password("1234").city(citySended).build();
-
-        when(userService.register(userSended)).thenThrow(new DataAccessException("", new Throwable(new SQLException("", null, 1265))) {});
-
-        userController.register(userSended);
-    }
-
-    @Test(expected = Exception.class)
-    public void testRegisterException() throws Exception {
-        City citySended = City.builder().id(1).build();
-        User userSended =  User.builder().name("Enzo").lastname("Coselli").type("client")
-                .identification("123457").password("1234").city(citySended).build();
-
-        when(userService.register(userSended)).thenThrow(new DataAccessException("", new Throwable(new SQLException("", null, 1))) {});
-
-        userController.register(userSended);
-    }
+//
+//    @Test
+//    public void testLoginOk() throws ParametersException, UserExceptions {
+//        User aux = User.builder().identification("1").password("1234").build();
+//
+//        User loggedUser = User.builder().name("Enzo").lastname("Roselli").type("client")
+//                .identification("1").password("1234").city(null).build();
+//
+//        when(userService.login(aux)).thenReturn(loggedUser);
+//        User u = userController.login(aux);
+//
+//        assertEquals(u, loggedUser);
+//    }
+//
+//    @Test(expected = ParametersException.class)
+//    public void testLoginParametersException() throws ParametersException, LogException {
+//        User aux = User.builder().identification("1").password(null).build();
+//        userController.login(aux);
+//    }
+//
+//    @Test(expected = LogException.class)
+//    public void testLoginLogException() throws LogException, ParametersException {
+//        User aux = User.builder().identification("123456").password("1234").build();
+//
+//        when(userService.login(aux)).thenThrow(new LogException());
+//        userController.login(aux);
+//    }
+//
+//    @Test
+//    public void testRegisterOk() throws Exception {
+//        City city = City.builder().id(1).build();
+//
+//        User registeredUser = User.builder().name("Enzo").lastname("Roselli").type("client")
+//                .identification("1").password("1234").city(city).build();
+//
+//        when(userService.register(registeredUser)).thenReturn(registeredUser);
+//        User u = userController.register(registeredUser);
+//
+//        assertEquals(u, registeredUser);
+//    }
+//
+//    @Test(expected = ParametersException.class)
+//    public void testRegisterParametersException() throws Exception {
+//        User registeredUser = User.builder().name("Enzo").lastname("Roselli").build();
+//        userController.register(registeredUser);
+//    }
+//
+//    @Test(expected = UserDoesntExist.class)
+//    public void testRegisterUserDoesntExistException() throws Exception {
+//        Province province = Province.builder().name("Buenos Aires").build();
+//        City city = City.builder().name("Mar del Plata").prefix("223").province(province).build();
+//
+//        User registeredUser = User.builder().name("Facu").lastname("Roselli").type("client")
+//                .identification("1").password("1234").city(city).build();
+//
+//        when(userService.register(registeredUser)).thenThrow(new UserDoesntExist());
+//
+//        userController.register(registeredUser);
+//    }
+//
+//    @Test(expected = CityDoesntExist.class)
+//    public void testRegisterCityDoesntExistException() throws Exception {
+//        City citySended = City.builder().id(11).build();
+//        User userSended =  User.builder().name("Enzo").lastname("Coselli").type("client")
+//                .identification("9999999").password("1234").city(citySended).build();
+//
+//        when(userService.register(userSended)).thenThrow(new DataAccessException("", new Throwable(new SQLException("", null, 1452))) {});
+//
+//        userController.register(userSended);
+//    }
+//
+//    @Test(expected = UserIdentificationAlreadyExists.class)
+//    public void testRegisterUserIdentificationAlreadyExistsException() throws Exception {
+//        City citySended = City.builder().id(1).build();
+//        User userSended =  User.builder().name("Enzo").lastname("Coselli").type("client")
+//                .identification("111111").password("1234").city(citySended).build();
+//
+//        when(userService.register(userSended)).thenThrow(new DataAccessException("", new Throwable(new SQLException("", null, 1062))) {});
+//
+//        userController.register(userSended);
+//    }
+//
+//    @Test(expected = UserTypeDoesntExist.class)
+//    public void testRegisterUserTypeDoesntExistException() throws Exception {
+//        City citySended = City.builder().id(1).build();
+//        User userSended =  User.builder().id(1).name("Enzo").lastname("Coselli").type("asddas")
+//                .identification("123457").password("1234").city(citySended).build();
+//
+//        when(userService.register(userSended)).thenThrow(new DataAccessException("", new Throwable(new SQLException("", null, 1265))) {});
+//
+//        userController.register(userSended);
+//    }
+//
+//    @Test(expected = Exception.class)
+//    public void testRegisterException() throws Exception {
+//        City citySended = City.builder().id(1).build();
+//        User userSended =  User.builder().name("Enzo").lastname("Coselli").type("client")
+//                .identification("123457").password("1234").city(citySended).build();
+//
+//        when(userService.register(userSended)).thenThrow(new DataAccessException("", new Throwable(new SQLException("", null, 1))) {});
+//
+//        userController.register(userSended);
+//    }
 
     @Test
     public void testDeleteOk() throws Exception {
