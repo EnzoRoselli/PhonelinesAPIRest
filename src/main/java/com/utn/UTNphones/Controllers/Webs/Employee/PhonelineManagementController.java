@@ -47,13 +47,13 @@ class PhonelineManagementController {
         return ResponseEntity.ok(phoneline);
     }
 
-    @DeleteMapping("/phonelines/{phoneNumber}")
-    public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneNumber") String phoneNumber) throws PhonelineDoesntExist {
+    @DeleteMapping("/phonelines/{phoneId}")
+    public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneId") Integer phoneId) throws PhonelineDoesntExist {
         ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
         if (response.getStatusCode()!= HttpStatus.OK) {
             return response;
         }
-        this.phonelineController.remove(phoneNumber);
+        this.phonelineController.remove(phoneId);
         return ResponseEntity.ok().build();
     }
 
