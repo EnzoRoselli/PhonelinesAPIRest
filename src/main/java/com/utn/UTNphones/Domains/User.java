@@ -36,11 +36,9 @@ public class User {
     @Column(name = "id")
     private Integer id;
 
-    @Pattern(regexp="^[\\p{L} .'-]+$", message="Invalid name!")
     @Column(name = "name_user")
     private String name;
 
-    @Pattern(regexp="^[\\p{L} .'-]+$", message="Invalid lastname!")
     @Column(name = "lastname")
     private String lastname;
 

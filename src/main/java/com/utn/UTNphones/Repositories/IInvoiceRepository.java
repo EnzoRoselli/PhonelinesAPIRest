@@ -10,6 +10,10 @@ import java.util.List;
 @Repository
 public interface IInvoiceRepository extends JpaRepository<Invoice,Integer> {
     List<Invoice> findByPhonelineUserId(Integer userId);
-   List<Invoice> findAllByPhonelineUserIdAndDateBetween(Integer userId, Date startDate, Date endDate);
-   //todo https://www.baeldung.com/spring-data-derived-queries
+
+    List<Invoice> findAllByPhonelineUserIdAndDateBetween(Integer userId, Date startDate, Date endDate);
+
+    List<Invoice> findAllByPhonelineUserIdAndDateAfter(Integer id, Date startDate);
+
+    List<Invoice> findAllByPhonelineUserIdAndDateBefore(Integer id, Date endDate);
 }

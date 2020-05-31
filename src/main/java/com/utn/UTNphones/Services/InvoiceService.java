@@ -7,6 +7,7 @@ import com.utn.UTNphones.Services.interfaces.IInvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -32,5 +33,16 @@ public class InvoiceService implements IInvoiceService {
     @Override
     public List<Invoice> getByUserAndBetweenDates(Integer id, SearchBetweenDatesDTO datesDto) {
         return this.invoiceRepository.findAllByPhonelineUserIdAndDateBetween(id,datesDto.getStart(),datesDto.getEnd());
+    }
+
+    @Override
+    public List<Invoice> getByUserStartDate(Integer id, Date startDate) {
+        return this.invoiceRepository.findAllByPhonelineUserIdAndDateAfter(id,startDate);
+
+    }
+
+    @Override
+    public List<Invoice> getByUserEndDate(Integer id, Date endDate) {
+        return this.invoiceRepository.findAllByPhonelineUserIdAndDateBefore(id,endDate);
     }
 }

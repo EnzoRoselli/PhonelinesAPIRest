@@ -36,7 +36,7 @@ public class InvoicesManagementController {
         return invoices.isEmpty() ?  ResponseEntity.status(204).build(): ResponseEntity.ok(invoices);
     }
 
-    @GetMapping("/users/{userId}/invoices")//todo cambiar fechar
+    @GetMapping("/users/{userId}/invoices")
     public ResponseEntity<List<Invoice>>getByUserIdBetweenDates(@RequestHeader("Authorization") String sessionToken,
                                                                 @DateTimeFormat(pattern = "dd-MM-yyyy") @PathParam("startDate") Date startDate,
                                                                 @DateTimeFormat(pattern = "dd-MM-yyyy") @PathParam("endDate") Date endDate,
@@ -45,8 +45,18 @@ public class InvoicesManagementController {
         if (response.getStatusCode()!= HttpStatus.OK) {
             return response;
         }
-        SearchBetweenDatesDTO datesDto= SearchBetweenDatesDTO.builder().start(startDate).end(endDate).build();
-        List<Invoice> invoices = this.invoiceController.getByUserBetweenDates(id, datesDto);
+        List<Invoice> invoices;
+        if(startDate == null && endDate == null){
+            invoices = this.invoiceController.getAllByUserId(id);
+        }else if(endDate == null){
+            invoices = this.invoiceController.getByUserStartDate(id, startDate);
+        }else if(startDate == null){
+            invoices = this.invoiceController.getByUserEndDate(id, endDate);
+        }else{
+            SearchBetweenDatesDTO datesDto= SearchBetweenDatesDTO.builder().start(startDate).end(endDate).build();
+            invoices = this.invoiceController.getByUserBetweenDates(id, datesDto);
+        }
+
         return invoices.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(invoices);
     }
 

@@ -6,6 +6,7 @@ import com.utn.UTNphones.Services.interfaces.IInvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -30,5 +31,13 @@ public class InvoiceController {
 
     public List<Invoice> getByUserBetweenDates(Integer id, SearchBetweenDatesDTO datesDto) {
         return this.invoiceService.getByUserAndBetweenDates(id,datesDto);
+    }
+
+    public List<Invoice> getByUserStartDate(Integer id, Date startDate) {
+        return this.invoiceService.getByUserStartDate(id,startDate);
+    }
+
+    public List<Invoice> getByUserEndDate(Integer id, Date endDate) {
+        return this.invoiceService.getByUserEndDate(id,endDate);
     }
 }
