@@ -38,9 +38,9 @@ public class PhonelineController {
         return null;
     }
 
-    public void remove(String phoneNumber) throws PhonelineDoesntExist {
-        phonelineService.findByNumber(phoneNumber);
-        phonelineService.removeByNumber(phoneNumber);
+    public void remove(Integer phoneId) throws PhonelineDoesntExist {
+        phonelineService.getById(phoneId);
+        phonelineService.removeById(phoneId);
     }
 
     public Phoneline update(Integer id,Phoneline phoneline) throws Exception {

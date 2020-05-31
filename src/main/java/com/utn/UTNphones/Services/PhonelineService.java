@@ -50,8 +50,8 @@ public class PhonelineService implements IPhonelineService {
     }
 
     @Override
-    public void removeByNumber(String phoneNumber) {
-        this.phonelineRepository.removeByNumber(phoneNumber);
+    public void removeById(Integer phoneId){
+        this.phonelineRepository.deleteById(phoneId);
     }
 
     @Override

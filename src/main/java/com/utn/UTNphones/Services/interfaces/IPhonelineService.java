@@ -13,7 +13,7 @@ public interface IPhonelineService {
 
     Phoneline findByNumber(String userId) throws PhonelineDoesntExist;
 
-    void removeByNumber(String phoneNumber);
+    void removeById(Integer phoneNumber);
 
     Boolean exists(String number, Integer cityId);
 
