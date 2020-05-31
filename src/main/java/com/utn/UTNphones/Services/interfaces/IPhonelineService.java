@@ -3,6 +3,7 @@ package com.utn.UTNphones.Services.interfaces;
 import com.utn.UTNphones.Domains.Phoneline;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface IPhonelineService {
 
     Boolean enable(String phoneNumber);
 
-    List<Phoneline> findByUserId(Integer userId) throws PhonelineExceptions;
+    List<Phoneline> findByUserId(Integer userId) throws PhonelinesNotRegisteredByUser;
 
     Phoneline findByNumber(String userId) throws PhonelineDoesntExist;
 

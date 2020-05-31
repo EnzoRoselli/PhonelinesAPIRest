@@ -3,6 +3,7 @@ package com.utn.UTNphones.Controllers.Webs;
 import com.utn.UTNphones.Controllers.UserController;
 import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Exceptions.ParametersException;
+import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody @NotNull User userLogging) throws ParametersException, UserExceptions {
+    public ResponseEntity<String> login(@RequestBody @NotNull User userLogging) throws ParametersException, LogException {
         //todo ver que onda los codigos
         userLogging = userController.login(userLogging);
         String token = sessionManager.createSession(userLogging);

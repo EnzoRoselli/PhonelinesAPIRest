@@ -49,15 +49,13 @@ public class PhonelineController {
     }
 
 
-    public Boolean disable(@RequestBody @NotNull String phoneNumber) throws ParametersException, PhonelineExceptions {
-        if (phoneNumber == null) throw new ParametersException("Parameters can´t contain null values");
+    public Boolean disable(@RequestBody @NotNull String phoneNumber) throws PhonelineDoesntExist {
         phonelineService.findByNumber(phoneNumber);
         return phonelineService.disable(phoneNumber);
     }
 
 
-    public Boolean enable(@RequestBody @NotNull String phoneNumber) throws ParametersException, PhonelineExceptions {
-        if (phoneNumber == null) throw new ParametersException("Parameters can´t contain null values");
+    public Boolean enable(@RequestBody @NotNull String phoneNumber) throws PhonelineDoesntExist {
         phonelineService.findByNumber(phoneNumber);
         return phonelineService.enable(phoneNumber);
     }

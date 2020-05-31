@@ -262,4 +262,52 @@ public class ClientManagementControllerTest {
 
         assertEquals(HttpStatus.FORBIDDEN, responseEntity.getStatusCode());
     }
+
+    @Test(expected = CityDoesntExist.class)
+    public void updateCityDoesntExistException() throws Exception {
+        User employee = User.builder().type("employee").build();
+        User user = User.builder().id(1).name("Enzo").lastname("Mateu").identification("111111")
+                .password("abc").type("client").city(new City()).build();
+
+        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(employee));
+        when(userController.update(user)).thenThrow(new CityDoesntExist());
+
+        ResponseEntity<User> responseEntity = clientManagementController.update("token", user);
+    }
+
+    @Test(expected = UserIdentificationAlreadyExists.class)
+    public void updateUserIdentificationAlreadyExistsException() throws Exception {
+        User employee = User.builder().type("employee").build();
+        User user = User.builder().id(1).name("Enzo").lastname("Mateu").identification("111111")
+                .password("abc").type("client").city(new City()).build();
+
+        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(employee));
+        when(userController.update(user)).thenThrow(new UserIdentificationAlreadyExists());
+
+        ResponseEntity<User> responseEntity = clientManagementController.update("token", user);
+    }
+
+    @Test(expected = UserTypeDoesntExist.class)
+    public void updateUserTypeDoesntExistException() throws Exception {
+        User employee = User.builder().type("employee").build();
+        User user = User.builder().id(1).name("Enzo").lastname("Mateu").identification("111111")
+                .password("abc").type("asdasd").city(new City()).build();
+
+        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(employee));
+        when(userController.update(user)).thenThrow(new UserTypeDoesntExist());
+
+        ResponseEntity<User> responseEntity = clientManagementController.update("token", user);
+    }
+
+    @Test(expected = Exception.class)
+    public void updateException() throws Exception {
+        User employee = User.builder().type("employee").build();
+        User user = User.builder().id(1).name("Enzo").lastname("Mateu").identification("111111")
+                .password("abc").type("asdasd").city(new City()).build();
+
+        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(employee));
+        when(userController.update(user)).thenThrow(new Exception());
+
+        ResponseEntity<User> responseEntity = clientManagementController.update("token", user);
+    }
 }

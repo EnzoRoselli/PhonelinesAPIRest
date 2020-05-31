@@ -9,6 +9,8 @@ import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Exceptions.CallExceptions.NoCallsFound;
 import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
+import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Services.interfaces.ICallService;
 import com.utn.UTNphones.Services.interfaces.IPhonelineService;
@@ -33,10 +35,7 @@ public class CallController {
         this.phonelineService = phonelineService;
     }
 
-    public List<Call> getCallsByUserId( Integer userId) throws UserExceptions, CallException, PhonelineExceptions, ParametersException {
-        if (userId==null){
-            throw new ParametersException("Parameter can´t contain null values");
-        }
+    public List<Call> getCallsByUserId( Integer userId) throws UserDoesntExist, NoCallsFound, PhonelinesNotRegisteredByUser {
         userService.findById(userId);
         List<Phoneline> phoneLines = phonelineService.findByUserId(userId);
         return callService.getCallsByPhoneNumbers(phoneLines);

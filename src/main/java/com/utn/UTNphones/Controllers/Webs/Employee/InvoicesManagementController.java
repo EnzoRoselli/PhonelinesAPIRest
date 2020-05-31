@@ -26,7 +26,7 @@ public class InvoicesManagementController {
 
     @GetMapping("/users/{id}")
     public ResponseEntity<List<Invoice>> getByUserId(@RequestHeader("Authorization") String sessionToken,
-                                                     @PathVariable("id")@NotNull Integer userId){
+                                                     @PathVariable("id") Integer userId){
         if(!PermissionsControllers.hasEmployeePermissions(sessionManager,sessionToken)) {
             return ResponseEntity.status(403).build();
         }

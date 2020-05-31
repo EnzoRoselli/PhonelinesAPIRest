@@ -29,7 +29,7 @@ public class CallService implements ICallService {
     }
 
     @Override
-    public List<Call> getCallsByPhoneNumbers(List<Phoneline> phoneListOfTheUser) throws CallException {
+    public List<Call> getCallsByPhoneNumbers(List<Phoneline> phoneListOfTheUser) throws NoCallsFound {
        List<Call> calls = callRepository.findByOriginPhonelineIn(phoneListOfTheUser);
        if (calls.isEmpty()){throw new NoCallsFound();}
        return calls;
