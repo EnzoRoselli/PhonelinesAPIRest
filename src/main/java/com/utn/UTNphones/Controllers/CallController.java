@@ -2,16 +2,13 @@ package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Domains.Call;
 import com.utn.UTNphones.Domains.Dto.CityTop;
-import com.utn.UTNphones.Domains.Dto.NewCallDto;
+import com.utn.UTNphones.Domains.Dto.NewCallDTO;
 import com.utn.UTNphones.Domains.Dto.SearchBetweenDates;
 import com.utn.UTNphones.Domains.Phoneline;
 import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Exceptions.CallExceptions.NoCallsFound;
-import com.utn.UTNphones.Exceptions.ParametersException;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserExceptions;
 import com.utn.UTNphones.Services.interfaces.ICallService;
 import com.utn.UTNphones.Services.interfaces.IPhonelineService;
 import com.utn.UTNphones.Services.interfaces.IUserService;
@@ -49,7 +46,7 @@ public class CallController {
         return this.callService.getByUserAndBetweenDates(userId,dates);
     }
 
-    public void registerCall(NewCallDto newCall) throws CallException {
+    public void registerCall(NewCallDTO newCall) throws CallException {
         Call call=Call.builder().originPhone(newCall.getOriginNumber()).destinationPhone(newCall.getDestinationNumber()).duration(newCall.getDuration()).date(newCall.getDate()).build();
         this.callService.add(call);
     }

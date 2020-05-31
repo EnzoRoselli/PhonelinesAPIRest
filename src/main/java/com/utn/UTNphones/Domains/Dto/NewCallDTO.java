@@ -10,7 +10,7 @@ import java.util.Date;
 @Data
 @ToString
 @Builder
-public class NewCallDto {
+public class NewCallDTO {
     @JsonProperty
     String originNumber;
     @JsonProperty

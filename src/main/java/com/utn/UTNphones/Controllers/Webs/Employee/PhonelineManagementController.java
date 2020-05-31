@@ -2,22 +2,17 @@ package com.utn.UTNphones.Controllers.Webs.Employee;
 
 import com.utn.UTNphones.Controllers.PermissionsControllers;
 import com.utn.UTNphones.Controllers.PhonelineController;
-import com.utn.UTNphones.Domains.Dto.PhonelineAddDto;
+import com.utn.UTNphones.Domains.Dto.PhonelineAddDTO;
 import com.utn.UTNphones.Domains.Phoneline;
-import com.utn.UTNphones.Domains.User;
-import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.net.URI;
 
 @RestController
@@ -33,7 +28,7 @@ class PhonelineManagementController {
     }
 
     @PostMapping
-    public ResponseEntity register(@RequestHeader("Authorization") String sessionToken, @RequestBody @Valid PhonelineAddDto newPhoneline) throws Exception {
+    public ResponseEntity register(@RequestHeader("Authorization") String sessionToken, @RequestBody @Valid PhonelineAddDTO newPhoneline) throws Exception {
         ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
         if (response.getStatusCode()!= HttpStatus.OK) {
             return response;

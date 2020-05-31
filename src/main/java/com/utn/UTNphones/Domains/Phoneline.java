@@ -1,12 +1,9 @@
 package com.utn.UTNphones.Domains;
 
-import com.utn.UTNphones.Domains.Dto.PhonelineAddDto;
+import com.utn.UTNphones.Domains.Dto.PhonelineAddDTO;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
-import java.util.Objects;
-import java.util.stream.Stream;
 
 @Entity
 @Table(name = "phonelines")
@@ -17,7 +14,7 @@ import java.util.stream.Stream;
 @Builder
 public class Phoneline {
 
-    public Phoneline(PhonelineAddDto phone){
+    public Phoneline(PhonelineAddDTO phone){
         this.number = phone.getNumber();
         type = phone.getType();
         status = phone.getStatus();

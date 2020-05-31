@@ -8,14 +8,14 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Builder
-public class ErrorResponseDto {
+public class ErrorResponseDTO {
 
     @JsonProperty
     int code;
     @JsonProperty
     String description;
 
-    public ErrorResponseDto(int code, String description) {
+    public ErrorResponseDTO(int code, String description) {
         this.code = code;
         this.description = description;
     }

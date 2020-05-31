@@ -1,6 +1,7 @@
 package com.utn.UTNphones.Controllers.Webs;
 
 import com.utn.UTNphones.Controllers.UserController;
+import com.utn.UTNphones.Domains.Dto.LoginDTO;
 import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 
@@ -27,10 +29,9 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody @NotNull User userLogging) throws ParametersException, LogException {
-        //todo ver que onda los codigos
-        userLogging = userController.login(userLogging);
-        String token = sessionManager.createSession(userLogging);
+    public ResponseEntity<String> login(@RequestBody @Valid LoginDTO userLogging) throws LogException {
+        User u = userController.login(userLogging);
+        String token = sessionManager.createSession(u);
         return ResponseEntity.ok(token);
     }
 

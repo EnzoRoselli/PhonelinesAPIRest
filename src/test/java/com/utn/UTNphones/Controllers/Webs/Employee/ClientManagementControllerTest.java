@@ -3,14 +3,11 @@ package com.utn.UTNphones.Controllers.Webs.Employee;
 import com.utn.UTNphones.Controllers.UserController;
 import com.utn.UTNphones.Controllers.Webs.AdviceController;
 import com.utn.UTNphones.Domains.City;
-import com.utn.UTNphones.Domains.Dto.ErrorResponseDto;
 import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Exceptions.CityExceptions.CityDoesntExist;
-import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserIdentificationAlreadyExists;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeDoesntExist;
-import com.utn.UTNphones.Services.UserService;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,20 +18,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import java.net.URI;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class ClientManagementControllerTest {
 

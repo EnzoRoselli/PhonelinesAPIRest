@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 @ToString
 @Builder
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class PhonelineAddDto {
+public class PhonelineAddDTO {
 
     @Pattern(regexp="^[1-9]\\d*$", message="Invalid number!")
     @NotBlank(message = "Number is mandatory")

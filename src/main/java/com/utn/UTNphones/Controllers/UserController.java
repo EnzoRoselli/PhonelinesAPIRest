@@ -1,5 +1,6 @@
 package com.utn.UTNphones.Controllers;
 
+import com.utn.UTNphones.Domains.Dto.LoginDTO;
 import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
@@ -23,13 +24,10 @@ public class UserController {
     }
 
 
-    public User login(User user) throws ParametersException, LogException {
-        if (user.getIdentification() == null || user.getPassword() == null) {
-            throw new ParametersException("Parameters can´t contain null values");
-        }
-        return userService.login(user);
+    public User login(LoginDTO loginDTO) throws LogException {
+        User u = User.builder().identification(loginDTO.getIdentification()).password(loginDTO.getPassword()).build();
+        return userService.login(u);
     }
-
 
     public User register(User user) throws Exception {
         if (user.hasNullAttribute()) {throw new ParametersException("Parameters can´t contain null values");}
@@ -42,7 +40,6 @@ public class UserController {
         return user;
     }
 
-
     public void delete(String identification) throws UserDoesntExist {
         this.userService.findByIdentification(identification);
         this.userService.deleteByIdentification(identification);
@@ -51,7 +48,6 @@ public class UserController {
     public User findById(Integer id) throws UserDoesntExist {
         return this.userService.findById(id);
     }
-
 
     public User update(User user) throws Exception {
         User inDataBaseUser = this.userService.findById(user.getId());

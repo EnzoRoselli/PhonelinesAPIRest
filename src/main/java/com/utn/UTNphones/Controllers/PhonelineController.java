@@ -1,21 +1,14 @@
 package com.utn.UTNphones.Controllers;
 
-import com.utn.UTNphones.Domains.Dto.PhonelineAddDto;
+import com.utn.UTNphones.Domains.Dto.PhonelineAddDTO;
 import com.utn.UTNphones.Domains.Phoneline;
-import com.utn.UTNphones.Domains.User;
-import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDigitsCountPlusPrefix;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineExceptions;
 import com.utn.UTNphones.Services.interfaces.ICityService;
 import com.utn.UTNphones.Services.interfaces.IPhonelineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import javax.validation.constraints.NotNull;
-import java.util.Optional;
 
 @Controller
 public class PhonelineController {
@@ -33,7 +26,7 @@ public class PhonelineController {
        return this.phonelineService.getById(id);
     }
 
-    public Phoneline add(@RequestBody @NotNull PhonelineAddDto phonelineAddDto) throws Exception {
+    public Phoneline add(PhonelineAddDTO phonelineAddDto) throws Exception {
         if (!phonelineAddDto.validNumberWithPrefix(cityService.getById(phonelineAddDto.getCityId()).getPrefix()))
             throw new PhonelineDigitsCountPlusPrefix();
         try {

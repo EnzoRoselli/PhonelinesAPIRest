@@ -1,5 +1,6 @@
 package com.utn.UTNphones.Domains;
 
+import com.utn.UTNphones.Domains.Dto.LoginDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,13 +17,20 @@ import java.util.stream.Stream;
 @Builder
 public class User {
 
+    public User(LoginDTO loginDTO){
+        identification = loginDTO.getIdentification();
+        password = loginDTO.getPassword();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
+
     @Pattern(regexp="^[\\p{L} .'-]+$", message="Invalid name!")
     @Column(name = "name_user")
     private String name;
+
     @Pattern(regexp="^[\\p{L} .'-]+$", message="Invalid lastname!")
     @Column(name = "lastname")
     private String lastname;
@@ -34,7 +42,6 @@ public class User {
     private String type;
 
     @Column(name = "identification_card")
-    @Pattern(regexp="^[1-9]{6,9}$", message="Invalid identification!")
     private String identification;
 
     @Column(name = "password_user")
