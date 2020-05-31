@@ -28,11 +28,6 @@ public class PhonelineService implements IPhonelineService {
         return phonelineRepository.save(phoneline);
     }
 
-    @Override
-    public Boolean disable(String phoneNumber) {
-        return phonelineRepository.disableOrEnable(false, phoneNumber) == 1;
-    }
-
     public List<Phoneline> findByUserId(Integer id) throws PhonelinesNotRegisteredByUser {
         List<Phoneline> phoneList = this.phonelineRepository.findByUserId(id);
         if (phoneList.isEmpty()){ throw new PhonelinesNotRegisteredByUser();}
@@ -51,8 +46,13 @@ public class PhonelineService implements IPhonelineService {
     }
 
     @Override
-    public Boolean enable(String phoneNumber) {
-        return phonelineRepository.disableOrEnable(true, phoneNumber) == 1;
+    public void enable(String phoneNumber) {
+        phonelineRepository.disableOrEnable(true, phoneNumber);
+    }
+
+    @Override
+    public void disable(String phoneNumber) {
+        phonelineRepository.disableOrEnable(false, phoneNumber);
     }
 
     @Override

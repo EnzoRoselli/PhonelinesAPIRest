@@ -1,6 +1,7 @@
 package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Domains.Phoneline;
+import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDigitsCountPlusPrefix;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.constraints.NotNull;
+import java.util.Optional;
 
 @Controller
 public class PhonelineController {
@@ -49,15 +51,47 @@ public class PhonelineController {
     }
 
 
-    public Boolean disable(@RequestBody @NotNull String phoneNumber) throws PhonelineDoesntExist {
-        phonelineService.findByNumber(phoneNumber);
-        return phonelineService.disable(phoneNumber);
+
+//    public void disableOrEnable(String phoneNumber) throws PhonelineDoesntExist {
+//        Phoneline p = phonelineService.findByNumber(phoneNumber);
+//
+//        if (p.getStatus()) {
+//            phonelineService.disable(phoneNumber);
+//        } else {
+//            phonelineService.enable(phoneNumber);
+//        }
+//    }
+
+//    public Boolean disable(@RequestBody @NotNull String phoneNumber) throws PhonelineDoesntExist {
+//        phonelineService.findByNumber(phoneNumber);
+//        return phonelineService.disable(phoneNumber);
+//    }
+//
+//
+//    public Boolean enable(@RequestBody @NotNull String phoneNumber) throws PhonelineDoesntExist {
+//        phonelineService.findByNumber(phoneNumber);
+//        return phonelineService.enable(phoneNumber);
+//    }
+
+    public User update(Integer id,Phoneline user) throws Exception {
+        User inDataBaseUser = this.userService.findById(user.getId());
+        user=setNonNullValues(user,inDataBaseUser);
+        try {
+            return this.userService.update(user);
+        } catch (DataAccessException ex) {
+            ExceptionController.userUpdateException(ex);
+        }
+        return user;
     }
 
-
-    public Boolean enable(@RequestBody @NotNull String phoneNumber) throws PhonelineDoesntExist {
-        phonelineService.findByNumber(phoneNumber);
-        return phonelineService.enable(phoneNumber);
+    private User setNonNullValues(User newUser,User oldUser) {
+        Optional.ofNullable(newUser.getPassword()).ifPresent(oldUser::setPassword);
+        Optional.ofNullable(newUser.getIdentification()).ifPresent(oldUser::setIdentification);
+        Optional.ofNullable(newUser.getCity()).ifPresent(oldUser::setCity);
+        Optional.ofNullable(newUser.getLastname()).ifPresent(oldUser::setLastname);
+        Optional.ofNullable(newUser.getName()).ifPresent(oldUser::setName);
+        Optional.ofNullable(newUser.getType()).ifPresent(oldUser::setType);
+        return oldUser;
     }
 
 }

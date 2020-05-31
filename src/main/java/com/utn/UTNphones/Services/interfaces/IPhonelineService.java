@@ -10,9 +10,9 @@ import java.util.List;
 public interface IPhonelineService {
     Phoneline add(Phoneline phoneline);
 
-    Boolean disable(String phoneNumber);
+    void disable(String phoneNumber);
 
-    Boolean enable(String phoneNumber);
+    void enable(String phoneNumber);
 
     List<Phoneline> findByUserId(Integer userId) throws PhonelinesNotRegisteredByUser;
 

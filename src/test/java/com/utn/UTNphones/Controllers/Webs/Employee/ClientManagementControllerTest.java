@@ -3,6 +3,7 @@ package com.utn.UTNphones.Controllers.Webs.Employee;
 import com.utn.UTNphones.Controllers.UserController;
 import com.utn.UTNphones.Controllers.Webs.AdviceController;
 import com.utn.UTNphones.Domains.City;
+import com.utn.UTNphones.Domains.Dto.ErrorResponseDto;
 import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Exceptions.CityExceptions.CityDoesntExist;
 import com.utn.UTNphones.Exceptions.ParametersException;
@@ -37,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class ClientManagementControllerTest {
 
-//    MockMvc mockMvc;
+    MockMvc mockMvc;
 
     @Autowired
     @InjectMocks
@@ -50,8 +51,8 @@ public class ClientManagementControllerTest {
     @Before
     public void setUp(){
         initMocks(this);
-//        mockMvc = MockMvcBuilders.standaloneSetup(new ClientManagementController(userController, sessionManager))
-//                .setControllerAdvice(new AdviceController()).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(new ClientManagementController(userController, sessionManager))
+                .setControllerAdvice(new AdviceController()).build();
     }
 
     @Test
@@ -105,7 +106,7 @@ public class ClientManagementControllerTest {
         ResponseEntity responseEntity = clientManagementController.register("token", userToRegister);
     }
 
-    //    @Test
+//    @Test
 //    public void registerCityDoesntExist() throws Exception {
 //        String token = "1";
 //        User userToRegister = User.builder().name("Enzo").lastname("Mateu").identification("111111")

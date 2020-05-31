@@ -47,14 +47,14 @@ public class PhonelineServiceTest {
         phonelineService.add(newPhoneline);
     }
 
-    @Test
-    public void testPhonelineStatusModificationOk() {
-        String number = "23418823";
-        when(phonelineRepository.disableOrEnable(false, number)).thenReturn(1);
-        assertEquals(true, phonelineService.disable(number));
-        when(phonelineRepository.disableOrEnable(true, number)).thenReturn(1);
-        assertEquals(true, phonelineService.enable(number));
-    }
+//    @Test
+//    public void testPhonelineStatusModificationOk() {
+//        String number = "23418823";
+//        when(phonelineRepository.disableOrEnable(false, number)).thenReturn(1);
+//        assertEquals(true, phonelineService.disable(number));
+//        when(phonelineRepository.disableOrEnable(true, number)).thenReturn(1);
+//        assertEquals(true, phonelineService.enable(number));
+//    }
 
     @Test
     public void testFindByUserIdOk() throws PhonelinesNotRegisteredByUser {

@@ -15,7 +15,7 @@ public interface IPhonelineRepository extends JpaRepository<Phoneline,Integer> {
     @Transactional
     @Modifying
     @Query(value = "update phonelines ph set ph.status_phoneline = ?1 where ph.phone_number = ?2", nativeQuery = true)
-    int disableOrEnable(Boolean newStatus,String phoneNumber);
+    void disableOrEnable(Boolean newStatus,String phoneNumber);
     List<Phoneline> findByUserId(Integer id);
     Phoneline findByNumberAndCityId(String number, Integer cityId);
     Phoneline findByNumber(String number);
