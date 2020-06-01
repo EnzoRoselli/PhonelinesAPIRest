@@ -24,7 +24,7 @@ public class InvoicesClientController {
         this.invoiceController = invoiceController;
         this.sessionManager = sessionManager;
     }
-    @GetMapping("/start/{startDate}/end/{endDate}")//////
+    @GetMapping("/start/{startDate}/end/{endDate}")//////todo cambiar
     public ResponseEntity<List<Invoice>>getByUserIdBetweenDates(@RequestHeader("Authorization") String sessionToken,
                                                                 @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("startDate") @NotNull Date startDate,
                                                                 @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("endDate")@NotNull Date endDate){

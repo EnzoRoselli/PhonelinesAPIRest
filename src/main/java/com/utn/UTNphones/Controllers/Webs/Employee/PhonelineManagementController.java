@@ -40,7 +40,8 @@ class PhonelineManagementController {
     }
 
     @GetMapping(PHONELINE_ID)
-    public ResponseEntity<Phoneline> getPhoneline(@RequestHeader("Authorization") String sessionToken, @PathVariable("phonelineId") Integer phonelineId) throws PhonelineDoesntExist {
+    public ResponseEntity<Phoneline> getPhoneline(@RequestHeader("Authorization") String sessionToken,
+                                                  @PathVariable("phonelineId") Integer phonelineId) throws PhonelineDoesntExist {
         ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
         if (response.getStatusCode()!= HttpStatus.OK) {
             return response;
@@ -50,7 +51,8 @@ class PhonelineManagementController {
     }
 
     @DeleteMapping(PHONELINE_ID)
-    public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneId") Integer phoneId) throws PhonelineDoesntExist {
+    public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken,
+                                 @PathVariable("phonelineId") Integer phoneId) throws PhonelineDoesntExist {
         ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
         if (response.getStatusCode()!= HttpStatus.OK) {
             return response;
@@ -60,7 +62,8 @@ class PhonelineManagementController {
     }
 
     @PutMapping(PHONELINE_ID)
-    public ResponseEntity update(@RequestHeader("Authorization") String sessionToken, @PathVariable("phoneId") Integer phoneId, @RequestBody Phoneline phonelineUpdating) throws Exception {
+    public ResponseEntity update(@RequestHeader("Authorization") String sessionToken,
+                                 @PathVariable("phonelineId") Integer phoneId, @RequestBody Phoneline phonelineUpdating) throws Exception {
         ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
         if (response.getStatusCode()!= HttpStatus.OK) {
             return response;

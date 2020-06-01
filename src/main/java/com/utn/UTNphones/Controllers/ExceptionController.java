@@ -53,7 +53,7 @@ public class ExceptionController {
         else if (Error.getMessage().contains("for key 'identification_card'")) //92
             throw new UserIdentificationAlreadyExists();
             //User type enum
-        else if (Error.getMessage().contains("type_user"))//91  - 98 root
+        else if (Error.getMessage().contains("user_type"))//91  - 98 root
             throw new UserTypeDoesntExist();
 
         else throw new Exception("External error");
