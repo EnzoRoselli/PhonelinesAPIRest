@@ -36,13 +36,12 @@ public class InvoiceService implements IInvoiceService {
     }
 
     @Override
-    public List<Invoice> getByUserStartDate(Integer id, Date startDate) {
-        return this.invoiceRepository.findAllByPhonelineUserIdAndDateAfter(id,startDate);
-
+    public List<Invoice> getByUserEndDate(Integer id, Date endDate) {
+        return this.invoiceRepository.findAllByPhonelineUserIdAndDateBefore(id,endDate);
     }
 
     @Override
-    public List<Invoice> getByUserEndDate(Integer id, Date endDate) {
-        return this.invoiceRepository.findAllByPhonelineUserIdAndDateBefore(id,endDate);
+    public List<Invoice> getByUserStartDate(Integer id, Date startDate) {
+        return this.invoiceRepository.findAllByPhonelineUserIdAndDateAfter(id,startDate);
     }
 }

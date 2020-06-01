@@ -7,6 +7,7 @@ import com.utn.UTNphones.Domains.Phoneline;
 import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Exceptions.CallExceptions.NoCallsFound;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ICallService {
@@ -15,4 +16,8 @@ public interface ICallService {
     List<CityTop> getTopMostCalledCities(Integer userId) throws NoCallsFound;
 
     List<Call> getByUserAndBetweenDates(Integer userId, SearchBetweenDatesDTO dates);
+
+    List<Call> getByUserEndDate(Integer id, Date endDate);
+
+    List<Call> getByUserStartDate(Integer id, Date startDate);
 }

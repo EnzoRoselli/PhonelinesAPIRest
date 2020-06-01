@@ -26,4 +26,8 @@ public interface ICallRepository extends JpaRepository<Call, Integer> {
     List<CityTop> findTopMostCalledCities(Integer userId);
 
     List<Call> findAllByOriginPhonelineUserIdAndDateBetween(Integer userId,Date Start, Date End);
+
+    List<Call> findAllByOriginPhonelineUserIdAndDateBefore(Integer userId, Date endDate);
+
+    List<Call> findAllByOriginPhonelineUserIdAndDateAfter(Integer userId, Date startDate);
 }

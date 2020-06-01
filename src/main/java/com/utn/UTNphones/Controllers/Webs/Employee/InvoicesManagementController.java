@@ -46,13 +46,14 @@ public class InvoicesManagementController {
         if (response.getStatusCode()!= HttpStatus.OK) {
             return response;
         }
+
         List<Invoice> invoices;
         if(startDate == null && endDate == null){
             invoices = this.invoiceController.getAllByUserId(id);
-        }else if(endDate == null){
-            invoices = this.invoiceController.getByUserStartDate(id, startDate);
         }else if(startDate == null){
             invoices = this.invoiceController.getByUserEndDate(id, endDate);
+        }else if(endDate == null){
+            invoices = this.invoiceController.getByUserStartDate(id, startDate);
         }else{
             SearchBetweenDatesDTO datesDto= SearchBetweenDatesDTO.builder().start(startDate).end(endDate).build();
             invoices = this.invoiceController.getByUserBetweenDates(id, datesDto);

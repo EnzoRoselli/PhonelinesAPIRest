@@ -10,6 +10,7 @@ import com.utn.UTNphones.Services.interfaces.ICallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -44,6 +45,16 @@ public class CallService implements ICallService {
     @Override
     public List<Call> getByUserAndBetweenDates(Integer userId, SearchBetweenDatesDTO dates) {
         return this.callRepository.findAllByOriginPhonelineUserIdAndDateBetween(userId,dates.getStart(),dates.getEnd());
+    }
+
+    @Override
+    public List<Call> getByUserEndDate(Integer userId, Date endDate) {
+        return this.callRepository.findAllByOriginPhonelineUserIdAndDateBefore(userId, endDate);
+    }
+
+    @Override
+    public List<Call> getByUserStartDate(Integer userId, Date startDate) {
+        return this.callRepository.findAllByOriginPhonelineUserIdAndDateAfter(userId, startDate);
     }
 
 }

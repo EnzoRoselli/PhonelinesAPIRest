@@ -15,6 +15,7 @@ import com.utn.UTNphones.Services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -51,5 +52,11 @@ public class CallController {
         this.callService.add(call);
     }
 
+    public List<Call> getByUserEndDate(Integer id, Date endDate) {
+        return this.callService.getByUserEndDate(id, endDate);
+    }
 
+    public List<Call> getByUserStartDate(Integer id, Date startDate) {
+        return this.callService.getByUserStartDate(id, startDate);
+    }
 }
