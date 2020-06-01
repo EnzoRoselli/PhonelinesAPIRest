@@ -36,22 +36,22 @@ public class User {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "name_user")
+    @Column(name = "user_name")
     private String name;
 
     @Column(name = "lastname")
     private String lastname;
 
-    @Column(name = "status_user")
+    @Column(name = "user_status")
     private Boolean status;
 
-    @Column(name = "type_user")
+    @Column(name = "user_type")
     private String type;
 
     @Column(name = "identification_card")
     private String identification;
 
-    @Column(name = "password_user")
+    @Column(name = "user_password")
     private String password;
 
     @ManyToOne(fetch = FetchType.EAGER)

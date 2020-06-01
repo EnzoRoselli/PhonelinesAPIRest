@@ -33,7 +33,7 @@ public class Phoneline {
     @Column(name = "phoneline_type")
     private String type;
 
-    @Column(name = "status_phoneline")
+    @Column(name = "phoneline_status")
     private Boolean status;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
