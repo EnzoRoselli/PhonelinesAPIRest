@@ -22,8 +22,8 @@ create table rates(
 	id int auto_increment,
 	id_origin_city int,
 	id_destination_city int,
-	cost_per_minute float not null,
-    price_per_minute float not null,
+	cost_per_minute double not null,
+    price_per_minute double not null,
     constraint pk_rates primary key (id),
 	constraint fk_rates_city_origin foreign key (id_origin_city) references cities(id),
     constraint fk_rates_city_destination foreign key (id_destination_city) references cities(id),
@@ -32,43 +32,45 @@ create table rates(
 
 create table users(
 	id int auto_increment,
-	name_user varchar(45) not null,
+	user_name varchar(45) not null,
 	lastname varchar(45) not null,
-    type_user enum("client", "employee", "infrastructure") not null,
+    user_type enum("client", "employee", "infrastructure") not null,
 	identification_card varchar(10) not null,
-    password_user varchar(30) not null,
-    status_user boolean default 1,
+    user_password varchar(30) not null,
 	id_city integer,
-    constraint unq_identification_type unique(identification_card,type_user),
+    user_status boolean default true,
+	constraint unq_identification_type unique(identification_card,user_type),
     constraint pk_users primary key (id),
 	constraint fk_users_city foreign key(id_city) references cities(id)
 );
 
+
 create table phonelines(
 	id int auto_increment,
-	phone_number varchar(8) unique not null,
-    type_phoneline enum("mobile", "landline") not null,
-    status_phoneline boolean default 1,
+	phone_number varchar(8) not null,
+    phoneline_type enum("mobile", "landline") not null,
+    phoneline_status boolean default true,
     id_user int,
     id_city int,
-    constraint pk_phoneLines primary key (id),
     constraint unq_number_with_cityprefix unique(phone_number,id_city),
+    constraint pk_phoneLines primary key (id),
     constraint fk_phoneLines_id_user foreign key(id_user)references users(id),
-	constraint fk_phoneLines_id_city foreign key(id_city)references cities(id)
+     constraint fk_phoneLines_id_city foreign key(id_city)references cities(id)
 );
 
 create table invoices(
 	id int auto_increment,
     id_phone_number int,
     calls_quantity int not null,
-    total_cost float not null,
-    total_price float not null,
+    total_cost double not null,
+    total_price double not null,
     invoice_date timestamp default current_timestamp,
     is_paid boolean default false,
     invoice_expiration_date datetime,
-    constraint pk_invoice primary key (id),
+    constraint pk_invoices primary key (id),
     constraint fk_invoices_id_phone_number foreign key(id_phone_number) references phonelines(id)
 );
+
 
 create table calls(
 	id int auto_increment,
