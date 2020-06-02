@@ -1,12 +1,14 @@
 package com.utn.UTNphones.Services.interfaces;
 
 import com.utn.UTNphones.Domains.Call;
+import com.utn.UTNphones.Domains.Dto.CallsWithNameAndLastname;
 import com.utn.UTNphones.Domains.Dto.CityTop;
 import com.utn.UTNphones.Domains.Dto.SearchBetweenDatesDTO;
 import com.utn.UTNphones.Domains.Phoneline;
 import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Exceptions.CallExceptions.NoCallsFound;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -20,4 +22,6 @@ public interface ICallService {
     List<Call> getByUserEndDate(Integer id, Date endDate);
 
     List<Call> getByUserStartDate(Integer id, Date startDate);
+
+    List<CallsWithNameAndLastname> getByDate(LocalDate date);
 }

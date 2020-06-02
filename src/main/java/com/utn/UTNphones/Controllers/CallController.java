@@ -1,6 +1,7 @@
 package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Domains.Call;
+import com.utn.UTNphones.Domains.Dto.CallsWithNameAndLastname;
 import com.utn.UTNphones.Domains.Dto.CityTop;
 import com.utn.UTNphones.Domains.Dto.NewCallDTO;
 import com.utn.UTNphones.Domains.Dto.SearchBetweenDatesDTO;
@@ -15,6 +16,8 @@ import com.utn.UTNphones.Services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -58,5 +61,9 @@ public class CallController {
 
     public List<Call> getByUserStartDate(Integer id, Date startDate) {
         return this.callService.getByUserStartDate(id, startDate);
+    }
+
+    public List<CallsWithNameAndLastname> getCallsByDate(LocalDate date) {
+        return this.callService.getByDate(date);
     }
 }

@@ -58,6 +58,7 @@ public class ClientManagementController {
         }
         this.userController.delete(identification);
         return ResponseEntity.ok().build();
+
     }
 
     @PatchMapping
