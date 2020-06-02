@@ -20,4 +20,6 @@ public interface ICallService {
     List<Call> getByUserEndDate(Integer id, Date endDate);
 
     List<Call> getByUserStartDate(Integer id, Date startDate);
+
+    List<Call> getAllByDestinationPhone(String destinationPhone);
 }

@@ -30,4 +30,6 @@ public interface ICallRepository extends JpaRepository<Call, Integer> {
     List<Call> findAllByOriginPhonelineUserIdAndDateBefore(Integer userId, Date endDate);
 
     List<Call> findAllByOriginPhonelineUserIdAndDateAfter(Integer userId, Date startDate);
+
+    List<Call> findAllByDestinationPhone(String destinationPhone);
 }

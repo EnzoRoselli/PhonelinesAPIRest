@@ -59,4 +59,8 @@ public class CallController {
     public List<Call> getByUserStartDate(Integer id, Date startDate) {
         return this.callService.getByUserStartDate(id, startDate);
     }
+
+    public List<Call> getAllByDestinationPhone(String destinationPhone) {
+        return this.callService.getAllByDestinationPhone(destinationPhone);
+    }
 }

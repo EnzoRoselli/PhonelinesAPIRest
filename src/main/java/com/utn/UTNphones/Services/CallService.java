@@ -57,4 +57,8 @@ public class CallService implements ICallService {
         return this.callRepository.findAllByOriginPhonelineUserIdAndDateAfter(userId, startDate);
     }
 
+    public List<Call> getAllByDestinationPhone(String destinationPhone){
+        return this.callRepository.findAllByDestinationPhone(destinationPhone);
+    }
+
 }
