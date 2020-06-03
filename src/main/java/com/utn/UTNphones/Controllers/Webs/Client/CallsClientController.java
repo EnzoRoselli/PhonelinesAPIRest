@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/calls")
+@RequestMapping("client/calls")
 public class CallsClientController {
     private final CallController callController;
     private final SessionManager sessionManager;
@@ -47,10 +47,10 @@ public class CallsClientController {
     public ResponseEntity<List<Call>> getCallsBetweenDates(@RequestHeader("Authorization") String sessionToken,
                                                            @DateTimeFormat(pattern = "dd-MM-yyyy") @PathParam("startDate") @NotNull Date startDate,
                                                            @DateTimeFormat(pattern = "dd-MM-yyyy") @PathParam("endDate") @NotNull Date endDate) throws NoCallsFound, UserDoesntExist, PhonelinesNotRegisteredByUser {
-        ResponseEntity response=PermissionsControllers.isLogged(sessionManager, sessionToken);
+      /*  ResponseEntity response=PermissionsControllers.isLogged(sessionManager, sessionToken);
         if (response.getStatusCode()!=HttpStatus.OK) {
             return response;
-        }
+        }*/
 
         List<Call> calls;
         if(startDate == null && endDate == null){

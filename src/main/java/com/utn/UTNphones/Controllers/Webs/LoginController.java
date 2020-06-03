@@ -14,7 +14,7 @@ import javax.validation.Valid;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping
 public class LoginController {
     private final UserController userController;
     private final SessionManager sessionManager;

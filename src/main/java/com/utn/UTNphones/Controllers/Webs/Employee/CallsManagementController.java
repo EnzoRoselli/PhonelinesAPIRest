@@ -17,7 +17,7 @@ import java.util.List;
 import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USER_ID;
 
 @RestController
-@RequestMapping("/callsManagement")
+@RequestMapping("employee/callsManagement")
 public class CallsManagementController {
     private final CallController callController;
     private final SessionManager sessionManager;

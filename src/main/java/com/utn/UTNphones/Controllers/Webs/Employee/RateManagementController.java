@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rateManagement")
+@RequestMapping("employee/rateManagement")
 public class RateManagementController {
 
     private final RateController rateController;

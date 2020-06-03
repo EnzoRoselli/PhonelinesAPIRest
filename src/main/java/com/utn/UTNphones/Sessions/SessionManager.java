@@ -20,7 +20,7 @@ public class SessionManager {
     }
 
     public Session getSession(String token) {
-        if (StringUtils.isEmpty(sessionMap.get(token)))return null;
+        if (token==null){return null;}
         Session session = sessionMap.get(token);
         if (session != null) {
             session.setLastAction(new Date(System.currentTimeMillis()));

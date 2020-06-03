@@ -19,7 +19,7 @@ import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USER_ID
 import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USER_IDENTIFICATION;
 
 @RestController
-@RequestMapping("/managementClient")
+@RequestMapping("employee/managementClient")
 public class ClientManagementController {
     private final UserController userController;
     private final SessionManager sessionManager;

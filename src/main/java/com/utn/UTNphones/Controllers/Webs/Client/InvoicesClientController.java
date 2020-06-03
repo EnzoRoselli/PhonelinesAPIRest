@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/invoices")
+@RequestMapping("client/invoices")
 public class InvoicesClientController {
     private final InvoiceController invoiceController;
     private final SessionManager sessionManager;

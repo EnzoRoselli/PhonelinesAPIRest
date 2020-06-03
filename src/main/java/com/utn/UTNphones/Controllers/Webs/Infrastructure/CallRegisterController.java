@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/registerCall")
+@RequestMapping("infrastructure/registerCall")
 public class CallRegisterController {
     private final CallController callController;
     private final SessionManager sessionManager;

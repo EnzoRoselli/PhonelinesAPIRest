@@ -18,7 +18,7 @@ import java.net.URI;
 import static com.utn.UTNphones.Controllers.Webs.URLconstants.PhonelineRouter.PHONELINE_ID;
 
 @RestController
-@RequestMapping("/phonelineManagement")
+@RequestMapping("employee/phonelineManagement")
 class PhonelineManagementController {
     private final SessionManager sessionManager;
     private final PhonelineController phonelineController;
