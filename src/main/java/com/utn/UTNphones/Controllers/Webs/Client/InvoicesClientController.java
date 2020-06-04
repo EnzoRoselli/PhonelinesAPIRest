@@ -26,8 +26,8 @@ public class InvoicesClientController {
     }
     @GetMapping("/start/{startDate}/end/{endDate}")//////todo cambiar
     public ResponseEntity<List<Invoice>>getByUserIdBetweenDates(@RequestHeader("Authorization") String sessionToken,
-                                                                @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("startDate") @NotNull Date startDate,
-                                                                @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("endDate")@NotNull Date endDate){
+                                                                @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("startDate") Date startDate,
+                                                                @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("endDate") Date endDate){
         ResponseEntity response=PermissionsControllers.isLogged(sessionManager, sessionToken);
         if (response.getStatusCode()!= HttpStatus.OK) {
             return response;

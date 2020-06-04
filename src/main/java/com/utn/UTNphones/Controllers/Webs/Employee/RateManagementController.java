@@ -39,8 +39,8 @@ public class RateManagementController {
 
     @GetMapping("/origin/{originCityId}/destination/{destinationCityId}")//todo cambiar a un put el metodo
     public ResponseEntity<Rate> getByOriginAndDestination(@RequestHeader("Authorization") String sessionToken,
-                                                          @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("originCityId") @NotNull Integer originCityId,
-                                                          @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("destinationCityId") @NotNull Integer destinationCityId) throws RateDoesntExist {
+                                                          @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("originCityId") Integer originCityId,
+                                                          @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("destinationCityId") Integer destinationCityId) throws RateDoesntExist {
         ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
         if (response.getStatusCode()!= HttpStatus.OK) {
             return response;
