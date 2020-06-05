@@ -27,6 +27,7 @@ public class configuration {
         registration.addUrlPatterns("/client/*");
         return registration;
     }
+
     @Bean
     public FilterRegistrationBean employeeFilter() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
@@ -34,6 +35,7 @@ public class configuration {
         registration.addUrlPatterns("/employee/*");
         return registration;
     }
+
     @Bean
     public FilterRegistrationBean infrastructureFilter() {
         FilterRegistrationBean registration = new FilterRegistrationBean();

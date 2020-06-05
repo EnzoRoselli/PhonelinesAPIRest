@@ -1,9 +1,21 @@
 package com.utn.UTNphones.Domains;
 
 import com.utn.UTNphones.Domains.Dto.PhonelineRegisterDTO;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "phonelines")
@@ -14,33 +26,28 @@ import javax.persistence.*;
 @Builder
 public class Phoneline {
 
-    public Phoneline(PhonelineRegisterDTO phone){
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Integer id;
+    @Column(name = "phone_number")
+    private String number;
+    @Column(name = "phoneline_type")
+    private String type;
+    @Column(name = "phoneline_status")
+    private Boolean status;
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_user")
+    private User user;
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_city")
+    private City city;
+
+    public Phoneline(PhonelineRegisterDTO phone) {
         this.number = phone.getNumber();
         type = phone.getType();
         status = phone.getStatus();
         user = User.builder().id(phone.getUserId()).build();
         city = City.builder().id(phone.getCityId()).build();
     }
-
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id",nullable=false)
-    private Integer id;
-
-    @Column(name = "phone_number")
-    private String number;
-
-    @Column(name = "phoneline_type")
-    private String type;
-
-    @Column(name = "phoneline_status")
-    private Boolean status;
-
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_user")
-    private User user;
-
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_city")
-    private City city;
 }

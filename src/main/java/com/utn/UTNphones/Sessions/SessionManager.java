@@ -2,9 +2,12 @@ package com.utn.UTNphones.Sessions;
 
 import com.utn.UTNphones.Domains.User;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
-import java.util.*;
+import java.util.Date;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 
 @Component
@@ -20,7 +23,9 @@ public class SessionManager {
     }
 
     public Session getSession(String token) {
-        if (token==null){return null;}
+        if (token == null) {
+            return null;
+        }
         Session session = sessionMap.get(token);
         if (session != null) {
             session.setLastAction(new Date(System.currentTimeMillis()));
@@ -43,7 +48,7 @@ public class SessionManager {
     }
 
     public Optional<User> getCurrentUser(String token) {
-      return Optional.ofNullable(getSession(token)).map(Session::getLoggedUser);
+        return Optional.ofNullable(getSession(token)).map(Session::getLoggedUser);
 
     }
 }

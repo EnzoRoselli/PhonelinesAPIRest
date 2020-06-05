@@ -19,7 +19,6 @@ public class CallRegisterController {
     private final CallController callController;
     private final SessionManager sessionManager;
 
-
     @PostMapping
     public ResponseEntity registerCall(@RequestHeader("Authorization") String sessionToken, @RequestBody NewCallDTO newCall) throws CallException {
         this.callController.registerCall(newCall);

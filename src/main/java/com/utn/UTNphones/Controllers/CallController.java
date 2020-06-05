@@ -5,10 +5,6 @@ import com.utn.UTNphones.Domains.Dto.CityTop;
 import com.utn.UTNphones.Domains.Dto.NewCallDTO;
 import com.utn.UTNphones.Domains.Dto.SearchBetweenDatesDTO;
 import com.utn.UTNphones.Domains.Phoneline;
-import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
-import com.utn.UTNphones.Exceptions.CallExceptions.NoCallsFound;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Services.CallService;
 import com.utn.UTNphones.Services.PhonelineService;
 import com.utn.UTNphones.Services.UserService;
@@ -26,22 +22,22 @@ public class CallController {
     private final UserService userService;
     private final PhonelineService phonelineService;
 
-    public List<Call> getCallsByUserId( Integer userId) throws UserDoesntExist, NoCallsFound, PhonelinesNotRegisteredByUser {
+    public List<Call> getCallsByUserId(Integer userId) {
         userService.findById(userId);
         List<Phoneline> phoneLines = phonelineService.findByUserId(userId);
         return callService.getCallsByPhoneNumbers(phoneLines);
     }
 
-    public List<CityTop> getTopDestinationsCalled(Integer userId) throws NoCallsFound {
+    public List<CityTop> getTopDestinationsCalled(Integer userId) {
         return this.callService.getTopMostCalledCities(userId);
     }
 
     public List<Call> getByUserBetweenDates(Integer userId, SearchBetweenDatesDTO dates) {
-        return this.callService.getByUserAndBetweenDates(userId,dates);
+        return this.callService.getByUserAndBetweenDates(userId, dates);
     }
 
-    public void registerCall(NewCallDTO newCall) throws CallException {
-        Call call=Call.builder().originPhone(newCall.getOriginNumber()).destinationPhone(newCall.getDestinationNumber()).duration(newCall.getDuration()).date(newCall.getDate()).build();
+    public void registerCall(NewCallDTO newCall) {
+        Call call = Call.builder().originPhone(newCall.getOriginNumber()).destinationPhone(newCall.getDestinationNumber()).duration(newCall.getDuration()).date(newCall.getDate()).build();
         this.callService.add(call);
     }
 

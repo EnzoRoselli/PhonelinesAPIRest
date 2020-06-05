@@ -1,6 +1,6 @@
 package com.utn.UTNphones.Exceptions.PhonelineExceptions;
 
-public class PhonelineAlreadyExists extends PhonelineExceptions{
+public class PhonelineAlreadyExists extends PhonelineExceptions {
 
 
     public PhonelineAlreadyExists() {

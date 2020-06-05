@@ -1,11 +1,11 @@
 package com.utn.UTNphones.Exceptions;
 
-public class ParametersException extends Exception{
-private String message;
+public class ParametersException extends Exception {
+    private final String message;
 
     public ParametersException(String messageException) {
         super();
-        this.message=messageException;
+        this.message = messageException;
     }
 
     @Override

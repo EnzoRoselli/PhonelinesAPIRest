@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class PhonelineService{
+public class PhonelineService {
 
     private final IPhonelineRepository phonelineRepository;
 
@@ -23,18 +23,23 @@ public class PhonelineService{
 
     public List<Phoneline> findByUserId(Integer id) throws PhonelinesNotRegisteredByUser {
         List<Phoneline> phoneList = this.phonelineRepository.findByUserId(id);
-        if (phoneList.isEmpty()){ throw new PhonelinesNotRegisteredByUser();}
+        if (phoneList.isEmpty()) {
+            throw new PhonelinesNotRegisteredByUser();
+        }
         return phoneList;
     }
 
     public Phoneline findByNumber(String number) throws PhonelineDoesntExist {
         Phoneline ph = phonelineRepository.findByNumber(number);
         if (ph == null) throw new PhonelineDoesntExist();
-         return ph;
+        return ph;
     }
+
     public Phoneline getById(Integer id) throws PhonelineDoesntExist {
         Optional<Phoneline> ph = phonelineRepository.findById(id);
-        if (ph.isEmpty()){throw new PhonelineDoesntExist();}
+        if (ph.isEmpty()) {
+            throw new PhonelineDoesntExist();
+        }
         return ph.get();
     }
 
@@ -42,7 +47,7 @@ public class PhonelineService{
         return this.phonelineRepository.save(phoneline);
     }
 
-    public void removeById(Integer phoneId){
+    public void removeById(Integer phoneId) {
         this.phonelineRepository.deleteById(phoneId);
     }
 

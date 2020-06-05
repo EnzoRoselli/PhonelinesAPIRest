@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
-public interface IInvoiceRepository extends JpaRepository<Invoice,Integer> {
+public interface IInvoiceRepository extends JpaRepository<Invoice, Integer> {
     List<Invoice> findByPhonelineUserId(Integer userId);
 
     List<Invoice> findAllByPhonelineUserIdAndDateBetween(Integer userId, Date startDate, Date endDate);

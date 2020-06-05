@@ -1,13 +1,22 @@
 package com.utn.UTNphones.Domains;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 import java.util.stream.Stream;
 
 @Entity
-@Table(name="provinces")
+@Table(name = "provinces")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -15,14 +24,14 @@ import java.util.stream.Stream;
 @Builder
 public class Province {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name="province_name")
+    @Column(name = "province_name")
     private String name;
 
-    public boolean hasNullAttribute(){
+    public boolean hasNullAttribute() {
 
         return Stream.of(name).anyMatch(Objects::isNull);
     }

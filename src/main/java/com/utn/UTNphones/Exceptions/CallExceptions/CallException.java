@@ -1,7 +1,7 @@
 package com.utn.UTNphones.Exceptions.CallExceptions;
 
-public abstract class CallException extends Exception {
-    private String message;
+public abstract class CallException extends RuntimeException {
+    private final String message;
 
     public CallException(String message) {
         super();

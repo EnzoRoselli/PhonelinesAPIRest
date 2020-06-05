@@ -1,7 +1,7 @@
 package com.utn.UTNphones.Exceptions.PhonelineExceptions;
 
-public abstract class PhonelineExceptions extends Exception {
-    private String message;
+public abstract class PhonelineExceptions extends RuntimeException {
+    private final String message;
 
     public PhonelineExceptions(String message) {
         super();

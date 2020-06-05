@@ -4,7 +4,6 @@ import com.utn.UTNphones.Domains.Dto.LoginDTO;
 import com.utn.UTNphones.Domains.Dto.UserRegisterDTO;
 import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
@@ -35,18 +34,18 @@ public class UserController {
         return null;
     }
 
-    public void delete(String identification) throws UserDoesntExist {
+    public void delete(String identification) {
         this.userService.findByIdentification(identification);
         this.userService.deleteByIdentification(identification);
     }
 
-    public User findById(Integer id) throws UserDoesntExist {
+    public User findById(Integer id) {
         return this.userService.findById(id);
     }
 
     public User update(User user) throws Exception {
         User inDataBaseUser = this.userService.findById(user.getId());
-        user=setNonNullValues(user,inDataBaseUser);
+        user = setNonNullValues(user, inDataBaseUser);
         try {
             return this.userService.update(user);
         } catch (DataAccessException ex) {
@@ -55,7 +54,7 @@ public class UserController {
         return user;
     }
 
-    private User setNonNullValues(User newUser,User oldUser) {
+    private User setNonNullValues(User newUser, User oldUser) {
         Optional.ofNullable(newUser.getPassword()).ifPresent(oldUser::setPassword);
         Optional.ofNullable(newUser.getIdentification()).ifPresent(oldUser::setIdentification);
         Optional.ofNullable(newUser.getCity()).ifPresent(oldUser::setCity);

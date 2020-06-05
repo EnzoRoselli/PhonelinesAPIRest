@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class RateService  {
+public class RateService {
 
     private final IRateRepository rateRepository;
 
@@ -20,8 +20,22 @@ public class RateService  {
     }
 
     public Rate findByOriginAndDestination(Integer originId, Integer destinationId) throws RateDoesntExist {
-        Optional<Rate> rate= this.rateRepository.findByOriginCityIdAndDestinationCityId(originId,destinationId);
-        if (rate.isEmpty())throw new RateDoesntExist();
+        Optional<Rate> rate = this.rateRepository.findByOriginCityIdAndDestinationCityId(originId, destinationId);
+        if (rate.isEmpty()) throw new RateDoesntExist();
         return rate.get();
+    }
+
+    public Rate findById(Integer id) throws RateDoesntExist {
+        Optional<Rate> rate = this.rateRepository.findById(id);
+        if (rate.isEmpty()) throw new RateDoesntExist();
+        else return rate.get();
+    }
+
+    public List<Rate> findByOrigin(Integer originId) {
+        return this.rateRepository.findByOriginCityId(originId);
+    }
+
+    public List<Rate> findByDestination(Integer destinationId) {
+        return this.rateRepository.findByDestinationCityId(destinationId);
     }
 }

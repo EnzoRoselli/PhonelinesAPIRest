@@ -30,7 +30,6 @@ public class CallsClientController {
     private final SessionManager sessionManager;
 
 
-
     @GetMapping("/mostDestinationsCalled")
     public ResponseEntity<List<CityTop>> mostDestinationsCalled(@RequestHeader("Authorization") String sessionToken) throws CallException {
         List<CityTop> citiesWithCounter = this.callController.getTopDestinationsCalled(sessionManager.getCurrentUser(sessionToken).get().getId());
@@ -42,14 +41,14 @@ public class CallsClientController {
                                                            @DateTimeFormat(pattern = "dd-MM-yyyy") @PathParam("startDate") @NotNull Date startDate,
                                                            @DateTimeFormat(pattern = "dd-MM-yyyy") @PathParam("endDate") @NotNull Date endDate) throws NoCallsFound, UserDoesntExist, PhonelinesNotRegisteredByUser {
         List<Call> calls;
-        Integer userId=sessionManager.getCurrentUser(sessionToken).get().getId();
-        if(startDate == null && endDate == null){
+        Integer userId = sessionManager.getCurrentUser(sessionToken).get().getId();
+        if (startDate == null && endDate == null) {
             calls = this.callController.getCallsByUserId(userId);
-        }else if(startDate == null){
+        } else if (startDate == null) {
             calls = this.callController.getByUserEndDate(userId, endDate);
-        }else if(endDate == null){
+        } else if (endDate == null) {
             calls = this.callController.getByUserStartDate(userId, startDate);
-        }else{
+        } else {
             SearchBetweenDatesDTO datesDto = SearchBetweenDatesDTO.builder().start(startDate).end(endDate).build();
             calls = this.callController.getByUserBetweenDates(userId, datesDto);
         }

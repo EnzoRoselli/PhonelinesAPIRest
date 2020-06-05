@@ -15,24 +15,24 @@ public class InvoiceController {
 
     private final InvoiceService invoiceService;
 
-    public List<Invoice> getAllInvoices(){
+    public List<Invoice> getAllInvoices() {
         return invoiceService.getAllInvoices();
     }
 
 
     public List<Invoice> getAllByUserId(Integer userId) {
-            return this.invoiceService.getAllByUserId(userId);
+        return this.invoiceService.getAllByUserId(userId);
     }
 
     public List<Invoice> getByUserBetweenDates(Integer id, SearchBetweenDatesDTO datesDto) {
-        return this.invoiceService.getByUserAndBetweenDates(id,datesDto);
+        return this.invoiceService.getByUserAndBetweenDates(id, datesDto);
     }
 
     public List<Invoice> getByUserEndDate(Integer id, Date endDate) {
-        return this.invoiceService.getByUserEndDate(id,endDate);
+        return this.invoiceService.getByUserEndDate(id, endDate);
     }
 
     public List<Invoice> getByUserStartDate(Integer id, Date startDate) {
-        return this.invoiceService.getByUserStartDate(id,startDate);
+        return this.invoiceService.getByUserStartDate(id, startDate);
     }
 }

@@ -21,11 +21,11 @@ public class InfrastructureSessionFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest httpServletRequest,
                                     HttpServletResponse httpServletResponse,
                                     FilterChain filterChain) throws ServletException, IOException {
-        String sessionToken= httpServletRequest.getHeader("Authorization");
+        String sessionToken = httpServletRequest.getHeader("Authorization");
         Session session = sessionManager.getSession(sessionToken);
-        if (session!=null && "infrastructure".equals(session.getLoggedUser().getType())){
-            filterChain.doFilter(httpServletRequest,httpServletResponse);
-        }else{
+        if (session != null && "infrastructure".equals(session.getLoggedUser().getType())) {
+            filterChain.doFilter(httpServletRequest, httpServletResponse);
+        } else {
             httpServletResponse.setStatus(HttpStatus.FORBIDDEN.value());
         }
     }

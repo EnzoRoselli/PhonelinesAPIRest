@@ -28,25 +28,25 @@ public class InvoicesManagementController {
 
     @GetMapping(USER_ID)
     public ResponseEntity<List<Invoice>> getByUserId(@RequestHeader("Authorization") String sessionToken,
-                                                     @PathVariable("id") Integer userId){
-        List<Invoice>invoices=this.invoiceController.getAllByUserId(userId);
-        return invoices.isEmpty() ?  ResponseEntity.status(204).build(): ResponseEntity.ok(invoices);
+                                                     @PathVariable("id") Integer userId) {
+        List<Invoice> invoices = this.invoiceController.getAllByUserId(userId);
+        return invoices.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(invoices);
     }
 
-    @GetMapping(USER_ID+"/invoices")
-    public ResponseEntity<List<Invoice>>getByUserIdBetweenDates(@RequestHeader("Authorization") String sessionToken,
-                                                                @DateTimeFormat(pattern = "dd-MM-yyyy") @PathParam("startDate") Date startDate,
-                                                                @DateTimeFormat(pattern = "dd-MM-yyyy") @PathParam("endDate") Date endDate,
-                                                                @PathVariable("userId") Integer id){
+    @GetMapping(USER_ID + "/invoices")
+    public ResponseEntity<List<Invoice>> getByUserIdBetweenDates(@RequestHeader("Authorization") String sessionToken,
+                                                                 @DateTimeFormat(pattern = "dd-MM-yyyy") @PathParam("startDate") Date startDate,
+                                                                 @DateTimeFormat(pattern = "dd-MM-yyyy") @PathParam("endDate") Date endDate,
+                                                                 @PathVariable("userId") Integer id) {
         List<Invoice> invoices;
-        if(startDate == null && endDate == null){
+        if (startDate == null && endDate == null) {
             invoices = this.invoiceController.getAllByUserId(id);
-        }else if(startDate == null){
+        } else if (startDate == null) {
             invoices = this.invoiceController.getByUserEndDate(id, endDate);
-        }else if(endDate == null){
+        } else if (endDate == null) {
             invoices = this.invoiceController.getByUserStartDate(id, startDate);
-        }else{
-            SearchBetweenDatesDTO datesDto= SearchBetweenDatesDTO.builder().start(startDate).end(endDate).build();
+        } else {
+            SearchBetweenDatesDTO datesDto = SearchBetweenDatesDTO.builder().start(startDate).end(endDate).build();
             invoices = this.invoiceController.getByUserBetweenDates(id, datesDto);
         }
 

@@ -18,7 +18,7 @@ public class PhonelineController {
     private final CityService cityService;
 
     public Phoneline getById(Integer id) throws PhonelineDoesntExist {
-       return this.phonelineService.getById(id);
+        return this.phonelineService.getById(id);
     }
 
     public Phoneline add(PhonelineRegisterDTO phonelineRegisterDto) throws Exception {
@@ -33,12 +33,12 @@ public class PhonelineController {
         return null;
     }
 
-    public void remove(Integer phoneId) throws PhonelineDoesntExist {
+    public void remove(Integer phoneId) {
         phonelineService.getById(phoneId);
         phonelineService.removeById(phoneId);
     }
 
-    public Phoneline update(Integer id,Phoneline phoneline) throws Exception {
+    public Phoneline update(Integer id, Phoneline phoneline) throws Exception {
         this.phonelineService.getById(id);
         phoneline.setId(id);
         try {

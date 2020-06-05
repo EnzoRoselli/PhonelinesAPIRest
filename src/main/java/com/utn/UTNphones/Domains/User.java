@@ -2,10 +2,21 @@ package com.utn.UTNphones.Domains;
 
 import com.utn.UTNphones.Domains.Dto.LoginDTO;
 import com.utn.UTNphones.Domains.Dto.UserRegisterDTO;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.persistence.*;
-import javax.validation.constraints.Pattern;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
@@ -16,12 +27,32 @@ import javax.validation.constraints.Pattern;
 @Builder
 public class User {
 
-    public User(LoginDTO loginDTO){
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
+    @Column(name = "user_name")
+    private String name;
+    @Column(name = "lastname")
+    private String lastname;
+    @Column(name = "user_status")
+    private Boolean status;
+    @Column(name = "user_type")
+    private String type;
+    @Column(name = "identification_card")
+    private String identification;
+    @Column(name = "user_password")
+    private String password;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_city")
+    private City city;
+
+    public User(LoginDTO loginDTO) {
         identification = loginDTO.getIdentification();
         password = loginDTO.getPassword();
     }
 
-    public User(UserRegisterDTO userRegisterDTO){
+    public User(UserRegisterDTO userRegisterDTO) {
         name = userRegisterDTO.getName();
         lastname = userRegisterDTO.getLastname();
         status = userRegisterDTO.getStatus();
@@ -30,32 +61,5 @@ public class User {
         password = userRegisterDTO.getPassword();
         city = City.builder().id(userRegisterDTO.getCityId()).build();
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
-
-    @Column(name = "user_name")
-    private String name;
-
-    @Column(name = "lastname")
-    private String lastname;
-
-    @Column(name = "user_status")
-    private Boolean status;
-
-    @Column(name = "user_type")
-    private String type;
-
-    @Column(name = "identification_card")
-    private String identification;
-
-    @Column(name = "user_password")
-    private String password;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_city")
-    private City city;
 }
 

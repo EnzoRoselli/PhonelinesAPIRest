@@ -31,7 +31,7 @@ public class ExceptionController {
         phonelineAddExceptionSQLCode(ex.getErrorCode());
     }
 
-    private static void phonelineAddExceptionSQLCode(int errorNumber) throws Exception{
+    private static void phonelineAddExceptionSQLCode(int errorNumber) throws Exception {
         switch (errorNumber) {
             case 1452:
                 throw new UserDoesntExist();

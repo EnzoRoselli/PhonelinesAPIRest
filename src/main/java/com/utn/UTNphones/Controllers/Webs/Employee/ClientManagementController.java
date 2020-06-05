@@ -34,13 +34,13 @@ public class ClientManagementController {
 
     @PostMapping
     public ResponseEntity register(@RequestHeader("Authorization") String sessionToken, @RequestBody @Valid UserRegisterDTO userRegistering) throws Exception {
-         User user=userController.register(userRegistering);
+        User user = userController.register(userRegistering);
         return ResponseEntity.created(getLocation(user)).build();
     }
 
     @GetMapping(USER_ID)
     public ResponseEntity<User> getUser(@RequestHeader("Authorization") String sessionToken, @PathVariable("userId") Integer userId) throws UserDoesntExist {
-        User user=this.userController.findById(userId);
+        User user = this.userController.findById(userId);
         return ResponseEntity.ok(user);
     }
 
@@ -55,6 +55,7 @@ public class ClientManagementController {
         this.userController.update(userUpdating);
         return ResponseEntity.ok().build();
     }
+
     public URI getLocation(User user) {
         return ServletUriComponentsBuilder
                 .fromCurrentRequest()

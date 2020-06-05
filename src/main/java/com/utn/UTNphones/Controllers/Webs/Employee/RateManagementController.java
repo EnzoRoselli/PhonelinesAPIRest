@@ -1,17 +1,18 @@
 package com.utn.UTNphones.Controllers.Webs.Employee;
 
-import com.utn.UTNphones.Controllers.PermissionsControllers;
 import com.utn.UTNphones.Controllers.RateController;
 import com.utn.UTNphones.Domains.Rate;
 import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
 import com.utn.UTNphones.Sessions.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.constraints.NotNull;
+import javax.websocket.server.PathParam;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,28 +29,20 @@ public class RateManagementController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Rate>> getAll(@RequestHeader("Authorization") String sessionToken){
-        ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
-        if (response.getStatusCode()!= HttpStatus.OK) {
-            return response;
+    public ResponseEntity<List<Rate>> getRates(@RequestHeader("Authorization") String sessionToken,
+                                               @PathParam("originCityId") Integer originCityId,
+                                               @PathParam("destinationCityId") Integer destinationCityId) throws RateDoesntExist {
+        List<Rate> rates = new ArrayList<>();
+        if (originCityId != null && destinationCityId != null) {
+            Rate rate = this.rateController.getByOriginAndDestination(originCityId, destinationCityId);
+            rates.add(rate);
+            return ResponseEntity.ok(rates);
+        } else if (originCityId != null) {
+            return ResponseEntity.ok(this.rateController.getByOrigin(originCityId));
+        } else if (destinationCityId != null) {
+            return ResponseEntity.ok(this.rateController.getByDestination(destinationCityId));
         }
-        List<Rate> Allrates=this.rateController.getAllRates();
-        return (Allrates.size()>0)? ResponseEntity.ok(Allrates): ResponseEntity.status(204).build();
+        return ResponseEntity.ok(this.rateController.getAllRates());
     }
-
-    @GetMapping("/origin/{originCityId}/destination/{destinationCityId}")//todo cambiar a un put el metodo
-    public ResponseEntity<Rate> getByOriginAndDestination(@RequestHeader("Authorization") String sessionToken,
-                                                          @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("originCityId") Integer originCityId,
-                                                          @DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("destinationCityId") Integer destinationCityId) throws RateDoesntExist {
-        ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
-        if (response.getStatusCode()!= HttpStatus.OK) {
-            return response;
-        }
-       Rate rateInfo=this.rateController.getByOriginAndDestination(originCityId,destinationCityId);
-       return ResponseEntity.ok(rateInfo);
-    }
-
-
-
 
 }

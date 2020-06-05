@@ -24,14 +24,14 @@ public class InvoiceService {
     }
 
     public List<Invoice> getByUserAndBetweenDates(Integer id, SearchBetweenDatesDTO datesDto) {
-        return this.invoiceRepository.findAllByPhonelineUserIdAndDateBetween(id,datesDto.getStart(),datesDto.getEnd());
+        return this.invoiceRepository.findAllByPhonelineUserIdAndDateBetween(id, datesDto.getStart(), datesDto.getEnd());
     }
 
     public List<Invoice> getByUserEndDate(Integer id, Date endDate) {
-        return this.invoiceRepository.findAllByPhonelineUserIdAndDateBefore(id,endDate);
+        return this.invoiceRepository.findAllByPhonelineUserIdAndDateBefore(id, endDate);
     }
 
     public List<Invoice> getByUserStartDate(Integer id, Date startDate) {
-        return this.invoiceRepository.findAllByPhonelineUserIdAndDateAfter(id,startDate);
+        return this.invoiceRepository.findAllByPhonelineUserIdAndDateAfter(id, startDate);
     }
 }
