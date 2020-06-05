@@ -4,23 +4,18 @@ import com.utn.UTNphones.Domains.Dto.PhonelineRegisterDTO;
 import com.utn.UTNphones.Domains.Phoneline;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDigitsCountPlusPrefix;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
-import com.utn.UTNphones.Services.interfaces.ICityService;
-import com.utn.UTNphones.Services.interfaces.IPhonelineService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.utn.UTNphones.Services.CityService;
+import com.utn.UTNphones.Services.PhonelineService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 
 @Controller
+@RequiredArgsConstructor
 public class PhonelineController {
 
-    private final IPhonelineService phonelineService;
-    private final ICityService cityService;
-
-    @Autowired
-    public PhonelineController(IPhonelineService phonelineService, ICityService cityService) {
-        this.phonelineService = phonelineService;
-        this.cityService = cityService;
-    }
+    private final PhonelineService phonelineService;
+    private final CityService cityService;
 
     public Phoneline getById(Integer id) throws PhonelineDoesntExist {
        return this.phonelineService.getById(id);

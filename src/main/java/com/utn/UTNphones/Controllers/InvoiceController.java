@@ -2,23 +2,18 @@ package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Domains.Dto.SearchBetweenDatesDTO;
 import com.utn.UTNphones.Domains.Invoice;
-import com.utn.UTNphones.Services.interfaces.IInvoiceService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.utn.UTNphones.Services.InvoiceService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 
 import java.util.Date;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class InvoiceController {
 
-    private final IInvoiceService invoiceService;
-
-    @Autowired
-    public InvoiceController(IInvoiceService invoiceService) {
-        this.invoiceService = invoiceService;
-    }
-
+    private final InvoiceService invoiceService;
 
     public List<Invoice> getAllInvoices(){
         return invoiceService.getAllInvoices();

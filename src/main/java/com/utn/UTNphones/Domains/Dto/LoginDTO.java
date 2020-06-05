@@ -14,6 +14,7 @@ import javax.validation.constraints.Pattern;
 @Builder
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class LoginDTO {
+
     @Pattern(regexp="^[1-9]{7,9}$", message="Invalid identification!")
     private String identification;
 

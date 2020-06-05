@@ -2,22 +2,17 @@ package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Domains.Rate;
 import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
-import com.utn.UTNphones.Services.interfaces.IRateService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.utn.UTNphones.Services.RateService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class RateController {
 
-    private final IRateService rateService;
-
-    @Autowired
-    public RateController(IRateService rateService) {
-        this.rateService = rateService;
-    }
-
+    private final RateService rateService;
 
     public List<Rate> getAllRates() {
         return rateService.getAllRates();

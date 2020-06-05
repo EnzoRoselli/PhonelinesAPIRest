@@ -5,8 +5,8 @@ import com.utn.UTNphones.Domains.Dto.UserRegisterDTO;
 import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
-import com.utn.UTNphones.Services.interfaces.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.utn.UTNphones.Services.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 
@@ -14,15 +14,10 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 @Controller
+@RequiredArgsConstructor
 public class UserController {
 
-    IUserService userService;
-
-    @Autowired
-    public UserController(IUserService userService) {
-        this.userService = userService;
-    }
-
+    private final UserService userService;
 
     public User login(LoginDTO loginDTO) throws LogException {
         User u = User.builder().identification(loginDTO.getIdentification()).password(loginDTO.getPassword()).build();

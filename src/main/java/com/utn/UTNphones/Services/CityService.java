@@ -3,23 +3,17 @@ package com.utn.UTNphones.Services;
 import com.utn.UTNphones.Domains.City;
 import com.utn.UTNphones.Exceptions.CityExceptions.CityDoesntExist;
 import com.utn.UTNphones.Repositories.ICityRepository;
-import com.utn.UTNphones.Services.interfaces.ICityService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class CityService implements ICityService {
+@RequiredArgsConstructor
+public class CityService{
 
     private final ICityRepository cityRepository;
 
-    @Autowired
-    public CityService(ICityRepository cityRepository) {
-        this.cityRepository = cityRepository;
-    }
-
-    @Override
     public City getById(Integer id) throws CityDoesntExist {
         Optional<City> cityOptional = cityRepository.findById(id);
         if (cityOptional.isEmpty())throw new CityDoesntExist();

@@ -9,29 +9,22 @@ import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Exceptions.CallExceptions.NoCallsFound;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
-import com.utn.UTNphones.Services.interfaces.ICallService;
-import com.utn.UTNphones.Services.interfaces.IPhonelineService;
-import com.utn.UTNphones.Services.interfaces.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.utn.UTNphones.Services.CallService;
+import com.utn.UTNphones.Services.PhonelineService;
+import com.utn.UTNphones.Services.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 
 import java.util.Date;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class CallController {
 
-    private final ICallService callService;
-    private final IUserService userService;
-    private final IPhonelineService phonelineService;
-
-
-    @Autowired
-    public CallController(ICallService callService, IUserService userService, IPhonelineService phonelineService) {
-        this.callService = callService;
-        this.userService = userService;
-        this.phonelineService = phonelineService;
-    }
+    private final CallService callService;
+    private final UserService userService;
+    private final PhonelineService phonelineService;
 
     public List<Call> getCallsByUserId( Integer userId) throws UserDoesntExist, NoCallsFound, PhonelinesNotRegisteredByUser {
         userService.findById(userId);

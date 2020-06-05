@@ -5,25 +5,22 @@ import com.utn.UTNphones.Domains.Dto.LoginDTO;
 import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Sessions.SessionManager;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-
-
 @RestController
+@RequiredArgsConstructor
 @RequestMapping
 public class LoginController {
     private final UserController userController;
     private final SessionManager sessionManager;
-
-    @Autowired
-    public LoginController(UserController userController, SessionManager sessionManager) {
-        this.userController = userController;
-        this.sessionManager = sessionManager;
-    }
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody @Valid LoginDTO userLogging) throws LogException {
