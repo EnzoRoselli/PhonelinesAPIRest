@@ -25,10 +25,6 @@ public class UserService {
         return Optional.of(userRepository.save(user)).orElseThrow(UserDoesntExist::new);
     }
 
-    public void deleteByIdentification(String identification) {
-        this.userRepository.deleteByIdentification(identification);
-    }
-
     public User update(User user) throws UserDoesntExist {
         return Optional.of(this.userRepository.save(user)).orElseThrow(UserDoesntExist::new);
     }
@@ -44,4 +40,7 @@ public class UserService {
     }
 
 
+    public void delete(Integer userId) {
+        this.userRepository.deleteById(userId);
+    }
 }

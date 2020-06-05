@@ -20,7 +20,7 @@ import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USER_ID
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("employee/callsManagement")
+@RequestMapping("employee/calls")
 public class CallsManagementController {
     private final CallController callController;
     private final SessionManager sessionManager;

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("employee/rateManagement")
+@RequestMapping("employee/rates")
 public class RateManagementController {
 
     private final RateController rateController;

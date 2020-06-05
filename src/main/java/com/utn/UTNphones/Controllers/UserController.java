@@ -1,7 +1,10 @@
 package com.utn.UTNphones.Controllers;
 
+import com.utn.UTNphones.Domains.City;
 import com.utn.UTNphones.Domains.Dto.LoginDTO;
+import com.utn.UTNphones.Domains.Dto.UserPatchUpdateDTO;
 import com.utn.UTNphones.Domains.Dto.UserRegisterDTO;
+import com.utn.UTNphones.Domains.Dto.UserUpdateDTO;
 import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Services.UserService;
@@ -10,6 +13,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -34,33 +38,43 @@ public class UserController {
         return null;
     }
 
-    public void delete(String identification) {
-        this.userService.findByIdentification(identification);
-        this.userService.deleteByIdentification(identification);
-    }
-
     public User findById(Integer id) {
         return this.userService.findById(id);
     }
 
-    public User update(User user) throws Exception {
-        User inDataBaseUser = this.userService.findById(user.getId());
-        user = setNonNullValues(user, inDataBaseUser);
+    public User modification(UserPatchUpdateDTO newUser) throws Exception {
+        User userRenovated = this.userService.findById(newUser.getId());
+        setNonNullValues(newUser, userRenovated);
+        try {
+            return this.userService.update(userRenovated);
+        } catch (DataAccessException ex) {
+            ExceptionController.userUpdateException(Objects.requireNonNull(ex.getRootCause()));
+        }
+        return userRenovated;
+    }
+
+    public User update(UserUpdateDTO userUpdate) throws Exception {
+        this.userService.findById(userUpdate.getId());
+        User user = new User(userUpdate);
         try {
             return this.userService.update(user);
         } catch (DataAccessException ex) {
-            ExceptionController.userUpdateException(ex.getRootCause());
+            ExceptionController.userUpdateException(Objects.requireNonNull(ex.getRootCause()));
         }
         return user;
     }
 
-    private User setNonNullValues(User newUser, User oldUser) {
-        Optional.ofNullable(newUser.getPassword()).ifPresent(oldUser::setPassword);
-        Optional.ofNullable(newUser.getIdentification()).ifPresent(oldUser::setIdentification);
-        Optional.ofNullable(newUser.getCity()).ifPresent(oldUser::setCity);
-        Optional.ofNullable(newUser.getLastname()).ifPresent(oldUser::setLastname);
-        Optional.ofNullable(newUser.getName()).ifPresent(oldUser::setName);
-        Optional.ofNullable(newUser.getType()).ifPresent(oldUser::setType);
-        return oldUser;
+    private void setNonNullValues(UserPatchUpdateDTO newUser, User userUpdated) {
+        Optional.ofNullable(newUser.getPassword()).ifPresent(userUpdated::setPassword);
+        Optional.ofNullable(newUser.getIdentification()).ifPresent(userUpdated::setIdentification);
+        if (newUser.getCityId()!=null){userUpdated.setCity(City.builder().id(newUser.getCityId()).build());}
+        Optional.ofNullable(newUser.getLastname()).ifPresent(userUpdated::setLastname);
+        Optional.ofNullable(newUser.getName()).ifPresent(userUpdated::setName);
+        Optional.ofNullable(newUser.getType()).ifPresent(userUpdated::setType);
+    }
+
+    public void delete(Integer userId) {
+        this.findById(userId);
+        this.userService.delete(userId);
     }
 }

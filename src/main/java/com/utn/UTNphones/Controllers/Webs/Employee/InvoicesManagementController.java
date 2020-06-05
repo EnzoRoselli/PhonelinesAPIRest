@@ -21,7 +21,7 @@ import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USER_ID
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("employee/InvoicesManagement")
+@RequestMapping("employee/invoices")
 public class InvoicesManagementController {
     private final InvoiceController invoiceController;
     private final SessionManager sessionManager;

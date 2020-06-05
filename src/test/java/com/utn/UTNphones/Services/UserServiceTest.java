@@ -100,12 +100,12 @@ public class UserServiceTest {
         User u = userService.register(registeredUser);
     }
 
-    @Test
-    public void testDeleteByIdentificationOk(){
-        doNothing().when(userRepository).deleteByIdentification("1234567");
-        userService.deleteByIdentification("1234567");
-        verify(userRepository, times(1)).deleteByIdentification("1234567");
-    }
+//    @Test
+//    public void testDeleteByIdentificationOk(){
+//        doNothing().when(userRepository).deleteByIdentification("1234567");
+//        userService.deleteByIdentification("1234567");
+//        verify(userRepository, times(1)).deleteByIdentification("1234567");
+//    }
 
     @Test
     public void testUpdateOk() throws UserDoesntExist {

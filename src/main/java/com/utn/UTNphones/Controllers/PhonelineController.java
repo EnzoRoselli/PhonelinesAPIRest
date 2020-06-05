@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 
+import java.util.Objects;
+
 @Controller
 @RequiredArgsConstructor
 public class PhonelineController {
@@ -44,7 +46,7 @@ public class PhonelineController {
         try {
             return this.phonelineService.update(phoneline);
         } catch (DataAccessException ex) {
-            ExceptionController.phonelineUpdateException(ex.getRootCause());
+            ExceptionController.phonelineUpdateException(Objects.requireNonNull(ex.getRootCause()));
         }
         return null;
     }

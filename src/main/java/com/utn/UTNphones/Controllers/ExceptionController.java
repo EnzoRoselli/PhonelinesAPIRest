@@ -47,13 +47,13 @@ public class ExceptionController {
     public static void userUpdateException(Throwable Error) throws Exception {
 
         //City id
-        if (Error.getMessage().contains("Domains.City")) //110
+        if (Error.getMessage().contains("fk_users_city"))
             throw new CityDoesntExist();
             //Identification unique
-        else if (Error.getMessage().contains("for key 'identification_card'")) //92
+        else if (Error.getMessage().contains("for key 'identification_card'"))
             throw new UserIdentificationAlreadyExists();
             //User type enum
-        else if (Error.getMessage().contains("user_type"))//91  - 98 root
+        else if (Error.getMessage().contains("user_type"))
             throw new UserTypeDoesntExist();
 
         else throw new Exception("External error");
@@ -62,13 +62,13 @@ public class ExceptionController {
     public static void phonelineUpdateException(Throwable Error) throws Exception {
 
         //City id
-        if (Error.getMessage().contains("Domains.City")) //110
+        if (Error.getMessage().contains("Domains.City"))
             throw new CityDoesntExist();
             //User id
-        else if (Error.getMessage().contains("Domains.User")) //92
+        else if (Error.getMessage().contains("Domains.User"))
             throw new UserDoesntExist();
             //User type enum
-        else if (Error.getMessage().contains("phoneline_type"))//91  - 98 root
+        else if (Error.getMessage().contains("phoneline_type"))
             throw new PhonelineTypeError();
 
         else throw new Exception("External error");

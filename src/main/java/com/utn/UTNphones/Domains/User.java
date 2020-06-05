@@ -2,6 +2,7 @@ package com.utn.UTNphones.Domains;
 
 import com.utn.UTNphones.Domains.Dto.LoginDTO;
 import com.utn.UTNphones.Domains.Dto.UserRegisterDTO;
+import com.utn.UTNphones.Domains.Dto.UserUpdateDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -60,6 +61,16 @@ public class User {
         identification = userRegisterDTO.getIdentification();
         password = userRegisterDTO.getPassword();
         city = City.builder().id(userRegisterDTO.getCityId()).build();
+    }
+    public User(UserUpdateDTO userUpdateDTO) {
+        id= userUpdateDTO.getId();
+        name = userUpdateDTO.getName();
+        lastname = userUpdateDTO.getLastname();
+        status = userUpdateDTO.getStatus();
+        type = userUpdateDTO.getType();
+        identification = userUpdateDTO.getIdentification();
+        password = userUpdateDTO.getPassword();
+        city = City.builder().id(userUpdateDTO.getCityId()).build();
     }
 }
 
