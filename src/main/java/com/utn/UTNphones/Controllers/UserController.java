@@ -2,9 +2,8 @@ package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Domains.City;
 import com.utn.UTNphones.Domains.Dto.LoginDTO;
+import com.utn.UTNphones.Domains.Dto.UserDTO;
 import com.utn.UTNphones.Domains.Dto.UserPatchUpdateDTO;
-import com.utn.UTNphones.Domains.Dto.UserRegisterDTO;
-import com.utn.UTNphones.Domains.Dto.UserUpdateDTO;
 import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Services.UserService;
@@ -27,10 +26,9 @@ public class UserController {
         return userService.login(u);
     }
 
-    public User register(UserRegisterDTO userRegisterDTO) throws Exception {
+    public User register(UserDTO userDTO) throws Exception {
         try {
-            User user = new User(userRegisterDTO);
-            return userService.register(user);
+            return userService.register(User.fromDto(userDTO));
         } catch (DataAccessException ex) {
             SQLException SQLex = (SQLException) ex.getCause().getCause();
             ExceptionController.userRegisterException(SQLex);
@@ -42,9 +40,10 @@ public class UserController {
         return this.userService.findById(id);
     }
 
-    public User modification(UserPatchUpdateDTO newUser) throws Exception {
-        User userRenovated = this.userService.findById(newUser.getId());
+    public User modification(Integer userId, UserPatchUpdateDTO newUser) throws Exception {
+        User userRenovated = this.userService.findById(userId);
         setNonNullValues(newUser, userRenovated);
+        userRenovated.setId(userId);
         try {
             return this.userService.update(userRenovated);
         } catch (DataAccessException ex) {
@@ -53,9 +52,10 @@ public class UserController {
         return userRenovated;
     }
 
-    public User update(UserUpdateDTO userUpdate) throws Exception {
-        this.userService.findById(userUpdate.getId());
-        User user = new User(userUpdate);
+    public User update(Integer userId, UserDTO userUpdate) throws Exception {
+        this.userService.findById(userId);
+        User user = User.fromDto(userUpdate);
+        user.setId(userId);
         try {
             return this.userService.update(user);
         } catch (DataAccessException ex) {
@@ -64,17 +64,21 @@ public class UserController {
         return user;
     }
 
+    public void delete(Integer userId) {
+        this.findById(userId);
+        this.userService.delete(userId);
+    }
+
     private void setNonNullValues(UserPatchUpdateDTO newUser, User userUpdated) {
         Optional.ofNullable(newUser.getPassword()).ifPresent(userUpdated::setPassword);
         Optional.ofNullable(newUser.getIdentification()).ifPresent(userUpdated::setIdentification);
-        if (newUser.getCityId()!=null){userUpdated.setCity(City.builder().id(newUser.getCityId()).build());}
+        if (newUser.getCityId() != null) {
+            userUpdated.setCity(City.builder().id(newUser.getCityId()).build());
+        }
         Optional.ofNullable(newUser.getLastname()).ifPresent(userUpdated::setLastname);
         Optional.ofNullable(newUser.getName()).ifPresent(userUpdated::setName);
         Optional.ofNullable(newUser.getType()).ifPresent(userUpdated::setType);
     }
 
-    public void delete(Integer userId) {
-        this.findById(userId);
-        this.userService.delete(userId);
-    }
+
 }

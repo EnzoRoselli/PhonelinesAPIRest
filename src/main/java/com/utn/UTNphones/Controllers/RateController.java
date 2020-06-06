@@ -18,19 +18,14 @@ public class RateController {
     }
 
     public Rate getByOriginAndDestination(Integer originCityIdInteger, Integer destinationCityId) {
-        this.rateService.findById(originCityIdInteger);
-        this.rateService.findById(destinationCityId);
         return this.rateService.findByOriginAndDestination(originCityIdInteger, destinationCityId);
     }
 
     public List<Rate> getByOrigin(Integer originCityId) {
-        this.rateService.findById(originCityId);
-
         return this.rateService.findByOrigin(originCityId);
     }
 
     public List<Rate> getByDestination(Integer destinationCityId) {
-        this.rateService.findById(destinationCityId);
         return this.rateService.findByDestination(destinationCityId);
     }
 }

@@ -1,6 +1,6 @@
 package com.utn.UTNphones.Domains;
 
-import com.utn.UTNphones.Domains.Dto.PhonelineRegisterDTO;
+import com.utn.UTNphones.Domains.Dto.PhonelineDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -43,11 +43,12 @@ public class Phoneline {
     @JoinColumn(name = "id_city")
     private City city;
 
-    public Phoneline(PhonelineRegisterDTO phone) {
-        this.number = phone.getNumber();
-        type = phone.getType();
-        status = phone.getStatus();
-        user = User.builder().id(phone.getUserId()).build();
-        city = City.builder().id(phone.getCityId()).build();
+
+    public static Phoneline fromDto(PhonelineDTO phone) {
+        return Phoneline.builder().number(phone.getNumber())
+                .type(phone.getType())
+                .status(phone.getStatus())
+                .user(User.builder().id(phone.getUserId()).build())
+                .city(City.builder().id(phone.getCityId()).build()).build();
     }
 }

@@ -19,7 +19,7 @@ import javax.validation.constraints.Pattern;
 @ToString
 @Builder
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class PhonelineRegisterDTO {
+public class PhonelineDTO {
 
     @Pattern(regexp = "^[1-9]\\d*$", message = "Invalid number!")
     @NotBlank(message = "Number is mandatory")

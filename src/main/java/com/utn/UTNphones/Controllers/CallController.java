@@ -4,7 +4,6 @@ import com.utn.UTNphones.Domains.Call;
 import com.utn.UTNphones.Domains.Dto.CityTop;
 import com.utn.UTNphones.Domains.Dto.NewCallDTO;
 import com.utn.UTNphones.Domains.Dto.SearchBetweenDatesDTO;
-import com.utn.UTNphones.Domains.Phoneline;
 import com.utn.UTNphones.Services.CallService;
 import com.utn.UTNphones.Services.PhonelineService;
 import com.utn.UTNphones.Services.UserService;
@@ -24,8 +23,7 @@ public class CallController {
 
     public List<Call> getCallsByUserId(Integer userId) {
         userService.findById(userId);
-        List<Phoneline> phoneLines = phonelineService.findByUserId(userId);
-        return callService.getCallsByPhoneNumbers(phoneLines);
+        return callService.getCallsByPhoneNumbers(phonelineService.findByUserId(userId));
     }
 
     public List<CityTop> getTopDestinationsCalled(Integer userId) {
@@ -37,8 +35,7 @@ public class CallController {
     }
 
     public void registerCall(NewCallDTO newCall) {
-        Call call = Call.builder().originPhone(newCall.getOriginNumber()).destinationPhone(newCall.getDestinationNumber()).duration(newCall.getDuration()).date(newCall.getDate()).build();
-        this.callService.add(call);
+        this.callService.add(Call.fromDto(newCall));
     }
 
     public List<Call> getByUserEndDate(Integer id, Date endDate) {

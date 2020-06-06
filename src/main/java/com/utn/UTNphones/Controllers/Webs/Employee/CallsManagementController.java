@@ -5,7 +5,6 @@ import com.utn.UTNphones.Domains.Call;
 import com.utn.UTNphones.Exceptions.CallExceptions.NoCallsFound;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
-import com.utn.UTNphones.Sessions.SessionManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +22,6 @@ import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USER_ID
 @RequestMapping("employee/calls")
 public class CallsManagementController {
     private final CallController callController;
-    private final SessionManager sessionManager;
-
 
     @GetMapping(USER_ID)
     public ResponseEntity<List<Call>> getByUserId(@RequestHeader("Authorization") String sessionToken,

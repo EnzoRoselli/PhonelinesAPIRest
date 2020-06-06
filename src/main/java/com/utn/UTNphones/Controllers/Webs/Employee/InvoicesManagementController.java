@@ -17,23 +17,15 @@ import javax.websocket.server.PathParam;
 import java.util.Date;
 import java.util.List;
 
-import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USER_ID;
+import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USERS_ID;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("employee/invoices")
 public class InvoicesManagementController {
     private final InvoiceController invoiceController;
-    private final SessionManager sessionManager;
 
-    @GetMapping(USER_ID)
-    public ResponseEntity<List<Invoice>> getByUserId(@RequestHeader("Authorization") String sessionToken,
-                                                     @PathVariable("id") Integer userId) {
-        List<Invoice> invoices = this.invoiceController.getAllByUserId(userId);
-        return invoices.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(invoices);
-    }
-
-    @GetMapping(USER_ID + "/invoices")
+    @GetMapping(USERS_ID)
     public ResponseEntity<List<Invoice>> getByUserIdBetweenDates(@RequestHeader("Authorization") String sessionToken,
                                                                  @DateTimeFormat(pattern = "dd-MM-yyyy") @PathParam("startDate") Date startDate,
                                                                  @DateTimeFormat(pattern = "dd-MM-yyyy") @PathParam("endDate") Date endDate,

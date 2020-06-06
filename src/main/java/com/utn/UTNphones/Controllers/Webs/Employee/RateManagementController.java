@@ -4,7 +4,7 @@ import com.utn.UTNphones.Controllers.RateController;
 import com.utn.UTNphones.Domains.Rate;
 import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
 import com.utn.UTNphones.Sessions.SessionManager;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -16,17 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("employee/rates")
 public class RateManagementController {
 
     private final RateController rateController;
-    private final SessionManager sessionManager;
-
-    @Autowired
-    public RateManagementController(RateController rateController, SessionManager sessionManager) {
-        this.rateController = rateController;
-        this.sessionManager = sessionManager;
-    }
 
     @GetMapping
     public ResponseEntity<List<Rate>> getRates(@RequestHeader("Authorization") String sessionToken,
@@ -34,15 +28,10 @@ public class RateManagementController {
                                                @PathParam("destinationCityId") Integer destinationCityId) throws RateDoesntExist {
         List<Rate> rates = new ArrayList<>();
         if (originCityId != null && destinationCityId != null) {
-            Rate rate = this.rateController.getByOriginAndDestination(originCityId, destinationCityId);
-            rates.add(rate);
-            return ResponseEntity.ok(rates);
-        } else if (originCityId != null) {
-            return ResponseEntity.ok(this.rateController.getByOrigin(originCityId));
-        } else if (destinationCityId != null) {
-            return ResponseEntity.ok(this.rateController.getByDestination(destinationCityId));
-        }
-        return ResponseEntity.ok(this.rateController.getAllRates());
+            rates.add(this.rateController.getByOriginAndDestination(originCityId, destinationCityId));
+        } else if (originCityId != null) rates = this.rateController.getByOrigin(originCityId);
+        else if (destinationCityId != null) rates = this.rateController.getByDestination(originCityId);
+        return rates.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(rates);
     }
 
 }

@@ -19,7 +19,7 @@ import javax.validation.constraints.Pattern;
 @ToString
 @Builder
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class UserRegisterDTO {
+public class UserDTO {
 
     @Pattern(regexp = "^[\\p{L} .'-]+$", message = "Invalid name!")
     private String name;

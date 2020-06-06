@@ -1,6 +1,6 @@
 package com.utn.UTNphones.Controllers;
 
-import com.utn.UTNphones.Domains.Dto.PhonelineRegisterDTO;
+import com.utn.UTNphones.Domains.Dto.PhonelineDTO;
 import com.utn.UTNphones.Domains.Phoneline;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDigitsCountPlusPrefix;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
@@ -23,12 +23,11 @@ public class PhonelineController {
         return this.phonelineService.getById(id);
     }
 
-    public Phoneline add(PhonelineRegisterDTO phonelineRegisterDto) throws Exception {
-        if (!phonelineRegisterDto.validNumberWithPrefix(cityService.getById(phonelineRegisterDto.getCityId()).getPrefix()))
+    public Phoneline add(PhonelineDTO phonelineDto) throws Exception {
+        if (!phonelineDto.validNumberWithPrefix(cityService.getById(phonelineDto.getCityId()).getPrefix()))
             throw new PhonelineDigitsCountPlusPrefix();
         try {
-            Phoneline phoneline = new Phoneline(phonelineRegisterDto);
-            return phonelineService.add(phoneline);
+            return phonelineService.add(Phoneline.fromDto(phonelineDto));
         } catch (DataAccessException ex) {
             ExceptionController.phonelineAddException(ex);
         }
@@ -40,8 +39,9 @@ public class PhonelineController {
         phonelineService.removeById(phoneId);
     }
 
-    public Phoneline update(Integer id, Phoneline phoneline) throws Exception {
+    public Phoneline update(Integer id, PhonelineDTO phonelineDto) throws Exception {
         this.phonelineService.getById(id);
+        Phoneline phoneline = Phoneline.fromDto(phonelineDto);
         phoneline.setId(id);
         try {
             return this.phonelineService.update(phoneline);

@@ -6,9 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Data
@@ -16,9 +13,6 @@ import javax.validation.constraints.Pattern;
 @Builder
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class UserPatchUpdateDTO {
-
-    @NotNull(message = "id is mandatory")
-    private final Integer id;
 
     @Pattern(regexp = "^[\\p{L} .'-]+$", message = "Invalid name!")
     private final String name;

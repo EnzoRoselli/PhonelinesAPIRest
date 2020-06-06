@@ -1,5 +1,6 @@
 package com.utn.UTNphones.Domains;
 
+import com.utn.UTNphones.Domains.Dto.NewCallDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +18,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
-import java.util.stream.Stream;
 
 @Entity
 @Table(name = "calls")
@@ -66,9 +66,8 @@ public class Call {
     @Column(name = "duration")
     private Integer duration;
 
-
-    public boolean hasNullAttribute() {
-        return Stream.of(originPhoneline, destinationPhoneline, rate, date, total_price, duration, invoice, totalCost).anyMatch(x -> x == null);
+    public static Call fromDto(NewCallDTO newCallDTO) {
+        return Call.builder().originPhone(newCallDTO.getOriginNumber()).destinationPhone(newCallDTO.getDestinationNumber()).duration(newCallDTO.getDuration()).date(newCallDTO.getDate()).build();
     }
 
 

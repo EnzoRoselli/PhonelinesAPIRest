@@ -1,9 +1,8 @@
 package com.utn.UTNphones.Controllers.Webs.Employee;
 
 import com.utn.UTNphones.Controllers.UserController;
+import com.utn.UTNphones.Domains.Dto.UserDTO;
 import com.utn.UTNphones.Domains.Dto.UserPatchUpdateDTO;
-import com.utn.UTNphones.Domains.Dto.UserRegisterDTO;
-import com.utn.UTNphones.Domains.Dto.UserUpdateDTO;
 import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Sessions.SessionManager;
@@ -31,39 +30,37 @@ import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USER_ID
 @RequestMapping("employee/clients")
 public class ClientManagementController {
     private final UserController userController;
-    private final SessionManager sessionManager;
-
 
     @PostMapping
-    public ResponseEntity register(@RequestHeader("Authorization") String sessionToken, @RequestBody @Valid UserRegisterDTO userRegistering) throws Exception {
-        User user = userController.register(userRegistering);
-        return ResponseEntity.created(getLocation(user)).build();
-        
+    public ResponseEntity register(@RequestHeader("Authorization") String sessionToken, @RequestBody @Valid UserDTO userRegistering) throws Exception {
+        return ResponseEntity.created(getLocation(userController.register(userRegistering))).build();
+
     }
 
     @GetMapping(USER_ID)
     public ResponseEntity<User> getUser(@RequestHeader("Authorization") String sessionToken, @PathVariable("userId") Integer userId) throws UserDoesntExist {
-        User user = this.userController.findById(userId);
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(this.userController.findById(userId));
     }
 
     @DeleteMapping(USER_ID)
     public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("userId") Integer userId) throws UserDoesntExist {
-         this.userController.delete(userId);
+        this.userController.delete(userId);
         return ResponseEntity.ok().build();
     }
 
 
-    @PatchMapping
-    public ResponseEntity<User> modification(@RequestHeader("Authorization") String sessionToken, @RequestBody @Valid UserPatchUpdateDTO userUpdating) throws Exception {
-        User user = this.userController.modification(userUpdating);
-        return ResponseEntity.ok(user);
+    @PatchMapping(USER_ID)
+    public ResponseEntity<User> modification(@RequestHeader("Authorization") String sessionToken,
+                                             @PathVariable("userId") Integer userId,
+                                             @RequestBody @Valid UserPatchUpdateDTO userUpdating) throws Exception {
+        return ResponseEntity.ok(this.userController.modification(userId, userUpdating));
     }
 
-    @PutMapping
-    public ResponseEntity<User> update(@RequestHeader("Authorization") String sessionToken, @RequestBody @Valid UserUpdateDTO userUpdating) throws Exception {
-        User user = this.userController.update(userUpdating);
-        return ResponseEntity.ok(user);
+    @PutMapping(USER_ID)
+    public ResponseEntity<User> update(@RequestHeader("Authorization") String sessionToken,
+                                       @PathVariable("userId") Integer userId,
+                                       @RequestBody @Valid UserDTO userUpdating) throws Exception {
+        return ResponseEntity.ok(this.userController.update(userId, userUpdating));
     }
 
     public URI getLocation(User user) {

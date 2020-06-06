@@ -1,7 +1,7 @@
 package com.utn.UTNphones.Controllers.Webs.Employee;
 
 import com.utn.UTNphones.Controllers.PhonelineController;
-import com.utn.UTNphones.Domains.Dto.PhonelineRegisterDTO;
+import com.utn.UTNphones.Domains.Dto.PhonelineDTO;
 import com.utn.UTNphones.Domains.Phoneline;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
 import com.utn.UTNphones.Sessions.SessionManager;
@@ -27,21 +27,17 @@ import static com.utn.UTNphones.Controllers.Webs.URLconstants.PhonelineRouter.PH
 @RequiredArgsConstructor
 @RequestMapping("employee/phonelines")
 class PhonelineManagementController {
-    private final SessionManager sessionManager;
     private final PhonelineController phonelineController;
 
     @PostMapping
-    public ResponseEntity register(@RequestHeader("Authorization") String sessionToken, @RequestBody @Valid PhonelineRegisterDTO newPhoneline) throws Exception {
-
-        Phoneline phoneline = phonelineController.add(newPhoneline);
-        return ResponseEntity.created(getLocation(phoneline)).build();
+    public ResponseEntity register(@RequestHeader("Authorization") String sessionToken, @RequestBody @Valid PhonelineDTO newPhoneline) throws Exception {
+        return ResponseEntity.created(getLocation(phonelineController.add(newPhoneline))).build();
     }
 
     @GetMapping(PHONELINE_ID)
     public ResponseEntity<Phoneline> getPhoneline(@RequestHeader("Authorization") String sessionToken,
                                                   @PathVariable("phonelineId") Integer phonelineId) throws PhonelineDoesntExist {
-        Phoneline phoneline = phonelineController.getById(phonelineId);
-        return ResponseEntity.ok(phoneline);
+        return ResponseEntity.ok(phonelineController.getById(phonelineId));
     }
 
     @DeleteMapping(PHONELINE_ID)
@@ -52,10 +48,10 @@ class PhonelineManagementController {
     }
 
     @PutMapping(PHONELINE_ID)
-    public ResponseEntity update(@RequestHeader("Authorization") String sessionToken,
-                                 @PathVariable("phonelineId") Integer phoneId, @RequestBody Phoneline phonelineUpdating) throws Exception {
-        this.phonelineController.update(phoneId, phonelineUpdating);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Phoneline> update(@RequestHeader("Authorization") String sessionToken,
+                                            @PathVariable("phonelineId") Integer phoneId, @RequestBody PhonelineDTO phonelineUpdating) throws Exception {
+
+        return ResponseEntity.ok(this.phonelineController.update(phoneId, phonelineUpdating));
     }
 
     private URI getLocation(Phoneline phoneline) {
