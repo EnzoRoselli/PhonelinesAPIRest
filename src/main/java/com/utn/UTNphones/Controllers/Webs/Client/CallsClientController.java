@@ -49,7 +49,7 @@ public class CallsClientController {
         } else if (endDate == null) {
             calls = this.callController.getByUserStartDate(userId, startDate);
         } else {
-            SearchBetweenDatesDTO datesDto = SearchBetweenDatesDTO.builder().start(startDate).end(endDate).build();
+            SearchBetweenDatesDTO datesDto = SearchBetweenDatesDTO.builder().start(startDate).end(endDate).build(); //todo pasarlo a un FromDTO
             calls = this.callController.getByUserBetweenDates(userId, datesDto);
         }
         return calls.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(calls);
