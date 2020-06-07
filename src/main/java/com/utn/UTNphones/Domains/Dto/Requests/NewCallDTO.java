@@ -18,7 +18,7 @@ import java.util.Date;
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 
 public class NewCallDTO {
-//todo corroboraciones
+    //todo corroboraciones
     String originNumber;
 
     String destinationNumber;

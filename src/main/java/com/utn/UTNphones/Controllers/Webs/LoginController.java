@@ -2,7 +2,6 @@ package com.utn.UTNphones.Controllers.Webs;
 
 import com.utn.UTNphones.Controllers.UserController;
 import com.utn.UTNphones.Domains.Dto.Requests.LoginDTO;
-import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Sessions.SessionManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +16,7 @@ import javax.validation.Valid;
 
 import static com.utn.UTNphones.Controllers.Webs.URLconstants.LogRouter.ADMIN_LOGIN;
 import static com.utn.UTNphones.Controllers.Webs.URLconstants.LogRouter.CLIENT_LOGIN;
+import static com.utn.UTNphones.Controllers.Webs.URLconstants.LogRouter.INFRASTRUCTURE_LOGIN;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,16 +26,23 @@ public class LoginController {
     private final SessionManager sessionManager;
 
     @PostMapping(ADMIN_LOGIN)
-    public ResponseEntity<String> adminLogin(@RequestBody @Valid LoginDTO userLogging) throws LogException {
+    public ResponseEntity<String> adminLogin(@RequestBody @Valid LoginDTO userLogging) {
         String token = sessionManager.createSession(userController.adminlogin(userLogging));
         return ResponseEntity.ok(token);
     }
 
     @PostMapping(CLIENT_LOGIN)
-    public ResponseEntity<String> clientLogin(@RequestBody @Valid LoginDTO userLogging) throws LogException {
+    public ResponseEntity<String> clientLogin(@RequestBody @Valid LoginDTO userLogging) {
         String token = sessionManager.createSession(userController.clientLogin(userLogging));
         return ResponseEntity.ok(token);
     }
+
+    @PostMapping(INFRASTRUCTURE_LOGIN)
+    public ResponseEntity<String> infrastructureLogin(@RequestBody @Valid LoginDTO userLogging) {
+        String token = sessionManager.createSession(userController.infrastructureLogin(userLogging));
+        return ResponseEntity.ok(token);
+    }
+
 
     @PostMapping("/logout")
     public ResponseEntity logout(@RequestHeader("Authorization") String token) {

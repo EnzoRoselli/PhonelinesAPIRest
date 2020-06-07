@@ -4,7 +4,6 @@ import com.utn.UTNphones.Domains.Dto.Requests.PhonelineDTO;
 import com.utn.UTNphones.Domains.Phoneline;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.IlegalUserForPhoneline;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDigitsCountPlusPrefix;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
 import com.utn.UTNphones.Services.CityService;
 import com.utn.UTNphones.Services.PhonelineService;
 import com.utn.UTNphones.Services.UserService;
@@ -22,7 +21,7 @@ public class PhonelineController {
     private final CityService cityService;
     private final UserService userService;
 
-    public Phoneline getById(Integer id){
+    public Phoneline getById(Integer id) {
         return this.phonelineService.getById(id);
     }
 

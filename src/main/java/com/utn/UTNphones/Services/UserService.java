@@ -18,18 +18,24 @@ public class UserService {
 
     public User clientLogin(User user) {
         return Optional.ofNullable(userRepository.findByIdentificationAndPasswordAndType
-                (user.getIdentification(), user.getPassword(),"client")).orElseThrow(LogException::new);
+                (user.getIdentification(), user.getPassword(), "client")).orElseThrow(LogException::new);
     }
-    public User adminLogin(User user){
+
+    public User adminLogin(User user) {
         return Optional.ofNullable(userRepository.findByIdentificationAndPasswordAndTypeAndStatus
-                (user.getIdentification(), user.getPassword(),"employee",true)).orElseThrow(LogException::new);
+                (user.getIdentification(), user.getPassword(), "employee", true)).orElseThrow(LogException::new);
+    }
+
+    public User infrastructureLogin(User user) {
+        return Optional.ofNullable(userRepository.findByIdentificationAndPasswordAndType
+                (user.getIdentification(), user.getPassword(), "infrastructure")).orElseThrow(LogException::new);
     }
 
     public User register(User user) throws DataAccessException {
         return Optional.of(userRepository.save(user)).orElseThrow(UserDoesntExist::new);
     }
 
-    public User update(User user)  {
+    public User update(User user) {
         return Optional.of(this.userRepository.save(user)).orElseThrow(UserDoesntExist::new);
     }
 
@@ -39,7 +45,7 @@ public class UserService {
         return user.get();
     }
 
-    public User findByIdentification(String identification)  {
+    public User findByIdentification(String identification) {
         return Optional.ofNullable(this.userRepository.findByIdentification(identification)).orElseThrow(UserDoesntExist::new);
     }
 
@@ -47,5 +53,6 @@ public class UserService {
     public void delete(Integer userId) {
         this.userRepository.deleteById(userId);
     }
+
 
 }

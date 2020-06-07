@@ -29,13 +29,13 @@ public class PhonelineService {
         return phoneList;
     }
 
-    public Phoneline findByNumber(String number)  {
+    public Phoneline findByNumber(String number) {
         Phoneline ph = phonelineRepository.findByNumber(number);
         if (ph == null) throw new PhonelineDoesntExist();
         return ph;
     }
 
-    public Phoneline getById(Integer id)  {
+    public Phoneline getById(Integer id) {
         Optional<Phoneline> ph = phonelineRepository.findById(id);
         if (ph.isEmpty()) {
             throw new PhonelineDoesntExist();

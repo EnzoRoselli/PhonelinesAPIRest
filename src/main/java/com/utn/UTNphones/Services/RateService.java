@@ -25,7 +25,7 @@ public class RateService {
         return rate.get();
     }
 
-    public Rate findById(Integer id)  {
+    public Rate findById(Integer id) {
         Optional<Rate> rate = this.rateRepository.findById(id);
         if (rate.isEmpty()) throw new RateDoesntExist();
         else return rate.get();

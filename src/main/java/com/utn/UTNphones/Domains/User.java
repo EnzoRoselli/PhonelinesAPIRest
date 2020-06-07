@@ -48,7 +48,7 @@ public class User {
     private City city;
 
     public static User fromLoginDto(LoginDTO loginDTO) {
-       return User.builder().identification(loginDTO.getIdentification()).password(loginDTO.getPassword()).build();
+        return User.builder().identification(loginDTO.getIdentification()).password(loginDTO.getPassword()).build();
     }
 
     public static User fromDto(UserDTO u) {

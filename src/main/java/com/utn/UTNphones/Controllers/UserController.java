@@ -5,7 +5,6 @@ import com.utn.UTNphones.Domains.Dto.Requests.LoginDTO;
 import com.utn.UTNphones.Domains.Dto.Requests.UserDTO;
 import com.utn.UTNphones.Domains.Dto.Requests.UserPatchUpdateDTO;
 import com.utn.UTNphones.Domains.User;
-import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
@@ -21,11 +20,16 @@ public class UserController {
 
     private final UserService userService;
 
-    public User adminlogin(LoginDTO loginDTO)  {
+    public User adminlogin(LoginDTO loginDTO) {
         return userService.adminLogin(User.fromLoginDto(loginDTO));
     }
+
     public User clientLogin(LoginDTO loginDTO) {
-         return userService.clientLogin(User.fromLoginDto(loginDTO));
+        return userService.clientLogin(User.fromLoginDto(loginDTO));
+    }
+
+    public User infrastructureLogin(LoginDTO loginDTO) {
+        return userService.infrastructureLogin(User.fromLoginDto(loginDTO));
     }
 
     public User register(UserDTO userDTO) throws Exception {

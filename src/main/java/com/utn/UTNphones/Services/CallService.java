@@ -22,7 +22,7 @@ public class CallService {
         callRepository.save(call);
     }
 
-    public List<Call> getCallsByPhoneNumbers(List<Phoneline> phoneListOfTheUser){
+    public List<Call> getCallsByPhoneNumbers(List<Phoneline> phoneListOfTheUser) {
         List<Call> calls = callRepository.findByOriginPhonelineIn(phoneListOfTheUser);
         if (calls.isEmpty()) {
             throw new NoCallsFound();
