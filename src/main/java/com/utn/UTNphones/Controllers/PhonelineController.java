@@ -27,7 +27,7 @@ public class PhonelineController {
         if (!phonelineDto.validNumberWithPrefix(cityService.getById(phonelineDto.getCityId()).getPrefix()))
             throw new PhonelineDigitsCountPlusPrefix();
         try {
-            
+
             return phonelineService.add(Phoneline.fromDto(phonelineDto));
         } catch (DataAccessException ex) {
             ExceptionController.phonelineAddException(ex);

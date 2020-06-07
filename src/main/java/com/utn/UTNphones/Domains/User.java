@@ -47,9 +47,8 @@ public class User {
     @JoinColumn(name = "id_city")
     private City city;
 
-    public User(LoginDTO loginDTO) {
-        identification = loginDTO.getIdentification();
-        password = loginDTO.getPassword();
+    public static User fromLoginDto(LoginDTO loginDTO) {
+       return User.builder().identification(loginDTO.getIdentification()).password(loginDTO.getPassword()).build();
     }
 
     public static User fromDto(UserDTO u) {

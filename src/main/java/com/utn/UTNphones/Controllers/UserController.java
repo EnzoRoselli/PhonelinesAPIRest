@@ -22,8 +22,7 @@ public class UserController {
     private final UserService userService;
 
     public User login(LoginDTO loginDTO) throws LogException {
-        User u = User.builder().identification(loginDTO.getIdentification()).password(loginDTO.getPassword()).build();
-        return userService.login(u);
+        return userService.login(User.fromLoginDto(loginDTO));
     }
 
     public User register(UserDTO userDTO) throws Exception {
