@@ -3,7 +3,6 @@ package com.utn.UTNphones.Controllers.Webs.Employee;
 import com.utn.UTNphones.Controllers.RateController;
 import com.utn.UTNphones.Domains.Rate;
 import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
-import com.utn.UTNphones.Sessions.SessionManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

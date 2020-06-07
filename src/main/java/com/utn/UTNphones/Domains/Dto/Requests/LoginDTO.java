@@ -20,6 +20,7 @@ import javax.validation.constraints.Pattern;
 public class LoginDTO {
 
     @Pattern(regexp = "^[1-9]{7,9}$", message = "Invalid identification!")
+    @NotBlank(message = "identification is mandatory")
     private String identification;
 
     @NotBlank(message = "Password is mandatory")

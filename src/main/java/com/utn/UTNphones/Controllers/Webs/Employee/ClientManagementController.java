@@ -23,6 +23,7 @@ import javax.validation.Valid;
 import java.net.URI;
 
 import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USER_ID;
+import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USER_ID_PARAM;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,12 +38,12 @@ public class ClientManagementController {
     }
 
     @GetMapping(USER_ID)
-    public ResponseEntity<User> getUser(@RequestHeader("Authorization") String sessionToken, @PathVariable("userId") Integer userId) throws UserDoesntExist {
+    public ResponseEntity<User> getUser(@RequestHeader("Authorization") String sessionToken, @PathVariable(USER_ID_PARAM) Integer userId) throws UserDoesntExist {
         return ResponseEntity.ok(this.userController.findById(userId));
     }
 
     @DeleteMapping(USER_ID)
-    public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable("userId") Integer userId) throws UserDoesntExist {
+    public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable(USER_ID_PARAM) Integer userId) throws UserDoesntExist {
         this.userController.delete(userId);
         return ResponseEntity.ok().build();
     }
@@ -50,14 +51,14 @@ public class ClientManagementController {
 
     @PatchMapping(USER_ID)
     public ResponseEntity<User> modification(@RequestHeader("Authorization") String sessionToken,
-                                             @PathVariable("userId") Integer userId,
+                                             @PathVariable(USER_ID_PARAM) Integer userId,
                                              @RequestBody @Valid UserPatchUpdateDTO userUpdating) throws Exception {
         return ResponseEntity.ok(this.userController.modification(userId, userUpdating));
     }
 
     @PutMapping(USER_ID)
     public ResponseEntity<User> update(@RequestHeader("Authorization") String sessionToken,
-                                       @PathVariable("userId") Integer userId,
+                                       @PathVariable(USER_ID_PARAM) Integer userId,
                                        @RequestBody @Valid UserDTO userUpdating) throws Exception {
         return ResponseEntity.ok(this.userController.update(userId, userUpdating));
     }

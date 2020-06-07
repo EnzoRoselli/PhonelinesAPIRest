@@ -1,8 +1,8 @@
 package com.utn.UTNphones.Services;
 
 import com.utn.UTNphones.Domains.Call;
-import com.utn.UTNphones.Domains.Dto.Responses.CityTop;
 import com.utn.UTNphones.Domains.Dto.Requests.SearchBetweenDatesDTO;
+import com.utn.UTNphones.Domains.Dto.Responses.CityTop;
 import com.utn.UTNphones.Domains.Phoneline;
 import com.utn.UTNphones.Exceptions.CallExceptions.NoCallsFound;
 import com.utn.UTNphones.Repositories.ICallRepository;
@@ -22,7 +22,7 @@ public class CallService {
         callRepository.save(call);
     }
 
-    public List<Call> getCallsByPhoneNumbers(List<Phoneline> phoneListOfTheUser) throws NoCallsFound {
+    public List<Call> getCallsByPhoneNumbers(List<Phoneline> phoneListOfTheUser){
         List<Call> calls = callRepository.findByOriginPhonelineIn(phoneListOfTheUser);
         if (calls.isEmpty()) {
             throw new NoCallsFound();
@@ -30,7 +30,7 @@ public class CallService {
         return calls;
     }
 
-    public List<CityTop> getTopMostCalledCities(Integer userId) throws NoCallsFound {
+    public List<CityTop> getTopMostCalledCities(Integer userId) {
         List<CityTop> cityPlusCounter = this.callRepository.findTopMostCalledCities(userId);
         if (cityPlusCounter.isEmpty()) {
             throw new NoCallsFound();

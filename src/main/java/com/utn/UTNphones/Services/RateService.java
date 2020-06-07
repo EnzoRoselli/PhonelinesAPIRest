@@ -19,13 +19,13 @@ public class RateService {
         return rateRepository.findAll();
     }
 
-    public Rate findByOriginAndDestination(Integer originId, Integer destinationId) throws RateDoesntExist {
+    public Rate findByOriginAndDestination(Integer originId, Integer destinationId) {
         Optional<Rate> rate = this.rateRepository.findByOriginCityIdAndDestinationCityId(originId, destinationId);
         if (rate.isEmpty()) throw new RateDoesntExist();
         return rate.get();
     }
 
-    public Rate findById(Integer id) throws RateDoesntExist {
+    public Rate findById(Integer id)  {
         Optional<Rate> rate = this.rateRepository.findById(id);
         if (rate.isEmpty()) throw new RateDoesntExist();
         else return rate.get();

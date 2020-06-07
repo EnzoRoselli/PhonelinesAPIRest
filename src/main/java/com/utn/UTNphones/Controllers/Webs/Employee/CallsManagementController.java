@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USER_ID;
+import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USER_ID_PARAM;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,7 +26,7 @@ public class CallsManagementController {
 
     @GetMapping(USER_ID)
     public ResponseEntity<List<Call>> getByUserId(@RequestHeader("Authorization") String sessionToken,
-                                                  @PathVariable("userId") Integer userId) throws NoCallsFound, UserDoesntExist, PhonelinesNotRegisteredByUser {
+                                                  @PathVariable(USER_ID_PARAM) Integer userId) throws NoCallsFound, UserDoesntExist, PhonelinesNotRegisteredByUser {
         List<Call> callsByAnUser = this.callController.getCallsByUserId(userId);
         return callsByAnUser.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(callsByAnUser);
     }

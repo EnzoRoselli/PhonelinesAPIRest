@@ -22,9 +22,11 @@ import javax.validation.constraints.Pattern;
 public class UserDTO {
 
     @Pattern(regexp = "^[\\p{L} .'-]+$", message = "Invalid name!")
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @Pattern(regexp = "^[\\p{L} .'-]+$", message = "Invalid lastname!")
+    @NotBlank(message = "Last name is mandatory")
     private String lastname;
 
     @NotNull(message = "Status is mandatory")

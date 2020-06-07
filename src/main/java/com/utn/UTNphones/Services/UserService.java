@@ -16,26 +16,30 @@ public class UserService {
 
     private final IUserRepository userRepository;
 
-    public User login(User user) throws LogException {
-        return Optional.ofNullable(userRepository.findByIdentificationAndPassword
-                (user.getIdentification(), user.getPassword())).orElseThrow(LogException::new);
+    public User clientLogin(User user) {
+        return Optional.ofNullable(userRepository.findByIdentificationAndPasswordAndType
+                (user.getIdentification(), user.getPassword(),"client")).orElseThrow(LogException::new);
+    }
+    public User adminLogin(User user){
+        return Optional.ofNullable(userRepository.findByIdentificationAndPasswordAndTypeAndStatus
+                (user.getIdentification(), user.getPassword(),"employee",true)).orElseThrow(LogException::new);
     }
 
-    public User register(User user) throws DataAccessException, UserDoesntExist {
+    public User register(User user) throws DataAccessException {
         return Optional.of(userRepository.save(user)).orElseThrow(UserDoesntExist::new);
     }
 
-    public User update(User user) throws UserDoesntExist {
+    public User update(User user)  {
         return Optional.of(this.userRepository.save(user)).orElseThrow(UserDoesntExist::new);
     }
 
-    public User findById(Integer id) throws UserDoesntExist {
+    public User findById(Integer id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty()) throw new UserDoesntExist();
         return user.get();
     }
 
-    public User findByIdentification(String identification) throws UserDoesntExist {
+    public User findByIdentification(String identification)  {
         return Optional.ofNullable(this.userRepository.findByIdentification(identification)).orElseThrow(UserDoesntExist::new);
     }
 
@@ -43,4 +47,5 @@ public class UserService {
     public void delete(Integer userId) {
         this.userRepository.deleteById(userId);
     }
+
 }

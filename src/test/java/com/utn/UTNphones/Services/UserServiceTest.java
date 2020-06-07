@@ -32,31 +32,31 @@ public class UserServiceTest {
         userService = new UserService(userRepository);
     }
 
-    @Test
-    public void testLoginOk() throws LogException {
-        User aux = User.builder().identification("1").password("1234").build();
+//    @Test
+//    public void testLoginOk() throws LogException {
+//        User aux = User.builder().identification("1").password("1234").build();
+//
+//        User loggedUser = User.builder().id(1).name("Enzo").lastname("Roselli").type("client")
+//                .identification("1").password("1234").city(null).build();
+//
+//        when(userRepository.findByIdentificationAndPassword(aux.getIdentification(), aux.getPassword())).thenReturn(loggedUser);
+//        User u = userService.login(aux);
+//
+//        assertEquals(u, loggedUser);
+//    }
 
-        User loggedUser = User.builder().id(1).name("Enzo").lastname("Roselli").type("client")
-                .identification("1").password("1234").city(null).build();
-
-        when(userRepository.findByIdentificationAndPassword(aux.getIdentification(), aux.getPassword())).thenReturn(loggedUser);
-        User u = userService.login(aux);
-
-        assertEquals(u, loggedUser);
-    }
-
-    @Test(expected = LogException.class)
-    public void testLoginLogException() throws LogException {
-        User aux = User.builder().identification("1").password("1234").build();
-
-        User loggedUser = User.builder().id(1).name("Enzo").lastname("Roselli").type("client")
-                .identification("1").password("1234").city(null).build();
-
-        when(userRepository.findByIdentificationAndPassword(aux.getIdentification(), aux.getPassword())).thenReturn(null);
-        User u = userService.login(aux);
-
-        assertEquals(u, loggedUser);
-    }
+//    @Test(expected = LogException.class)
+//    public void testLoginLogException() throws LogException {
+//        User aux = User.builder().identification("1").password("1234").build();
+//
+//        User loggedUser = User.builder().id(1).name("Enzo").lastname("Roselli").type("client")
+//                .identification("1").password("1234").city(null).build();
+//
+//        when(userRepository.findByIdentificationAndPassword(aux.getIdentification(), aux.getPassword())).thenReturn(null);
+//        User u = userService.login(aux);
+//
+//        assertEquals(u, loggedUser);
+//    }
 
     @Test
     public void testRegisterOk() throws UserDoesntExist, DataAccessException {

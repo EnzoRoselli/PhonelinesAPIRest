@@ -21,7 +21,7 @@ public class PhonelineService {
         return phonelineRepository.save(phoneline);
     }
 
-    public List<Phoneline> findByUserId(Integer id) throws PhonelinesNotRegisteredByUser {
+    public List<Phoneline> findByUserId(Integer id) {
         List<Phoneline> phoneList = this.phonelineRepository.findByUserId(id);
         if (phoneList.isEmpty()) {
             throw new PhonelinesNotRegisteredByUser();
@@ -29,13 +29,13 @@ public class PhonelineService {
         return phoneList;
     }
 
-    public Phoneline findByNumber(String number) throws PhonelineDoesntExist {
+    public Phoneline findByNumber(String number)  {
         Phoneline ph = phonelineRepository.findByNumber(number);
         if (ph == null) throw new PhonelineDoesntExist();
         return ph;
     }
 
-    public Phoneline getById(Integer id) throws PhonelineDoesntExist {
+    public Phoneline getById(Integer id)  {
         Optional<Phoneline> ph = phonelineRepository.findById(id);
         if (ph.isEmpty()) {
             throw new PhonelineDoesntExist();

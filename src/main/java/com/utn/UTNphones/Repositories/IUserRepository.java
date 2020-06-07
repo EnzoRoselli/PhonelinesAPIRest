@@ -6,7 +6,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IUserRepository extends JpaRepository<User, Integer> {
-    User findByIdentificationAndPassword(String ic, String password);
+
+    User findByIdentificationAndPasswordAndType(String ic, String password,String type);
+
+    User findByIdentificationAndPasswordAndTypeAndStatus(String ic, String password,String type,Boolean status);
 
     User findByIdentification(String identification);
 }

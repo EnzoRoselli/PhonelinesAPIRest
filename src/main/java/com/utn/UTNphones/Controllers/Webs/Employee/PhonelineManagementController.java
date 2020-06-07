@@ -21,6 +21,7 @@ import javax.validation.Valid;
 import java.net.URI;
 
 import static com.utn.UTNphones.Controllers.Webs.URLconstants.PhonelineRouter.PHONELINE_ID;
+import static com.utn.UTNphones.Controllers.Webs.URLconstants.PhonelineRouter.PHONELINE_ID_PARAM;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,30 +31,34 @@ class PhonelineManagementController {
 
     @PostMapping
     public ResponseEntity register(@RequestHeader("Authorization") String sessionToken, @RequestBody @Valid PhonelineDTO newPhoneline) throws Exception {
+
         return ResponseEntity.created(getLocation(phonelineController.add(newPhoneline))).build();
     }
 
     @GetMapping(PHONELINE_ID)
     public ResponseEntity<Phoneline> getPhoneline(@RequestHeader("Authorization") String sessionToken,
-                                                  @PathVariable("phonelineId") Integer phonelineId) throws PhonelineDoesntExist {
+                                                  @PathVariable(PHONELINE_ID_PARAM) Integer phonelineId) throws PhonelineDoesntExist {
+
         return ResponseEntity.ok(phonelineController.getById(phonelineId));
     }
 
     @DeleteMapping(PHONELINE_ID)
     public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken,
-                                 @PathVariable("phonelineId") Integer phoneId) throws PhonelineDoesntExist {
+                                 @PathVariable(PHONELINE_ID_PARAM) Integer phoneId) throws PhonelineDoesntExist {
         this.phonelineController.remove(phoneId);
+
         return ResponseEntity.ok().build();
     }
 
     @PutMapping(PHONELINE_ID)
     public ResponseEntity<Phoneline> update(@RequestHeader("Authorization") String sessionToken,
-                                            @PathVariable("phonelineId") Integer phoneId, @RequestBody PhonelineDTO phonelineUpdating) throws Exception {
+                                            @PathVariable(PHONELINE_ID_PARAM) Integer phoneId, @RequestBody PhonelineDTO phonelineUpdating) throws Exception {
 
         return ResponseEntity.ok(this.phonelineController.update(phoneId, phonelineUpdating));
     }
 
     private URI getLocation(Phoneline phoneline) {
+
         return ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

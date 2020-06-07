@@ -2,7 +2,6 @@ package com.utn.UTNphones.Domains.Dto.Requests;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
@@ -11,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -20,10 +20,12 @@ import java.util.Date;
 @Builder
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class SearchBetweenDatesDTO {
-    @JsonProperty
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @NotBlank(message = "StartDate is mandatory")
     Date start;
-    @JsonProperty
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @NotBlank(message = "EndDate is mandatory")
     Date end;
 }

@@ -14,7 +14,7 @@ public class CityService {
 
     private final ICityRepository cityRepository;
 
-    public City getById(Integer id) throws CityDoesntExist {
+    public City getById(Integer id) {
         Optional<City> cityOptional = cityRepository.findById(id);
         if (cityOptional.isEmpty()) throw new CityDoesntExist();
         return cityOptional.get();

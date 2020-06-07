@@ -39,12 +39,12 @@ public class PhonelineControllerTest {
     PhonelineService phonelineService;
     @Mock
     CityService cityService;
-
-    @Before
-    public void setUp(){
-        initMocks(this);
-        phonelineController = new PhonelineController(phonelineService, cityService);
-    }
+//
+//    @Before
+//    public void setUp(){
+//        initMocks(this);
+//        phonelineController = new PhonelineController(phonelineService, cityService);
+//    }
 
     @Test
     public void getByIdOk() throws PhonelineDoesntExist {

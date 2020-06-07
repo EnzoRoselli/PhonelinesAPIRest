@@ -6,6 +6,7 @@ import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineTypeError;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserIdentificationAlreadyExists;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeDoesntExist;
+import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeWithIdentificationAlreadyExists;
 import org.hibernate.JDBCException;
 import org.springframework.dao.DataAccessException;
 
@@ -17,7 +18,7 @@ public class ExceptionController {
             case 1452:
                 throw new CityDoesntExist();
             case 1062:
-                throw new UserIdentificationAlreadyExists();
+                throw new UserTypeWithIdentificationAlreadyExists();
             case 1265:
                 throw new UserTypeDoesntExist();
             default:

@@ -1,5 +1,7 @@
 package com.utn.UTNphones.Domains.Dto.Requests;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,8 +15,10 @@ import java.util.Date;
 @Data
 @ToString
 @Builder
-public class NewCallDTO {
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 
+public class NewCallDTO {
+//todo corroboraciones
     String originNumber;
 
     String destinationNumber;

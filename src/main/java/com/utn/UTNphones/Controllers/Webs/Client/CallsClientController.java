@@ -2,8 +2,8 @@ package com.utn.UTNphones.Controllers.Webs.Client;
 
 import com.utn.UTNphones.Controllers.CallController;
 import com.utn.UTNphones.Domains.Call;
-import com.utn.UTNphones.Domains.Dto.Responses.CityTop;
 import com.utn.UTNphones.Domains.Dto.Requests.SearchBetweenDatesDTO;
+import com.utn.UTNphones.Domains.Dto.Responses.CityTop;
 import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Exceptions.CallExceptions.NoCallsFound;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
@@ -22,6 +22,8 @@ import javax.websocket.server.PathParam;
 import java.util.Date;
 import java.util.List;
 
+import static com.utn.UTNphones.Controllers.Webs.URLconstants.CallRouter.TOP_DESTINATION;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("client/calls")
@@ -30,7 +32,7 @@ public class CallsClientController {
     private final SessionManager sessionManager;
 
 
-    @GetMapping("/mostDestinationsCalled")
+    @GetMapping(TOP_DESTINATION)
     public ResponseEntity<List<CityTop>> mostDestinationsCalled(@RequestHeader("Authorization") String sessionToken) throws CallException {
         List<CityTop> citiesWithCounter = this.callController.getTopDestinationsCalled(sessionManager.getCurrentUser(sessionToken).get().getId());
         return citiesWithCounter.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(citiesWithCounter);

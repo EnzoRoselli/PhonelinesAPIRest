@@ -1,9 +1,11 @@
 package com.utn.UTNphones.Controllers.Webs;
 
+import com.utn.UTNphones.Domains.Dto.Responses.AttributesResponseErrorDto;
 import com.utn.UTNphones.Domains.Dto.Responses.ErrorResponseDTO;
 import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Exceptions.CityExceptions.CityDoesntExist;
 import com.utn.UTNphones.Exceptions.ParametersException;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.IlegalUserForPhoneline;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineAlreadyExists;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDigitsCountPlusPrefix;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
@@ -14,15 +16,12 @@ import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserIdentificationAlreadyExists;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeDoesntExist;
+import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeWithIdentificationAlreadyExists;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestControllerAdvice
 public class AdviceController {
@@ -95,6 +94,18 @@ public class AdviceController {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IlegalUserForPhoneline.class)
+    public ErrorResponseDTO handleIlegalUserForPhoneline(IlegalUserForPhoneline ex) {
+        return new ErrorResponseDTO(2, ex.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(UserTypeWithIdentificationAlreadyExists.class)
+    public ErrorResponseDTO handleUserTypeWithIdentificationAlreadyExists(UserTypeWithIdentificationAlreadyExists ex) {
+        return new ErrorResponseDTO(2, ex.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(PhonelineTypeError.class)
     public ErrorResponseDTO handlePhonelineTypeError(PhonelineTypeError ex) {
         return new ErrorResponseDTO(2, ex.getMessage());
@@ -108,15 +119,9 @@ public class AdviceController {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(
+    public AttributesResponseErrorDto handleValidationExceptions(
             MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        return errors;
+        return AttributesResponseErrorDto.fromMethodArgumentNotValidException(ex);
     }
 
 }
