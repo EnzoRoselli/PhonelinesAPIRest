@@ -2,8 +2,8 @@ package com.utn.UTNphones.Controllers.Webs.Client;
 
 import com.utn.UTNphones.Controllers.CallController;
 import com.utn.UTNphones.Domains.Call;
-import com.utn.UTNphones.Domains.Dto.CityTop;
-import com.utn.UTNphones.Domains.Dto.SearchBetweenDatesDTO;
+import com.utn.UTNphones.Domains.Dto.Responses.CityTop;
+import com.utn.UTNphones.Domains.Dto.Requests.SearchBetweenDatesDTO;
 import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Exceptions.CallExceptions.NoCallsFound;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;

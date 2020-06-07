@@ -1,6 +1,6 @@
 package com.utn.UTNphones.Controllers.Webs;
 
-import com.utn.UTNphones.Domains.Dto.ErrorResponseDTO;
+import com.utn.UTNphones.Domains.Dto.Responses.ErrorResponseDTO;
 import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Exceptions.CityExceptions.CityDoesntExist;
 import com.utn.UTNphones.Exceptions.ParametersException;

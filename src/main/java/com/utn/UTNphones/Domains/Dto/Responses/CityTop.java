@@ -1,4 +1,4 @@
-package com.utn.UTNphones.Domains.Dto;
+package com.utn.UTNphones.Domains.Dto.Responses;
 
 public interface CityTop {
 

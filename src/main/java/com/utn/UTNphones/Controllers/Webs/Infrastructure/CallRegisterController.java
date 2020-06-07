@@ -1,7 +1,7 @@
 package com.utn.UTNphones.Controllers.Webs.Infrastructure;
 
 import com.utn.UTNphones.Controllers.CallController;
-import com.utn.UTNphones.Domains.Dto.NewCallDTO;
+import com.utn.UTNphones.Domains.Dto.Requests.NewCallDTO;
 import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

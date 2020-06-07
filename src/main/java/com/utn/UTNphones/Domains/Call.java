@@ -1,6 +1,6 @@
 package com.utn.UTNphones.Domains;
 
-import com.utn.UTNphones.Domains.Dto.NewCallDTO;
+import com.utn.UTNphones.Domains.Dto.Requests.NewCallDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

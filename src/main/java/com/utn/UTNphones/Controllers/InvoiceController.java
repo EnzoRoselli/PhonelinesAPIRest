@@ -1,6 +1,6 @@
 package com.utn.UTNphones.Controllers;
 
-import com.utn.UTNphones.Domains.Dto.SearchBetweenDatesDTO;
+import com.utn.UTNphones.Domains.Dto.Requests.SearchBetweenDatesDTO;
 import com.utn.UTNphones.Domains.Invoice;
 import com.utn.UTNphones.Services.InvoiceService;
 import lombok.RequiredArgsConstructor;

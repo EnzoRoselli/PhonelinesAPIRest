@@ -1,7 +1,7 @@
 package com.utn.UTNphones.Repositories;
 
 import com.utn.UTNphones.Domains.Call;
-import com.utn.UTNphones.Domains.Dto.CityTop;
+import com.utn.UTNphones.Domains.Dto.Responses.CityTop;
 import com.utn.UTNphones.Domains.Phoneline;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

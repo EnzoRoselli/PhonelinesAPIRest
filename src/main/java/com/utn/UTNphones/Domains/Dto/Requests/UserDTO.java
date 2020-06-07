@@ -1,4 +1,4 @@
-package com.utn.UTNphones.Domains.Dto;
+package com.utn.UTNphones.Domains.Dto.Requests;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -19,27 +19,28 @@ import javax.validation.constraints.Pattern;
 @ToString
 @Builder
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class PhonelineDTO {
+public class UserDTO {
 
-    @Pattern(regexp = "^[1-9]\\d*$", message = "Invalid number!")
-    @NotBlank(message = "Number is mandatory")
-    private String number;
+    @Pattern(regexp = "^[\\p{L} .'-]+$", message = "Invalid name!")
+    private String name;
 
-    @NotBlank(message = "Type is mandatory")
-    private String type;
+    @Pattern(regexp = "^[\\p{L} .'-]+$", message = "Invalid lastname!")
+    private String lastname;
 
     @NotNull(message = "Status is mandatory")
     private Boolean status;
 
-    @NotNull(message = "User id is mandatory")
-    @Min(value = 1, message = "User id is invalid")
-    private Integer userId;
+    @NotBlank(message = "Type is mandatory")
+    private String type;
+
+    @Pattern(regexp = "^[1-9]{7,9}$", message = "Invalid identification!")
+    @NotBlank(message = "Identification is mandatory")
+    private String identification;
+
+    @NotBlank(message = "Password is mandatory")
+    private String password;
 
     @NotNull(message = "City id is mandatory")
     @Min(value = 1, message = "City id is invalid")
     private Integer cityId;
-
-    public boolean validNumberWithPrefix(String prefix) {
-        return (String.valueOf(number).length() + String.valueOf(prefix).length()) == 10;
-    }
 }

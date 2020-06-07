@@ -1,7 +1,7 @@
 package com.utn.UTNphones.Domains;
 
-import com.utn.UTNphones.Domains.Dto.LoginDTO;
-import com.utn.UTNphones.Domains.Dto.UserDTO;
+import com.utn.UTNphones.Domains.Dto.Requests.LoginDTO;
+import com.utn.UTNphones.Domains.Dto.Requests.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

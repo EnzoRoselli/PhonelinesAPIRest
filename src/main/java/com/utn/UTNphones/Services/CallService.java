@@ -1,8 +1,8 @@
 package com.utn.UTNphones.Services;
 
 import com.utn.UTNphones.Domains.Call;
-import com.utn.UTNphones.Domains.Dto.CityTop;
-import com.utn.UTNphones.Domains.Dto.SearchBetweenDatesDTO;
+import com.utn.UTNphones.Domains.Dto.Responses.CityTop;
+import com.utn.UTNphones.Domains.Dto.Requests.SearchBetweenDatesDTO;
 import com.utn.UTNphones.Domains.Phoneline;
 import com.utn.UTNphones.Exceptions.CallExceptions.NoCallsFound;
 import com.utn.UTNphones.Repositories.ICallRepository;

@@ -1,9 +1,9 @@
 package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Domains.Call;
-import com.utn.UTNphones.Domains.Dto.CityTop;
-import com.utn.UTNphones.Domains.Dto.NewCallDTO;
-import com.utn.UTNphones.Domains.Dto.SearchBetweenDatesDTO;
+import com.utn.UTNphones.Domains.Dto.Responses.CityTop;
+import com.utn.UTNphones.Domains.Dto.Requests.NewCallDTO;
+import com.utn.UTNphones.Domains.Dto.Requests.SearchBetweenDatesDTO;
 import com.utn.UTNphones.Services.CallService;
 import com.utn.UTNphones.Services.PhonelineService;
 import com.utn.UTNphones.Services.UserService;

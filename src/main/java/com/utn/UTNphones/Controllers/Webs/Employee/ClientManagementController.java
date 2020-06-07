@@ -1,11 +1,10 @@
 package com.utn.UTNphones.Controllers.Webs.Employee;
 
 import com.utn.UTNphones.Controllers.UserController;
-import com.utn.UTNphones.Domains.Dto.UserDTO;
-import com.utn.UTNphones.Domains.Dto.UserPatchUpdateDTO;
+import com.utn.UTNphones.Domains.Dto.Requests.UserDTO;
+import com.utn.UTNphones.Domains.Dto.Requests.UserPatchUpdateDTO;
 import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
-import com.utn.UTNphones.Sessions.SessionManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

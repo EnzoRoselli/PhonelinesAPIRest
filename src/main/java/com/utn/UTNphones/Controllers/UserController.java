@@ -1,9 +1,9 @@
 package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Domains.City;
-import com.utn.UTNphones.Domains.Dto.LoginDTO;
-import com.utn.UTNphones.Domains.Dto.UserDTO;
-import com.utn.UTNphones.Domains.Dto.UserPatchUpdateDTO;
+import com.utn.UTNphones.Domains.Dto.Requests.LoginDTO;
+import com.utn.UTNphones.Domains.Dto.Requests.UserDTO;
+import com.utn.UTNphones.Domains.Dto.Requests.UserPatchUpdateDTO;
 import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Services.UserService;

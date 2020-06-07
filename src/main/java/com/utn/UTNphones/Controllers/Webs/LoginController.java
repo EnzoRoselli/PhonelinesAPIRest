@@ -1,7 +1,7 @@
 package com.utn.UTNphones.Controllers.Webs;
 
 import com.utn.UTNphones.Controllers.UserController;
-import com.utn.UTNphones.Domains.Dto.LoginDTO;
+import com.utn.UTNphones.Domains.Dto.Requests.LoginDTO;
 import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Sessions.SessionManager;

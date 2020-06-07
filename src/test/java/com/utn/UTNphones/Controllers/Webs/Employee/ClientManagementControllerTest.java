@@ -39,12 +39,12 @@ public class ClientManagementControllerTest {
     @Mock
     SessionManager sessionManager;
 
-    @Before
-    public void setUp(){
-        initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(new ClientManagementController(userController, sessionManager))
-                .setControllerAdvice(new AdviceController()).build();
-    }
+//    @Before
+//    public void setUp(){
+//        initMocks(this);
+//        mockMvc = MockMvcBuilders.standaloneSetup(new ClientManagementController(userController, sessionManager))
+//                .setControllerAdvice(new AdviceController()).build();
+//    }
 //
 //    @Test
 //    public void registerOk() throws Exception {

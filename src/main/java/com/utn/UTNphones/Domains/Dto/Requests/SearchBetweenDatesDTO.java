@@ -1,4 +1,4 @@
-package com.utn.UTNphones.Domains.Dto;
+package com.utn.UTNphones.Domains.Dto.Requests;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
