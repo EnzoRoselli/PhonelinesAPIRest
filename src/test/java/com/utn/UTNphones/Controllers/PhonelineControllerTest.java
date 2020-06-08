@@ -3,34 +3,16 @@ package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Domains.City;
 import com.utn.UTNphones.Domains.Phoneline;
-import com.utn.UTNphones.Domains.Province;
 import com.utn.UTNphones.Domains.User;
-import com.utn.UTNphones.Exceptions.CityExceptions.CityDoesntExist;
-import com.utn.UTNphones.Exceptions.ParametersException;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineAlreadyExists;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDigitsCountPlusPrefix;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineTypeError;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Services.CityService;
 import com.utn.UTNphones.Services.PhonelineService;
-import com.utn.UTNphones.Services.UserService;
-import org.hibernate.exception.ConstraintViolationException;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
 import org.mockito.Mock;
-import org.mockito.stubbing.OngoingStubbing;
-import org.springframework.dao.DataAccessException;
-
-import java.sql.SQLException;
 
 import static org.mockito.Matchers.any;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 public class PhonelineControllerTest {
 

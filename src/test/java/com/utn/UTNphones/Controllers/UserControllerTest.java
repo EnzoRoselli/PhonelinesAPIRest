@@ -1,18 +1,11 @@
 package com.utn.UTNphones.Controllers;
 
-import com.utn.UTNphones.Exceptions.CityExceptions.CityDoesntExist;
-import com.utn.UTNphones.Exceptions.ParametersException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.*;
-import com.utn.UTNphones.Domains.City;
-import com.utn.UTNphones.Domains.Province;
 import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Services.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.springframework.dao.DataAccessException;
-
-import java.sql.SQLException;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;

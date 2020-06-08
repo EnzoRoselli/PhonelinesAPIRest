@@ -6,24 +6,25 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import java.util.Date;
 
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Data
 @ToString
 @Builder
+@RequiredArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 
 public class NewCallDTO {
     //todo corroboraciones
-    String originNumber;
+   private final String originNumber;
 
-    String destinationNumber;
+    private final  String destinationNumber;
 
-    Integer duration;
+    private final Integer duration;
 
-    Date date;
+    private final  Date date;
 }

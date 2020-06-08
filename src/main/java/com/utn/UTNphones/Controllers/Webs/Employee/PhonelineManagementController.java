@@ -22,10 +22,11 @@ import java.net.URI;
 
 import static com.utn.UTNphones.Controllers.Webs.URLconstants.PhonelineRouter.PHONELINE_ID;
 import static com.utn.UTNphones.Controllers.Webs.URLconstants.PhonelineRouter.PHONELINE_ID_PARAM;
+import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.EMPLOYEE_MAPPING;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("employee/phonelines")
+@RequestMapping(EMPLOYEE_MAPPING+"/phonelines")
 class PhonelineManagementController {
     private final PhonelineController phonelineController;
 

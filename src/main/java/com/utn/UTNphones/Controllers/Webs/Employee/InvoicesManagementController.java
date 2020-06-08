@@ -16,11 +16,12 @@ import javax.websocket.server.PathParam;
 import java.util.Date;
 import java.util.List;
 
+import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.EMPLOYEE_MAPPING;
 import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USERS_ID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("employee/invoices")
+@RequestMapping(EMPLOYEE_MAPPING+"/invoices")
 public class InvoicesManagementController {
     private final InvoiceController invoiceController;
 

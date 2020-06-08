@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 import java.util.List;
 
+import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.CLIENT_MAPPING;
+
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("client/invoices")
+@RequestMapping(CLIENT_MAPPING+"/invoices")
 public class InvoicesClientController {
     private final InvoiceController invoiceController;
     private final SessionManager sessionManager;

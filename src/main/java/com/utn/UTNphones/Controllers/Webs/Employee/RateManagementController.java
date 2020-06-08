@@ -14,9 +14,11 @@ import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.EMPLOYEE_MAPPING;
+
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("employee/rates")
+@RequestMapping(EMPLOYEE_MAPPING+"/rates")
 public class RateManagementController {
 
     private final RateController rateController;

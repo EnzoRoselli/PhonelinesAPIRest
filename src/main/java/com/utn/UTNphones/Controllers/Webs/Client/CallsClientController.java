@@ -23,10 +23,11 @@ import java.util.Date;
 import java.util.List;
 
 import static com.utn.UTNphones.Controllers.Webs.URLconstants.CallRouter.TOP_DESTINATION;
+import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.CLIENT_MAPPING;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("client/calls")
+@RequestMapping(CLIENT_MAPPING+"/calls")
 public class CallsClientController {
     private final CallController callController;
     private final SessionManager sessionManager;

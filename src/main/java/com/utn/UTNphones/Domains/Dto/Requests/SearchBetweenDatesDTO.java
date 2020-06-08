@@ -8,24 +8,25 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Data
 @ToString
 @Builder
+@RequiredArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class SearchBetweenDatesDTO {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @NotBlank(message = "StartDate is mandatory")
-    Date start;
+   private final Date start;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @NotBlank(message = "EndDate is mandatory")
-    Date end;
+    private final Date end;
 }

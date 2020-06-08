@@ -6,24 +6,25 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Data
 @ToString
 @Builder
+@RequiredArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class LoginDTO {
 
     @Pattern(regexp = "^[1-9]{7,9}$", message = "Invalid identification!")
     @NotBlank(message = "identification is mandatory")
-    private String identification;
+    private final String identification;
 
     @NotBlank(message = "Password is mandatory")
-    private String password;
+    private final String password;
 
 }
