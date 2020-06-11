@@ -26,23 +26,20 @@ public class UserService {
                 (user.getIdentification(), user.getPassword(), "employee", true)).orElseThrow(LogException::new);
     }
 
-    public User infrastructureLogin(User user) {
-        return Optional.ofNullable(userRepository.findByIdentificationAndPasswordAndType
-                (user.getIdentification(), user.getPassword(), "infrastructure")).orElseThrow(LogException::new);
-    }
-
     public User register(User user) throws DataAccessException {
-        return Optional.of(userRepository.save(user)).orElseThrow(UserDoesntExist::new);
+        return Optional.of(userRepository.save(user))
+                .orElseThrow(UserDoesntExist::new);
     }
 
     public User update(User user) {
-        return Optional.of(this.userRepository.save(user)).orElseThrow(UserDoesntExist::new);
+        return Optional.of(this.userRepository.save(user))
+                .orElseThrow(UserDoesntExist::new);
     }
 
     public User findById(Integer id) {
-        Optional<User> user = userRepository.findById(id);
-        if (user.isEmpty()) throw new UserDoesntExist();
-        return user.get();
+       return userRepository.findById(id)
+               .orElseThrow(UserDoesntExist::new);
+
     }
 
     public User findByIdentification(String identification) {

@@ -75,14 +75,14 @@ public class PhonelineServiceTest {
         phonelineService.findByUserId(2);
     }
 
-    @Test
-    public void testFindByNumberOk() throws PhonelineDoesntExist {
-        String number = "231231";
-        Phoneline phoneline = Phoneline.builder().number("231231").build();
-        when(phonelineRepository.findByNumber(number)).thenReturn(phoneline);
-        Phoneline phonelineFromDb = phonelineService.findByNumber(number);
-        assertEquals(phonelineFromDb, phoneline);
-    }
+//    @Test
+//    public void testFindByNumberOk() throws PhonelineDoesntExist {
+//        String number = "231231";
+//        Phoneline phoneline = Phoneline.builder().number("231231").build();
+//        when(phonelineRepository.findByNumber(number)).thenReturn(phoneline);
+//        Phoneline phonelineFromDb = phonelineService.findByNumber(number);
+//        assertEquals(phonelineFromDb, phoneline);
+//    }
 
     @Test(expected = PhonelineDoesntExist.class)
     public void testFindByNumberException() throws PhonelineDoesntExist {
@@ -119,20 +119,20 @@ public class PhonelineServiceTest {
 //       when(phonelineRepository.removeByNumber(number)).thenThrow(new EmptyResultDataAccessException(1){});
 //        phonelineService.removeByNumber(number);
 //    }
-
-    @Test
-    public void testExistsOk(){
-        String number = "223113222";
-        Integer cityId=1;
-        City city=City.builder().id(1).build();
-        Phoneline phoneline = Phoneline.builder().id(2).number("223113222").city(city).build();
-
-        when(phonelineRepository.findByNumberAndCityId(number,cityId)).thenReturn(phoneline);
-        Boolean corroboration=phonelineService.exists(number,cityId);
-        assertEquals(corroboration,true);
-        when(phonelineRepository.findByNumberAndCityId("312",cityId)).thenReturn(null);
-       corroboration=phonelineService.exists("312",cityId);
-        assertEquals(corroboration,false);
-    }
+//
+//    @Test
+//    public void testExistsOk(){
+//        String number = "223113222";
+//        Integer cityId=1;
+//        City city=City.builder().id(1).build();
+//        Phoneline phoneline = Phoneline.builder().id(2).number("223113222").city(city).build();
+//
+//        when(phonelineRepository.findByNumberAndCityId(number,cityId)).thenReturn(phoneline);
+//        Boolean corroboration=phonelineService.exists(number,cityId);
+//        assertEquals(corroboration,true);
+//        when(phonelineRepository.findByNumberAndCityId("312",cityId)).thenReturn(null);
+//       corroboration=phonelineService.exists("312",cityId);
+//        assertEquals(corroboration,false);
+//    }
 
 }

@@ -28,10 +28,6 @@ public class UserController {
         return userService.clientLogin(User.fromLoginDto(loginDTO));
     }
 
-    public User infrastructureLogin(LoginDTO loginDTO) {
-        return userService.infrastructureLogin(User.fromLoginDto(loginDTO));
-    }
-
     public User register(UserDTO userDTO) throws Exception {
         try {
             return userService.register(User.fromDto(userDTO));
@@ -78,9 +74,7 @@ public class UserController {
     private void setNonNullValues(UserPatchUpdateDTO newUser, User userUpdated) {
         Optional.ofNullable(newUser.getPassword()).ifPresent(userUpdated::setPassword);
         Optional.ofNullable(newUser.getIdentification()).ifPresent(userUpdated::setIdentification);
-        if (newUser.getCityId() != null) {
-            userUpdated.setCity(City.builder().id(newUser.getCityId()).build());
-        }
+        Optional.ofNullable(newUser.getCityId()).ifPresent(value->userUpdated.setCity(City.builder().id(value).build()));
         Optional.ofNullable(newUser.getLastname()).ifPresent(userUpdated::setLastname);
         Optional.ofNullable(newUser.getName()).ifPresent(userUpdated::setName);
         Optional.ofNullable(newUser.getType()).ifPresent(userUpdated::setType);

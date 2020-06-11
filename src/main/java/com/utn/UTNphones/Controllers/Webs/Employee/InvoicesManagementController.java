@@ -17,7 +17,8 @@ import java.util.Date;
 import java.util.List;
 
 import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.EMPLOYEE_MAPPING;
-import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USERS_ID;
+import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USER_ID;
+import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USER_ID_PARAM;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,11 +26,11 @@ import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USERS_I
 public class InvoicesManagementController {
     private final InvoiceController invoiceController;
 
-    @GetMapping(USERS_ID)
+    @GetMapping(USER_ID)
     public ResponseEntity<List<Invoice>> getByUserIdBetweenDates(@RequestHeader("Authorization") String sessionToken,
                                                                  @DateTimeFormat(pattern = "dd-MM-yyyy") @PathParam("startDate") Date startDate,
                                                                  @DateTimeFormat(pattern = "dd-MM-yyyy") @PathParam("endDate") Date endDate,
-                                                                 @PathVariable("userId") Integer id) {
+                                                                 @PathVariable(USER_ID_PARAM) Integer id) {
         List<Invoice> invoices;
         if (startDate == null && endDate == null) {
             invoices = this.invoiceController.getAllByUserId(id);

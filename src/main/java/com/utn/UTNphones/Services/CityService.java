@@ -6,8 +6,6 @@ import com.utn.UTNphones.Repositories.ICityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class CityService {
@@ -15,8 +13,7 @@ public class CityService {
     private final ICityRepository cityRepository;
 
     public City getById(Integer id) {
-        Optional<City> cityOptional = cityRepository.findById(id);
-        if (cityOptional.isEmpty()) throw new CityDoesntExist();
-        return cityOptional.get();
+     return cityRepository.findById(id)
+             .orElseThrow(CityDoesntExist::new);
     }
 }

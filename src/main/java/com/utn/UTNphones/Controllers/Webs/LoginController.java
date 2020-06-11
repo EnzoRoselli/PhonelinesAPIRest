@@ -37,13 +37,6 @@ public class LoginController {
         return ResponseEntity.ok(token);
     }
 
-    @PostMapping(INFRASTRUCTURE_LOGIN)
-    public ResponseEntity<String> infrastructureLogin(@RequestBody @Valid LoginDTO userLogging) {
-        String token = sessionManager.createSession(userController.infrastructureLogin(userLogging));
-        return ResponseEntity.ok(token);
-    }
-
-
     @PostMapping("/logout")
     public ResponseEntity logout(@RequestHeader("Authorization") String token) {
         sessionManager.removeSession(token);

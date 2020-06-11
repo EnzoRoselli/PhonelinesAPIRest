@@ -14,9 +14,6 @@ public class UtNphonesApplication {
 
         SpringApplication.run(UtNphonesApplication.class, args);
 
-//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
-//        LocalDateTime now = LocalDateTime.now();
-//        System.out.println(dtf.format(now));
     }
 
 }

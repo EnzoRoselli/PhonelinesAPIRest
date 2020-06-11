@@ -9,7 +9,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,17 +29,14 @@ public class PhonelineService {
     }
 
     public Phoneline findByNumber(String number) {
-        Phoneline ph = phonelineRepository.findByNumber(number);
-        if (ph == null) throw new PhonelineDoesntExist();
-        return ph;
+        return phonelineRepository.findByNumber(number)
+                .orElseThrow(PhonelineDoesntExist::new);
     }
 
     public Phoneline getById(Integer id) {
-        Optional<Phoneline> ph = phonelineRepository.findById(id);
-        if (ph.isEmpty()) {
-            throw new PhonelineDoesntExist();
-        }
-        return ph.get();
+        return phonelineRepository.findById(id)
+                .orElseThrow(PhonelineDoesntExist::new);
+
     }
 
     public Phoneline update(Phoneline phoneline) {
@@ -52,8 +48,9 @@ public class PhonelineService {
     }
 
     public Boolean exists(String number, Integer cityId) {
-        Phoneline ph = this.phonelineRepository.findByNumberAndCityId(number, cityId);
-        return ph != null;
+        return this.phonelineRepository.findByNumberAndCityId(number, cityId).
+                isEmpty();
+
     }
 
 

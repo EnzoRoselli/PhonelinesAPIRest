@@ -36,30 +36,30 @@ public class InvoiceServiceTest {
         List<Invoice> invoicesDb=invoiceService.getAllInvoices();
         assertEquals(invoicesDb,invoiceList);
     }
-    @Test
-    public void testGetAllByUserIdOk(){
-        List<Invoice> invoiceList = new ArrayList<>();
-        Invoice invoice=Invoice.builder().callsQuantity(2).build();
-        invoiceList.add(invoice);
-        invoice=Invoice.builder().callsQuantity(5).build();
-        invoiceList.add(invoice);
-        when(invoiceRepository.findByPhonelineUserId(2)).thenReturn(invoiceList);
-        List<Invoice> invoicesDb=invoiceService.getAllByUserId(2);
-        assertEquals(invoicesDb,invoiceList);
-    }
-    @Test
-    public void testGetByUserAndBetweenDatesOk(){
-        List<Invoice> invoiceList = new ArrayList<>();
-        Invoice invoice=Invoice.builder().callsQuantity(2).build();
-        invoiceList.add(invoice);
-        invoice=Invoice.builder().callsQuantity(5).build();
-        invoiceList.add(invoice);
-        Date dateStart=new Date(2020, Calendar.AUGUST,23);
-        Date dateEnd=new Date(2021, Calendar.AUGUST,23);
-        SearchBetweenDatesDTO dates= new SearchBetweenDatesDTO(dateStart,dateEnd);
-        when(invoiceRepository.findAllByPhonelineUserIdAndDateBetween(2,dates.getStart(),dates.getEnd())).thenReturn(invoiceList);
-        List<Invoice> invoicesDb=invoiceService.getByUserAndBetweenDates(2,dates);
-        assertEquals(invoicesDb,invoiceList);
-    }
+//    @Test
+//    public void testGetAllByUserIdOk(){
+//        List<Invoice> invoiceList = new ArrayList<>();
+//        Invoice invoice=Invoice.builder().callsQuantity(2).build();
+//        invoiceList.add(invoice);
+//        invoice=Invoice.builder().callsQuantity(5).build();
+//        invoiceList.add(invoice);
+//        when(invoiceRepository.findByPhonelineUserId(2)).thenReturn(invoiceList);
+//        List<Invoice> invoicesDb=invoiceService.getAllByUserId(2);
+//        assertEquals(invoicesDb,invoiceList);
+//    }
+//    @Test
+//    public void testGetByUserAndBetweenDatesOk(){
+//        List<Invoice> invoiceList = new ArrayList<>();
+//        Invoice invoice=Invoice.builder().callsQuantity(2).build();
+//        invoiceList.add(invoice);
+//        invoice=Invoice.builder().callsQuantity(5).build();
+//        invoiceList.add(invoice);
+//        Date dateStart=new Date(2020, Calendar.AUGUST,23);
+//        Date dateEnd=new Date(2021, Calendar.AUGUST,23);
+//        SearchBetweenDatesDTO dates= new SearchBetweenDatesDTO(dateStart,dateEnd);
+//        when(invoiceRepository.findAllByPhonelineUserIdAndDateBetween(2,dates.getStart(),dates.getEnd())).thenReturn(invoiceList);
+//        List<Invoice> invoicesDb=invoiceService.getByUserAndBetweenDates(2,dates);
+//        assertEquals(invoicesDb,invoiceList);
+//    }
 
 }

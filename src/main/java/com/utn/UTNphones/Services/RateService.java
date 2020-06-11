@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,15 +19,15 @@ public class RateService {
     }
 
     public Rate findByOriginAndDestination(Integer originId, Integer destinationId) {
-        Optional<Rate> rate = this.rateRepository.findByOriginCityIdAndDestinationCityId(originId, destinationId);
-        if (rate.isEmpty()) throw new RateDoesntExist();
-        return rate.get();
+      return this.rateRepository.findByOriginCityIdAndDestinationCityId(originId, destinationId)
+              .orElseThrow(RateDoesntExist::new);
+
     }
 
     public Rate findById(Integer id) {
-        Optional<Rate> rate = this.rateRepository.findById(id);
-        if (rate.isEmpty()) throw new RateDoesntExist();
-        else return rate.get();
+        return this.rateRepository.findById(id)
+                .orElseThrow(RateDoesntExist::new);
+
     }
 
     public List<Rate> findByOrigin(Integer originId) {

@@ -28,10 +28,13 @@ public class RateManagementController {
                                                @PathParam("originCityId") Integer originCityId,
                                                @PathParam("destinationCityId") Integer destinationCityId) throws RateDoesntExist {
         List<Rate> rates = new ArrayList<>();
-        if (originCityId != null && destinationCityId != null) {
+        if (originCityId != null && destinationCityId != null)
             rates.add(this.rateController.getByOriginAndDestination(originCityId, destinationCityId));
-        } else if (originCityId != null) rates = this.rateController.getByOrigin(originCityId);
-        else if (destinationCityId != null) rates = this.rateController.getByDestination(originCityId);
+        else if (originCityId != null)
+            rates = this.rateController.getByOrigin(originCityId);
+        else if (destinationCityId != null)
+            rates = this.rateController.getByDestination(originCityId);
+
         return rates.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(rates);
     }
 

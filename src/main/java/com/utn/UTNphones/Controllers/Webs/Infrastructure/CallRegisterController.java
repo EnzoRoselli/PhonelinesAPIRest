@@ -2,7 +2,6 @@ package com.utn.UTNphones.Controllers.Webs.Infrastructure;
 
 import com.utn.UTNphones.Controllers.CallController;
 import com.utn.UTNphones.Domains.Dto.Requests.NewCallDTO;
-import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,10 +16,11 @@ import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.INFRAST
 @RequiredArgsConstructor
 @RequestMapping(INFRASTRUCTURE_MAPPING+"/registerCall")
 public class CallRegisterController {
+
     private final CallController callController;
 
     @PostMapping
-    public ResponseEntity registerCall(@RequestHeader("Authorization") String sessionToken, @RequestBody NewCallDTO newCall) throws CallException {
+    public ResponseEntity registerCall(@RequestHeader("INFRASTRUCTURE_KEY") String key, @RequestBody NewCallDTO newCall){
         this.callController.registerCall(newCall);
         return ResponseEntity.ok().build();
     }

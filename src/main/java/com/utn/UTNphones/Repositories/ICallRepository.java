@@ -3,6 +3,7 @@ package com.utn.UTNphones.Repositories;
 import com.utn.UTNphones.Domains.Call;
 import com.utn.UTNphones.Domains.Dto.Responses.CityTop;
 import com.utn.UTNphones.Domains.Phoneline;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -25,9 +26,9 @@ public interface ICallRepository extends JpaRepository<Call, Integer> {
             "LIMIT 10;", nativeQuery = true)
     List<CityTop> findTopMostCalledCities(Integer userId);
 
-    List<Call> findAllByOriginPhonelineUserIdAndDateBetween(Integer userId, Date Start, Date End);
+    List<Call> findAllByOriginPhonelineUserIdAndDateBetweenOrderByIdDesc(Integer userId, Date Start, Date End, Pageable pageable);
 
-    List<Call> findAllByOriginPhonelineUserIdAndDateBefore(Integer userId, Date endDate);
+    List<Call> findAllByOriginPhonelineUserIdAndDateBeforeOrderByIdDesc(Integer userId, Date endDate, Pageable pageable);
 
-    List<Call> findAllByOriginPhonelineUserIdAndDateAfter(Integer userId, Date startDate);
+    List<Call> findAllByOriginPhonelineUserIdAndDateAfterOrderByIdDesc(Integer userId, Date startDate, Pageable pageable);
 }

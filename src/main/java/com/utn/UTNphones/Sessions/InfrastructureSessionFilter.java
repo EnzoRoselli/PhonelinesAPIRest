@@ -1,6 +1,6 @@
 package com.utn.UTNphones.Sessions;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -14,16 +14,17 @@ import java.io.IOException;
 @Service
 public class InfrastructureSessionFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private SessionManager sessionManager;
+    @Value("${INFRASTRUCTURE_KEY}")
+    private String infrastrucutreKey;
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest,
                                     HttpServletResponse httpServletResponse,
                                     FilterChain filterChain) throws ServletException, IOException {
-        String sessionToken = httpServletRequest.getHeader("Authorization");
-        Session session = sessionManager.getSession(sessionToken);
-        if (session != null && "infrastructure".equals(session.getLoggedUser().getType())) {
+
+        String key = httpServletRequest.getHeader("INFRASTRUCTURE_KEY");
+
+        if (infrastrucutreKey.equals(key)) {
             filterChain.doFilter(httpServletRequest, httpServletResponse);
         } else {
             httpServletResponse.setStatus(HttpStatus.FORBIDDEN.value());
