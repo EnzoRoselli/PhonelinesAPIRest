@@ -27,7 +27,7 @@ public class CallService {
     }
 
     public List<Call> getCallsByPhoneNumbers(List<Phoneline> phoneListOfTheUser) {
-        List<Call> calls = callRepository.findByOriginPhonelineIn(phoneListOfTheUser);
+        List<Call> calls = callRepository.findByOriginPhonelineIn(phoneListOfTheUser,pageable);
         if (calls.isEmpty()) {
             throw new NoCallsFound();
         }

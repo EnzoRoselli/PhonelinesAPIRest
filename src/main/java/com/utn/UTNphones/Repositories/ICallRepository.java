@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 public interface ICallRepository extends JpaRepository<Call, Integer> {
-    List<Call> findByOriginPhonelineIn(List<Phoneline> phonelineListOrigin);
+    List<Call> findByOriginPhonelineIn(List<Phoneline> phonelineListOrigin, Pageable pageable);
 
     @Query(value = "select cities.id, cities.city_name as cityName" +
             ", cities.prefix, cities.id_province as idProvince, count(cities.id) as cant from calls \n" +
