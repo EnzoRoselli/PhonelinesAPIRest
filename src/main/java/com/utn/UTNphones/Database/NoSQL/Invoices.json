@@ -1,0 +1,17 @@
+{
+    "_id"
+    "phone_number":{
+        "_id"
+        "number"
+        "user":{
+            "_id"
+            "name"
+        }
+    }
+    "calls_quantity"
+    "total_cost"
+    "total_price"
+    "date"
+    "is_paid"
+    "expiration_date"
+}

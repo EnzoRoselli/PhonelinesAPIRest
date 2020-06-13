@@ -1,0 +1,17 @@
+{
+    "_id"
+    "origin":{
+         "_id"
+         "city"{
+             "name"
+             "prefix"
+         }            
+    }
+     "destination":{
+          "_id"
+          "city":{
+             "name"
+             "prefix"
+        }     
+    }
+}

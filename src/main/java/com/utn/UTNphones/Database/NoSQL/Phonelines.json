@@ -1,0 +1,15 @@
+{
+    "_id"
+    "number"
+    "type"
+    "status"
+    "user":{
+        "_id"
+        "name"
+    }
+    "city"{
+        "name"
+        "prefix"
+    }  
+
+}
