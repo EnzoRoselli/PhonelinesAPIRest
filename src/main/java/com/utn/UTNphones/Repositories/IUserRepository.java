@@ -4,12 +4,14 @@ import com.utn.UTNphones.Domains.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface IUserRepository extends JpaRepository<User, Integer> {
 
-    User findByIdentificationAndPasswordAndType(String ic, String password, String type);
+    Optional<User> findByIdentificationAndPasswordAndType(String ic, String password, String type);
 
-    User findByIdentificationAndPasswordAndTypeAndStatus(String ic, String password, String type, Boolean status);
+    Optional<User> findByIdentificationAndPasswordAndTypeAndStatus(String ic, String password, String type, Boolean status);
 
-    User findByIdentification(String identification);
+    Optional<User> findByIdentification(String identification);
 }

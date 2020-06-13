@@ -17,13 +17,13 @@ public class UserService {
     private final IUserRepository userRepository;
 
     public User clientLogin(User user) {
-        return Optional.ofNullable(userRepository.findByIdentificationAndPasswordAndType
-                (user.getIdentification(), user.getPassword(), "client")).orElseThrow(LogException::new);
+        return userRepository.findByIdentificationAndPasswordAndType
+                (user.getIdentification(), user.getPassword(), "client").orElseThrow(LogException::new);
     }
 
     public User adminLogin(User user) {
-        return Optional.ofNullable(userRepository.findByIdentificationAndPasswordAndTypeAndStatus
-                (user.getIdentification(), user.getPassword(), "employee", true)).orElseThrow(LogException::new);
+        return userRepository.findByIdentificationAndPasswordAndTypeAndStatus
+                (user.getIdentification(), user.getPassword(), "employee", true).orElseThrow(LogException::new);
     }
 
     public User register(User user) throws DataAccessException {
@@ -43,7 +43,7 @@ public class UserService {
     }
 
     public User findByIdentification(String identification) {
-        return Optional.ofNullable(this.userRepository.findByIdentification(identification)).orElseThrow(UserDoesntExist::new);
+        return this.userRepository.findByIdentification(identification).orElseThrow(UserDoesntExist::new);
     }
 
 

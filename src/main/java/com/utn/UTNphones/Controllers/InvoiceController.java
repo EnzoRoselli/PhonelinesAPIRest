@@ -15,11 +15,6 @@ public class InvoiceController {
 
     private final InvoiceService invoiceService;
 
-    public List<Invoice> getAllInvoices() {
-        return invoiceService.getAllInvoices();
-    }
-
-
     public List<Invoice> getAllByUserId(Integer userId) {
         return this.invoiceService.getAllByUserId(userId);
     }
