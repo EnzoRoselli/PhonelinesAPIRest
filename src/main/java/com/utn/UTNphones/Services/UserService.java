@@ -16,6 +16,16 @@ public class UserService {
 
     private final IUserRepository userRepository;
 
+    public User clientLogin(User user) {
+        return userRepository.findByIdentificationAndPasswordAndType
+                (user.getIdentification(), user.getPassword(), "client").orElseThrow(LogException::new);
+    }
+
+    public User adminLogin(User user) {
+        return userRepository.findByIdentificationAndPasswordAndTypeAndStatus
+                (user.getIdentification(), user.getPassword(), "employee", true).orElseThrow(LogException::new);
+    }
+
     public User register(User user) throws DataAccessException {
         return Optional.of(userRepository.save(user))
                 .orElseThrow(UserDoesntExist::new);
@@ -27,8 +37,8 @@ public class UserService {
     }
 
     public User findById(Integer id) {
-        return userRepository.findById(id)
-                .orElseThrow(UserDoesntExist::new);
+       return userRepository.findById(id)
+               .orElseThrow(UserDoesntExist::new);
 
     }
 
@@ -42,11 +52,4 @@ public class UserService {
     }
 
 
-    public User login(User user) {
-        User userDb = userRepository.findByIdentificationAndPassword(user.getIdentification(), user.getPassword()).orElseThrow(LogException::new);
-        if (userDb.getType().equals("employee") && !userDb.getStatus()) {
-            throw new LogException();
-        }
-        return userDb;
-    }
 }

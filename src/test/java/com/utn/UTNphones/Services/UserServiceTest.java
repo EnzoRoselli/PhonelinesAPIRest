@@ -157,20 +157,20 @@ public class UserServiceTest {
         User u = userService.findById(1);
     }
 
-//    @Test
-//    public void testFindByIdentificationOk() throws UserDoesntExist {
-//
-//        Province province = Province.builder().id(1).name("Buenos Aires").build();
-//        City city = City.builder().id(1).name("Mar del Plata").prefix("223").province(province).build();
-//        User auxUser = User.builder().id(1).name("Enzo").lastname("Roselli").type("client")
-//                .identification("111111").password("1234").city(city).build();
-//
-//        when(userRepository.findByIdentification("111111")).thenReturn(auxUser);
-//
-//        User u = userService.findByIdentification("111111");
-//
-//        assertEquals(u, auxUser);
-//    }
+    @Test
+    public void testFindByIdentificationOk() throws UserDoesntExist {
+
+        Province province = Province.builder().id(1).name("Buenos Aires").build();
+        City city = City.builder().id(1).name("Mar del Plata").prefix("223").province(province).build();
+        User auxUser = User.builder().id(1).name("Enzo").lastname("Roselli").type("client")
+                .identification("111111").password("1234").city(city).build();
+
+        when(userRepository.findByIdentification("111111")).thenReturn(auxUser);
+
+        User u = userService.findByIdentification("111111");
+
+        assertEquals(u, auxUser);
+    }
 
     @Test(expected = UserDoesntExist.class)
     public void testFindByIdentificationUserDoesntExistException() throws UserDoesntExist {

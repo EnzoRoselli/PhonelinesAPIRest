@@ -17,12 +17,12 @@ import java.util.Date;
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 
 public class NewCallDTO {
+    //todo corroboraciones
+   private final String originNumber;
 
-    private final String originNumber;
-
-    private final String destinationNumber;
+    private final  String destinationNumber;
 
     private final Integer duration;
 
-    private final Date date;
+    private final  Date date;
 }

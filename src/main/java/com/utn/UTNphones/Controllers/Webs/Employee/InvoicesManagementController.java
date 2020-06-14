@@ -22,7 +22,7 @@ import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USER_ID
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(EMPLOYEE_MAPPING + "/invoices")
+@RequestMapping(EMPLOYEE_MAPPING+"/invoices")
 public class InvoicesManagementController {
     private final InvoiceController invoiceController;
 
@@ -39,7 +39,8 @@ public class InvoicesManagementController {
         } else if (endDate == null) {
             invoices = this.invoiceController.getByUserStartDate(id, startDate);
         } else {
-            invoices = this.invoiceController.getByUserBetweenDates(id, SearchBetweenDatesDTO.fromDates(startDate, endDate));
+            SearchBetweenDatesDTO datesDto = SearchBetweenDatesDTO.builder().start(startDate).end(endDate).build();
+            invoices = this.invoiceController.getByUserBetweenDates(id, datesDto);
         }
 
         return invoices.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(invoices);
