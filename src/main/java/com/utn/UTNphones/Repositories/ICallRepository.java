@@ -4,7 +4,9 @@ import com.utn.UTNphones.Domains.Call;
 import com.utn.UTNphones.Domains.Dto.Responses.CityTop;
 import com.utn.UTNphones.Domains.Phoneline;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
-public interface ICallRepository extends JpaRepository<Call, Integer> {
+public interface ICallRepository extends JpaRepository<Call, Integer> , JpaSpecificationExecutor<Call> {
     List<Call> findByOriginPhonelineIn(List<Phoneline> phonelineListOrigin, Pageable pageable);
 
     @Query(value = "select cities.id, cities.city_name as cityName" +

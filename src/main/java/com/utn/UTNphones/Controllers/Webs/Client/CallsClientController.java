@@ -10,17 +10,23 @@ import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredB
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Sessions.SessionManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.criteria.Predicate;
 import javax.validation.constraints.NotNull;
 import javax.websocket.server.PathParam;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import static com.utn.UTNphones.Controllers.Webs.URLconstants.CallRouter.TOP_DESTINATION;
 import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.CLIENT_MAPPING;
@@ -39,11 +45,12 @@ public class CallsClientController {
         return citiesWithCounter.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(citiesWithCounter);
     }
 
+
     @GetMapping
     public ResponseEntity<List<Call>> getCallsBetweenDates(@RequestHeader("Authorization") String sessionToken,
                                                            @DateTimeFormat(pattern = "dd-MM-yyyy") @PathParam("startDate") @NotNull Date startDate,
-                                                           @DateTimeFormat(pattern = "dd-MM-yyyy") @PathParam("endDate") @NotNull Date endDate) throws NoCallsFound, UserDoesntExist, PhonelinesNotRegisteredByUser {
-        List<Call> calls;
+                                                           @DateTimeFormat(pattern = "dd-MM-yyyy") @PathParam("endDate") @NotNull Date endDate){
+       /* List<Call> calls;
         Integer userId = sessionManager.getCurrentUser(sessionToken).get().getId();
         if (startDate == null && endDate == null) {
             calls = this.callController.getCallsByUserId(userId);
@@ -54,7 +61,16 @@ public class CallsClientController {
         } else {
             SearchBetweenDatesDTO datesDto = SearchBetweenDatesDTO.builder().start(startDate).end(endDate).build(); //todo pasarlo a un FromDTO
             calls = this.callController.getByUserBetweenDates(userId, datesDto);
-        }
+        }*/
+
+        List<Call> calls = callController.findAll((Specification<Call>) (root, cq, cb) -> {
+            Predicate p = cb.conjunction();
+            if (Objects.nonNull(startDate) && Objects.nonNull(endDate) && startDate.before(endDate)) {
+                p = cb.and(p, cb.between(root.get("createdDate"), startDate, endDate));
+            }
+            cq.orderBy(cb.asc(root.get("id")));
+            return p;
+        });
         return calls.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(calls);
     }
 }

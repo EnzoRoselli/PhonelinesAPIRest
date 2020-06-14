@@ -27,7 +27,7 @@ public class CallsManagementController {
 
     @GetMapping(USER_ID)
     public ResponseEntity<List<Call>> getByUserId(@RequestHeader("Authorization") String sessionToken,
-                                                  @PathVariable(USER_ID_PARAM) Integer userId) throws NoCallsFound, UserDoesntExist, PhonelinesNotRegisteredByUser {
+                                                  @PathVariable(USER_ID_PARAM) Integer userId) {
         List<Call> callsByAnUser = this.callController.getCallsByUserId(userId);
         return callsByAnUser.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(callsByAnUser);
     }

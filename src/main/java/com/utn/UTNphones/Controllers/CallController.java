@@ -8,6 +8,10 @@ import com.utn.UTNphones.Services.CallService;
 import com.utn.UTNphones.Services.PhonelineService;
 import com.utn.UTNphones.Services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 
 import java.util.Date;
@@ -44,5 +48,10 @@ public class CallController {
 
     public List<Call> getByUserStartDate(Integer id, Date startDate) {
         return this.callService.getByUserStartDate(id, startDate);
+    }
+
+    public List<Call> findAll(Specification<Call> callSpecification) {
+        Pageable pageable = PageRequest.of(0, 10);
+        return this.callService.findAll(callSpecification,pageable);
     }
 }

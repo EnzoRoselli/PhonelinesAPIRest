@@ -9,6 +9,7 @@ import com.utn.UTNphones.Repositories.ICallRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -55,4 +56,8 @@ public class CallService {
         return this.callRepository.findAllByOriginPhonelineUserIdAndDateAfterOrderByIdDesc(userId, startDate,pageable);
     }
 
+
+    public List<Call> findAll(Specification<Call> callSpecification, Pageable pageable) {
+        return callRepository.findAll(callSpecification,pageable);
+    }
 }
