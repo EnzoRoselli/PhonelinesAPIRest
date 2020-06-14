@@ -34,87 +34,87 @@ public class AdviceController {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(LogException.class)
     public ErrorResponseDTO handleParametersException(LogException ex) {
-        return ErrorResponseDTO.fromRunTimeException(ex,2);
+        return ErrorResponseDTO.fromRunTimeException(ex, 2);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(CityDoesntExist.class)
     public ErrorResponseDTO handleCityDoesntExist(CityDoesntExist ex) {
-        return ErrorResponseDTO.fromRunTimeException(ex,3);
+        return ErrorResponseDTO.fromRunTimeException(ex, 3);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(PhonelineAlreadyExists.class)
     public ErrorResponseDTO handlePhonelineAlreadyExists(PhonelineAlreadyExists ex) {
-        return ErrorResponseDTO.fromRunTimeException(ex,4);
+        return ErrorResponseDTO.fromRunTimeException(ex, 4);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(PhonelineDigitsCountPlusPrefix.class)
     public ErrorResponseDTO handlePhonelineDigitsCountPlusPrefix(PhonelineDigitsCountPlusPrefix ex) {
-        return ErrorResponseDTO.fromRunTimeException(ex,5);
+        return ErrorResponseDTO.fromRunTimeException(ex, 5);
     }
 
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(PhonelineDoesntExist.class)
     public ErrorResponseDTO handlePhonelineDoesntExist(PhonelineDoesntExist ex) {
-        return ErrorResponseDTO.fromRunTimeException(ex,6);
+        return ErrorResponseDTO.fromRunTimeException(ex, 6);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(PhonelinesNotRegisteredByUser.class)
     public ErrorResponseDTO handlePhonelinesNotRegisteredByUser(PhonelinesNotRegisteredByUser ex) {
-        return ErrorResponseDTO.fromRunTimeException(ex,7);
+        return ErrorResponseDTO.fromRunTimeException(ex, 7);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(UserIdentificationAlreadyExists.class)
     public ErrorResponseDTO handleUserIdentificationAlreadyExists(UserIdentificationAlreadyExists ex) {
-        return ErrorResponseDTO.fromRunTimeException(ex,8);
+        return ErrorResponseDTO.fromRunTimeException(ex, 8);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(UserTypeDoesntExist.class)
     public ErrorResponseDTO handleUserTypeDoesntExist(UserTypeDoesntExist ex) {
-        return ErrorResponseDTO.fromRunTimeException(ex,9);
+        return ErrorResponseDTO.fromRunTimeException(ex, 9);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(CallException.class)
     public ErrorResponseDTO handleCallException(CallException ex) {
-        return ErrorResponseDTO.fromRunTimeException(ex,10);
+        return ErrorResponseDTO.fromRunTimeException(ex, 10);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IlegalUserForPhoneline.class)
     public ErrorResponseDTO handleIlegalUserForPhoneline(IlegalUserForPhoneline ex) {
-        return ErrorResponseDTO.fromRunTimeException(ex,11);
+        return ErrorResponseDTO.fromRunTimeException(ex, 11);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(UserTypeWithIdentificationAlreadyExists.class)
     public ErrorResponseDTO handleUserTypeWithIdentificationAlreadyExists(UserTypeWithIdentificationAlreadyExists ex) {
-        return ErrorResponseDTO.fromRunTimeException(ex,12);
+        return ErrorResponseDTO.fromRunTimeException(ex, 12);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(PhonelineTypeError.class)
     public ErrorResponseDTO handlePhonelineTypeError(PhonelineTypeError ex) {
-        return ErrorResponseDTO.fromRunTimeException(ex,13);
+        return ErrorResponseDTO.fromRunTimeException(ex, 13);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(RateDoesntExist.class)
     public ErrorResponseDTO handleRateDoesntExist(RateDoesntExist ex) {
-        return ErrorResponseDTO.fromRunTimeException(ex,14);
+        return ErrorResponseDTO.fromRunTimeException(ex, 14);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public AttributesResponseErrorDto handleValidationExceptions(
             MethodArgumentNotValidException ex) {
-        return AttributesResponseErrorDto.fromMethodArgumentNotValidException(ex,15);
+        return AttributesResponseErrorDto.fromMethodArgumentNotValidException(ex, 15);
     }
 
 }

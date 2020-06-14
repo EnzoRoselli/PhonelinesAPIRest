@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface IInvoiceRepository extends JpaRepository<Invoice, Integer> {
-    List<Invoice> findByPhonelineUserId(Integer userId,Pageable pageable);
+    List<Invoice> findByPhonelineUserId(Integer userId, Pageable pageable);
 
     List<Invoice> findAllByPhonelineUserIdAndDateBetweenOrderByIdDesc(Integer userId, Date startDate, Date endDate, Pageable pageable);
 

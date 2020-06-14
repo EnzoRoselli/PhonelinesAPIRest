@@ -20,14 +20,14 @@ public class CallService {
 
     private final ICallRepository callRepository;
 
-    private final  Pageable pageable = PageRequest.of(0, 10);
+    private final Pageable pageable = PageRequest.of(0, 10);
 
     public void add(Call call) {
         callRepository.save(call);
     }
 
     public List<Call> getCallsByPhoneNumbers(List<Phoneline> phoneListOfTheUser) {
-        List<Call> calls = callRepository.findByOriginPhonelineIn(phoneListOfTheUser,pageable);
+        List<Call> calls = callRepository.findByOriginPhonelineIn(phoneListOfTheUser, pageable);
         if (calls.isEmpty()) {
             throw new NoCallsFound();
         }
@@ -44,15 +44,15 @@ public class CallService {
 
     public List<Call> getByUserAndBetweenDates(Integer userId, SearchBetweenDatesDTO dates) {
 
-        return this.callRepository.findAllByOriginPhonelineUserIdAndDateBetweenOrderByIdDesc(userId, dates.getStart(), dates.getEnd(),pageable);
+        return this.callRepository.findAllByOriginPhonelineUserIdAndDateBetweenOrderByIdDesc(userId, dates.getStart(), dates.getEnd(), pageable);
     }
 
     public List<Call> getByUserEndDate(Integer userId, Date endDate) {
-        return this.callRepository.findAllByOriginPhonelineUserIdAndDateBeforeOrderByIdDesc(userId, endDate,pageable);
+        return this.callRepository.findAllByOriginPhonelineUserIdAndDateBeforeOrderByIdDesc(userId, endDate, pageable);
     }
 
     public List<Call> getByUserStartDate(Integer userId, Date startDate) {
-        return this.callRepository.findAllByOriginPhonelineUserIdAndDateAfterOrderByIdDesc(userId, startDate,pageable);
+        return this.callRepository.findAllByOriginPhonelineUserIdAndDateAfterOrderByIdDesc(userId, startDate, pageable);
     }
 
 }

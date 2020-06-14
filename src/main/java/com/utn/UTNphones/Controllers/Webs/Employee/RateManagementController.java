@@ -18,7 +18,7 @@ import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.EMPLOYE
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(EMPLOYEE_MAPPING+"/rates")
+@RequestMapping(EMPLOYEE_MAPPING + "/rates")
 public class RateManagementController {
 
     private final RateController rateController;

@@ -24,18 +24,18 @@ public class InvoiceService {
     }
 
     public List<Invoice> getAllByUserId(Integer userId) {
-        return this.invoiceRepository.findByPhonelineUserId(userId,pageable);
+        return this.invoiceRepository.findByPhonelineUserId(userId, pageable);
     }
 
     public List<Invoice> getByUserAndBetweenDates(Integer id, SearchBetweenDatesDTO datesDto) {
-        return this.invoiceRepository.findAllByPhonelineUserIdAndDateBetweenOrderByIdDesc(id, datesDto.getStart(), datesDto.getEnd(),pageable);
+        return this.invoiceRepository.findAllByPhonelineUserIdAndDateBetweenOrderByIdDesc(id, datesDto.getStart(), datesDto.getEnd(), pageable);
     }
 
     public List<Invoice> getByUserEndDate(Integer id, Date endDate) {
-        return this.invoiceRepository.findAllByPhonelineUserIdAndDateBeforeOrderByIdDesc(id, endDate,pageable);
+        return this.invoiceRepository.findAllByPhonelineUserIdAndDateBeforeOrderByIdDesc(id, endDate, pageable);
     }
 
     public List<Invoice> getByUserStartDate(Integer id, Date startDate) {
-        return this.invoiceRepository.findAllByPhonelineUserIdAndDateAfterOrderByIdDesc(id, startDate,pageable);
+        return this.invoiceRepository.findAllByPhonelineUserIdAndDateAfterOrderByIdDesc(id, startDate, pageable);
     }
 }

@@ -13,7 +13,7 @@ public class CityService {
     private final ICityRepository cityRepository;
 
     public City getById(Integer id) {
-     return cityRepository.findById(id)
-             .orElseThrow(CityDoesntExist::new);
+        return cityRepository.findById(id)
+                .orElseThrow(CityDoesntExist::new);
     }
 }

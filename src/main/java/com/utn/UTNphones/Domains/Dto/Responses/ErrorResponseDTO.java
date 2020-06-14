@@ -18,7 +18,7 @@ public class ErrorResponseDTO {
 
     private final String description;
 
-    public static ErrorResponseDTO fromRunTimeException(RuntimeException rt,Integer code){
+    public static ErrorResponseDTO fromRunTimeException(RuntimeException rt, Integer code) {
         return ErrorResponseDTO.builder().description(rt.getMessage()).code(code).build();
     }
 }

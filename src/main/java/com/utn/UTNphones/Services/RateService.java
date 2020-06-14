@@ -19,8 +19,8 @@ public class RateService {
     }
 
     public Rate findByOriginAndDestination(Integer originId, Integer destinationId) {
-      return this.rateRepository.findByOriginCityIdAndDestinationCityId(originId, destinationId)
-              .orElseThrow(RateDoesntExist::new);
+        return this.rateRepository.findByOriginCityIdAndDestinationCityId(originId, destinationId)
+                .orElseThrow(RateDoesntExist::new);
 
     }
 

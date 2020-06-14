@@ -21,7 +21,7 @@ public class AttributesResponseErrorDto {
 
     private final Integer code;
 
-    public static AttributesResponseErrorDto fromMethodArgumentNotValidException(MethodArgumentNotValidException ex,Integer code) {
+    public static AttributesResponseErrorDto fromMethodArgumentNotValidException(MethodArgumentNotValidException ex, Integer code) {
         Map<String, List<String>> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField().replaceAll("([a-z])([A-Z]+)", "$1_$2").toLowerCase();
