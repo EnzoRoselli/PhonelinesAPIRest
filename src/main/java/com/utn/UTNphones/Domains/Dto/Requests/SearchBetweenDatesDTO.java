@@ -22,9 +22,17 @@ public class SearchBetweenDatesDTO {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @NotBlank(message = "StartDate is mandatory")
-   private final Date start;
+    private final Date start;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @NotBlank(message = "EndDate is mandatory")
     private final Date end;
+
+    public static SearchBetweenDatesDTO fromDates(Date start, Date end) {
+
+        return SearchBetweenDatesDTO.builder()
+                .start(start)
+                .end(end)
+                .build();
+    }
 }

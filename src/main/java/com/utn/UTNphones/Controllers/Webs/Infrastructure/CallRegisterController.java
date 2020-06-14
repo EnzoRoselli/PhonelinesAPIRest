@@ -14,13 +14,13 @@ import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.INFRAST
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(INFRASTRUCTURE_MAPPING+"/registerCall")
+@RequestMapping(INFRASTRUCTURE_MAPPING + "/registerCall")
 public class CallRegisterController {
 
     private final CallController callController;
 
     @PostMapping
-    public ResponseEntity registerCall(@RequestHeader("INFRASTRUCTURE_KEY") String key, @RequestBody NewCallDTO newCall){
+    public ResponseEntity registerCall(@RequestHeader("INFRASTRUCTURE_KEY") String key, @RequestBody NewCallDTO newCall) {
         this.callController.registerCall(newCall);
         return ResponseEntity.ok().build();
     }

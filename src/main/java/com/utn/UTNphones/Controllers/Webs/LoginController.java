@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import static com.utn.UTNphones.Controllers.Webs.URLconstants.LogRouter.ADMIN_LOGIN;
-import static com.utn.UTNphones.Controllers.Webs.URLconstants.LogRouter.CLIENT_LOGIN;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping
@@ -24,15 +21,10 @@ public class LoginController {
     private final UserController userController;
     private final SessionManager sessionManager;
 
-    @PostMapping(ADMIN_LOGIN)
-    public ResponseEntity<String> adminLogin(@RequestBody @Valid LoginDTO userLogging) {
-        String token = sessionManager.createSession(userController.adminlogin(userLogging));
-        return ResponseEntity.ok(token);
-    }
 
-    @PostMapping(CLIENT_LOGIN)
-    public ResponseEntity<String> clientLogin(@RequestBody @Valid LoginDTO userLogging) {
-        String token = sessionManager.createSession(userController.clientLogin(userLogging));
+    @PostMapping
+    public ResponseEntity<String> login(@RequestBody @Valid LoginDTO userLogging) {
+        String token = sessionManager.createSession(userController.login(userLogging));
         return ResponseEntity.ok(token);
     }
 

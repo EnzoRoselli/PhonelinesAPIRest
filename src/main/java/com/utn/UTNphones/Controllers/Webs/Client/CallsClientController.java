@@ -27,7 +27,7 @@ import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.CLIENT_
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(CLIENT_MAPPING+"/calls")
+@RequestMapping(CLIENT_MAPPING + "/calls")
 public class CallsClientController {
     private final CallController callController;
     private final SessionManager sessionManager;
@@ -52,8 +52,7 @@ public class CallsClientController {
         } else if (endDate == null) {
             calls = this.callController.getByUserStartDate(userId, startDate);
         } else {
-            SearchBetweenDatesDTO datesDto = SearchBetweenDatesDTO.builder().start(startDate).end(endDate).build(); //todo pasarlo a un FromDTO
-            calls = this.callController.getByUserBetweenDates(userId, datesDto);
+            calls = this.callController.getByUserBetweenDates(userId, SearchBetweenDatesDTO.fromDates(startDate, endDate));
         }
         return calls.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(calls);
     }
