@@ -66,9 +66,13 @@ public class CallsClientController {
         List<Call> calls = callController.findAll((Specification<Call>) (root, cq, cb) -> {
             Predicate p = cb.conjunction();
             if (Objects.nonNull(startDate) && Objects.nonNull(endDate) && startDate.before(endDate)) {
-                p = cb.and(p, cb.between(root.get("createdDate"), startDate, endDate));
+                p = cb.and(p, cb.between(root.get("date"), startDate, endDate));
+            }else if(Objects.nonNull(startDate)){
+                p = cb.greaterThan(root.get("date"), startDate);
+            }else if(Objects.nonNull(endDate)){
+                p = cb.lessThan(root.get("date"), endDate);
             }
-            cq.orderBy(cb.asc(root.get("id")));
+            cq.orderBy(cb.desc(root.get("id")));
             return p;
         });
         return calls.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(calls);

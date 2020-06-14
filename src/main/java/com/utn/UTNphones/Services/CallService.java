@@ -58,6 +58,6 @@ public class CallService {
 
 
     public List<Call> findAll(Specification<Call> callSpecification, Pageable pageable) {
-        return callRepository.findAll(callSpecification,pageable);
+        return callRepository.findAll(callSpecification,pageable).getContent();
     }
 }
