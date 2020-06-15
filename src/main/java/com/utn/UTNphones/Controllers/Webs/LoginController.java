@@ -26,8 +26,7 @@ public class LoginController {
 
     @PostMapping
     public ResponseEntity<String> login(@RequestBody @Valid LoginDTO userLogging) {
-        String token = sessionManager.createSession(userController.login(userLogging));
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok(sessionManager.createSession(userController.login(userLogging)));
     }
 
     @PostMapping("/logout")

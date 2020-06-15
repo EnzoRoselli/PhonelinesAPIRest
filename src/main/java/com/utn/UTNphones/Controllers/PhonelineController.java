@@ -31,11 +31,12 @@ public class PhonelineController {
         if (!"client".equals(userService.findById(phonelineDto.getUserId()).getType()))
             throw new IlegalUserForPhoneline();
         try {
+
             return phonelineService.add(Phoneline.fromDto(phonelineDto));
         } catch (DataAccessException ex) {
             ExceptionController.phonelineAddException(ex);
         }
-        return null;
+        return Phoneline.fromDto(phonelineDto);
     }
 
     public void remove(Integer phoneId) {
@@ -52,7 +53,7 @@ public class PhonelineController {
         } catch (DataAccessException ex) {
             ExceptionController.phonelineUpdateException(Objects.requireNonNull(ex.getRootCause()));
         }
-        return null;
+        return Phoneline.fromDto(phonelineDto);
     }
 
 }

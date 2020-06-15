@@ -66,7 +66,7 @@ public class UserController {
         this.findById(userId);
         this.userService.delete(userId);
     }
-
+//todo testear
     private void setNonNullValues(UserPatchUpdateDTO newUser, User userUpdated) {
         Optional.ofNullable(newUser.getPassword()).ifPresent(userUpdated::setPassword);
         Optional.ofNullable(newUser.getIdentification()).ifPresent(userUpdated::setIdentification);

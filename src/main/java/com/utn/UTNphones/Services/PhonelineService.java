@@ -36,7 +36,6 @@ public class PhonelineService {
     public Phoneline getById(Integer id) {
         return phonelineRepository.findById(id)
                 .orElseThrow(PhonelineDoesntExist::new);
-
     }
 
     public Phoneline update(Phoneline phoneline) {

@@ -17,8 +17,15 @@ import java.time.format.DateTimeFormatter;
 public class UtNphonesApplication {
 
     public static void main(String[] args) {
-         SpringApplication.run(UtNphonesApplication.class, args);
+      //   SpringApplication.run(UtNphonesApplication.class, args);
+         String a="a";
+         aa(a);
+        System.out.println(a);
 
+
+    }
+    public static void aa(String w){
+        w="bbbb";
     }
 
 }

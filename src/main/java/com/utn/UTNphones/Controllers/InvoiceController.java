@@ -15,9 +15,9 @@ public class InvoiceController {
 
     private final InvoiceService invoiceService;
 
-    public List<Invoice> getAllByUserId(Integer userId) {
+    /*public List<Invoice> getAllByUserId(Integer userId) {
         return this.invoiceService.getAllByUserId(userId);
-    }
+    }*/
 
     public List<Invoice> getByUserBetweenDates(Integer id, SearchBetweenDatesDTO datesDto) {
         return this.invoiceService.getByUserAndBetweenDates(id, datesDto);
