@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import static com.utn.UTNphones.Controllers.Webs.URLconstants.LogRouter.ADMIN_LOGIN;
-import static com.utn.UTNphones.Controllers.Webs.URLconstants.LogRouter.CLIENT_LOGIN;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping

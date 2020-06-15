@@ -17,8 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 @Entity
@@ -58,7 +57,7 @@ public class Call {
 
     @Column(name = "date_call")
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime date;
+    private Date date;
 
     @Column(name = "total_price")
     private Double total_price;
@@ -69,7 +68,11 @@ public class Call {
     private Integer duration;
 
     public static Call fromDto(NewCallDTO newCallDTO) {
-        return Call.builder().originPhone(newCallDTO.getOriginNumber()).destinationPhone(newCallDTO.getDestinationNumber()).duration(newCallDTO.getDuration()).date(newCallDTO.getDate()).build();
+        return Call.builder().originPhone(newCallDTO.getOriginNumber())
+                .destinationPhone(newCallDTO.getDestinationNumber())
+                .duration(newCallDTO.getDuration())
+                .date(Date.from(newCallDTO.getDate().atZone(ZoneId.systemDefault()).toInstant()))
+                .build();
     }
 
 

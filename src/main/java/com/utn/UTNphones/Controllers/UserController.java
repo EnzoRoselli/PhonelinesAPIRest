@@ -40,7 +40,7 @@ public class UserController {
 
     public User modification(Integer userId, UserPatchUpdateDTO newUser) throws Exception {
         User userRenovated = this.userService.findById(userId);
-        setNonNullValues(newUser, userRenovated);
+        userRenovated=setNonNullValues(newUser, userRenovated);
         userRenovated.setId(userId);
         try {
             return this.userService.update(userRenovated);
@@ -66,14 +66,15 @@ public class UserController {
         this.findById(userId);
         this.userService.delete(userId);
     }
-//todo testear
-    private void setNonNullValues(UserPatchUpdateDTO newUser, User userUpdated) {
+
+    private User setNonNullValues(UserPatchUpdateDTO newUser, User userUpdated) {
         Optional.ofNullable(newUser.getPassword()).ifPresent(userUpdated::setPassword);
         Optional.ofNullable(newUser.getIdentification()).ifPresent(userUpdated::setIdentification);
         Optional.ofNullable(newUser.getCityId()).ifPresent(value->userUpdated.setCity(City.builder().id(value).build()));
         Optional.ofNullable(newUser.getLastname()).ifPresent(userUpdated::setLastname);
         Optional.ofNullable(newUser.getName()).ifPresent(userUpdated::setName);
         Optional.ofNullable(newUser.getType()).ifPresent(userUpdated::setType);
+        return userUpdated;
     }
 
 

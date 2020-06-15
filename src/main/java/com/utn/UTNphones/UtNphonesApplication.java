@@ -5,11 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Month;
-import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 
 @SpringBootApplication
 @EnableAsync
@@ -17,15 +16,9 @@ import java.time.format.DateTimeFormatter;
 public class UtNphonesApplication {
 
     public static void main(String[] args) {
-      //   SpringApplication.run(UtNphonesApplication.class, args);
-         String a="a";
-         aa(a);
-        System.out.println(a);
-
+       SpringApplication.run(UtNphonesApplication.class, args);
 
     }
-    public static void aa(String w){
-        w="bbbb";
-    }
+
 
 }

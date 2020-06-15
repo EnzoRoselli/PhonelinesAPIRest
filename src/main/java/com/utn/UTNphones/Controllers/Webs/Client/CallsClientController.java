@@ -1,8 +1,5 @@
 package com.utn.UTNphones.Controllers.Webs.Client;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.utn.UTNphones.Controllers.CallController;
 import com.utn.UTNphones.Domains.Call;
 import com.utn.UTNphones.Domains.Dto.Requests.SearchBetweenDatesDTO;
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
