@@ -23,11 +23,4 @@ public class InvoiceController {
         return this.invoiceService.getByUserAndBetweenDates(id, datesDto);
     }
 
-    public List<Invoice> getByUserEndDate(Integer id, Date endDate) {
-        return this.invoiceService.getByUserEndDate(id, endDate);
-    }
-
-    public List<Invoice> getByUserStartDate(Integer id, Date startDate) {
-        return this.invoiceService.getByUserStartDate(id, startDate);
-    }
 }

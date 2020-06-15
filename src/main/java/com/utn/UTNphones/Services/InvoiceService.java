@@ -8,7 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -28,14 +29,7 @@ public class InvoiceService {
     }
 
     public List<Invoice> getByUserAndBetweenDates(Integer id, SearchBetweenDatesDTO datesDto) {
-        return this.invoiceRepository.findAllByPhonelineUserIdAndDateBetweenOrderByIdDesc(id, datesDto.getStart(), datesDto.getEnd(), pageable);
+        return this.invoiceRepository.findAllByPhonelineUserIdAndDateBetweenOrderByIdDesc(id, Date.valueOf(datesDto.getStart()), Date.valueOf(datesDto.getEnd()), pageable);
     }
 
-    public List<Invoice> getByUserEndDate(Integer id, Date endDate) {
-        return this.invoiceRepository.findAllByPhonelineUserIdAndDateBeforeOrderByIdDesc(id, endDate, pageable);
-    }
-
-    public List<Invoice> getByUserStartDate(Integer id, Date startDate) {
-        return this.invoiceRepository.findAllByPhonelineUserIdAndDateAfterOrderByIdDesc(id, startDate, pageable);
-    }
 }

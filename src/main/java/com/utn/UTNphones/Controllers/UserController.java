@@ -20,12 +20,8 @@ public class UserController {
 
     private final UserService userService;
 
-    public User adminlogin(LoginDTO loginDTO) {
-        return userService.adminLogin(User.fromLoginDto(loginDTO));
-    }
-
-    public User clientLogin(LoginDTO loginDTO) {
-        return userService.clientLogin(User.fromLoginDto(loginDTO));
+    public User login(LoginDTO loginDTO) {
+        return userService.login(User.fromLoginDto(loginDTO));
     }
 
     public User register(UserDTO userDTO) throws Exception {

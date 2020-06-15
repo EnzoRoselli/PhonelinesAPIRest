@@ -16,14 +16,12 @@ public class UserService {
 
     private final IUserRepository userRepository;
 
-    public User clientLogin(User user) {
-        return userRepository.findByIdentificationAndPasswordAndType
-                (user.getIdentification(), user.getPassword(), "client").orElseThrow(LogException::new);
-    }
-
-    public User adminLogin(User user) {
-        return userRepository.findByIdentificationAndPasswordAndTypeAndStatus
-                (user.getIdentification(), user.getPassword(), "employee", true).orElseThrow(LogException::new);
+    public User login(User user){
+        user=userRepository.findByIdentificationAndPassword(user.getIdentification(),user.getPassword()).orElseThrow(LogException::new);
+        if (user.getType().equals("employee") && !user.getStatus()){
+            throw new LogException();
+        }
+        return user;
     }
 
     public User register(User user) throws DataAccessException {
@@ -39,13 +37,11 @@ public class UserService {
     public User findById(Integer id) {
        return userRepository.findById(id)
                .orElseThrow(UserDoesntExist::new);
-
     }
 
     public User findByIdentification(String identification) {
         return this.userRepository.findByIdentification(identification).orElseThrow(UserDoesntExist::new);
     }
-
 
     public void delete(Integer userId) {
         this.userRepository.deleteById(userId);

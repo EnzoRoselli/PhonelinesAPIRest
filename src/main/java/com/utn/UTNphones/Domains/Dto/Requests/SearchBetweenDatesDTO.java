@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -26,14 +27,14 @@ public class SearchBetweenDatesDTO {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class, as = LocalDateTime.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @NotBlank(message = "StartDate is mandatory")
-   private final LocalDateTime start;
+   private final LocalDate start;
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class, as = LocalDateTime.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @NotBlank(message = "EndDate is mandatory")
-    private final LocalDateTime end;
+    private final LocalDate end;
 
-    public static SearchBetweenDatesDTO fromDates(LocalDateTime start,LocalDateTime end){
+    public static SearchBetweenDatesDTO fromDates(LocalDate start, LocalDate end){
         return SearchBetweenDatesDTO.builder()
                 .start(start)
                 .end(end)

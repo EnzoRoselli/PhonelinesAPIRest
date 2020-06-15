@@ -10,6 +10,8 @@ import com.utn.UTNphones.Services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -38,11 +40,4 @@ public class CallController {
         this.callService.add(Call.fromDto(newCall));
     }
 
-    public List<Call> getByUserEndDate(Integer id, Date endDate) {
-        return this.callService.getByUserEndDate(id, endDate);
-    }
-
-    public List<Call> getByUserStartDate(Integer id, Date startDate) {
-        return this.callService.getByUserStartDate(id, startDate);
-    }
 }

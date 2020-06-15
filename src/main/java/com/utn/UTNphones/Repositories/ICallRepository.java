@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -26,9 +28,6 @@ public interface ICallRepository extends JpaRepository<Call, Integer> {
             "LIMIT 10;", nativeQuery = true)
     List<CityTop> findTopMostCalledCities(Integer userId);
 
-    List<Call> findAllByOriginPhonelineUserIdAndDateBetweenOrderByIdDesc(Integer userId, Date Start, Date End, Pageable pageable);
+    List<Call> findAllByOriginPhonelineUserIdAndDateBetweenOrderByIdDesc(Integer userId,  Date Start, Date End, Pageable pageable);
 
-    List<Call> findAllByOriginPhonelineUserIdAndDateBeforeOrderByIdDesc(Integer userId, Date endDate, Pageable pageable);
-
-    List<Call> findAllByOriginPhonelineUserIdAndDateAfterOrderByIdDesc(Integer userId, Date startDate, Pageable pageable);
 }

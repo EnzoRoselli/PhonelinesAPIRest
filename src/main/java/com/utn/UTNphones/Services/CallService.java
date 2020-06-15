@@ -11,7 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -44,15 +44,8 @@ public class CallService {
 
     public List<Call> getByUserAndBetweenDates(Integer userId, SearchBetweenDatesDTO dates) {
 
-        return this.callRepository.findAllByOriginPhonelineUserIdAndDateBetweenOrderByIdDesc(userId, dates.getStart(), dates.getEnd(), pageable);
+        return this.callRepository.findAllByOriginPhonelineUserIdAndDateBetweenOrderByIdDesc(userId, Date.valueOf(dates.getStart()) ,  Date.valueOf(dates.getEnd()), pageable);
     }
 
-    public List<Call> getByUserEndDate(Integer userId, Date endDate) {
-        return this.callRepository.findAllByOriginPhonelineUserIdAndDateBeforeOrderByIdDesc(userId, endDate, pageable);
-    }
-
-    public List<Call> getByUserStartDate(Integer userId, Date startDate) {
-        return this.callRepository.findAllByOriginPhonelineUserIdAndDateAfterOrderByIdDesc(userId, startDate, pageable);
-    }
 
 }
