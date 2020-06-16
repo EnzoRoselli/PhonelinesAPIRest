@@ -26,14 +26,14 @@ public class SearchBetweenDatesDTO {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class, as = LocalDateTime.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @NotBlank(message = "StartDate is mandatory")
-   private final LocalDate start;
+    private final LocalDate start;
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class, as = LocalDateTime.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @NotBlank(message = "EndDate is mandatory")
     private final LocalDate end;
 
-    public static SearchBetweenDatesDTO fromDates(LocalDate start, LocalDate end){
+    public static SearchBetweenDatesDTO fromDates(LocalDate start, LocalDate end) {
         return SearchBetweenDatesDTO.builder()
                 .start(start)
                 .end(end)

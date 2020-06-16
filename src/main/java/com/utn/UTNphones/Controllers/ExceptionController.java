@@ -47,7 +47,7 @@ public class ExceptionController {
 
     public static void userUpdateException(Throwable Error) throws Exception {
 
-            //City id
+        //City id
         if (Error.getMessage().contains("fk_users_city"))
             throw new CityDoesntExist();
             //Identification unique
@@ -65,7 +65,7 @@ public class ExceptionController {
 
     public static void phonelineUpdateException(Throwable Error) throws Exception {
 
-            //City id
+        //City id
         if (Error.getMessage().contains("Domains.City"))
             throw new CityDoesntExist();
             //User id

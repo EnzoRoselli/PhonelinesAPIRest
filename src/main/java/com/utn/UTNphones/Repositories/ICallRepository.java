@@ -26,6 +26,6 @@ public interface ICallRepository extends JpaRepository<Call, Integer> {
             "LIMIT 10;", nativeQuery = true)
     List<CityTop> findTopMostCalledCities(Integer userId);
 
-    List<Call> findAllByOriginPhonelineUserIdAndDateBetweenOrderByIdDesc(Integer userId,  Date Start, Date End, Pageable pageable);
+    List<Call> findAllByOriginPhonelineUserIdAndDateBetweenOrderByIdDesc(Integer userId, Date Start, Date End, Pageable pageable);
 
 }

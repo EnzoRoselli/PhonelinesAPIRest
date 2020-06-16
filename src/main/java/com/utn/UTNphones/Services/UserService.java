@@ -16,9 +16,9 @@ public class UserService {
 
     private final IUserRepository userRepository;
 
-    public User login(User user){
-        user=userRepository.findByIdentificationAndPasswordAndType(user.getIdentification(),user.getPassword(),user.getType()).orElseThrow(LogException::new);
-        if (user.getType().equals("employee") && !user.getStatus()){
+    public User login(User user) {
+        user = userRepository.findByIdentificationAndPasswordAndType(user.getIdentification(), user.getPassword(), user.getType()).orElseThrow(LogException::new);
+        if (user.getType().equals("employee") && !user.getStatus()) {
             throw new LogException();
         }
         return user;
@@ -35,8 +35,8 @@ public class UserService {
     }
 
     public User findById(Integer id) {
-       return userRepository.findById(id)
-               .orElseThrow(UserDoesntExist::new);
+        return userRepository.findById(id)
+                .orElseThrow(UserDoesntExist::new);
     }
 
     public User findByIdentification(String identification) {

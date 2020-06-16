@@ -40,7 +40,7 @@ public class UserController {
 
     public User modification(Integer userId, UserPatchUpdateDTO newUser) throws Exception {
         User userRenovated = this.userService.findById(userId);
-        userRenovated=setNonNullValues(newUser, userRenovated);
+        userRenovated = setNonNullValues(newUser, userRenovated);
         userRenovated.setId(userId);
         try {
             return this.userService.update(userRenovated);
@@ -70,7 +70,7 @@ public class UserController {
     private User setNonNullValues(UserPatchUpdateDTO newUser, User userUpdated) {
         Optional.ofNullable(newUser.getPassword()).ifPresent(userUpdated::setPassword);
         Optional.ofNullable(newUser.getIdentification()).ifPresent(userUpdated::setIdentification);
-        Optional.ofNullable(newUser.getCityId()).ifPresent(value->userUpdated.setCity(City.builder().id(value).build()));
+        Optional.ofNullable(newUser.getCityId()).ifPresent(value -> userUpdated.setCity(City.builder().id(value).build()));
         Optional.ofNullable(newUser.getLastname()).ifPresent(userUpdated::setLastname);
         Optional.ofNullable(newUser.getName()).ifPresent(userUpdated::setName);
         Optional.ofNullable(newUser.getType()).ifPresent(userUpdated::setType);

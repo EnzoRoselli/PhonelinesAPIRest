@@ -20,7 +20,7 @@ public class RateService {
     private final Pageable pageable = PageRequest.of(0, 10);
 
     public List<Rate> getAllRates() {
-        Page page=rateRepository.findAll(pageable);
+        Page page = rateRepository.findAll(pageable);
         return page.getContent();
     }
 
