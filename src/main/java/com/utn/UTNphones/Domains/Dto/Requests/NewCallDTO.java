@@ -11,13 +11,12 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 
 @Data
-@ToString
 @Builder
-@RequiredArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class NewCallDTO {
 
@@ -27,7 +26,6 @@ public class NewCallDTO {
 
     private final Integer duration;
 
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class, as = LocalDateTime.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private final LocalDateTime date;
+    private final Date date;
 }

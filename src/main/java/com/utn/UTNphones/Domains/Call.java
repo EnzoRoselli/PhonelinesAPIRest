@@ -71,7 +71,7 @@ public class Call {
         return Call.builder().originPhone(newCallDTO.getOriginNumber())
                 .destinationPhone(newCallDTO.getDestinationNumber())
                 .duration(newCallDTO.getDuration())
-                .date(Date.from(newCallDTO.getDate().atZone(ZoneId.systemDefault()).toInstant()))
+                .date(newCallDTO.getDate())
                 .build();
     }
 
