@@ -56,7 +56,6 @@ public class User {
     }
 
 
-
     public static User fromDto(UserDTO u) {
         return User.builder().name(u.getName()).lastname(u.getLastname())
                 .status(u.getStatus())

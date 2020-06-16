@@ -32,7 +32,8 @@ public class RateController {
         rateService.findById(destinationCityId);
         return this.rateService.findByDestination(destinationCityId);
     }
-    public Rate findById(Integer id){
+
+    public Rate findById(Integer id) {
         return rateService.findById(id);
     }
 }

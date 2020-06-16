@@ -44,7 +44,7 @@ public class CallService {
 
     public List<Call> getByUserAndBetweenDates(Integer userId, SearchBetweenDatesDTO dates) {
 
-        return this.callRepository.findAllByOriginPhonelineUserIdAndDateBetweenOrderByIdDesc(userId, Date.valueOf(dates.getStart()) ,  Date.valueOf(dates.getEnd()), pageable);
+        return this.callRepository.findAllByOriginPhonelineUserIdAndDateBetweenOrderByIdDesc(userId, Date.valueOf(dates.getStart()), Date.valueOf(dates.getEnd()), pageable);
     }
 
 
