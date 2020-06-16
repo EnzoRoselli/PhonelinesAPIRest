@@ -6,7 +6,6 @@ public abstract class CityExceptions extends RuntimeException {
     public CityExceptions(String message) {
         super();
         this.message = message;
-
     }
 
     @Override

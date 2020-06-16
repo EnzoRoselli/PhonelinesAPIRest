@@ -35,7 +35,6 @@ public class ClientManagementController {
     @PostMapping
     public ResponseEntity register(@RequestHeader("Authorization") String sessionToken, @RequestBody @Valid UserDTO userRegistering) throws Exception {
         return ResponseEntity.created(getLocation(userController.register(userRegistering))).build();
-
     }
 
     @GetMapping(USER_ID)

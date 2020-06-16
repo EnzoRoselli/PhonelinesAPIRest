@@ -20,7 +20,8 @@ public class CallRegisterController {
     private final CallController callController;
 
     @PostMapping
-    public ResponseEntity registerCall(@RequestHeader("INFRASTRUCTURE_KEY") String key, @RequestBody NewCallDTO newCall){
+    public ResponseEntity registerCall(@RequestHeader("INFRASTRUCTURE_KEY") String key,
+                                       @RequestBody NewCallDTO newCall){
         this.callController.registerCall(newCall);
         return ResponseEntity.ok().build();
     }

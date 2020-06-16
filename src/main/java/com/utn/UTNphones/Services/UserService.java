@@ -17,7 +17,7 @@ public class UserService {
     private final IUserRepository userRepository;
 
     public User login(User user){
-        user=userRepository.findByIdentificationAndPassword(user.getIdentification(),user.getPassword()).orElseThrow(LogException::new);
+        user=userRepository.findByIdentificationAndPasswordAndType(user.getIdentification(),user.getPassword(),user.getType()).orElseThrow(LogException::new);
         if (user.getType().equals("employee") && !user.getStatus()){
             throw new LogException();
         }

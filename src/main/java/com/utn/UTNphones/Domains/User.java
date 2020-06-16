@@ -1,6 +1,6 @@
 package com.utn.UTNphones.Domains;
 
-import com.utn.UTNphones.Domains.Dto.Requests.LoginDTO;
+import com.utn.UTNphones.Domains.Dto.Requests.Login;
 import com.utn.UTNphones.Domains.Dto.Requests.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,12 +47,15 @@ public class User {
     @JoinColumn(name = "id_city")
     private City city;
 
-    public static User fromLoginDto(LoginDTO loginDTO) {
+    public static User fromLoginDto(Login loginDTO) {
         return User.builder()
                 .identification(loginDTO.getIdentification())
                 .password(loginDTO.getPassword())
+                .type(loginDTO.getType())
                 .build();
     }
+
+
 
     public static User fromDto(UserDTO u) {
         return User.builder().name(u.getName()).lastname(u.getLastname())

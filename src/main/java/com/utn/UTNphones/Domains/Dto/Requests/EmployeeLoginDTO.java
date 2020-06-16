@@ -16,7 +16,7 @@ import javax.validation.constraints.Pattern;
 @Builder
 @RequiredArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class LoginDTO {
+public class EmployeeLoginDTO implements Login{
 
     @Pattern(regexp = "^[1-9]{7,9}$", message = "Invalid identification!")
     @NotBlank(message = "identification is mandatory")
@@ -24,5 +24,7 @@ public class LoginDTO {
 
     @NotBlank(message = "Password is mandatory")
     private final String password;
+
+    private final String type="employee";
 
 }

@@ -47,11 +47,14 @@ public class ExceptionController {
 
     public static void userUpdateException(Throwable Error) throws Exception {
 
-        //City id
+            //City id
         if (Error.getMessage().contains("fk_users_city"))
             throw new CityDoesntExist();
             //Identification unique
-        else if (Error.getMessage().contains("for key 'identification_card'"))
+        else if (Error.getMessage().contains("for key 'unq_identification_card'"))
+            throw new UserIdentificationAlreadyExists();
+            //identification + type unique
+        else if (Error.getMessage().contains("for key 'unq_identification_type'"))
             throw new UserIdentificationAlreadyExists();
             //User type enum
         else if (Error.getMessage().contains("user_type"))
@@ -62,7 +65,7 @@ public class ExceptionController {
 
     public static void phonelineUpdateException(Throwable Error) throws Exception {
 
-        //City id
+            //City id
         if (Error.getMessage().contains("Domains.City"))
             throw new CityDoesntExist();
             //User id

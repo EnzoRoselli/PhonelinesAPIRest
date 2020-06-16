@@ -1,7 +1,8 @@
 package com.utn.UTNphones.Controllers.Webs;
 
 import com.utn.UTNphones.Controllers.UserController;
-import com.utn.UTNphones.Domains.Dto.Requests.LoginDTO;
+import com.utn.UTNphones.Domains.Dto.Requests.ClientLoginDTO;
+import com.utn.UTNphones.Domains.Dto.Requests.EmployeeLoginDTO;
 import com.utn.UTNphones.Sessions.SessionManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -22,7 +23,12 @@ public class LoginController {
     private final SessionManager sessionManager;
 
     @PostMapping
-    public ResponseEntity<String> login(@RequestBody @Valid LoginDTO userLogging) {
+    public ResponseEntity<String> login(@RequestBody @Valid ClientLoginDTO userLogging) {
+        return ResponseEntity.ok(sessionManager.createSession(userController.login(userLogging)));
+    }
+
+    @PostMapping("/admin")
+    public ResponseEntity<String> loginAdmin(@RequestBody @Valid EmployeeLoginDTO userLogging) {
         return ResponseEntity.ok(sessionManager.createSession(userController.login(userLogging)));
     }
 

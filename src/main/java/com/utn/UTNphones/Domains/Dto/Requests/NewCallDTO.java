@@ -1,5 +1,6 @@
 package com.utn.UTNphones.Domains.Dto.Requests;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -18,12 +19,11 @@ import java.time.LocalDateTime;
 @Builder
 @RequiredArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-
 public class NewCallDTO {
 
    private final String originNumber;
 
-    private final  String destinationNumber;
+    private final String destinationNumber;
 
     private final Integer duration;
 

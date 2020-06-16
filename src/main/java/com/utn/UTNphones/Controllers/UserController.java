@@ -1,7 +1,7 @@
 package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Domains.City;
-import com.utn.UTNphones.Domains.Dto.Requests.LoginDTO;
+import com.utn.UTNphones.Domains.Dto.Requests.Login;
 import com.utn.UTNphones.Domains.Dto.Requests.UserDTO;
 import com.utn.UTNphones.Domains.Dto.Requests.UserPatchUpdateDTO;
 import com.utn.UTNphones.Domains.User;
@@ -20,7 +20,7 @@ public class UserController {
 
     private final UserService userService;
 
-    public User login(LoginDTO loginDTO) {
+    public User login(Login loginDTO) {
         return userService.login(User.fromLoginDto(loginDTO));
     }
 
