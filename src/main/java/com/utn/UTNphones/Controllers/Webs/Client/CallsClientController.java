@@ -37,13 +37,15 @@ public class CallsClientController {
 
     @GetMapping
     public ResponseEntity<List<Call>> getCallsBetweenDates(@RequestHeader("Authorization") String sessionToken,
-                                                           @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-                                                           @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+                                                           @RequestParam(value = "startDate",required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+                                                           @RequestParam(value = "endDate",required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
 
         Integer userId = sessionManager.getCurrentUser(sessionToken).get().getId();
         List<Call> calls = this.callController.getByUserBetweenDates(userId,
-                SearchBetweenDatesDTO.fromDates(Optional.ofNullable(startDate).orElse(LocalDate.of(2020, 1, 1)),
-                        Optional.ofNullable(endDate).orElse(LocalDate.now())));
+                SearchBetweenDatesDTO.fromDates(Optional.ofNullable(startDate)
+                                .orElse(LocalDate.of(2020, 1, 1)),
+                        Optional.ofNullable(endDate)
+                                .orElse(LocalDate.now())));
 
         return calls.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(calls);
     }

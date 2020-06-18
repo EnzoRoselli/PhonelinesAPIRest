@@ -24,8 +24,8 @@ public class RateManagementController {
 
     @GetMapping
     public ResponseEntity<List<Rate>> getRates(@RequestHeader("Authorization") String sessionToken,
-                                               @RequestParam("OriginCity") Integer originCityId,
-                                               @RequestParam("DestinationCity") Integer destinationCityId) {
+                                               @RequestParam(value = "OriginCity",required = false) Integer originCityId,
+                                               @RequestParam(value = "DestinationCity",required = false) Integer destinationCityId) {
         List<Rate> rates = new ArrayList<>();
         if (originCityId != null && destinationCityId != null)
             rates.add(this.rateController.getByOriginAndDestination(originCityId, destinationCityId));
