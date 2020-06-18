@@ -1,15 +1,15 @@
 {
+  "_id"
+  "number"
+  "type"
+  "status"
+  "user": {
     "_id"
-    "number"
-    "type"
-    "status"
-    "user":{
-        "_id"
-        "name"
-    }
-    "city"{
-        "name"
-        "prefix"
-    }  
+    "name"
+  }
+  "city"{
+  "name"
+  "prefix"
+}
 
 }

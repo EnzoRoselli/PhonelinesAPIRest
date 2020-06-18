@@ -2,7 +2,6 @@ package com.utn.UTNphones.Controllers.Webs.Employee;
 
 import com.utn.UTNphones.Controllers.RateController;
 import com.utn.UTNphones.Domains.Rate;
-import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +25,7 @@ public class RateManagementController {
     @GetMapping
     public ResponseEntity<List<Rate>> getRates(@RequestHeader("Authorization") String sessionToken,
                                                @RequestParam("OriginCity") Integer originCityId,
-                                               @RequestParam("DestinationCity") Integer destinationCityId) throws RateDoesntExist {
+                                               @RequestParam("DestinationCity") Integer destinationCityId) {
         List<Rate> rates = new ArrayList<>();
         if (originCityId != null && destinationCityId != null)
             rates.add(this.rateController.getByOriginAndDestination(originCityId, destinationCityId));

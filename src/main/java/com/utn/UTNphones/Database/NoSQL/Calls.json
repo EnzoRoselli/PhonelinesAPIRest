@@ -1,51 +1,50 @@
 {
+  "_id"
+  "origin_phone": {
     "_id"
-    "origin_phone":{
-        "_id"
-        "number"
-        "user":{
-            "_id"
-            "name"
-        }
+    "number"
+    "user": {
+      "_id"
+      "name"
     }
-    "destination_phone":{
-        "_id"
-        "number"
-        "user":{
-            "_id"
-            "name"
-        }
+  }
+  "destination_phone": {
+    "_id"
+    "number"
+    "user": {
+      "_id"
+      "name"
     }
-    "rate":{
-        "_id"
-        "origin":{
-            "_id"
-            "city"{
-                "name"
-                "prefix"
-            }            
-        }
-        "destination":{
-            "_id"
-            "city":{
-                "name"
-                "prefix"
-            }     
-        }
-    }
-    "date_call":
-    "invoice":{
-        "_id"
-        "phone_number":{
-            "_id"
-            "number"
-            "user":{
-                "_id"
-                "name"
-            }
-        }
-    }
-    "total_cost"
-    "duration"
-    "total_price"
+  }
+  "rate": {
+    "_id"
+    "origin": {
+      "_id"
+      "city"{
+  "name"
+  "prefix"
+}
+}
+"destination": {
+"_id"
+"city": {
+"name"
+"prefix"
+}
+}
+}
+"date_call": "invoice": {
+"_id"
+"phone_number":{
+"_id"
+"number"
+"user": {
+"_id"
+"name"
+}
+}
+}
+"total_cost"
+"duration"
+"total_price"
 }

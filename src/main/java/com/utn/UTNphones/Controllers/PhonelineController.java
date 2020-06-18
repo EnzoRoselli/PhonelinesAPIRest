@@ -39,9 +39,10 @@ public class PhonelineController {
         return Phoneline.fromDto(phonelineDto);
     }
 
-    public void remove(Integer phoneId) {
-        phonelineService.getById(phoneId);
+    public Phoneline remove(Integer phoneId) {
+        Phoneline ph = phonelineService.getById(phoneId);
         phonelineService.removeById(phoneId);
+        return ph;
     }
 
     public Phoneline update(Integer id, PhonelineDTO phonelineDto) throws Exception {

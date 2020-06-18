@@ -3,7 +3,6 @@ package com.utn.UTNphones.Controllers.Webs.Employee;
 import com.utn.UTNphones.Controllers.PhonelineController;
 import com.utn.UTNphones.Domains.Dto.Requests.PhonelineDTO;
 import com.utn.UTNphones.Domains.Phoneline;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,17 +37,17 @@ class PhonelineManagementController {
 
     @GetMapping(PHONELINE_ID)
     public ResponseEntity<Phoneline> getPhoneline(@RequestHeader("Authorization") String sessionToken,
-                                                  @PathVariable(PHONELINE_ID_PARAM) Integer phonelineId) throws PhonelineDoesntExist {
+                                                  @PathVariable(PHONELINE_ID_PARAM) Integer phonelineId) {
 
         return ResponseEntity.ok(phonelineController.getById(phonelineId));
     }
 
     @DeleteMapping(PHONELINE_ID)
-    public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken,
-                                 @PathVariable(PHONELINE_ID_PARAM) Integer phoneId) throws PhonelineDoesntExist {
-        this.phonelineController.remove(phoneId);
+    public ResponseEntity<Phoneline> delete(@RequestHeader("Authorization") String sessionToken,
+                                            @PathVariable(PHONELINE_ID_PARAM) Integer phoneId) {
 
-        return ResponseEntity.ok().build();
+
+        return ResponseEntity.ok(this.phonelineController.remove(phoneId));
     }
 
     @PutMapping(PHONELINE_ID)

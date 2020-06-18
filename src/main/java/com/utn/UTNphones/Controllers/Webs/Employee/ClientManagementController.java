@@ -43,9 +43,9 @@ public class ClientManagementController {
     }
 
     @DeleteMapping(USER_ID)
-    public ResponseEntity delete(@RequestHeader("Authorization") String sessionToken, @PathVariable(USER_ID_PARAM) Integer userId) throws UserDoesntExist {
-        this.userController.delete(userId);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<User> delete(@RequestHeader("Authorization") String sessionToken, @PathVariable(USER_ID_PARAM) Integer userId) {
+
+        return ResponseEntity.ok(this.userController.delete(userId));
     }
 
 

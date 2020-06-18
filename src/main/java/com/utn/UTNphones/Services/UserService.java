@@ -40,7 +40,8 @@ public class UserService {
     }
 
     public User findByIdentification(String identification) {
-        return this.userRepository.findByIdentification(identification).orElseThrow(UserDoesntExist::new);
+        return this.userRepository.findByIdentification(identification)
+                .orElseThrow(UserDoesntExist::new);
     }
 
     public void delete(Integer userId) {

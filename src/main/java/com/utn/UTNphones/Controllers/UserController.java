@@ -62,9 +62,10 @@ public class UserController {
         return user;
     }
 
-    public void delete(Integer userId) {
-        this.findById(userId);
+    public User delete(Integer userId) {
+        User user = this.findById(userId);
         this.userService.delete(userId);
+        return user;
     }
 
     private User setNonNullValues(UserPatchUpdateDTO newUser, User userUpdated) {

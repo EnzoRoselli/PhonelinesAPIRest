@@ -4,7 +4,6 @@ import com.utn.UTNphones.Controllers.CallController;
 import com.utn.UTNphones.Domains.Call;
 import com.utn.UTNphones.Domains.Dto.Requests.SearchBetweenDatesDTO;
 import com.utn.UTNphones.Domains.Dto.Responses.CityTop;
-import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Sessions.SessionManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -31,7 +30,7 @@ public class CallsClientController {
 
 
     @GetMapping(TOP_DESTINATION)
-    public ResponseEntity<List<CityTop>> mostDestinationsCalled(@RequestHeader("Authorization") String sessionToken) throws CallException {
+    public ResponseEntity<List<CityTop>> mostDestinationsCalled(@RequestHeader("Authorization") String sessionToken) {
         List<CityTop> citiesWithCounter = this.callController.getTopDestinationsCalled(sessionManager.getCurrentUser(sessionToken).get().getId());
         return citiesWithCounter.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(citiesWithCounter);
     }
