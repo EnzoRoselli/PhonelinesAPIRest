@@ -18,4 +18,8 @@ public class InvoiceController {
         return this.invoiceService.getByUserAndBetweenDates(id, datesDto);
     }
 
+    public List<Invoice> getByUserId(Integer id) {
+        return this.invoiceService.getAllByUserId(id);
+    }
+
 }

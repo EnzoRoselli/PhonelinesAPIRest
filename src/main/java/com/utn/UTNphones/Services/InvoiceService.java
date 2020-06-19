@@ -19,10 +19,6 @@ public class InvoiceService {
 
     private final Pageable pageable = PageRequest.of(0, 10);
 
-    public List<Invoice> getAllInvoices() {
-        return invoiceRepository.findAll();
-    }
-
     public List<Invoice> getAllByUserId(Integer userId) {
         return this.invoiceRepository.findByPhonelineUserId(userId, pageable);
     }

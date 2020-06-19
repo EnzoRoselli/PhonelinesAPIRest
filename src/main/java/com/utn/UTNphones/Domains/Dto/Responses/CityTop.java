@@ -15,4 +15,5 @@ public interface CityTop {
     Integer getIdProvince();
 
     Integer getCant();
+
 }

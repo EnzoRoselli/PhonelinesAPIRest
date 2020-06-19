@@ -10,9 +10,8 @@ import com.utn.UTNphones.Services.PhonelineService;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import static org.mockito.Matchers.any;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 public class PhonelineControllerTest {
 

@@ -52,7 +52,8 @@ class PhonelineManagementController {
 
     @PutMapping(PHONELINE_ID)
     public ResponseEntity<Phoneline> update(@RequestHeader("Authorization") String sessionToken,
-                                            @PathVariable(PHONELINE_ID_PARAM) Integer phoneId, @RequestBody PhonelineDTO phonelineUpdating) throws Exception {
+                                            @PathVariable(PHONELINE_ID_PARAM) Integer phoneId,
+                                            @Valid @RequestBody PhonelineDTO phonelineUpdating) throws Exception {
 
         return ResponseEntity.ok(this.phonelineController.update(phoneId, phonelineUpdating));
     }

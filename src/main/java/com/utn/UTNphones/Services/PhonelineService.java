@@ -46,11 +46,4 @@ public class PhonelineService {
         this.phonelineRepository.deleteById(phoneId);
     }
 
-    public Boolean exists(String number, Integer cityId) {
-        return this.phonelineRepository.findByNumberAndCityId(number, cityId).
-                isEmpty();
-
-    }
-
-
 }

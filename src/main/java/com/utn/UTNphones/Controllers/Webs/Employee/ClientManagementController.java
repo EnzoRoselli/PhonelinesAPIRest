@@ -2,14 +2,12 @@ package com.utn.UTNphones.Controllers.Webs.Employee;
 
 import com.utn.UTNphones.Controllers.UserController;
 import com.utn.UTNphones.Domains.Dto.Requests.UserDTO;
-import com.utn.UTNphones.Domains.Dto.Requests.UserPatchUpdateDTO;
 import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -46,14 +44,6 @@ public class ClientManagementController {
     public ResponseEntity<User> delete(@RequestHeader("Authorization") String sessionToken, @PathVariable(USER_ID_PARAM) Integer userId) {
 
         return ResponseEntity.ok(this.userController.delete(userId));
-    }
-
-
-    @PatchMapping(USER_ID)
-    public ResponseEntity<User> modification(@RequestHeader("Authorization") String sessionToken,
-                                             @PathVariable(USER_ID_PARAM) Integer userId,
-                                             @RequestBody @Valid UserPatchUpdateDTO userUpdating) throws Exception {
-        return ResponseEntity.ok(this.userController.modification(userId, userUpdating));
     }
 
     @PutMapping(USER_ID)

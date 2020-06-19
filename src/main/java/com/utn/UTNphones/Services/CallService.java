@@ -4,7 +4,6 @@ import com.utn.UTNphones.Domains.Call;
 import com.utn.UTNphones.Domains.Dto.Requests.SearchBetweenDatesDTO;
 import com.utn.UTNphones.Domains.Dto.Responses.CityTop;
 import com.utn.UTNphones.Domains.Phoneline;
-import com.utn.UTNphones.Exceptions.CallExceptions.NoCallsFound;
 import com.utn.UTNphones.Repositories.ICallRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -27,19 +26,11 @@ public class CallService {
     }
 
     public List<Call> getCallsByPhoneNumbers(List<Phoneline> phoneListOfTheUser) {
-        List<Call> calls = callRepository.findByOriginPhonelineIn(phoneListOfTheUser, pageable);
-        if (calls.isEmpty()) {
-            throw new NoCallsFound();
-        }
-        return calls;
+        return callRepository.findByOriginPhonelineIn(phoneListOfTheUser, pageable);
     }
 
     public List<CityTop> getTopMostCalledCities(Integer userId) {
-        List<CityTop> cityPlusCounter = this.callRepository.findTopMostCalledCities(userId);
-        if (cityPlusCounter.isEmpty()) {
-            throw new NoCallsFound();
-        }
-        return cityPlusCounter;
+        return this.callRepository.findTopMostCalledCities(userId);
     }
 
     public List<Call> getByUserAndBetweenDates(Integer userId, SearchBetweenDatesDTO dates) {

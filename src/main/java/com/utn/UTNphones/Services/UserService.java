@@ -26,21 +26,16 @@ public class UserService {
 
     public User register(User user) throws DataAccessException {
         return Optional.of(userRepository.save(user))
-                .orElseThrow(UserDoesntExist::new);
+                .orElse(user);
     }
 
     public User update(User user) {
         return Optional.of(this.userRepository.save(user))
-                .orElseThrow(UserDoesntExist::new);
+                .orElse(user);
     }
 
     public User findById(Integer id) {
         return userRepository.findById(id)
-                .orElseThrow(UserDoesntExist::new);
-    }
-
-    public User findByIdentification(String identification) {
-        return this.userRepository.findByIdentification(identification)
                 .orElseThrow(UserDoesntExist::new);
     }
 
