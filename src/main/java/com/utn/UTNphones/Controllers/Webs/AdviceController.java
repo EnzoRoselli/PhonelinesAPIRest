@@ -2,7 +2,6 @@ package com.utn.UTNphones.Controllers.Webs;
 
 import com.utn.UTNphones.Domains.Dto.Responses.AttributesResponseErrorDto;
 import com.utn.UTNphones.Domains.Dto.Responses.ErrorResponseDTO;
-import com.utn.UTNphones.Exceptions.CallExceptions.CallException;
 import com.utn.UTNphones.Exceptions.CityExceptions.CityDoesntExist;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.IlegalUserForPhoneline;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineAlreadyExists;
@@ -78,12 +77,6 @@ public class AdviceController {
     @ExceptionHandler(UserTypeDoesntExist.class)
     public ErrorResponseDTO handleUserTypeDoesntExist(UserTypeDoesntExist ex) {
         return ErrorResponseDTO.fromRunTimeException(ex, 9);
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(CallException.class)
-    public ErrorResponseDTO handleCallException(CallException ex) {
-        return ErrorResponseDTO.fromRunTimeException(ex, 10);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

@@ -168,12 +168,13 @@ public class UserControllerTest {
 
     @Test(expected = CityDoesntExist.class)
     public void testUpdateUserDoesntExistException() throws Exception {
-        UserDTO updatedUser = UserDTO.builder().name("Enzo").lastname("Roselli").type("client")
+        UserDTO updatedUser = UserDTO.builder().name("Enzo").lastname("Roselli")
+                .type("client")
                 .identification("1").password("1234").cityId(0).build();
+        User userAux=User.fromDto(updatedUser);
+        userAux.setId(1);
 
-        when(userService.update(User.fromDto(updatedUser))).thenThrow(new DataAccessException("fk_users_city", new Throwable("fk_users_city")) {
-        });
-
+        when(userService.update(userAux)).thenThrow(new DataAccessException("", new Throwable("fk_users_city")) {});
         userController.update(1, updatedUser);
     }
 
