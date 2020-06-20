@@ -28,11 +28,11 @@ public class RateManagementController {
                                                @RequestParam(value = "DestinationCity", required = false) Integer destinationCityId) {
         List<Rate> rates = new ArrayList<>();
         if (originCityId != null && destinationCityId != null)
-            rates.add(this.rateController.getByOriginAndDestination(originCityId, destinationCityId));
+            rates.add(this.rateController.findByOriginAndDestination(originCityId, destinationCityId));
         else if (originCityId != null)
-            rates = this.rateController.getByOrigin(originCityId);
+            rates = this.rateController.findByOrigin(originCityId);
         else if (destinationCityId != null)
-            rates = this.rateController.getByDestination(originCityId);
+            rates = this.rateController.findByDestination(originCityId);
         else {
             rates = this.rateController.getAllRates();
         }

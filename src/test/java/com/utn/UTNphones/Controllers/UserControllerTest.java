@@ -119,7 +119,7 @@ public class UserControllerTest {
         UserDTO user = UserDTO.builder().name("Facu").lastname("Roselli").type("client")
                 .identification("1").password("1234").cityId(citySended.getId()).build();
 
-        when(userService.register(User.fromDto(user))).thenThrow(new DataAccessException("", new Throwable(new SQLException("", null, 1))) {
+        when(userService.register(User.fromDto(user))).thenThrow(new DataAccessException("", new Throwable(new SQLException("", null, 1233))) {
         });
 
         userController.register(user);
@@ -159,6 +159,7 @@ public class UserControllerTest {
         UserDTO user = UserDTO.builder().name("Facu").lastname("Roselli").type("client")
                 .identification("1").password("1234").cityId(city.getId()).build();
         User userAux = User.fromDto(user);
+
         userAux.setId(1);
         when(userService.update(userAux)).thenReturn(userAux);
         User u = userController.update(1, user);
@@ -168,41 +169,42 @@ public class UserControllerTest {
 
     @Test(expected = UserTypeWithIdentificationAlreadyExists.class)
     public void testUpdateUserIdentificationAlreadyExistsException() throws Exception {
-        UserDTO userDto =  UserDTO.builder().name("Facundo").lastname("Mateu").type("client")
+        UserDTO userDto = UserDTO.builder().name("Facundo").lastname("Mateu").type("client")
                 .identification("9999999").password("1234").build();
-        User userSended =  User.fromDto(userDto);
+        User userSended = User.fromDto(userDto);
         userSended.setId(1);
 
         when(userService.update(userSended)).thenThrow(new DataAccessException("", new JDBCException("", new SQLException("", null, 1062))) {
         });
 
-        userController.update(1,userDto);
+        userController.update(1, userDto);
     }
 
     @Test(expected = UserTypeDoesntExist.class)
     public void testUpdateUserTypeDoesntExistException() throws Exception {
-        UserDTO userDto =  UserDTO.builder().name("Facundo").lastname("Mateu").type("abc")
+        UserDTO userDto = UserDTO.builder().name("Facundo").lastname("Mateu").type("abc")
                 .identification("9999999").password("1234").build();
-        User userSended =  User.fromDto(userDto);
+        User userSended = User.fromDto(userDto);
         userSended.setId(1);
 
         when(userService.update(userSended)).thenThrow(new DataAccessException("", new JDBCException("", new SQLException("", null, 1265))) {
         });
 
-        userController.update(1,userDto);
+        userController.update(1, userDto);
     }
 
     @Test(expected = Exception.class)
     public void testUpdateException() throws Exception {
-        UserDTO userDto =  UserDTO.builder().name("Facundo").lastname("Mateu").type("abc")
+        UserDTO userDto = UserDTO.builder().name("Facundo").lastname("Mateu").type("abc")
                 .identification("9999999").password("1234").build();
-        User userSended =  User.fromDto(userDto);
+        User userSended = User.fromDto(userDto);
         userSended.setId(1);
 
-        when(userService.update(userSended)).thenThrow(new DataAccessException("", new Throwable("Database error")) {});
+        when(userService.update(userSended)).thenThrow(new DataAccessException("", new Throwable("Database error")) {
+        });
         when(userService.findById(1)).thenReturn(null);
 
-        userController.update(1,userDto);
+        userController.update(1, userDto);
     }
 
 }

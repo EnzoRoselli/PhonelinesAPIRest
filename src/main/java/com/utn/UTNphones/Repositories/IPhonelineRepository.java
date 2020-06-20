@@ -13,7 +13,5 @@ public interface IPhonelineRepository extends JpaRepository<Phoneline, Integer> 
 
     List<Phoneline> findByUserId(Integer id);
 
-    Optional<Phoneline> findByNumberAndCityId(String number, Integer cityId);
-
     Optional<Phoneline> findByNumber(String number);
 }

@@ -11,8 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 
-import java.util.Objects;
-
 @Controller
 @RequiredArgsConstructor
 public class PhonelineController {
@@ -31,7 +29,6 @@ public class PhonelineController {
         if (!"client".equals(userService.findById(phonelineDto.getUserId()).getType()))
             throw new IlegalUserForPhoneline();
         try {
-
             return phonelineService.add(Phoneline.fromDto(phonelineDto));
         } catch (DataAccessException ex) {
             ExceptionController.phonelineAddException(ex);
@@ -52,7 +49,7 @@ public class PhonelineController {
         try {
             return this.phonelineService.update(phoneline);
         } catch (DataAccessException ex) {
-            ExceptionController.phonelineUpdateException(Objects.requireNonNull(ex.getRootCause()));
+            ExceptionController.phonelineUpdateException(ex.getRootCause());
         }
         return Phoneline.fromDto(phonelineDto);
     }

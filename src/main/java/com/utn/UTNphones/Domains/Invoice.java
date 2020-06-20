@@ -57,7 +57,4 @@ public class Invoice {
     @Temporal(TemporalType.TIMESTAMP)
     private Date expirationDate;
 
-    public boolean hasNullAttribute() {
-        return Stream.of(phoneline, callsQuantity, totalPrice, isPaid, date, expirationDate, totalCost).anyMatch(x -> x == null);
-    }
 }

@@ -23,7 +23,6 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@ToString
 @Builder
 public class User {
 

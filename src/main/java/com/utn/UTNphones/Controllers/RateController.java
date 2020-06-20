@@ -20,18 +20,18 @@ public class RateController {
         return rateService.getAllRates();
     }
 
-    public Rate getByOriginAndDestination(Integer originCityIdId, Integer destinationCityId) {
+    public Rate findByOriginAndDestination(Integer originCityIdId, Integer destinationCityId) {
         cityService.getById(originCityIdId);
         cityService.getById(destinationCityId);
         return this.rateService.findByOriginAndDestination(originCityIdId, destinationCityId);
     }
 
-    public List<Rate> getByOrigin(Integer originCityId) {
+    public List<Rate> findByOrigin(Integer originCityId) {
         rateService.findById(originCityId);
         return this.rateService.findByOrigin(originCityId);
     }
 
-    public List<Rate> getByDestination(Integer destinationCityId) {
+    public List<Rate> findByDestination(Integer destinationCityId) {
         rateService.findById(destinationCityId);
         return this.rateService.findByDestination(destinationCityId);
     }

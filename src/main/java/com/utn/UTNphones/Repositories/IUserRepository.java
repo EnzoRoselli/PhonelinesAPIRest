@@ -11,5 +11,4 @@ public interface IUserRepository extends JpaRepository<User, Integer> {
 
     Optional<User> findByIdentificationAndPasswordAndType(String ic, String password, String type);
 
-    Optional<User> findByIdentification(String identification);
 }

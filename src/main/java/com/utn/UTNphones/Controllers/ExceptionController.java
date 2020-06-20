@@ -9,6 +9,8 @@ import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeWithIdentificationAl
 import org.hibernate.JDBCException;
 import org.springframework.dao.DataAccessException;
 
+import java.sql.SQLException;
+
 public class ExceptionController {
     public static void userExceptionSQLCode(Integer errorCode) throws Exception {
         switch (errorCode) {
@@ -54,17 +56,17 @@ public class ExceptionController {
 
 
     public static void phonelineUpdateException(Throwable error) throws Exception {
-        if (error instanceof JDBCException) {
-            userExceptionSQLCode(((JDBCException) error).getErrorCode());
+        if (error instanceof SQLException) {
+            phonelineExceptionSQLCode(((SQLException) error).getErrorCode());
         } else {
-        //City id
-        if (error.getMessage().contains("Domains.City"))
-            throw new CityDoesntExist();
-            //User id
-        else if (error.getMessage().contains("Domains.User"))
-            throw new UserDoesntExist();
+            //City id
+            if (error.getMessage().contains("Domains.City"))
+                throw new CityDoesntExist();
+                //User id
+            else if (error.getMessage().contains("Domains.User"))
+                throw new UserDoesntExist();
 
-        else throw new Exception("External error");
-    }
+            else throw new Exception("External error");
+        }
     }
 }

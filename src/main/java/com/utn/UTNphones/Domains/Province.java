@@ -31,8 +31,4 @@ public class Province {
     @Column(name = "province_name")
     private String name;
 
-    public boolean hasNullAttribute() {
-
-        return Stream.of(name).anyMatch(Objects::isNull);
-    }
 }

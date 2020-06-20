@@ -39,11 +39,4 @@ public class City {
     @JoinColumn(name = "id_province")
     private Province province;
 
-    public City(String name) {
-        this.name = name;
-    }
-
-    public boolean hasNullAttribute() {
-        return Stream.of(name, prefix, province).anyMatch(Objects::isNull);
-    }
 }
