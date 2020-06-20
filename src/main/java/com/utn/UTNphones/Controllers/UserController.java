@@ -26,7 +26,7 @@ public class UserController {
             return userService.register(User.fromDto(userDTO));
         } catch (DataAccessException ex) {
             SQLException SQLex = (SQLException) ex.getCause().getCause();
-            ExceptionController.userRegisterException(SQLex);
+            ExceptionController.userExceptionSQLCode(SQLex.getErrorCode());
         }
         return null;
     }
@@ -42,7 +42,7 @@ public class UserController {
         try {
             return this.userService.update(user);
         } catch (DataAccessException ex) {
-            ExceptionController.userUpdateException(Objects.requireNonNull(ex.getRootCause()));
+            ExceptionController.userUpdateException(Objects.requireNonNull(ex.getCause()));
         }
         return user;
     }

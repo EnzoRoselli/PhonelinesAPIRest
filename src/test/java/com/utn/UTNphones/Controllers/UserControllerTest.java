@@ -10,6 +10,7 @@ import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeWithIdentificationAlreadyExists;
 import com.utn.UTNphones.Services.UserService;
+import org.hibernate.JDBCException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -165,67 +166,43 @@ public class UserControllerTest {
         assertEquals(u, userAux);
     }
 
+    @Test(expected = UserTypeWithIdentificationAlreadyExists.class)
+    public void testUpdateUserIdentificationAlreadyExistsException() throws Exception {
+        UserDTO userDto =  UserDTO.builder().name("Facundo").lastname("Mateu").type("client")
+                .identification("9999999").password("1234").build();
+        User userSended =  User.fromDto(userDto);
+        userSended.setId(1);
 
-    @Test(expected = CityDoesntExist.class)
-    public void testUpdateUserDoesntExistException() throws Exception {
-        UserDTO updatedUser = UserDTO.builder().name("Enzo").lastname("Roselli")
-                .type("client")
-                .identification("1").password("1234").cityId(0).build();
-        User userAux=User.fromDto(updatedUser);
-        userAux.setId(1);
+        when(userService.update(userSended)).thenThrow(new DataAccessException("", new JDBCException("", new SQLException("", null, 1062))) {
+        });
 
-        when(userService.update(userAux)).thenThrow(new DataAccessException("", new Throwable("fk_users_city")) {});
-        userController.update(1, updatedUser);
+        userController.update(1,userDto);
     }
 
-    @Test(expected = CityDoesntExist.class)
-    public void testUpdateCityDoesntExistException() throws Exception {
-        City citySended = City.builder().id(11).build();
-        User userSended = User.builder().id(1).name("Enzo").lastname("Coselli").type("client")
-                .identification("9999999").password("1234").city(citySended).build();
-        UserDTO aa = UserDTO.builder().name("Enzo").lastname("Coselli").type("client")
+    @Test(expected = UserTypeDoesntExist.class)
+    public void testUpdateUserTypeDoesntExistException() throws Exception {
+        UserDTO userDto =  UserDTO.builder().name("Facundo").lastname("Mateu").type("abc")
                 .identification("9999999").password("1234").build();
-        when(userService.update(userSended)).thenThrow(new DataAccessException("", new Throwable("Models.City")) {
+        User userSended =  User.fromDto(userDto);
+        userSended.setId(1);
+
+        when(userService.update(userSended)).thenThrow(new DataAccessException("", new JDBCException("", new SQLException("", null, 1265))) {
         });
+
+        userController.update(1,userDto);
+    }
+
+    @Test(expected = Exception.class)
+    public void testUpdateException() throws Exception {
+        UserDTO userDto =  UserDTO.builder().name("Facundo").lastname("Mateu").type("abc")
+                .identification("9999999").password("1234").build();
+        User userSended =  User.fromDto(userDto);
+        userSended.setId(1);
+
+        when(userService.update(userSended)).thenThrow(new DataAccessException("", new Throwable("Database error")) {});
         when(userService.findById(1)).thenReturn(null);
 
-        userController.update(1, aa);
+        userController.update(1,userDto);
     }
-
-//    @Test(expected = UserIdentificationAlreadyExists.class)
-//    public void testUpdateUserIdentificationAlreadyExistsException() throws Exception {
-//        City citySended = City.builder().id(11).build();
-//        User userSended =  User.builder().id(1).name("Enzo").lastname("Coselli").type("client")
-//                .identification("9999999").password("1234").city(citySended).build();
-//
-//        when(userService.update(userSended)).thenThrow(new DataAccessException("", new Throwable("for key 'identification_card'")) {});
-//        when(userService.findById(1)).thenReturn(null);
-//
-//        userController.update(userSended);
-//    }
-////
-//    @Test(expected = UserTypeDoesntExist.class)
-//    public void testUpdateUserTypeDoesntExistException() throws Exception {
-//        City citySended = City.builder().id(1).build();
-//        User userSended =  User.builder().id(1).name("Enzo").lastname("Coselli").type("asddsasda")
-//                .identification("9999999").password("1234").city(citySended).build();
-//
-//        when(userService.update(userSended)).thenThrow(new DataAccessException("", new Throwable("type_user")) {});
-//        when(userService.findById(1)).thenReturn(null);
-//
-//        userController.update(userSended);
-//    }
-//
-//    @Test(expected = Exception.class)
-//    public void testUpdateException() throws Exception {
-//        City citySended = City.builder().id(1).build();
-//        User userSended =  User.builder().id(1).name("Enzo").lastname("Coselli").type("asddsasda")
-//                .identification("9999999").password("1234").city(citySended).build();
-//
-//        when(userService.update(userSended)).thenThrow(new DataAccessException("", new Throwable("asdsa")) {});
-//        when(userService.findById(1)).thenReturn(null);
-//
-//        userController.update(userSended);
-//    }
 
 }

@@ -1,6 +1,7 @@
 package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Domains.Rate;
+import com.utn.UTNphones.Services.CityService;
 import com.utn.UTNphones.Services.RateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,13 +14,15 @@ public class RateController {
 
     private final RateService rateService;
 
+    private final CityService cityService;
+
     public List<Rate> getAllRates() {
         return rateService.getAllRates();
     }
 
     public Rate getByOriginAndDestination(Integer originCityIdId, Integer destinationCityId) {
-        rateService.findById(originCityIdId);
-        rateService.findById(destinationCityId);
+        cityService.getById(originCityIdId);
+        cityService.getById(destinationCityId);
         return this.rateService.findByOriginAndDestination(originCityIdId, destinationCityId);
     }
 

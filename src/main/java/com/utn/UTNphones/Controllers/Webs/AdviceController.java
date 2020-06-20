@@ -12,7 +12,6 @@ import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredB
 import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserIdentificationAlreadyExists;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeWithIdentificationAlreadyExists;
 import org.springframework.http.HttpStatus;
@@ -65,12 +64,6 @@ public class AdviceController {
     @ExceptionHandler(PhonelinesNotRegisteredByUser.class)
     public ErrorResponseDTO handlePhonelinesNotRegisteredByUser(PhonelinesNotRegisteredByUser ex) {
         return ErrorResponseDTO.fromRunTimeException(ex, 7);
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(UserIdentificationAlreadyExists.class)
-    public ErrorResponseDTO handleUserIdentificationAlreadyExists(UserIdentificationAlreadyExists ex) {
-        return ErrorResponseDTO.fromRunTimeException(ex, 8);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

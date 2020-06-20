@@ -4,17 +4,14 @@ import com.utn.UTNphones.Exceptions.CityExceptions.CityDoesntExist;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineAlreadyExists;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineTypeError;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserIdentificationAlreadyExists;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeDoesntExist;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeWithIdentificationAlreadyExists;
 import org.hibernate.JDBCException;
 import org.springframework.dao.DataAccessException;
 
-import java.sql.SQLException;
-
 public class ExceptionController {
-    public static void userRegisterException(SQLException ex) throws Exception {
-        switch (ex.getErrorCode()) {
+    public static void userExceptionSQLCode(Integer errorCode) throws Exception {
+        switch (errorCode) {
             case 1452:
                 throw new CityDoesntExist();
             case 1062:
@@ -26,13 +23,23 @@ public class ExceptionController {
         }
     }
 
+    public static void userUpdateException(Throwable error) throws Exception {
+        if (error instanceof JDBCException) {
+            userExceptionSQLCode(((JDBCException) error).getErrorCode());
+        } else {
+            if (error.getMessage().contains("Domains.City"))
+                throw new CityDoesntExist();
 
-    public static void phonelineAddException(DataAccessException Error) throws Exception {
-        JDBCException ex = (JDBCException) (Error).getCause();
-        phonelineAddExceptionSQLCode(ex.getErrorCode());
+            else throw new Exception("External error");
+        }
     }
 
-    private static void phonelineAddExceptionSQLCode(int errorNumber) throws Exception {
+    public static void phonelineAddException(DataAccessException error) throws Exception {
+        JDBCException ex = (JDBCException) (error).getCause();
+        phonelineExceptionSQLCode(ex.getErrorCode());
+    }
+
+    private static void phonelineExceptionSQLCode(int errorNumber) throws Exception {
         switch (errorNumber) {
             case 1452:
                 throw new UserDoesntExist();
@@ -45,36 +52,19 @@ public class ExceptionController {
         }
     }
 
-    public static void userUpdateException(Throwable Error) throws Exception {
 
+    public static void phonelineUpdateException(Throwable error) throws Exception {
+        if (error instanceof JDBCException) {
+            userExceptionSQLCode(((JDBCException) error).getErrorCode());
+        } else {
         //City id
-        if (Error.getMessage().contains("fk_users_city"))
+        if (error.getMessage().contains("Domains.City"))
             throw new CityDoesntExist();
-            //Identification unique
-        else if (Error.getMessage().contains("for key 'unq_identification_card'"))
-            throw new UserIdentificationAlreadyExists();
-            //identification + type unique
-        else if (Error.getMessage().contains("for key 'unq_identification_type'"))
-            throw new UserIdentificationAlreadyExists();
-            //User type enum
-        else if (Error.getMessage().contains("user_type"))
-            throw new UserTypeDoesntExist();
+            //User id
+        else if (error.getMessage().contains("Domains.User"))
+            throw new UserDoesntExist();
 
         else throw new Exception("External error");
     }
-
-    public static void phonelineUpdateException(Throwable Error) throws Exception {
-
-        //City id
-        if (Error.getMessage().contains("Domains.City"))
-            throw new CityDoesntExist();
-            //User id
-        else if (Error.getMessage().contains("Domains.User"))
-            throw new UserDoesntExist();
-            //User type enum
-        else if (Error.getMessage().contains("phoneline_type"))
-            throw new PhonelineTypeError();
-
-        else throw new Exception("External error");
     }
 }
