@@ -14,11 +14,11 @@ public class InvoiceController {
 
     private final InvoiceService invoiceService;
 
-    public List<Invoice> getByUserBetweenDates(Integer id, SearchBetweenDatesDTO datesDto) {
+    public List<Invoice> findByUserBetweenDates(Integer id, SearchBetweenDatesDTO datesDto) {
         return this.invoiceService.getByUserAndBetweenDates(id, datesDto);
     }
 
-    public List<Invoice> getByUserId(Integer id) {
+    public List<Invoice> findByUserId(Integer id) {
         return this.invoiceService.getAllByUserId(id);
     }
 

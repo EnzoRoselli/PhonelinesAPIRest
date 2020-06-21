@@ -14,9 +14,14 @@ import javax.validation.Valid;
 
 import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.INFRASTRUCTURE_MAPPING;
 
+
+
+
+
+
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(INFRASTRUCTURE_MAPPING + "/registerCall")
+@RequestMapping(INFRASTRUCTURE_MAPPING)
 public class CallRegisterController {
 
     private final CallController callController;

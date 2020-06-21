@@ -35,9 +35,9 @@ public class InvoicesManagementController {
 
         List<Invoice> invoices;
         if (startDate.isEmpty() && endDate.isEmpty()) {
-            invoices = invoiceController.getByUserId(id);
+            invoices = invoiceController.findByUserId(id);
         } else {
-            invoices = this.invoiceController.getByUserBetweenDates(id,
+            invoices = this.invoiceController.findByUserBetweenDates(id,
                     SearchBetweenDatesDTO.fromDates(startDate.orElse(LocalDate.of(2020, 1, 1)),
                             endDate.orElse(LocalDate.now())));
         }
