@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +25,7 @@ import static com.utn.UTNphones.Utils.UserRouter.USER_ID_PARAM;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(EMPLOYEE_MAPPING + "/invoices")
-public class InvoicesManagementController {
+public class InvoiceManagementController {
     private final InvoiceController invoiceController;
 
     @GetMapping(USER_ID)
@@ -33,14 +34,15 @@ public class InvoicesManagementController {
                                                                  @RequestParam(value = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Optional<LocalDate> endDate,
                                                                  @PathVariable(USER_ID_PARAM) Integer id) {
 
-        List<Invoice> invoices;
-        if (startDate.isEmpty() && endDate.isEmpty()) {
-            invoices = invoiceController.findByUserId(id);
-        } else {
-            invoices = this.invoiceController.findByUserBetweenDates(id,
-                    SearchBetweenDatesDTO.fromDates(startDate.orElse(LocalDate.of(2020, 1, 1)),
-                            endDate.orElse(LocalDate.now())));
-        }
+
+       List<Invoice> invoices=new ArrayList<>();
+//        if (startDate.isEmpty() && endDate.isEmpty()) {
+//            invoices = invoiceController.findByUserId(id);
+//        } else {
+//            invoices = this.invoiceController.findByUserBetweenDates(id,
+//                    SearchBetweenDatesDTO.fromDates(startDate.orElse(LocalDate.of(2020, 1, 1)),
+//                            endDate.orElse(LocalDate.now())));
+//        }
         return invoices.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(invoices);
     }
 

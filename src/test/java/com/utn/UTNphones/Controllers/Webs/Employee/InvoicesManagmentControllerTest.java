@@ -32,7 +32,7 @@ public class InvoicesManagmentControllerTest {
 
     @Autowired
     @InjectMocks
-    InvoicesManagementController invoicesManagementController;
+    InvoiceManagementController invoiceManagementController;
 
     @Mock
     InvoiceController invoiceController;
@@ -40,7 +40,7 @@ public class InvoicesManagmentControllerTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(invoicesManagementController)
+        mockMvc = MockMvcBuilders.standaloneSetup(invoiceManagementController)
                 .setControllerAdvice(new AdviceController())
                 .build();
     }

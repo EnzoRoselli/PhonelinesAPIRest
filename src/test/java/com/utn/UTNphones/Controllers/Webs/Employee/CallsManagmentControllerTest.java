@@ -27,7 +27,7 @@ public class CallsManagmentControllerTest {
 
     @Autowired
     @InjectMocks
-    CallsManagementController callsManagementController;
+    CallManagementController callManagementController;
 
     @Mock
     CallController callController;
@@ -35,7 +35,7 @@ public class CallsManagmentControllerTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(callsManagementController)
+        mockMvc = MockMvcBuilders.standaloneSetup(callManagementController)
                 .setControllerAdvice(new AdviceController())
                 .build();
     }

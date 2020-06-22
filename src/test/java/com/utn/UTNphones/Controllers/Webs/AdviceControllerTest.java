@@ -4,7 +4,7 @@ import com.utn.UTNphones.Controllers.CallController;
 import com.utn.UTNphones.Controllers.PhonelineController;
 import com.utn.UTNphones.Controllers.RateController;
 import com.utn.UTNphones.Controllers.UserController;
-import com.utn.UTNphones.Controllers.Webs.Employee.CallsManagementController;
+import com.utn.UTNphones.Controllers.Webs.Employee.CallManagementController;
 import com.utn.UTNphones.Controllers.Webs.Employee.ClientManagementController;
 import com.utn.UTNphones.Controllers.Webs.Employee.PhonelineManagementController;
 import com.utn.UTNphones.Controllers.Webs.Employee.RateManagementController;
@@ -59,7 +59,7 @@ public class AdviceControllerTest {
     private RateManagementController rateManagementController;
 
     @InjectMocks
-    private CallsManagementController callsManagementController;
+    private CallManagementController callManagementController;
 
     @Mock
     private CallController callController;
@@ -86,7 +86,7 @@ public class AdviceControllerTest {
 
     public AdviceControllerTest() {
         MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(callsManagementController, rateManagementController, phonelineManagementController, loginController, clientManagementController)
+        mockMvc = MockMvcBuilders.standaloneSetup(callManagementController, rateManagementController, phonelineManagementController, loginController, clientManagementController)
                 .setControllerAdvice(new AdviceController())
                 .build();
     }

@@ -13,7 +13,7 @@
 "calls":[
 {
 "_id"
-"origin_phone": {
+"origin_phone":{
 "_id"
 "number"
 }
@@ -21,7 +21,7 @@
 "_id"
 "number"
 }
-"rate": {
+"rate":{
 "_id"
 "origin":{
 "_id"
@@ -32,16 +32,16 @@
 }
 "destination":{
 "_id"
-"city": {
+"city":{
 "name"
 "prefix"
 }
 }
 }
 "date_call"
-"invoice": {
+"invoice":{
 "_id"
-"phone_number": {
+"phone_number":{
 "_id"
 "number"
 }
@@ -63,7 +63,7 @@
 "invoices":[
 {
 "_id"
-"phone_number": {
+"phone_number":{
 "_id"
 "number"
 }

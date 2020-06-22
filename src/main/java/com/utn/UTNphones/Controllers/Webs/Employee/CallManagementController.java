@@ -19,7 +19,7 @@ import static com.utn.UTNphones.Utils.UserRouter.USER_ID_PARAM;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(EMPLOYEE_MAPPING + "/calls")
-public class CallsManagementController {
+public class CallManagementController {
 
     private final CallController callController;
 
