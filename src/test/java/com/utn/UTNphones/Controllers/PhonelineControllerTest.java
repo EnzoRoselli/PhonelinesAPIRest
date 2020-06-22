@@ -81,7 +81,7 @@ public class PhonelineControllerTest {
 
         Phoneline userReturned = Phoneline.builder().id(1).number("1111111").type("mobile").status(true)
                 .user(userAux).city(cityAux).build();
-//todo aca
+
         when(userService.findById(1)).thenReturn(userAux);
         when(cityService.getById(phoneAux.getCityId())).thenReturn(cityAux);
         when(phonelineService.add(Phoneline.fromDto(phoneAux))).thenThrow(new DataAccessException("", new JDBCException("", new SQLException("", null, 1062))) {

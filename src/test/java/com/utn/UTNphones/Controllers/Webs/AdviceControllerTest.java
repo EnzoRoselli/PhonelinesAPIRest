@@ -8,6 +8,7 @@ import com.utn.UTNphones.Controllers.Webs.Employee.CallsManagementController;
 import com.utn.UTNphones.Controllers.Webs.Employee.ClientManagementController;
 import com.utn.UTNphones.Controllers.Webs.Employee.PhonelineManagementController;
 import com.utn.UTNphones.Controllers.Webs.Employee.RateManagementController;
+import com.utn.UTNphones.Domains.Call;
 import com.utn.UTNphones.Domains.Dto.Requests.EmployeeLoginDTO;
 import com.utn.UTNphones.Domains.Dto.Requests.Login;
 import com.utn.UTNphones.Domains.Dto.Requests.PhonelineDTO;
@@ -19,6 +20,8 @@ import com.utn.UTNphones.Exceptions.PhonelineExceptions.IlegalUserForPhoneline;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineAlreadyExists;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDigitsCountPlusPrefix;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineNotExists;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineTypeError;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
 import com.utn.UTNphones.Exceptions.RateExceptions.RateNotExists;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserNotExists;
@@ -217,6 +220,21 @@ public class AdviceControllerTest {
     }
 
     @Test
+    public void PhonelineTypeError() throws Exception {
+        PhonelineDTO phonelineDTO = ObjectCreator.createPhonelineDTO();
+        phonelineDTO.setType("randomTypeError");
+        String requestJson = ObjectConverter.converter(phonelineDTO);
+        when(phonelineController.add(phonelineDTO)).thenThrow(new PhonelineTypeError());
+        mockMvc.perform(post("/employee/phonelines")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Token")
+                .content(requestJson))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
+
+
+    @Test
     public void MethodArgumentNotValidException() throws Exception {
         PhonelineDTO phonelineDTO = ObjectCreator.createPhonelineDTO();
         phonelineDTO.setType(null);
@@ -246,19 +264,19 @@ public class AdviceControllerTest {
                 .andExpect(status().isBadRequest())
                 .andReturn();
     }
-////todo poner la url , todo de calls findByUserId creo, y las phonelines no asociadaas al user
-//    @Test
-//    public void RateNotExists() throws Exception {
-//        Rate rate = ObjectCreator.createRate();
-//        String requestJson = ObjectConverter.converter(rate);
-//        when(rateController.findByOriginAndDestination(rate.getOriginCity().getId(),2)).thenThrow(new RateNotExists());
-//        mockMvc.perform(get("/employee/rates?OriginCity=1&DestinationCity=2")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .header("Authorization", "Token")
-//                .content(requestJson))
-//                .andExpect(status().isBadRequest())
-//                .andReturn();
-//    }
+
+    @Test
+    public void PhonelinesNotRegisteredByUser() throws Exception {
+        Integer userId = 1;
+        String requestJson = ObjectConverter.converter(userId);
+        when(callController.getCallsByUserId(userId)).thenThrow(new PhonelinesNotRegisteredByUser());
+        mockMvc.perform(get("/employee/calls/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Token")
+                .content(requestJson))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
 
 
 }

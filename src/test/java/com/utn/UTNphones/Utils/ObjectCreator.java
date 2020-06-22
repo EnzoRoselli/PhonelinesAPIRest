@@ -8,11 +8,14 @@ import com.utn.UTNphones.Domains.Dto.Requests.NewCallDTO;
 import com.utn.UTNphones.Domains.Dto.Requests.PhonelineDTO;
 import com.utn.UTNphones.Domains.Dto.Requests.SearchBetweenDatesDTO;
 import com.utn.UTNphones.Domains.Dto.Requests.UserDTO;
+import com.utn.UTNphones.Domains.Dto.Responses.CityTop;
 import com.utn.UTNphones.Domains.Invoice;
 import com.utn.UTNphones.Domains.Phoneline;
 import com.utn.UTNphones.Domains.Province;
 import com.utn.UTNphones.Domains.Rate;
 import com.utn.UTNphones.Domains.User;
+import org.springframework.data.projection.ProjectionFactory;
+import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -24,9 +27,20 @@ public class ObjectCreator {
                 .identification("12345678").password("abc")
                 .name("Facundinho").lastname("Silva").type("client").build();
     }
+
+    public static CityTop createCityTop(){
+        ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
+         CityTop a=factory.createProjection(CityTop.class);
+        a.setPrefix("223");
+        a.setId(1);
+        a.setCant(10);
+        a.setCityName("Rio de Janeiro");
+        a.setIdProvince(1);
+        return a;
+    }
     public static User createEmployeeUser() {
         return User.builder().id(1).status(true)
-                .identification("12345678").password("abc")
+                .identification("12345678").password("abaac")
                 .name("Facundinho").lastname("Silva").type("employee").build();
     }
 

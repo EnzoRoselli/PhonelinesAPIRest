@@ -32,7 +32,7 @@ public class RateManagementController {
         else if (originCityId != null)
             rates = this.rateController.findByOrigin(originCityId);
         else if (destinationCityId != null)
-            rates = this.rateController.findByDestination(originCityId);
+            rates = this.rateController.findByDestination(destinationCityId);
         else {
             rates = this.rateController.getAllRates();
         }
