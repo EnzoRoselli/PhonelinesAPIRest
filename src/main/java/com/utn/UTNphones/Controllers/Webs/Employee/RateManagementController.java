@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.EMPLOYEE_MAPPING;
+import static com.utn.UTNphones.Utils.UserRouter.EMPLOYEE_MAPPING;
 
 @RestController
 @RequiredArgsConstructor

@@ -18,8 +18,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static com.utn.UTNphones.Controllers.Webs.URLconstants.CallRouter.TOP_DESTINATION;
-import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.CLIENT_MAPPING;
+import static com.utn.UTNphones.Utils.CallRouter.TOP_DESTINATION;
+import static com.utn.UTNphones.Utils.UserRouter.CLIENT_MAPPING;
 
 @RestController
 @RequiredArgsConstructor

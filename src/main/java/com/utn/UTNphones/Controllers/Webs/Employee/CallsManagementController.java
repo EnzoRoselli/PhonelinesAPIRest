@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.EMPLOYEE_MAPPING;
-import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USER_ID;
-import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USER_ID_PARAM;
+import static com.utn.UTNphones.Utils.UserRouter.EMPLOYEE_MAPPING;
+import static com.utn.UTNphones.Utils.UserRouter.USER_ID;
+import static com.utn.UTNphones.Utils.UserRouter.USER_ID_PARAM;
 
 @RestController
 @RequiredArgsConstructor

@@ -36,6 +36,7 @@ public class CallServiceTest {
     public void addOk() {
         Call call = ObjectCreator.createCall();
         when(callRepository.save(call)).thenReturn(call);
+        Call call1=ObjectCreator.createCall();
         callService.add(call);
     }
 

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.INFRASTRUCTURE_MAPPING;
+import static com.utn.UTNphones.Utils.UserRouter.INFRASTRUCTURE_MAPPING;
 
 
 @RestController
