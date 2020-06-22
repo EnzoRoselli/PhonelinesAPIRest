@@ -72,10 +72,8 @@ public class RateManagmentControllerTest {
     @Test
     public void findByOrigin() throws Exception {
         List<Rate> rates=new ArrayList<>();
-        Rate rate1 = ObjectCreator.createRate();
-        Rate rate2 = ObjectCreator.createRate();
-        rates.add(rate1);
-        rates.add(rate2);
+        rates.add( ObjectCreator.createRate());
+        rates.add( ObjectCreator.createRate());
         City city1=ObjectCreator.createCity();
 
         when(rateController.findByOrigin(city1.getId())).thenReturn(rates);
