@@ -27,7 +27,7 @@ public class LoginController {
         return ResponseEntity.ok(sessionManager.createSession(userController.login(userLogging)));
     }
 
-    @PostMapping("/admin")
+    @PostMapping("/Employee")
     public ResponseEntity<String> loginAdmin(@RequestBody @Valid EmployeeLoginDTO userLogging) {
         return ResponseEntity.ok(sessionManager.createSession(userController.login(userLogging)));
     }

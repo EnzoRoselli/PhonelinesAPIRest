@@ -5,6 +5,7 @@ import com.utn.UTNphones.Domains.Dto.Requests.SearchBetweenDatesDTO;
 import com.utn.UTNphones.Domains.Dto.Responses.CityTop;
 import com.utn.UTNphones.Domains.Phoneline;
 import com.utn.UTNphones.Repositories.ICallRepository;
+import com.utn.UTNphones.Utils.ObjectCreator;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -33,7 +34,7 @@ public class CallServiceTest {
 
     @Test
     public void addOk() {
-        Call call = Call.builder().id(2).build();
+        Call call = ObjectCreator.createCall();
         when(callRepository.save(call)).thenReturn(call);
         callService.add(call);
     }
@@ -42,13 +43,12 @@ public class CallServiceTest {
     public void getCallsByPhoneNumberOk() {
         Pageable pageable = PageRequest.of(0, 10);
         List<Phoneline> phonelines = new ArrayList<>();
-        phonelines.add(Phoneline.builder().id(1).build());
-        phonelines.add(Phoneline.builder().id(2).build());
+        phonelines.add(ObjectCreator.createPhoneline());
+        phonelines.add(ObjectCreator.createPhoneline());
         List<Call> calls = new ArrayList<>();
-        calls.add(Call.builder().id(2).build());
+        calls.add(ObjectCreator.createCall());
         when(callRepository.findByOriginPhonelineIn(phonelines, pageable)).thenReturn(calls);
-        List<Call> callsAux = callService.getCallsByPhoneNumbers(phonelines);
-        assertEquals(callsAux, calls);
+        assertEquals(callService.getCallsByPhoneNumbers(phonelines), calls);
     }
 
     @Test

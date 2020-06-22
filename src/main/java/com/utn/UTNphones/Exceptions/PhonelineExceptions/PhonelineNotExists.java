@@ -1,7 +1,7 @@
 package com.utn.UTNphones.Exceptions.PhonelineExceptions;
 
-public class PhonelineDoesntExist extends PhonelineExceptions {
-    public PhonelineDoesntExist() {
+public class PhonelineNotExists extends PhonelineExceptions {
+    public PhonelineNotExists() {
         super("The phoneline doesn´t exist");
     }
 }

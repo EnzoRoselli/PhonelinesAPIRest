@@ -1,13 +1,12 @@
 package com.utn.UTNphones.Services;
 
 import com.utn.UTNphones.Domains.City;
-import com.utn.UTNphones.Domains.Dto.Requests.EmployeeLoginDTO;
 import com.utn.UTNphones.Domains.Dto.Requests.Login;
-import com.utn.UTNphones.Domains.Province;
 import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
+import com.utn.UTNphones.Exceptions.UsersExceptions.UserNotExists;
 import com.utn.UTNphones.Repositories.IUserRepository;
+import com.utn.UTNphones.Utils.ObjectCreator;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -36,11 +35,8 @@ public class UserServiceTest {
 
     @Test
     public void testLoginOk() throws LogException {
-        Login aux = EmployeeLoginDTO.builder().identification("12345678").password("1234").build();
-
-        User loggedUser = User.builder().id(1).name("Enzo").lastname("Roselli").type("employee").status(true)
-                .identification("12345678").password("1234").city(City.builder().name("Mar del Plata").build()).build();
-
+        Login aux = ObjectCreator.createClientLoginDTO();
+        User loggedUser = User.fromLoginDto(aux);
         when(userRepository.findByIdentificationAndPasswordAndType(aux.getIdentification(), aux.getPassword(), aux.getType())).thenReturn(Optional.ofNullable(loggedUser));
         User u = userService.login(User.fromLoginDto(aux));
 
@@ -49,7 +45,7 @@ public class UserServiceTest {
 
     @Test(expected = LogException.class)
     public void testLoginLogException() throws LogException {
-        User aux = User.builder().identification("1").password("1234").type("employee").status(false).build();
+        User aux = ObjectCreator.createClientUser();
 
         User loggedUser = User.builder().id(1).name("Enzo").lastname("Roselli").type("employee").status(false)
                 .identification("1").password("1234").city(City.builder().name("Mar del Plata").build()).build();
@@ -61,15 +57,9 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testRegisterOk() throws UserDoesntExist, DataAccessException {
-        City citySended = City.builder().id(1).build();
-        User userSended = User.builder().name("Enzo").lastname("Roselli").type("client")
-                .identification("1").password("1234").city(citySended).build();
-
-        Province province = Province.builder().id(1).name("Buenos Aires").build();
-        City city = City.builder().id(1).name("Mar del Plata").prefix("223").province(province).build();
-        User registeredUser = User.builder().id(1).name("Enzo").lastname("Roselli").type("client")
-                .identification("1").password("1234").city(city).build();
+    public void testRegisterOk() throws UserNotExists, DataAccessException {
+        User userSended = ObjectCreator.createClientUser();
+        User registeredUser = ObjectCreator.createClientUser();
 
         when(userRepository.save(userSended)).thenReturn(registeredUser);
 
@@ -79,12 +69,8 @@ public class UserServiceTest {
     }
 
     @Test(expected = DataAccessException.class)
-    public void testRegisterDataAccessException() throws UserDoesntExist, DataAccessException {
-        Province province = Province.builder().name("Buenos Aires").build();
-        City city = City.builder().name("Mar del Plata").prefix("223").province(province).build();
-
-        User registeredUser = User.builder().name("Enzo").lastname("Roselli").type("asd")
-                .identification("1").password("1234").city(city).build();
+    public void testRegisterDataAccessException() throws UserNotExists, DataAccessException {
+        User registeredUser = ObjectCreator.createClientUser();
 
         when(userRepository.save(registeredUser)).thenThrow(new DataAccessException("") {
         });
@@ -99,15 +85,10 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testUpdateOk() throws UserDoesntExist {
-        City citySended = City.builder().id(1).build();
-        User userSended = User.builder().name("Enzo").lastname("Roselli").type("client")
-                .identification("1").password("1234").city(citySended).build();
-
-        Province province = Province.builder().id(1).name("Buenos Aires").build();
-        City city = City.builder().id(1).name("Mar del Plata").prefix("223").province(province).build();
+    public void testUpdateOk() throws UserNotExists {
+        User userSended = ObjectCreator.createClientUser();
         User registeredUser = User.builder().id(1).name("Enzo").lastname("Roselli").type("client")
-                .identification("1").password("1234").city(city).build();
+                .identification("1").password("1234").city(ObjectCreator.createCity()).build();
 
         when(userRepository.save(userSended)).thenReturn(registeredUser);
 
@@ -117,12 +98,8 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testFindByIdOk() throws UserDoesntExist {
-
-        Province province = Province.builder().id(1).name("Buenos Aires").build();
-        City city = City.builder().id(1).name("Mar del Plata").prefix("223").province(province).build();
-        User registeredUser = User.builder().id(1).name("Enzo").lastname("Roselli").type("client")
-                .identification("1").password("1234").city(city).build();
+    public void testFindByIdOk() throws UserNotExists {
+        User registeredUser = ObjectCreator.createClientUser();
 
         when(userRepository.findById(1)).thenReturn(java.util.Optional.ofNullable(registeredUser));
 
@@ -131,8 +108,8 @@ public class UserServiceTest {
         assertEquals(u, registeredUser);
     }
 
-    @Test(expected = UserDoesntExist.class)
-    public void testFindByIdUserDoesntExistException() throws UserDoesntExist {
+    @Test(expected = UserNotExists.class)
+    public void testFindByIdUserDoesntExistException() throws UserNotExists {
         Optional<User> x = Optional.empty();
         when(userRepository.findById(1)).thenReturn(x);
         User u = userService.findById(1);

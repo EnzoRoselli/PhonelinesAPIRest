@@ -5,15 +5,16 @@ import com.utn.UTNphones.Domains.City;
 import com.utn.UTNphones.Domains.Dto.Requests.PhonelineDTO;
 import com.utn.UTNphones.Domains.Phoneline;
 import com.utn.UTNphones.Domains.User;
-import com.utn.UTNphones.Exceptions.CityExceptions.CityDoesntExist;
+import com.utn.UTNphones.Exceptions.CityExceptions.CityNotExists;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineAlreadyExists;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDigitsCountPlusPrefix;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineNotExists;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineTypeError;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
+import com.utn.UTNphones.Exceptions.UsersExceptions.UserNotExists;
 import com.utn.UTNphones.Services.CityService;
 import com.utn.UTNphones.Services.PhonelineService;
 import com.utn.UTNphones.Services.UserService;
+import com.utn.UTNphones.Utils.ObjectCreator;
 import org.hibernate.JDBCException;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,38 +49,27 @@ public class PhonelineControllerTest {
     }
 
     @Test
-    public void getByIdOk() throws PhonelineDoesntExist {
-        Phoneline aux = Phoneline.builder().id(1).number("1111111").type("mobile").status(true)
-                .user(new User()).city(new City()).build();
-
-        when(phonelineService.getById(1)).thenReturn(aux);
-        Phoneline returnedPhoneline = phonelineController.getById(1);
-
-        assertEquals(aux, returnedPhoneline);
+    public void getByIdOk() throws PhonelineNotExists {
+        Phoneline aux = ObjectCreator.createPhoneline();
+        when(phonelineService.getById(ObjectCreator.createPhoneline().getId())).thenReturn(aux);
+        assertEquals(aux, phonelineController.getById(1));
     }
 
-    @Test(expected = PhonelineDoesntExist.class)
-    public void getByIdPhonelineDoesntExistException() throws PhonelineDoesntExist {
-        when(phonelineService.getById(1)).thenThrow(new PhonelineDoesntExist());
+    @Test(expected = PhonelineNotExists.class)
+    public void getByIdPhonelineDoesntExistException() throws PhonelineNotExists {
+        when(phonelineService.getById(1)).thenThrow(new PhonelineNotExists());
         phonelineController.getById(1);
     }
 
     @Test
     public void AddOk() throws Exception {
-        City cityAux = City.builder().id(1).prefix("223").build();
-        User userAux = User.builder().id(1).type("client").build();
+          PhonelineDTO phoneAux = ObjectCreator.createPhonelineDTO();
+          Phoneline userReturned = Phoneline.fromDto(phoneAux);
+        when(phonelineService.add(userReturned)).thenReturn(userReturned);
+        when(userService.findById(phoneAux.getUserId())).thenReturn(ObjectCreator.createClientUser());
+        when(cityService.getById(phoneAux.getCityId())).thenReturn(ObjectCreator.createCity());
 
-        PhonelineDTO phoneAux = PhonelineDTO.builder().type("mobile").userId(1).cityId(1).number("1111111").type("mobile").status(true).build();
-
-        Phoneline userReturned = Phoneline.builder().id(1).number("1111111").type("mobile").status(true)
-                .user(userAux).city(cityAux).build();
-
-        when(phonelineService.add(Phoneline.fromDto(phoneAux))).thenReturn(userReturned);
-        when(userService.findById(1)).thenReturn(userAux);
-        when(cityService.getById(phoneAux.getCityId())).thenReturn(cityAux);
-        Phoneline addedPhoneline = phonelineController.add(phoneAux);
-
-        assertEquals(userReturned, addedPhoneline);
+        assertEquals(userReturned, phonelineController.add(phoneAux));
     }
 
     @Test(expected = PhonelineAlreadyExists.class)
@@ -91,7 +81,7 @@ public class PhonelineControllerTest {
 
         Phoneline userReturned = Phoneline.builder().id(1).number("1111111").type("mobile").status(true)
                 .user(userAux).city(cityAux).build();
-
+//todo aca
         when(userService.findById(1)).thenReturn(userAux);
         when(cityService.getById(phoneAux.getCityId())).thenReturn(cityAux);
         when(phonelineService.add(Phoneline.fromDto(phoneAux))).thenThrow(new DataAccessException("", new JDBCException("", new SQLException("", null, 1062))) {
@@ -141,7 +131,7 @@ public class PhonelineControllerTest {
     }
 
     @Test
-    public void removeOk() throws PhonelineDoesntExist {
+    public void removeOk() throws PhonelineNotExists {
         Integer id = 123;
         doNothing().when(phonelineService).removeById(id);
         Phoneline ph = phonelineController.remove(id);
@@ -171,7 +161,7 @@ public class PhonelineControllerTest {
         phonelineController.add(phoneAux);
     }
 
-    @Test(expected = UserDoesntExist.class)
+    @Test(expected = UserNotExists.class)
     public void updateUserDoesntExist() throws Exception {
         PhonelineDTO phoneAux = PhonelineDTO.builder().type("mobile").userId(123).cityId(123).number("1111111").type("mobile").status(true).build();
         Phoneline phoneline = Phoneline.fromDto(phoneAux);
@@ -193,7 +183,7 @@ public class PhonelineControllerTest {
         phonelineController.update(1, phoneAux);
     }
 
-    @Test(expected = CityDoesntExist.class)
+    @Test(expected = CityNotExists.class)
     public void updateCityDoesntExist() throws Exception {
         PhonelineDTO phoneAux = PhonelineDTO.builder().type("mobile").userId(123).cityId(123).number("1111111").type("mobile").status(true).build();
         Phoneline phoneline = Phoneline.fromDto(phoneAux);
@@ -204,7 +194,7 @@ public class PhonelineControllerTest {
         phonelineController.update(1, phoneAux);
     }
 
-    @Test(expected = UserDoesntExist.class)
+    @Test(expected = UserNotExists.class)
     public void updateUserDoesntExist2() throws Exception {
         PhonelineDTO phoneAux = PhonelineDTO.builder().type("mobile").userId(123).cityId(123).number("1111111").type("mobile").status(true).build();
         Phoneline phoneline = Phoneline.fromDto(phoneAux);

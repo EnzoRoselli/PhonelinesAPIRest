@@ -3,32 +3,44 @@ package com.utn.UTNphones.Controllers.Webs.Infrastructure;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.utn.UTNphones.Controllers.CallController;
+import com.utn.UTNphones.Controllers.UserController;
 import com.utn.UTNphones.Domains.Dto.Requests.NewCallDTO;
+import com.utn.UTNphones.Services.CallService;
+import com.utn.UTNphones.Services.PhonelineService;
+import com.utn.UTNphones.Services.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.sql.Date;
 import java.time.LocalDate;
 
-import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.INFRASTRUCTURE_MAPPING;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class CallRegisterControllerTest {
 
-    @Autowired
     private MockMvc mockMvc;
+
+    @InjectMocks
+    private CallRegisterController callRegisterController;
+    @Mock
+    private CallController callController;
 
     @Before
     public void setUp() {
-        initMocks(this);
+        MockitoAnnotations.initMocks(this);
+        mockMvc = MockMvcBuilders.standaloneSetup(callRegisterController).build();
     }
 
     @Test
@@ -40,9 +52,10 @@ public class CallRegisterControllerTest {
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         String requestJson = ow.writeValueAsString(newCallDTO);
 
-        mockMvc.perform(post(INFRASTRUCTURE_MAPPING).content(requestJson))
-                .andExpect(header().string("INFRASTRUCTURE_KEY", "abc123MuySeguro"))
+        mockMvc.perform(post("/infrastructure/registerCall")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson)
+                .header("INFRASTRUCTURE_KEY", "abc123MuySeguro"))
                 .andExpect(status().isOk()).andReturn();
-
     }
 }

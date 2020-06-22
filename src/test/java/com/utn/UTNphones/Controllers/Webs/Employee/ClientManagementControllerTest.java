@@ -1,20 +1,13 @@
 package com.utn.UTNphones.Controllers.Webs.Employee;
 
 import com.utn.UTNphones.Controllers.UserController;
-import com.utn.UTNphones.Domains.City;
-import com.utn.UTNphones.Domains.User;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
 import com.utn.UTNphones.Sessions.SessionManager;
-import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
 
 public class ClientManagementControllerTest {
 
@@ -146,40 +139,40 @@ public class ClientManagementControllerTest {
 //        ResponseEntity responseEntity = clientManagementController.register("token", userToRegister);
 //    }
 
-    @Test
-    public void getUserOk() throws UserDoesntExist {
-        User employee = User.builder().type("employee").build();
-        User userReturned = User.builder().id(1).name("Enzo").lastname("Mateu").identification("111111")
-                .password("abc").type("client").city(new City()).build();
-
-        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(employee));
-        when(userController.findById(1)).thenReturn(userReturned);
-
-        ResponseEntity<User> responseEntity = clientManagementController.getUser("token", 1);
-
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals(userReturned, responseEntity.getBody());
-    }
-
-    @Test
-    public void getUserForbidden() throws Exception {
-        User client = User.builder().type("client").build();
-
-        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(client));
-        ResponseEntity<User> responseEntity = clientManagementController.getUser("token", 1);
-
-        assertEquals(HttpStatus.FORBIDDEN, responseEntity.getStatusCode());
-    }
-
-    @Test(expected = UserDoesntExist.class)
-    public void getUserUserDoesntExistException() throws Exception {
-        User employee = User.builder().type("employee").build();
-
-        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(employee));
-        when(userController.findById(1)).thenThrow(new UserDoesntExist());
-
-        ResponseEntity<User> responseEntity = clientManagementController.getUser("token", 1);
-    }
+//    @Test
+//    public void getUserOk() throws UserDoesntExist {
+//        User employee = User.builder().type("employee").build();
+//        User userReturned = User.builder().id(1).name("Enzo").lastname("Mateu").identification("111111")
+//                .password("abc").type("client").city(new City()).build();
+//
+//        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(employee));
+//        when(userController.findById(1)).thenReturn(userReturned);
+//
+//        ResponseEntity<User> responseEntity = clientManagementController.getUser("token", 1);
+//
+//        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+//        assertEquals(userReturned, responseEntity.getBody());
+//    }
+//
+//    @Test
+//    public void getUserForbidden() throws Exception {
+//        User client = User.builder().type("client").build();
+//
+//        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(client));
+//        ResponseEntity<User> responseEntity = clientManagementController.getUser("token", 1);
+//
+//        assertEquals(HttpStatus.FORBIDDEN, responseEntity.getStatusCode());
+//    }
+//
+//    @Test(expected = UserDoesntExist.class)
+//    public void getUserUserDoesntExistException() throws Exception {
+//        User employee = User.builder().type("employee").build();
+//
+//        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(employee));
+//        when(userController.findById(1)).thenThrow(new UserDoesntExist());
+//
+//        ResponseEntity<User> responseEntity = clientManagementController.getUser("token", 1);
+//    }
 
 //    @Test
 //    public void DeleteOk() throws UserDoesntExist {

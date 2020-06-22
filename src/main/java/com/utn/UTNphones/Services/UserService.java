@@ -2,7 +2,7 @@ package com.utn.UTNphones.Services;
 
 import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
+import com.utn.UTNphones.Exceptions.UsersExceptions.UserNotExists;
 import com.utn.UTNphones.Repositories.IUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
@@ -36,7 +36,7 @@ public class UserService {
 
     public User findById(Integer id) {
         return userRepository.findById(id)
-                .orElseThrow(UserDoesntExist::new);
+                .orElseThrow(UserNotExists::new);
     }
 
     public void delete(Integer userId) {

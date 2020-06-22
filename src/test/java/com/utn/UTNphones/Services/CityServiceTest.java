@@ -2,9 +2,12 @@ package com.utn.UTNphones.Services;
 
 import com.utn.UTNphones.Domains.City;
 import com.utn.UTNphones.Repositories.ICityRepository;
+import com.utn.UTNphones.Utils.ObjectCreator;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
@@ -23,10 +26,8 @@ public class CityServiceTest {
 
     @Test
     public void getByIdOk() {
-        City city = City.builder().id(2).build();
-        when(cityRepository.findById(2)).thenReturn(java.util.Optional.ofNullable(city));
-        City aux = cityService.getById(2);
-        assertEquals(city, aux);
-
+        City city = ObjectCreator.createCity();
+        when(cityRepository.findById(city.getId())).thenReturn(Optional.ofNullable(city));
+        assertEquals(city, cityService.getById(city.getId()));
     }
 }

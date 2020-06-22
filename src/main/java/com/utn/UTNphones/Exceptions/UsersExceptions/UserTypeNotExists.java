@@ -1,8 +1,8 @@
 package com.utn.UTNphones.Exceptions.UsersExceptions;
 
-public class UserTypeDoesntExist extends UserExceptions {
+public class UserTypeNotExists extends UserExceptions {
 
-    public UserTypeDoesntExist() {
+    public UserTypeNotExists() {
         super("The user`s type doesn´t exist");
     }
 }

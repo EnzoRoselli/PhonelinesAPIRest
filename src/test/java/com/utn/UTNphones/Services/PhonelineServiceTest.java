@@ -1,10 +1,11 @@
 package com.utn.UTNphones.Services;
 
 import com.utn.UTNphones.Domains.Phoneline;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineNotExists;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
-import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
+import com.utn.UTNphones.Exceptions.RateExceptions.RateNotExists;
 import com.utn.UTNphones.Repositories.IPhonelineRepository;
+import com.utn.UTNphones.Utils.ObjectCreator;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -31,8 +32,8 @@ public class PhonelineServiceTest {
     }
 
     @Test
-    public void testAddOk() throws RateDoesntExist {
-        Phoneline newPhoneline = Phoneline.builder().id(1).build();
+    public void testAddOk() throws RateNotExists {
+        Phoneline newPhoneline = ObjectCreator.createPhoneline();
         when(phonelineRepository.save(newPhoneline)).thenReturn(newPhoneline);
         Phoneline phonelineFromDb = phonelineService.add(newPhoneline);
         assertEquals(newPhoneline, phonelineFromDb);
@@ -40,57 +41,53 @@ public class PhonelineServiceTest {
 
     @Test(expected = DataAccessException.class)
     public void testAddDataAccessException() throws DataAccessException {
-        Phoneline newPhoneline = Phoneline.builder().number("22").build();
+        Phoneline newPhoneline = ObjectCreator.createPhoneline();
         when(phonelineRepository.save(newPhoneline)).thenThrow(new DataAccessException("") {
         });
         phonelineService.add(newPhoneline);
     }
 
     @Test
-    public void testFindByUserIdOk() throws PhonelinesNotRegisteredByUser {
+    public void testFindByUserIdOk(){
         List<Phoneline> phonelines = new ArrayList<>();
-        Phoneline phoneline = Phoneline.builder().number("231231").build();
+        Phoneline phoneline = ObjectCreator.createPhoneline();
         phonelines.add(phoneline);
-        phoneline.setNumber("123123");
         phonelines.add(phoneline);
         when(phonelineRepository.findByUserId(2)).thenReturn(phonelines);
-        List<Phoneline> phonelinesFromDb = phonelineService.findByUserId(2);
-        assertEquals(phonelinesFromDb, phonelines);
+        assertEquals(phonelineService.findByUserId(2), phonelines);
     }
 
     @Test(expected = PhonelinesNotRegisteredByUser.class)
-    public void testFindByUserIdException() throws PhonelinesNotRegisteredByUser {
+    public void testFindByUserIdException() {
         List<Phoneline> emptyList = new ArrayList<>();
         when(phonelineRepository.findByUserId(2)).thenReturn(emptyList);
         phonelineService.findByUserId(2);
     }
 
     @Test
-    public void testFindByNumberOk() throws PhonelineDoesntExist {
-        String number = "231231";
-        Phoneline phoneline = Phoneline.builder().number("231231").build();
-        when(phonelineRepository.findByNumber(number)).thenReturn(Optional.ofNullable(phoneline));
-        Phoneline phonelineFromDb = phonelineService.findByNumber(number);
-        assertEquals(phonelineFromDb, phoneline);
+    public void testFindByNumberOk() throws PhonelineNotExists {
+        Phoneline phoneline = ObjectCreator.createPhoneline();
+        String number = phoneline.getNumber();
+        when(phonelineRepository.findByNumber(number)).thenReturn(Optional.of(phoneline));
+        assertEquals(phonelineService.findByNumber(number), phoneline);
     }
 
-    @Test(expected = PhonelineDoesntExist.class)
-    public void testFindByNumberException() throws PhonelineDoesntExist {
+    @Test(expected = PhonelineNotExists.class)
+    public void testFindByNumberException() throws PhonelineNotExists {
         when(phonelineRepository.findByNumber("1")).thenReturn(Optional.empty());
         phonelineService.findByNumber("1");
     }
 
     @Test
-    public void testGetByIdOk() throws PhonelineDoesntExist {
-        Integer id = 2;
-        Phoneline phoneline = Phoneline.builder().id(2).build();
+    public void testGetByIdOk() throws PhonelineNotExists {
+        Phoneline phoneline = ObjectCreator.createPhoneline();
+        Integer id = phoneline.getId();
         when(phonelineRepository.findById(id)).thenReturn(java.util.Optional.ofNullable(phoneline));
-        Phoneline phonelineFromDb = phonelineService.getById(id);
-        assertEquals(phonelineFromDb, phoneline);
+        assertEquals(phonelineService.getById(id), phoneline);
     }
 
-    @Test(expected = PhonelineDoesntExist.class)
-    public void testGetByIdException() throws PhonelineDoesntExist {
+    @Test(expected = PhonelineNotExists.class)
+    public void testGetByIdException() throws PhonelineNotExists {
         Integer id = 2;
         Optional<Phoneline> x = Optional.empty();
         when(phonelineRepository.findById(id)).thenReturn(x);
@@ -98,18 +95,17 @@ public class PhonelineServiceTest {
     }
 
     @Test
-    public void testRemoveByIdOk() throws PhonelineDoesntExist {
+    public void testRemoveByIdOk() throws PhonelineNotExists {
         Integer number = 12;
         doNothing().when(phonelineRepository).deleteById(number);
         phonelineService.removeById(number);
     }
 
     @Test
-    public void testUpdateOk() throws PhonelineDoesntExist {
+    public void testUpdateOk() throws PhonelineNotExists {
         Phoneline phoneline = Phoneline.builder().id(2).build();
         when(phonelineRepository.save(phoneline)).thenReturn(phoneline);
-        Phoneline phonelineFromDb = phonelineService.update(phoneline);
-        assertEquals(phonelineFromDb, phoneline);
+        assertEquals(phonelineService.update(phoneline), phoneline);
     }
 
 }

@@ -25,8 +25,8 @@ import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.EMPLOYE
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(EMPLOYEE_MAPPING + "/phonelines/")
-class PhonelineManagementController {
+@RequestMapping(EMPLOYEE_MAPPING + "/phonelines")
+public class PhonelineManagementController {
     private final PhonelineController phonelineController;
 
     @PostMapping

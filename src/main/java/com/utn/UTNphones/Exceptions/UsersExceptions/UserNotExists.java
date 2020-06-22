@@ -1,8 +1,8 @@
 package com.utn.UTNphones.Exceptions.UsersExceptions;
 
-public class UserDoesntExist extends UserExceptions {
+public class UserNotExists extends UserExceptions {
 
-    public UserDoesntExist() {
+    public UserNotExists() {
         super("The user doesn´t exist");
     }
 }

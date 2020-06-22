@@ -1,7 +1,7 @@
 package com.utn.UTNphones.Services;
 
 import com.utn.UTNphones.Domains.Rate;
-import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
+import com.utn.UTNphones.Exceptions.RateExceptions.RateNotExists;
 import com.utn.UTNphones.Repositories.IRateRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,13 +26,13 @@ public class RateService {
 
     public Rate findByOriginAndDestination(Integer originId, Integer destinationId) {
         return this.rateRepository.findByOriginCityIdAndDestinationCityId(originId, destinationId)
-                .orElseThrow(RateDoesntExist::new);
+                .orElseThrow(RateNotExists::new);
 
     }
 
     public Rate findById(Integer id) {
         return this.rateRepository.findById(id)
-                .orElseThrow(RateDoesntExist::new);
+                .orElseThrow(RateNotExists::new);
     }
 
     public List<Rate> findByOrigin(Integer originId) {

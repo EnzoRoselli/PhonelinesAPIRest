@@ -5,6 +5,7 @@ import com.utn.UTNphones.Domains.Invoice;
 import com.utn.UTNphones.Domains.Phoneline;
 import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Repositories.IInvoiceRepository;
+import com.utn.UTNphones.Utils.ObjectCreator;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -35,27 +36,21 @@ public class InvoiceServiceTest {
     public void testGetAllByUserIdOk() {
         List<Invoice> invoiceList = new ArrayList<>();
         Pageable pageable = PageRequest.of(0, 10);
-        Phoneline phoneline = Phoneline.builder().user(User.builder().id(2).build()).build();
-        invoiceList.add(Invoice.builder().callsQuantity(2).phoneline(phoneline).build());
-        invoiceList.add(Invoice.builder().callsQuantity(3).phoneline(phoneline).build());
+        invoiceList.add(ObjectCreator.createInvoice());
+        invoiceList.add(ObjectCreator.createInvoice());
         when(invoiceRepository.findByPhonelineUserId(2, pageable)).thenReturn(invoiceList);
-        List<Invoice> invoicesDb = invoiceService.getAllByUserId(2);
-        assertEquals(invoicesDb, invoiceList);
+        assertEquals(invoiceService.getAllByUserId(2), invoiceList);
     }
 
     @Test
     public void testGetByUserAndBetweenDatesOk() {
         Pageable pageable = PageRequest.of(0, 10);
         List<Invoice> invoiceList = new ArrayList<>();
-        invoiceList.add(Invoice.builder().callsQuantity(2).build());
-        invoiceList.add(Invoice.builder().callsQuantity(5).build());
-
-        LocalDate dateStart = LocalDate.of(2020, 1, 8);
-        LocalDate dateEnd = LocalDate.of(2019, 1, 8);
-        SearchBetweenDatesDTO dates = new SearchBetweenDatesDTO(dateStart, dateEnd);
+        invoiceList.add(ObjectCreator.createInvoice());
+        invoiceList.add(ObjectCreator.createInvoice());
+        SearchBetweenDatesDTO dates = ObjectCreator.createSearchBetweenDatesDTO();
         when(invoiceRepository.findAllByPhonelineUserIdAndDateBetweenOrderByIdDesc(2, Date.valueOf(dates.getStart()), Date.valueOf(dates.getEnd()), pageable)).thenReturn(invoiceList);
-        List<Invoice> invoicesDb = invoiceService.getByUserAndBetweenDates(2, dates);
-        assertEquals(invoicesDb, invoiceList);
+        assertEquals(invoiceService.getByUserAndBetweenDates(2, dates), invoiceList);
     }
 
 }

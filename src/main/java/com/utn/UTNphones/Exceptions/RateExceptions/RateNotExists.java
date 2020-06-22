@@ -1,7 +1,7 @@
 package com.utn.UTNphones.Exceptions.RateExceptions;
 
-public class RateDoesntExist extends RateException {
-    public RateDoesntExist() {
+public class RateNotExists extends RateException {
+    public RateNotExists() {
         super("The rate doesn´t exist");
     }
 }

@@ -3,7 +3,7 @@ package com.utn.UTNphones.Controllers.Webs.Employee;
 import com.utn.UTNphones.Controllers.UserController;
 import com.utn.UTNphones.Domains.Dto.Requests.UserDTO;
 import com.utn.UTNphones.Domains.User;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
+import com.utn.UTNphones.Exceptions.UsersExceptions.UserNotExists;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,7 +26,7 @@ import static com.utn.UTNphones.Controllers.Webs.URLconstants.UserRouter.USER_ID
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(EMPLOYEE_MAPPING + "/clients")
+@RequestMapping(EMPLOYEE_MAPPING + "/users")
 public class ClientManagementController {
     private final UserController userController;
 
@@ -36,7 +36,7 @@ public class ClientManagementController {
     }
 
     @GetMapping(USER_ID)
-    public ResponseEntity<User> getUser(@RequestHeader("Authorization") String sessionToken, @PathVariable(USER_ID_PARAM) Integer userId) throws UserDoesntExist {
+    public ResponseEntity<User> getUser(@RequestHeader("Authorization") String sessionToken, @PathVariable(USER_ID_PARAM) Integer userId) throws UserNotExists {
         return ResponseEntity.ok(this.userController.findById(userId));
     }
 

@@ -2,17 +2,17 @@ package com.utn.UTNphones.Controllers.Webs;
 
 import com.utn.UTNphones.Domains.Dto.Responses.AttributesResponseErrorDto;
 import com.utn.UTNphones.Domains.Dto.Responses.ErrorResponseDTO;
-import com.utn.UTNphones.Exceptions.CityExceptions.CityDoesntExist;
+import com.utn.UTNphones.Exceptions.CityExceptions.CityNotExists;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.IlegalUserForPhoneline;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineAlreadyExists;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDigitsCountPlusPrefix;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineNotExists;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineTypeError;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
-import com.utn.UTNphones.Exceptions.RateExceptions.RateDoesntExist;
+import com.utn.UTNphones.Exceptions.RateExceptions.RateNotExists;
 import com.utn.UTNphones.Exceptions.UsersExceptions.LogException;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserDoesntExist;
-import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeDoesntExist;
+import com.utn.UTNphones.Exceptions.UsersExceptions.UserNotExists;
+import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeNotExists;
 import com.utn.UTNphones.Exceptions.UsersExceptions.UserTypeWithIdentificationAlreadyExists;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -24,20 +24,20 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class AdviceController {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(UserDoesntExist.class)
-    public ErrorResponseDTO handleUserNotExists(UserDoesntExist ex) {
+    @ExceptionHandler(UserNotExists.class)
+    public ErrorResponseDTO handleUserDoesNotExists(UserNotExists ex) {
         return new ErrorResponseDTO(1, ex.getMessage());
     }
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(LogException.class)
-    public ErrorResponseDTO handleParametersException(LogException ex) {
+    public ErrorResponseDTO handleLogException(LogException ex) {
         return ErrorResponseDTO.fromRunTimeException(ex, 2);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(CityDoesntExist.class)
-    public ErrorResponseDTO handleCityDoesntExist(CityDoesntExist ex) {
+    @ExceptionHandler(CityNotExists.class)
+    public ErrorResponseDTO handleCityDoesntExist(CityNotExists ex) {
         return ErrorResponseDTO.fromRunTimeException(ex, 3);
     }
 
@@ -55,8 +55,8 @@ public class AdviceController {
 
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(PhonelineDoesntExist.class)
-    public ErrorResponseDTO handlePhonelineDoesntExist(PhonelineDoesntExist ex) {
+    @ExceptionHandler(PhonelineNotExists.class)
+    public ErrorResponseDTO handlePhonelineDoesntExist(PhonelineNotExists ex) {
         return ErrorResponseDTO.fromRunTimeException(ex, 6);
     }
 
@@ -67,8 +67,8 @@ public class AdviceController {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(UserTypeDoesntExist.class)
-    public ErrorResponseDTO handleUserTypeDoesntExist(UserTypeDoesntExist ex) {
+    @ExceptionHandler(UserTypeNotExists.class)
+    public ErrorResponseDTO handleUserTypeDoesntExist(UserTypeNotExists ex) {
         return ErrorResponseDTO.fromRunTimeException(ex, 9);
     }
 
@@ -91,8 +91,8 @@ public class AdviceController {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(RateDoesntExist.class)
-    public ErrorResponseDTO handleRateDoesntExist(RateDoesntExist ex) {
+    @ExceptionHandler(RateNotExists.class)
+    public ErrorResponseDTO handleRateDoesntExist(RateNotExists ex) {
         return ErrorResponseDTO.fromRunTimeException(ex, 14);
     }
 

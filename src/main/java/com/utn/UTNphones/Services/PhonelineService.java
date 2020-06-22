@@ -1,7 +1,7 @@
 package com.utn.UTNphones.Services;
 
 import com.utn.UTNphones.Domains.Phoneline;
-import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineDoesntExist;
+import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelineNotExists;
 import com.utn.UTNphones.Exceptions.PhonelineExceptions.PhonelinesNotRegisteredByUser;
 import com.utn.UTNphones.Repositories.IPhonelineRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,12 +30,12 @@ public class PhonelineService {
 
     public Phoneline findByNumber(String number) {
         return phonelineRepository.findByNumber(number)
-                .orElseThrow(PhonelineDoesntExist::new);
+                .orElseThrow(PhonelineNotExists::new);
     }
 
     public Phoneline getById(Integer id) {
         return phonelineRepository.findById(id)
-                .orElseThrow(PhonelineDoesntExist::new);
+                .orElseThrow(PhonelineNotExists::new);
     }
 
     public Phoneline update(Phoneline phoneline) {
