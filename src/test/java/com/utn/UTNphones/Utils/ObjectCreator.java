@@ -28,9 +28,9 @@ public class ObjectCreator {
                 .name("Facundinho").lastname("Silva").type("client").build();
     }
 
-    public static CityTop createCityTop(){
+    public static CityTop createCityTop() {
         ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
-         CityTop a=factory.createProjection(CityTop.class);
+        CityTop a = factory.createProjection(CityTop.class);
         a.setPrefix("223");
         a.setId(1);
         a.setCant(10);
@@ -38,6 +38,7 @@ public class ObjectCreator {
         a.setIdProvince(1);
         return a;
     }
+
     public static User createEmployeeUser() {
         return User.builder().id(1).status(true)
                 .identification("12345678").password("abaac")

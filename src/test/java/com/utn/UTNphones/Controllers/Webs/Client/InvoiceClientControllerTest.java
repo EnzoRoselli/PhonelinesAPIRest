@@ -1,7 +1,6 @@
 package com.utn.UTNphones.Controllers.Webs.Client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.utn.UTNphones.Controllers.CallController;
 import com.utn.UTNphones.Controllers.InvoiceController;
 import com.utn.UTNphones.Controllers.Webs.AdviceController;
 import com.utn.UTNphones.Domains.Dto.Requests.SearchBetweenDatesDTO;
@@ -9,7 +8,6 @@ import com.utn.UTNphones.Domains.Invoice;
 import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Sessions.SessionManager;
 import com.utn.UTNphones.Utils.ObjectCreator;
-import io.swagger.models.auth.In;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -52,17 +50,18 @@ public class InvoiceClientControllerTest {
                 .setControllerAdvice(new AdviceController())
                 .build();
     }
+
     @Test
     public void getByUserIdBetweenDates() throws Exception {
         User user = User.builder().id(1).build();
-        List<Invoice> invoiceList=new ArrayList<>();
+        List<Invoice> invoiceList = new ArrayList<>();
         invoiceList.add(ObjectCreator.createInvoice());
         invoiceList.add(ObjectCreator.createInvoice());
         Integer userId = 1;
         when(sessionManager.getCurrentUser("token")).thenReturn(Optional.ofNullable(user));
         when(invoiceController.findByUserBetweenDates(userId,
                 SearchBetweenDatesDTO.fromDates(LocalDate.of(2020, 1, 2),
-               LocalDate.now()))).thenReturn(invoiceList);
+                        LocalDate.now()))).thenReturn(invoiceList);
         MvcResult result = mockMvc.perform(get("/client/invoices?startDate=2020-01-02")
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "token"))

@@ -20,8 +20,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -50,15 +48,15 @@ public class LoginControllerTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(loginController).build();
-        loginMock=new LoginController(userController,sessionManager);
+        loginMock = new LoginController(userController, sessionManager);
     }
 
     @Test
     public void loginOk() throws Exception {
         Login client = ClientLoginDTO.builder().identification("12345678").password("12345").build();
-        String requestJson= ObjectConverter.converter(client);
+        String requestJson = ObjectConverter.converter(client);
         when(userController.login(client)).thenReturn(User.fromLoginDto(client));
-    when(sessionManager.createSession(User.fromLoginDto(client))).thenReturn("I am the token");
+        when(sessionManager.createSession(User.fromLoginDto(client))).thenReturn("I am the token");
         mockMvc.perform(post("/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestJson))
@@ -66,10 +64,11 @@ public class LoginControllerTest {
                 .andExpect(content().string("I am the token"))
                 .andReturn();
     }
+
     @Test
     public void loginEmployeeOk() throws Exception {
         Login client = EmployeeLoginDTO.builder().identification("12345678").password("12345").build();
-        String requestJson= ObjectConverter.converter(client);
+        String requestJson = ObjectConverter.converter(client);
         when(userController.login(client)).thenReturn(User.fromLoginDto(client));
         when(sessionManager.createSession(User.fromLoginDto(client))).thenReturn("I am the token");
         mockMvc.perform(post("/Employee")
@@ -82,7 +81,7 @@ public class LoginControllerTest {
 
     @Test
     public void logoutOk() throws Exception {
-        String requestJson= "oCodigoMaisComplicadoDoMundo";
+        String requestJson = "oCodigoMaisComplicadoDoMundo";
         doNothing().when(sessionManager).removeSession(requestJson);
         mockMvc.perform(post("/logout")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -92,10 +91,10 @@ public class LoginControllerTest {
 
     @Test
     public void createHeaderOk() throws Exception {
-        String token= "Auth code";
-        HttpHeaders response=new HttpHeaders();
-        response.set("Authorization",token);
-        assertEquals(loginMock.createHeaders("Auth code"),response);
+        String token = "Auth code";
+        HttpHeaders response = new HttpHeaders();
+        response.set("Authorization", token);
+        assertEquals(loginMock.createHeaders("Auth code"), response);
 
     }
 }

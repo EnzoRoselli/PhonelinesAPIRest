@@ -75,7 +75,7 @@ public class RateControllerTest {
 
     @Test
     public void getByIdOk() {
-        Rate rate =ObjectCreator.createRate();
+        Rate rate = ObjectCreator.createRate();
         when(rateService.findById(ObjectCreator.createRate().getId())).thenReturn(ObjectCreator.createRate());
         assertEquals(rateController.findById(ObjectCreator.createRate().getId()), ObjectCreator.createRate());
     }

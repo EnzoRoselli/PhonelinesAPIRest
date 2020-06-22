@@ -1,13 +1,8 @@
 package com.utn.UTNphones.Controllers.Webs.Employee;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.utn.UTNphones.Controllers.CallController;
-import com.utn.UTNphones.Controllers.UserController;
 import com.utn.UTNphones.Controllers.Webs.AdviceController;
 import com.utn.UTNphones.Domains.Call;
-import com.utn.UTNphones.Domains.User;
-import com.utn.UTNphones.Sessions.SessionManager;
 import com.utn.UTNphones.Utils.ObjectCreator;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +18,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -50,7 +44,7 @@ public class CallsManagmentControllerTest {
     public void getUser() throws Exception {
         Call call1 = ObjectCreator.createCall();
         Call call2 = ObjectCreator.createCall();
-        List calls=new ArrayList<>();
+        List calls = new ArrayList<>();
 //        calls.add(call1);
 //        calls.add(call2);
 

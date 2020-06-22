@@ -2,13 +2,9 @@ package com.utn.UTNphones.Controllers.Webs.Employee;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.utn.UTNphones.Controllers.InvoiceController;
-import com.utn.UTNphones.Controllers.UserController;
 import com.utn.UTNphones.Controllers.Webs.AdviceController;
 import com.utn.UTNphones.Domains.Dto.Requests.SearchBetweenDatesDTO;
 import com.utn.UTNphones.Domains.Invoice;
-import com.utn.UTNphones.Domains.User;
-import com.utn.UTNphones.Sessions.SessionManager;
-import com.utn.UTNphones.Utils.ObjectConverter;
 import com.utn.UTNphones.Utils.ObjectCreator;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,8 +24,6 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class InvoicesManagmentControllerTest {
@@ -53,7 +47,7 @@ public class InvoicesManagmentControllerTest {
 
     @Test
     public void getByUserId() throws Exception {
-        List<Invoice> invoices=new ArrayList<>();
+        List<Invoice> invoices = new ArrayList<>();
         invoices.add(ObjectCreator.createInvoice());
         when(invoiceController.findByUserId(1)).thenReturn(invoices);
         MvcResult result = mockMvc.perform(get("/employee/invoices/1")
@@ -62,24 +56,25 @@ public class InvoicesManagmentControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        List u= new ObjectMapper().readValue(result.getResponse().getContentAsString(),List.class);
-        assertEquals(u.size(),invoices.size());
+        List u = new ObjectMapper().readValue(result.getResponse().getContentAsString(), List.class);
+        assertEquals(u.size(), invoices.size());
 
     }
+
     @Test
     public void getByUserIdBetweenDates() throws Exception {
-        List<Invoice> invoices=new ArrayList<>();
+        List<Invoice> invoices = new ArrayList<>();
         invoices.add(ObjectCreator.createInvoice());
         invoices.add(ObjectCreator.createInvoice());
-        when(invoiceController.findByUserBetweenDates(1, SearchBetweenDatesDTO.fromDates(LocalDate.of(2020,1,5),LocalDate.now()))).thenReturn(invoices);
+        when(invoiceController.findByUserBetweenDates(1, SearchBetweenDatesDTO.fromDates(LocalDate.of(2020, 1, 5), LocalDate.now()))).thenReturn(invoices);
         MvcResult result = mockMvc.perform(get("/employee/invoices/1?startDate=2020-01-05")
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "I am the token"))
                 .andExpect(status().isOk())
                 .andReturn();
 
-        List u= new ObjectMapper().readValue(result.getResponse().getContentAsString(),List.class);
-        assertEquals(u.size(),invoices.size());
+        List u = new ObjectMapper().readValue(result.getResponse().getContentAsString(), List.class);
+        assertEquals(u.size(), invoices.size());
 
     }
 }

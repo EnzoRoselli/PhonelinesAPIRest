@@ -5,7 +5,6 @@ import com.utn.UTNphones.Controllers.PhonelineController;
 import com.utn.UTNphones.Controllers.Webs.AdviceController;
 import com.utn.UTNphones.Domains.Dto.Requests.PhonelineDTO;
 import com.utn.UTNphones.Domains.Phoneline;
-import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Utils.ObjectConverter;
 import com.utn.UTNphones.Utils.ObjectCreator;
 import org.junit.Before;
@@ -24,7 +23,6 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -66,13 +64,13 @@ public class PhonelineManagmentControllerTest {
     public void getPhoneline() throws Exception {
         Phoneline phoneline = ObjectCreator.createPhoneline();
         when(phonelineController.getById(phoneline.getId())).thenReturn(phoneline);
-        MvcResult result =  mockMvc.perform(get("/employee/phonelines/" + phoneline.getId())
+        MvcResult result = mockMvc.perform(get("/employee/phonelines/" + phoneline.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "I am the token"))
                 .andExpect(status().isOk())
                 .andReturn();
         Phoneline aux = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Phoneline.class);
-        assertEquals(aux,phoneline);
+        assertEquals(aux, phoneline);
     }
 
     @Test
@@ -86,7 +84,7 @@ public class PhonelineManagmentControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
         Phoneline aux = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Phoneline.class);
-        assertEquals(aux,phoneline);
+        assertEquals(aux, phoneline);
     }
 
     @Test
@@ -94,7 +92,7 @@ public class PhonelineManagmentControllerTest {
         PhonelineDTO phonelineDTO = ObjectCreator.createPhonelineDTO();
         String json = ObjectConverter.converter(phonelineDTO);
         Phoneline phoneline = ObjectCreator.createPhoneline();
-        when(phonelineController.update(phoneline.getId(),phonelineDTO)).thenReturn(phoneline);
+        when(phonelineController.update(phoneline.getId(), phonelineDTO)).thenReturn(phoneline);
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                 .put("/employee/phonelines/" + phoneline.getId())
                 .contentType(MediaType.APPLICATION_JSON)
@@ -102,7 +100,7 @@ public class PhonelineManagmentControllerTest {
                 .content(json))
                 .andExpect(status().isOk())
                 .andReturn();
-     Phoneline aux = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Phoneline.class);
-     assertEquals(aux,phoneline);
+        Phoneline aux = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Phoneline.class);
+        assertEquals(aux, phoneline);
     }
 }

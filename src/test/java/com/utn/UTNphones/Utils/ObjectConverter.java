@@ -11,6 +11,6 @@ public class ObjectConverter {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-       return ow.writeValueAsString(a);
+        return ow.writeValueAsString(a);
     }
 }

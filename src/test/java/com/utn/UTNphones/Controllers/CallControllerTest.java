@@ -1,7 +1,6 @@
 package com.utn.UTNphones.Controllers;
 
 import com.utn.UTNphones.Domains.Call;
-import com.utn.UTNphones.Domains.City;
 import com.utn.UTNphones.Domains.Dto.Requests.NewCallDTO;
 import com.utn.UTNphones.Domains.Dto.Requests.SearchBetweenDatesDTO;
 import com.utn.UTNphones.Domains.Dto.Responses.CityTop;
@@ -43,59 +42,59 @@ public class CallControllerTest {
     }
 
     @Test
-    public void getCallsByUserIdOk(){
-        User user= User.builder().id(2).build();
+    public void getCallsByUserIdOk() {
+        User user = User.builder().id(2).build();
         when(userService.findById(2)).thenReturn(user);
-        Phoneline phoneline=Phoneline.builder().id(1).user(user).build();
-        List<Phoneline> phonelines=new ArrayList<>();
+        Phoneline phoneline = Phoneline.builder().id(1).user(user).build();
+        List<Phoneline> phonelines = new ArrayList<>();
         phonelines.add(phoneline);
         Call call1 = Call.builder().id(1).build();
         Call call2 = Call.builder().id(2).build();
-        List<Call> calls=new ArrayList<>();
+        List<Call> calls = new ArrayList<>();
         calls.add(call1);
         calls.add(call2);
         when(phonelineService.findByUserId(user.getId())).thenReturn(phonelines);
         when(callService.getCallsByPhoneNumbers(phonelines)).thenReturn(calls);
-       assertEquals(callController.getCallsByUserId(2),calls);
+        assertEquals(callController.getCallsByUserId(2), calls);
     }
 
     @Test
-    public void getTopDestinationsCalled(){
+    public void getTopDestinationsCalled() {
         ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
-        CityTop a=factory.createProjection(CityTop.class);
+        CityTop a = factory.createProjection(CityTop.class);
         a.setPrefix("223");
         a.setId(1);
         a.setCant(10);
         a.setCityName("Rio de Janeiro");
         a.setIdProvince(1);
-        CityTop b=factory.createProjection(CityTop.class);
+        CityTop b = factory.createProjection(CityTop.class);
         b.setPrefix("123");
         b.setId(2);
         b.setCant(2);
         b.setCityName("Brasilia");
         b.setIdProvince(2);
-        List<CityTop> cityTops=new ArrayList<>();
+        List<CityTop> cityTops = new ArrayList<>();
         cityTops.add(a);
         cityTops.add(b);
         when(callService.getTopMostCalledCities(1)).thenReturn(cityTops);
-        assertEquals(callController.getTopDestinationsCalled(1),cityTops);
+        assertEquals(callController.getTopDestinationsCalled(1), cityTops);
     }
 
     @Test
-    public void getByUserBetweenDatesOk(){
-        SearchBetweenDatesDTO dates= SearchBetweenDatesDTO.builder().end(LocalDate.now()).
-                start(LocalDate.of(2020,1,1)).build();
+    public void getByUserBetweenDatesOk() {
+        SearchBetweenDatesDTO dates = SearchBetweenDatesDTO.builder().end(LocalDate.now()).
+                start(LocalDate.of(2020, 1, 1)).build();
 
-        Call call=Call.builder().id(1).build();
-        List<Call> calls=new ArrayList<>();
+        Call call = Call.builder().id(1).build();
+        List<Call> calls = new ArrayList<>();
         calls.add(call);
-        when(callService.getByUserAndBetweenDates(1,dates)).thenReturn(calls);
-        assertEquals(callController.getByUserBetweenDates(1,dates),calls);
+        when(callService.getByUserAndBetweenDates(1, dates)).thenReturn(calls);
+        assertEquals(callController.getByUserBetweenDates(1, dates), calls);
     }
 
     @Test
-    public void registerCallOk(){
-        NewCallDTO newCallDTO=NewCallDTO.builder().date(Date.valueOf(LocalDate.now())).destinationNumber("121123122").originNumber("3232323232").duration(1).build();
+    public void registerCallOk() {
+        NewCallDTO newCallDTO = NewCallDTO.builder().date(Date.valueOf(LocalDate.now())).destinationNumber("121123122").originNumber("3232323232").duration(1).build();
         doNothing().when(callService).add(Call.fromDto(newCallDTO));
         callController.registerCall(newCallDTO);
     }

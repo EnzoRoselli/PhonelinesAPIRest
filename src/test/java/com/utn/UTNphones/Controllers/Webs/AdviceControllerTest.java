@@ -8,7 +8,6 @@ import com.utn.UTNphones.Controllers.Webs.Employee.CallsManagementController;
 import com.utn.UTNphones.Controllers.Webs.Employee.ClientManagementController;
 import com.utn.UTNphones.Controllers.Webs.Employee.PhonelineManagementController;
 import com.utn.UTNphones.Controllers.Webs.Employee.RateManagementController;
-import com.utn.UTNphones.Domains.Call;
 import com.utn.UTNphones.Domains.Dto.Requests.EmployeeLoginDTO;
 import com.utn.UTNphones.Domains.Dto.Requests.Login;
 import com.utn.UTNphones.Domains.Dto.Requests.PhonelineDTO;
@@ -87,7 +86,7 @@ public class AdviceControllerTest {
 
     public AdviceControllerTest() {
         MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(callsManagementController,rateManagementController, phonelineManagementController, loginController, clientManagementController)
+        mockMvc = MockMvcBuilders.standaloneSetup(callsManagementController, rateManagementController, phonelineManagementController, loginController, clientManagementController)
                 .setControllerAdvice(new AdviceController())
                 .build();
     }
@@ -256,7 +255,7 @@ public class AdviceControllerTest {
     public void RateNotExists() throws Exception {
         Rate rate = ObjectCreator.createRate();
         String requestJson = ObjectConverter.converter(rate);
-        when(rateController.findByOriginAndDestination(rate.getOriginCity().getId(),2)).thenThrow(new RateNotExists());
+        when(rateController.findByOriginAndDestination(rate.getOriginCity().getId(), 2)).thenThrow(new RateNotExists());
         mockMvc.perform(get("/employee/rates?OriginCity=1&DestinationCity=2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Token")

@@ -20,15 +20,10 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.Arrays;
-import java.util.Objects;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -64,23 +59,23 @@ public class ClientManagementControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-       User u= new ObjectMapper().readValue(result.getResponse().getContentAsString(),User.class);
-       assertEquals(u,client);
+        User u = new ObjectMapper().readValue(result.getResponse().getContentAsString(), User.class);
+        assertEquals(u, client);
 
     }
 
     @Test
     public void register() throws Exception {
         UserDTO userDto = ObjectCreator.createUserDTO();
-        String requestJson= ObjectConverter.converter(userDto);
-        User user=ObjectCreator.createClientUser();
+        String requestJson = ObjectConverter.converter(userDto);
+        User user = ObjectCreator.createClientUser();
         when(userController.register(userDto)).thenReturn(user);
-       mockMvc.perform(post("/employee/users")
+        mockMvc.perform(post("/employee/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "I am the token")
                 .content(requestJson))
                 .andExpect(status().isCreated())
-                .andExpect(header().string("Location","http://localhost/employee/users/1"))
+                .andExpect(header().string("Location", "http://localhost/employee/users/1"))
                 .andReturn();
 
     }
@@ -90,31 +85,31 @@ public class ClientManagementControllerTest {
         User user = ObjectCreator.createEmployeeUser();
         when(userController.delete(1)).thenReturn(user);
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                .delete("/employee/users/{userId}",1)
+                .delete("/employee/users/{userId}", 1)
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "I am the token"))
                 .andExpect(status().isOk())
                 .andReturn();
 
-        User u= new ObjectMapper().readValue(result.getResponse().getContentAsString(),User.class);
-        assertEquals(u,user);
+        User u = new ObjectMapper().readValue(result.getResponse().getContentAsString(), User.class);
+        assertEquals(u, user);
     }
 
     @Test
     public void update() throws Exception {
         UserDTO userDto = ObjectCreator.createUserDTO();
-        String requestJson= ObjectConverter.converter(userDto);
+        String requestJson = ObjectConverter.converter(userDto);
         User user = ObjectCreator.createEmployeeUser();
-        when(userController.update(1,userDto)).thenReturn(user);
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.put("/employee/users/{userId}",1)
+        when(userController.update(1, userDto)).thenReturn(user);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.put("/employee/users/{userId}", 1)
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "I am the token")
                 .content(requestJson))
                 .andExpect(status().isOk())
                 .andReturn();
 
-        User u= new ObjectMapper().readValue(result.getResponse().getContentAsString(),User.class);
-        assertEquals(u,user);
+        User u = new ObjectMapper().readValue(result.getResponse().getContentAsString(), User.class);
+        assertEquals(u, user);
 
     }
 

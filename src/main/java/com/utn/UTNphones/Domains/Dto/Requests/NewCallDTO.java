@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import java.sql.Date;
 
@@ -20,12 +19,12 @@ import java.sql.Date;
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class NewCallDTO {
 
-    private   String originNumber;
+    private String originNumber;
 
-    private  String destinationNumber;
+    private String destinationNumber;
 
-    private  Integer duration;
+    private Integer duration;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    private  Date date;
+    private Date date;
 }

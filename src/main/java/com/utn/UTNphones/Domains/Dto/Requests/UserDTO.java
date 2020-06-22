@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import javax.validation.constraints.Min;
@@ -28,10 +27,10 @@ public class UserDTO {
 
     @Pattern(regexp = "^[\\p{L} .'-]+$", message = "Invalid lastname!")
     @NotBlank(message = "Last name is mandatory")
-    private  String lastname;
+    private String lastname;
 
     @NotNull(message = "Status is mandatory")
-    private  Boolean status;
+    private Boolean status;
 
     @NotBlank(message = "Type is mandatory")
     private String type;
@@ -41,9 +40,9 @@ public class UserDTO {
     private String identification;
 
     @NotBlank(message = "Password is mandatory")
-    private  String password;
+    private String password;
 
     @NotNull(message = "City id is mandatory")
     @Min(value = 1, message = "City id is invalid")
-    private  Integer cityId;
+    private Integer cityId;
 }

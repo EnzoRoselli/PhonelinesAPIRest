@@ -19,7 +19,6 @@ import java.sql.SQLException;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -103,7 +102,7 @@ public class UserControllerTest {
 
     @Test
     public void testDeleteOk() {
-        Integer id=ObjectCreator.createClientUser().getId();
+        Integer id = ObjectCreator.createClientUser().getId();
         when(userService.findById(id)).thenReturn(ObjectCreator.createClientUser());
         doNothing().when(userService).delete(id);
         userController.delete(id);
@@ -113,7 +112,7 @@ public class UserControllerTest {
     @Test
     public void testFindByIdOk() throws Exception {
         User user = ObjectCreator.createClientUser();
-        Integer id=ObjectCreator.createClientUser().getId();
+        Integer id = ObjectCreator.createClientUser().getId();
 
         when(userService.findById(id)).thenReturn(user);
 

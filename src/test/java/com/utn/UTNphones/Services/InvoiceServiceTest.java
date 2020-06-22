@@ -2,8 +2,6 @@ package com.utn.UTNphones.Services;
 
 import com.utn.UTNphones.Domains.Dto.Requests.SearchBetweenDatesDTO;
 import com.utn.UTNphones.Domains.Invoice;
-import com.utn.UTNphones.Domains.Phoneline;
-import com.utn.UTNphones.Domains.User;
 import com.utn.UTNphones.Repositories.IInvoiceRepository;
 import com.utn.UTNphones.Utils.ObjectCreator;
 import org.junit.Before;
@@ -13,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

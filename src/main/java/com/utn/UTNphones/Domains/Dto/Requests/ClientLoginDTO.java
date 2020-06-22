@@ -20,13 +20,11 @@ import javax.validation.constraints.Pattern;
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class ClientLoginDTO implements Login {
 
+    private final String type = "client";
     @Pattern(regexp = "^[1-9]{7,9}$", message = "Invalid identification!")
     @NotBlank(message = "identification is mandatory")
     String identification;
-
     @NotBlank(message = "Password is mandatory")
     String password;
-
-   private final String type = "client";
 
 }

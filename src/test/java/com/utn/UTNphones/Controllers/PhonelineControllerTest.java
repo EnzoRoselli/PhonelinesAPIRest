@@ -63,8 +63,8 @@ public class PhonelineControllerTest {
 
     @Test
     public void AddOk() throws Exception {
-          PhonelineDTO phoneAux = ObjectCreator.createPhonelineDTO();
-          Phoneline userReturned = Phoneline.fromDto(phoneAux);
+        PhonelineDTO phoneAux = ObjectCreator.createPhonelineDTO();
+        Phoneline userReturned = Phoneline.fromDto(phoneAux);
         when(phonelineService.add(userReturned)).thenReturn(userReturned);
         when(userService.findById(phoneAux.getUserId())).thenReturn(ObjectCreator.createClientUser());
         when(cityService.getById(phoneAux.getCityId())).thenReturn(ObjectCreator.createCity());

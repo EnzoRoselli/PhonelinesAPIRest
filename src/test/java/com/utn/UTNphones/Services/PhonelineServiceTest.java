@@ -48,7 +48,7 @@ public class PhonelineServiceTest {
     }
 
     @Test
-    public void testFindByUserIdOk(){
+    public void testFindByUserIdOk() {
         List<Phoneline> phonelines = new ArrayList<>();
         Phoneline phoneline = ObjectCreator.createPhoneline();
         phonelines.add(phoneline);

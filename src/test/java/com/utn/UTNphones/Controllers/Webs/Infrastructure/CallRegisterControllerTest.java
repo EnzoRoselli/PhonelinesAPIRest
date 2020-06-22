@@ -4,17 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.utn.UTNphones.Controllers.CallController;
-import com.utn.UTNphones.Controllers.UserController;
 import com.utn.UTNphones.Domains.Dto.Requests.NewCallDTO;
-import com.utn.UTNphones.Services.CallService;
-import com.utn.UTNphones.Services.PhonelineService;
-import com.utn.UTNphones.Services.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -22,10 +17,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.sql.Date;
 import java.time.LocalDate;
 
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class CallRegisterControllerTest {
