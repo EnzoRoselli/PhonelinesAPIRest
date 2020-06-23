@@ -107,10 +107,10 @@
                 <version>0.8.2</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/Domains/**</exclude>
-                        <exclude>**/Sessions/**</exclude>
-                        <exclude>**/Config/**</exclude>
-                        <exclude>**/Utils/**</exclude>
+                        <exclude>**/domains/**</exclude>
+                        <exclude>**/sessions/**</exclude>
+                        <exclude>**/config/**</exclude>
+                        <exclude>**/utils/**</exclude>
                     </excludes>
                 </configuration>
                 <executions>
