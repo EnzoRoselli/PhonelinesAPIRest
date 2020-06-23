@@ -71,4 +71,25 @@ public class InvoiceClientControllerTest {
         assertEquals(u.size(), invoiceList.size());
 
     }
+    @Test
+    public void getByUserIdBetweenDatesOk() throws Exception {
+        User user = User.builder().id(1).build();
+        List<Invoice> invoiceList = new ArrayList<>();
+        List<Invoice> invoiceList2 = new ArrayList<>();
+        invoiceList.add(ObjectCreator.createInvoice());
+        invoiceList.add(ObjectCreator.createInvoice());
+        Integer userId = 1;
+        when(sessionManager.getCurrentUser("token")).thenReturn(Optional.ofNullable(user));
+        when(invoiceController.findByUserBetweenDates(userId,
+                SearchBetweenDatesDTO.fromDates(LocalDate.of(2020, 1, 2),
+                        LocalDate.now()))).thenReturn(invoiceList2);
+        MvcResult result = mockMvc.perform(get("/client/invoices?startDate=2020-01-02")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "token"))
+                .andExpect(status().isNoContent())
+                .andReturn();
+      /*  List u = new ObjectMapper().readValue(result.getResponse().getContentAsString(), List.class);
+        assertEquals(u.size(), invoiceList.size());*/
+
+    }
 }

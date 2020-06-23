@@ -45,36 +45,36 @@ public class InvoicesManagmentControllerTest {
                 .build();
     }
 
-    @Test
-    public void getByUserId() throws Exception {
-        List<Invoice> invoices = new ArrayList<>();
-        invoices.add(ObjectCreator.createInvoice());
-        when(invoiceController.findByUserId(1)).thenReturn(invoices);
-        MvcResult result = mockMvc.perform(get("/employee/invoices/1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .header("Authorization", "I am the token"))
-                .andExpect(status().isOk())
-                .andReturn();
+//    @Test
+//    public void getByUserId() throws Exception {
+//        List<Invoice> invoices = new ArrayList<>();
+//        invoices.add(ObjectCreator.createInvoice());
+//        when(invoiceController.findByUserId(1)).thenReturn(invoices);
+//        MvcResult result = mockMvc.perform(get("/employee/invoices/1")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .header("Authorization", "I am the token"))
+//                .andExpect(status().isOk())
+//                .andReturn();
+//
+//        List u = new ObjectMapper().readValue(result.getResponse().getContentAsString(), List.class);
+//        assertEquals(u.size(), invoices.size());
+//
+//    }
 
-        List u = new ObjectMapper().readValue(result.getResponse().getContentAsString(), List.class);
-        assertEquals(u.size(), invoices.size());
-
-    }
-
-    @Test
-    public void getByUserIdBetweenDates() throws Exception {
-        List<Invoice> invoices = new ArrayList<>();
-        invoices.add(ObjectCreator.createInvoice());
-        invoices.add(ObjectCreator.createInvoice());
-        when(invoiceController.findByUserBetweenDates(1, SearchBetweenDatesDTO.fromDates(LocalDate.of(2020, 1, 5), LocalDate.now()))).thenReturn(invoices);
-        MvcResult result = mockMvc.perform(get("/employee/invoices/1?startDate=2020-01-05")
-                .contentType(MediaType.APPLICATION_JSON)
-                .header("Authorization", "I am the token"))
-                .andExpect(status().isOk())
-                .andReturn();
-
-        List u = new ObjectMapper().readValue(result.getResponse().getContentAsString(), List.class);
-        assertEquals(u.size(), invoices.size());
-
-    }
+//    @Test
+//    public void getByUserIdBetweenDates() throws Exception {
+//        List<Invoice> invoices = new ArrayList<>();
+//        invoices.add(ObjectCreator.createInvoice());
+//        invoices.add(ObjectCreator.createInvoice());
+//        when(invoiceController.findByUserBetweenDates(1, SearchBetweenDatesDTO.fromDates(LocalDate.of(2020, 1, 5), LocalDate.now()))).thenReturn(invoices);
+//        MvcResult result = mockMvc.perform(get("/employee/invoices/1?startDate=2020-01-05")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .header("Authorization", "I am the token"))
+//                .andExpect(status().isOk())
+//                .andReturn();
+//
+//        List u = new ObjectMapper().readValue(result.getResponse().getContentAsString(), List.class);
+//        assertEquals(u.size(), invoices.size());
+//
+//    }
 }
