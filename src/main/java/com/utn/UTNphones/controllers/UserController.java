@@ -28,7 +28,7 @@ public class UserController {
             SQLException SQLex = (SQLException) ex.getCause().getCause();
             ExceptionController.userExceptionSQLCode(SQLex.getErrorCode());
         }
-        return null;
+        return User.fromDto(userDTO);
     }
 
     public User findById(Integer id) {
@@ -36,7 +36,7 @@ public class UserController {
     }
 
     public User update(Integer userId, UserDTO userUpdate) throws Exception {
-        this.userService.findById(userId);
+        this.userService.existsById(userId);
         User user = User.fromDto(userUpdate);
         user.setId(userId);
         try {
