@@ -69,6 +69,20 @@ public class CallClientControllerTest {
         List u = new ObjectMapper().readValue(result.getResponse().getContentAsString(), List.class);
         assertEquals(u.size(), cityTopList.size());
     }
+    @Test
+    public void mostDestinationsCalledEmpty() throws Exception {
+        List<CityTop> cityTopList = new ArrayList<>();
+        User user = User.builder().id(1).build();
+        Integer userId = 1;
+        when(sessionManager.getCurrentUser("token")).thenReturn(Optional.ofNullable(user));
+        when(callController.getTopDestinationsCalled(userId)).thenReturn(cityTopList);
+        MvcResult result = mockMvc.perform(get("/client/calls/mostDestinationsCalled")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "token"))
+                .andExpect(status().isNoContent())
+                .andReturn();
+
+    }
 
     @Test
     public void getCallsBetweenDates() throws Exception {
@@ -90,6 +104,22 @@ public class CallClientControllerTest {
                 .andReturn();
         List u = new ObjectMapper().readValue(result.getResponse().getContentAsString(), List.class);
         assertEquals(u.size(), callList.size());
+    }
+    @Test
+    public void getCallsBetweenDatesEmpty() throws Exception {
+        List<Call> callList = new ArrayList<>();
+        User user = User.builder().id(1).build();
+        Integer userId = 1;
+        when(sessionManager.getCurrentUser("token")).thenReturn(Optional.ofNullable(user));
+        when(callController.getByUserBetweenDates(userId, SearchBetweenDatesDTO
+                .fromDates(LocalDate.of(2020, 1, 2)
+                        , LocalDate.now()))).thenReturn(callList);
+        MvcResult result = mockMvc.perform(get("/client/calls?startDate=2020-01-02")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "token"))
+                .andExpect(status().isNoContent())
+                .andReturn();
+
     }
 }
 

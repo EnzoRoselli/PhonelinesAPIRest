@@ -88,8 +88,6 @@ public class InvoiceClientControllerTest {
                 .header("Authorization", "token"))
                 .andExpect(status().isNoContent())
                 .andReturn();
-      /*  List u = new ObjectMapper().readValue(result.getResponse().getContentAsString(), List.class);
-        assertEquals(u.size(), invoiceList.size());*/
 
     }
 }

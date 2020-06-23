@@ -35,14 +35,14 @@ public class InvoiceManagementController {
                                                                  @PathVariable(USER_ID_PARAM) Integer id) {
 
 
-       List<Invoice> invoices=new ArrayList<>();
-//        if (startDate.isEmpty() && endDate.isEmpty()) {
-//            invoices = invoiceController.findByUserId(id);
-//        } else {
-//            invoices = this.invoiceController.findByUserBetweenDates(id,
-//                    SearchBetweenDatesDTO.fromDates(startDate.orElse(LocalDate.of(2020, 1, 1)),
-//                            endDate.orElse(LocalDate.now())));
-//        }
+       List<Invoice> invoices;
+        if (!startDate.isPresent() && !endDate.isPresent()) {
+            invoices = invoiceController.findByUserId(id);
+        } else {
+            invoices = this.invoiceController.findByUserBetweenDates(id,
+                    SearchBetweenDatesDTO.fromDates(startDate.orElse(LocalDate.of(2020, 1, 1)),
+                            endDate.orElse(LocalDate.now())));
+        }
         return invoices.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(invoices);
     }
 

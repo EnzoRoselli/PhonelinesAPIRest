@@ -124,4 +124,17 @@ public class RateManagmentControllerTest {
         assertEquals(u.size(), rates.size());
 
     }
+    @Test
+    public void getAllRatesEmpty() throws Exception {
+        List<Rate> rates = new ArrayList<>();
+
+
+        when(rateController.getAllRates()).thenReturn(rates);
+        MvcResult result = mockMvc.perform(get("/employee/rates")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "I am the token"))
+                .andExpect(status().isNoContent())
+                .andReturn();
+
+    }
 }
