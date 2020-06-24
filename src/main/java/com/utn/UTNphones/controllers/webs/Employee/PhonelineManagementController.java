@@ -23,6 +23,7 @@ import static com.utn.UTNphones.utils.PhonelineRouter.PHONELINE_ID;
 import static com.utn.UTNphones.utils.PhonelineRouter.PHONELINE_ID_PARAM;
 import static com.utn.UTNphones.utils.UserRouter.EMPLOYEE_MAPPING;
 
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(EMPLOYEE_MAPPING + "/phonelines")
@@ -30,29 +31,28 @@ public class PhonelineManagementController {
     private final PhonelineController phonelineController;
 
     @PostMapping
-    public ResponseEntity register(@RequestHeader("Authorization") String sessionToken, @RequestBody @Valid PhonelineDTO newPhoneline) throws Exception {
+    public ResponseEntity register( @RequestBody @Valid PhonelineDTO newPhoneline) throws Exception {
 
         return ResponseEntity.created(getLocation(phonelineController.add(newPhoneline))).build();
     }
 
     @GetMapping(PHONELINE_ID)
-    public ResponseEntity<Phoneline> getPhoneline(@RequestHeader("Authorization") String sessionToken,
-                                                  @PathVariable(PHONELINE_ID_PARAM) Integer phonelineId) {
+    public ResponseEntity<Phoneline> getPhoneline(
+            @PathVariable(PHONELINE_ID_PARAM) Integer phonelineId) {
 
         return ResponseEntity.ok(phonelineController.getById(phonelineId));
     }
 
     @DeleteMapping(PHONELINE_ID)
-    public ResponseEntity<Phoneline> delete(@RequestHeader("Authorization") String sessionToken,
-                                            @PathVariable(PHONELINE_ID_PARAM) Integer phoneId) {
+    public ResponseEntity<Phoneline> delete(
+            @PathVariable(PHONELINE_ID_PARAM) Integer phoneId) {
 
 
         return ResponseEntity.ok(this.phonelineController.remove(phoneId));
     }
 
     @PutMapping(PHONELINE_ID)
-    public ResponseEntity<Phoneline> update(@RequestHeader("Authorization") String sessionToken,
-                                            @PathVariable(PHONELINE_ID_PARAM) Integer phoneId,
+    public ResponseEntity<Phoneline> update(@PathVariable(PHONELINE_ID_PARAM) Integer phoneId,
                                             @Valid @RequestBody PhonelineDTO phonelineUpdating) throws Exception {
 
         return ResponseEntity.ok(this.phonelineController.update(phoneId, phonelineUpdating));

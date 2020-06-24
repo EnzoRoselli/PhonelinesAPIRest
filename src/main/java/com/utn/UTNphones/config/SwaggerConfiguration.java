@@ -18,7 +18,7 @@ public class SwaggerConfiguration {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.utn.UTNphones"))
-                .paths(PathSelectors.ant("/employee/**"))
+                .paths(PathSelectors.ant("/employee/*"))
                 .build();
     }
 

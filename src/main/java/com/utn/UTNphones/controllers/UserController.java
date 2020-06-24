@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 
 import java.sql.SQLException;
 import java.util.Objects;
-
 @Controller
 @RequiredArgsConstructor
 public class UserController {
