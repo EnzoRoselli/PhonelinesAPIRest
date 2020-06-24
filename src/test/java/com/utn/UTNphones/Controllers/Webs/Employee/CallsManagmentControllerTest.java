@@ -37,7 +37,6 @@ public class CallsManagmentControllerTest {
 
     @Test
     public void getAllByDestinationPhoneOk() {
-        User employee = User.builder().type("employee").build();
         String destinationPhone = "2253333333";
         List<Call> callList = new ArrayList<>();
         Call auxCall = Call.builder().id(1).originPhone("2236960257").destinationPhone(destinationPhone).build();
@@ -45,46 +44,22 @@ public class CallsManagmentControllerTest {
         auxCall = Call.builder().id(2).originPhone("2237561234").destinationPhone(destinationPhone).build();
         callList.add(auxCall);
 
-        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(employee));
         when(callController.getAllByDestinationPhone(destinationPhone)).thenReturn(callList);
 
-        ResponseEntity<List<Call>> responseEntity = callsManagementController.getAllByDestinationPhone("token", destinationPhone);
+        ResponseEntity<List<Call>> responseEntity = callsManagementController.getAllByDestinationPhone(destinationPhone);
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(callList, responseEntity.getBody());
     }
 
     @Test
-    public void getAllByDestinationPhoneUnauthorized() {
-        User client = User.builder().type("client").build();
-        String destinationPhone = "2253333333";
-
-        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.of(client));
-
-        ResponseEntity<List<Call>> responseEntity = callsManagementController.getAllByDestinationPhone("token", destinationPhone);
-
-        assertEquals(HttpStatus.FORBIDDEN, responseEntity.getStatusCode());
-    }
-
-    @Test
-    public void getAllByDestinationPhoneForbidden() {
-        String destinationPhone = "2253333333";
-
-        when(sessionManager.getCurrentUser("token")).thenReturn(Optional.empty());
-
-        ResponseEntity<List<Call>> responseEntity = callsManagementController.getAllByDestinationPhone("token", destinationPhone);
-    }
-
-    @Test
     public void getAllByDestinationPhoneNoContent() {
-        User employee = User.builder().type("employee").build();
         String destinationPhone = "2253333333";
         List<Call> callList = new ArrayList<>();
 
-        when(sessionManager.getCurrentUser("token")).thenReturn(java.util.Optional.ofNullable(employee));
         when(callController.getAllByDestinationPhone(destinationPhone)).thenReturn(callList);
 
-        ResponseEntity<List<Call>> responseEntity = callsManagementController.getAllByDestinationPhone("token", destinationPhone);
+        ResponseEntity<List<Call>> responseEntity = callsManagementController.getAllByDestinationPhone(destinationPhone);
 
         assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
     }

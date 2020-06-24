@@ -42,11 +42,8 @@ public class CallsManagementController {
     }
 
     @GetMapping(DESTINATION_PHONE)
-    public ResponseEntity<List<Call>> getAllByDestinationPhone(@RequestHeader("Authorization") String sessionToken, @PathVariable("destinationPhone") String destinationPhone) {
-        ResponseEntity response=PermissionsControllers.hasEmployeePermissions(sessionManager, sessionToken);
-        if (response.getStatusCode()!=HttpStatus.OK) {
-            return response;
-        }
+    public ResponseEntity<List<Call>> getAllByDestinationPhone(@PathVariable("destinationPhone") String destinationPhone) {
+
         List<Call> callsByDestinationPhone = this.callController.getAllByDestinationPhone(destinationPhone);
         return callsByDestinationPhone.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(callsByDestinationPhone);
     }
