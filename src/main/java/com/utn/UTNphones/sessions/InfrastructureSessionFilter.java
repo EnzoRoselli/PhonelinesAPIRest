@@ -22,12 +22,12 @@ public class InfrastructureSessionFilter extends OncePerRequestFilter {
                                     HttpServletResponse httpServletResponse,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        String key = httpServletRequest.getHeader("INFRASTRUCTURE_KEY");
+//        String key = httpServletRequest.getHeader("INFRASTRUCTURE_KEY");
 
-        if (infrastrucutreKey.equals(key)) {
+//        if (infrastrucutreKey.equals(key)) {
             filterChain.doFilter(httpServletRequest, httpServletResponse);
-        } else {
-            httpServletResponse.setStatus(HttpStatus.FORBIDDEN.value());
-        }
+//        } else {
+//            httpServletResponse.setStatus(HttpStatus.FORBIDDEN.value());
+//        }
     }
 }

@@ -36,7 +36,7 @@ public class ClientManagementController {
     }
 
     @GetMapping(USER_ID)
-    public ResponseEntity<User> getUser(@RequestHeader("Authorization") String sessionToken, @PathVariable(USER_ID_PARAM) Integer userId) throws UserNotExists {
+    public ResponseEntity<User> getUser(@PathVariable(USER_ID_PARAM) Integer userId) throws UserNotExists {
         return ResponseEntity.ok(this.userController.findById(userId));
     }
 

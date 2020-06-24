@@ -21,12 +21,12 @@ public class SessionFilter extends OncePerRequestFilter {
                                     HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        String sessionToken = request.getHeader("Authorization");
-        Session session = sessionManager.getSession(sessionToken);
-        if (session != null && "client".equals(session.getLoggedUser().getType())) {
+//        String sessionToken = request.getHeader("Authorization");
+//        Session session = sessionManager.getSession(sessionToken);
+//        if (session != null && "client".equals(session.getLoggedUser().getType())) {
             filterChain.doFilter(request, response);
-        } else {
-            response.setStatus(HttpStatus.FORBIDDEN.value());
-        }
+//        } else {
+//            response.setStatus(HttpStatus.FORBIDDEN.value());
+//        }
     }
 }
