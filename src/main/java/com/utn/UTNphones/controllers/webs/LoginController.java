@@ -1,6 +1,7 @@
 package com.utn.UTNphones.controllers.webs;
 
 import com.utn.UTNphones.controllers.UserController;
+import com.utn.UTNphones.domains.User;
 import com.utn.UTNphones.domains.dto.requests.ClientLoginDTO;
 import com.utn.UTNphones.domains.dto.requests.EmployeeLoginDTO;
 import com.utn.UTNphones.sessions.SessionManager;
@@ -23,13 +24,13 @@ public class LoginController {
     private final SessionManager sessionManager;
 
     @PostMapping
-    public ResponseEntity<String> login(@RequestBody @Valid ClientLoginDTO userLogging) {
-        return ResponseEntity.ok(sessionManager.createSession(userController.login(userLogging)));
+    public ResponseEntity<User> login(@RequestBody @Valid ClientLoginDTO userLogging) {
+        return ResponseEntity.ok(userController.login(userLogging));
     }
 
     @PostMapping("/Employee")
-    public ResponseEntity<String> employeeLogin(@RequestBody @Valid EmployeeLoginDTO userLogging) {
-        return ResponseEntity.ok(sessionManager.createSession(userController.login(userLogging)));
+    public ResponseEntity<User> employeeLogin(@RequestBody @Valid EmployeeLoginDTO userLogging) {
+        return ResponseEntity.ok(userController.login(userLogging));
     }
 
     @PostMapping("/logout")

@@ -31,17 +31,17 @@ public class ClientManagementController {
     private final UserController userController;
 
     @PostMapping
-    public ResponseEntity register(@RequestHeader("Authorization") String sessionToken, @RequestBody @Valid UserDTO userRegistering) throws Exception {
+    public ResponseEntity register(@RequestBody @Valid UserDTO userRegistering) throws Exception {
         return ResponseEntity.created(getLocation(userController.register(userRegistering))).build();
     }
 
     @GetMapping(USER_ID)
-    public ResponseEntity<User> getUser(@PathVariable(USER_ID_PARAM) Integer userId) throws UserNotExists {
+    public ResponseEntity<User> getUser( @PathVariable(USER_ID_PARAM) Integer userId) throws UserNotExists {
         return ResponseEntity.ok(this.userController.findById(userId));
     }
 
     @DeleteMapping(USER_ID)
-    public ResponseEntity<User> delete(@RequestHeader("Authorization") String sessionToken, @PathVariable(USER_ID_PARAM) Integer userId) {
+    public ResponseEntity<User> delete(@PathVariable(USER_ID_PARAM) Integer userId) {
 
         return ResponseEntity.ok(this.userController.delete(userId));
     }

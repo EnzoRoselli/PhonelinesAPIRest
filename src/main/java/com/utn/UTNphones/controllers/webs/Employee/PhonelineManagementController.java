@@ -36,14 +36,14 @@ public class PhonelineManagementController {
     }
 
     @GetMapping(PHONELINE_ID)
-    public ResponseEntity<Phoneline> getPhoneline(@RequestHeader("Authorization") String sessionToken,
+    public ResponseEntity<Phoneline> getPhoneline(
                                                   @PathVariable(PHONELINE_ID_PARAM) Integer phonelineId) {
 
         return ResponseEntity.ok(phonelineController.getById(phonelineId));
     }
 
     @DeleteMapping(PHONELINE_ID)
-    public ResponseEntity<Phoneline> delete(@RequestHeader("Authorization") String sessionToken,
+    public ResponseEntity<Phoneline> delete(
                                             @PathVariable(PHONELINE_ID_PARAM) Integer phoneId) {
 
 
